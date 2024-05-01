@@ -1,0 +1,296 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GISSlot : MonoBehaviour
+{
+    public string Name = "";
+    public GISItem Held_Item;
+    public GISDisplay Displayer;
+    public GISContainer Conte;
+    public string InteractFilter ="";
+    private float DoubleClickTimer = -69f;
+
+    public GISSlot(GISContainer cum)
+    {
+        Conte= cum;
+    }
+
+    public void Awake()
+    {
+        if(Held_Item == null)
+        {
+            Held_Item= new GISItem();
+        }
+    }
+    public bool FailToClick()
+    {
+        var pp = GISLol.Instance.Mouse_Held_Item;
+        if (pp.ItemIndex == 0) return false;
+        switch (InteractFilter)
+        {
+            case "Craftable":
+                if (pp.ItemType != "Craftable") return true;
+                break;
+            case "Empty":
+                if (pp.ItemIndex != 0) return true;
+                break;
+            case "Weapon":
+                if(pp.ItemIndex < 3 || pp.ItemIndex > 8) return true;
+                break;
+        }
+        return false;
+    }
+
+    public void OnInteract()
+    {
+        if(Conte.Name == "Equips")
+        {
+            PlayerController.Instance.SetData();
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        if (FailToClick()) return;
+
+
+        bool shift = InputManager.IsKey(InputManager.gamekeys["item_alt"]);
+        bool left = InputManager.IsKeyDown(InputManager.gamekeys["item_select"]);
+        bool right = InputManager.IsKeyDown(InputManager.gamekeys["item_half"]);
+        if (Conte.CanShiftClickItems && shift)
+        {
+            if (left||right)
+            {
+                Held_Item.AddConnection(Conte);
+                SaveItemContainerData();
+                var a = new GISItem(Held_Item);
+                Held_Item = new GISItem();
+                int i = left?0:Conte.slots.Count - 1;
+                bool found = false;
+                foreach (var item in Conte.slots)
+                {
+                    var x = Conte.slots[i].Held_Item;
+                    if (x.Compare(a))
+                    {
+                        int max = GISLol.Instance.Items[a.ItemIndex].MaxAmount;
+                        int t = x.Amount + a.Amount;
+                        if(max <= 0)
+                        {
+                            x.Amount = t;
+                            found = true;   
+                            break;
+                        }
+                        else
+                        {
+                            int z = Mathf.Clamp(t, 0, max);
+                            x.Amount = z;
+                            a.Amount = t - z;
+                            if(a.Amount == 0)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    else if (x.ItemIndex == 0)
+                    {
+                        break;
+                    }
+                    i += left?1:-1;
+                }
+                if (!found)
+                {
+                    Conte.slots[i].Held_Item = a;
+                }
+                SaveItemContainerData();
+                OnInteract();
+            }
+        }
+        else
+        {
+            if (left)
+            {
+                Held_Item.AddConnection(Conte);
+                SaveItemContainerData();
+                if (DoubleClickTimer < 0)
+                {
+                    DoubleClickTimer = 0.2f;
+                    var a = GISLol.Instance.Mouse_Held_Item;
+
+                    if (Held_Item.Compare(a))
+                    {
+                        int d = Held_Item.ItemIndex;
+                        int b = a.Amount;
+                        int c = Held_Item.Amount + b;
+                        Held_Item.Amount = c;
+                        int K = GISLol.Instance.Items[d].MaxAmount;
+                        if (K != 0)
+                        {
+                            if (c > K)
+                            {
+                                Held_Item.Amount = K;
+                                GISLol.Instance.Mouse_Held_Item.Amount = c - K;
+                            }
+                            else
+                            {
+                                GISLol.Instance.Mouse_Held_Item.Amount = 0;
+                            }
+                        }
+                        else
+                        {
+                            GISLol.Instance.Mouse_Held_Item.Amount = 0;
+                        }
+                        Held_Item.AddConnection(GISLol.Instance.Mouse_Held_Item.Container);
+
+
+                        if (GISLol.Instance.Mouse_Held_Item.Amount <= 0)
+                        {
+                            GISLol.Instance.Mouse_Held_Item = new GISItem();
+                        }
+                    }
+                    else
+                    {
+                        GISLol.Instance.Mouse_Held_Item = Held_Item;
+                        GISLol.Instance.Mouse_Held_Item.AddConnection(Conte);
+                        if (GISLol.Instance.Mouse_Held_Item.ItemIndex == 0)
+                        {
+                            GISLol.Instance.Mouse_Held_Item.SetContainer(null);
+                        }
+                        Held_Item = a;
+                        if (Held_Item.Container != Conte)
+                        {
+                            Held_Item.SetContainer(Conte);
+                        }
+                    }
+                }
+                else
+                {
+                    //double click code
+                    DoubleClickTimer = -69f;
+
+                    foreach (var slot in Conte.slots)
+                    {
+                        if (slot != this && slot.Held_Item.Compare(GISLol.Instance.Mouse_Held_Item))
+                        {
+                            int x = GISLol.Instance.Items[GISLol.Instance.Mouse_Held_Item.ItemIndex].MaxAmount;
+                            if (x != 0 && GISLol.Instance.Mouse_Held_Item.Amount + slot.Held_Item.Amount > x)
+                            {
+                                slot.Held_Item.Amount = slot.Held_Item.Amount - (x - GISLol.Instance.Mouse_Held_Item.Amount);
+                                GISLol.Instance.Mouse_Held_Item.Amount = x;
+                            }
+                            else
+                            {
+                                GISLol.Instance.Mouse_Held_Item.Amount += slot.Held_Item.Amount;
+                                slot.Held_Item.Amount = 0;
+                            }
+                        }
+                    }
+                    for (int i = 0; i < Conte.slots.Count; i++)
+                    {
+                        if (Conte.slots[i].Held_Item.Amount <= 0)
+                        {
+                            Conte.slots[i].Held_Item = new GISItem();
+                        }
+                    }
+                    GISLol.Instance.Mouse_Held_Item.AddConnection(Conte);
+
+                }
+                SaveItemContainerData();
+                OnInteract();
+
+            }
+            if (right)
+            {
+                Held_Item.AddConnection(Conte);
+                SaveItemContainerData();
+                var a = GISLol.Instance.Mouse_Held_Item;
+
+                if (Held_Item.ItemIndex == 0)
+                {
+                    if (a.Amount > 0)
+                    {
+                        Held_Item = new GISItem(a);
+                        Held_Item.Amount = 1;
+                        Held_Item.SetContainer(Conte);
+
+                        GISLol.Instance.Mouse_Held_Item.Amount--;
+                        GISLol.Instance.Mouse_Held_Item.AddConnection(Conte);
+                        if (GISLol.Instance.Mouse_Held_Item.Amount <= 0)
+                        {
+                            GISLol.Instance.Mouse_Held_Item = new GISItem();
+                        }
+                    }
+                }
+                else
+                {
+                    if (a.ItemIndex == 0)
+                    {
+                        float b = (float)Held_Item.Amount / 2;
+                        GISLol.Instance.Mouse_Held_Item = new GISItem(Held_Item);
+                        GISLol.Instance.Mouse_Held_Item.Amount = Mathf.CeilToInt(b);
+                        Held_Item.Amount = Mathf.FloorToInt(b);
+                        GISLol.Instance.Mouse_Held_Item.AddConnection(Conte);
+                        if (Held_Item.Amount <= 0)
+                        {
+                            Held_Item = new GISItem();
+                        }
+                    }
+                    else if (Held_Item.Compare(a))
+                    {
+                        int max = GISLol.Instance.Items[Held_Item.ItemIndex].MaxAmount;
+                        if(max == 0 || Held_Item.Amount < max)
+                        {
+                            Held_Item.Amount++;
+                            Held_Item.AddConnection(GISLol.Instance.Mouse_Held_Item.Container);
+                            GISLol.Instance.Mouse_Held_Item.AddConnection(Held_Item.Container);
+                            GISLol.Instance.Mouse_Held_Item.Amount--;
+                            if (GISLol.Instance.Mouse_Held_Item.Amount <= 0)
+                            {
+                                GISLol.Instance.Mouse_Held_Item = new GISItem();
+                            }
+                        }
+                    }
+                }
+
+                SaveItemContainerData();
+                OnInteract();
+
+
+
+            }
+        }
+        
+    }
+
+    private void FixedUpdate()
+    {
+        DoubleClickTimer -= Time.deltaTime;
+        Displayer.item = Held_Item;
+    }
+
+    private void SaveItemContainerData()
+    {
+        if (Conte.CanRetainItems)
+        {
+            bool sexg = Conte.SaveTempContents();
+            if (sexg)
+            {
+                //Held_Item.AddConnection(Held_Item.Container);
+                foreach (var c in Held_Item.Interacted_Containers)
+                {
+                    if (c != null) c.SaveTempContents();
+                }
+                Held_Item.Interacted_Containers.Clear();
+            }
+
+        }
+        /*
+        foreach(var item in placed_items)
+        {
+            item.Container.SaveTempContents();
+        }
+        */
+    }
+}
