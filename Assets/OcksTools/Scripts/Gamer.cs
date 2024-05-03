@@ -156,11 +156,12 @@ public class Gamer : MonoBehaviour
         List<float[]> pp = new List<float[]>();
         for(int i = 0; i < enders.Count; i++)
         {
+            rm = enders[i];
             var e = new float[2] {i,(rm.transform.position-rmod.transform.position).magnitude};
             bool f = false;
             for(int j = 0; j < pp.Count; j++)
             {
-                if (e[1] < pp[j][1])
+                if (e[1] > pp[j][1])
                 {
                     pp.Insert(j, e);
                     f = true;
@@ -170,7 +171,7 @@ public class Gamer : MonoBehaviour
             if(!f)pp.Add(e);
         }
         rm = null;
-        for(int i =0; i < pp.Count; i++)
+        for (int i =0; i < pp.Count; i++)
         {
             if (Random.Range(0, 3) == 1) { rm = enders[(int)pp[i][0]]; break; }
         }

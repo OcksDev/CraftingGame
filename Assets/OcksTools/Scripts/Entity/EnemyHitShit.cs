@@ -9,10 +9,8 @@ public class EnemyHitShit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var pp = collision.GetComponent<PlayerController>();
-        Debug.Log("COLL " + collision.gameObject.name);
         if (pp != null)
         {
-            Debug.Log("HIG");
             var dam = new DamageProfile(type, Damage);
             dam.SpecificLocation = true;
             dam.AttackerPos = transform.parent.position;
