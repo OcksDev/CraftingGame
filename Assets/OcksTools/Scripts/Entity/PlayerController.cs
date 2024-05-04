@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
         Damage = 5;
         AttacksPerSecond = 3;
         Spread = 15f;
-        MaxBowMult = 2f;
+        MaxBowMult = 1.5f;
         BowChargeSpeed = 1f;
         if(mainweapon != null)
         {
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 4:
                     AttacksPerSecond = 1.5f;
-                    Damage = 5;
+                    Damage = 4;
                     break;
             }
             foreach(var m in mainweapon.Materials)
@@ -125,9 +125,9 @@ public class PlayerController : MonoBehaviour
                 {
                     case 6:
                     case 3:
+                    case 4:
                         Damage += 2.5;
                         break;
-                    case 4:
                     case 5:
                         Damage += 5;
                         break;
@@ -295,7 +295,6 @@ public class PlayerController : MonoBehaviour
             case 6:
                 s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
                 s3 = s.GetComponent<HitBalls>();
-                s4 = s.GetComponent<Projectile>();
                 s3.playerController = this;
                 s3.Damage = d;
                 epe *= -0.5f;
@@ -304,11 +303,15 @@ public class PlayerController : MonoBehaviour
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
             case 4:
-                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
-                s3 = s.GetComponent<HitBalls>();
-                s4 = s.GetComponent<Projectile>();
-                s3.playerController = this;
-                s3.Damage = d;
+
+
+                for(int i = -1; i < 2; i++)
+                {
+                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, (Random.Range(Spread / 2, -Spread / 2)) + (15*i))));
+                    s3 = s.GetComponent<HitBalls>();
+                    s3.playerController = this;
+                    s3.Damage = d;
+                }
                 epe *= -0.5f;
                 HitCollider = null;
                 f = 1;
