@@ -24,6 +24,7 @@ public class HitBalls : MonoBehaviour
                 }
                 var dam = new DamageProfile(type, Damage);
                 dam.Knockback = 1f;
+                dam.attacker = playerController.gameObject;
                 if (type == "Arrow")
                 {
                     dam.SpecificLocation = true;

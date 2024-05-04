@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715d6f3ca6178f34798838f98caaf41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 3786093809242686097}
   displays:
   - {fileID: 7237173843355826688}
   - {fileID: 1521016963001658940}
@@ -471,6 +472,7 @@ MonoBehaviour:
   col:
     serializedVersion: 2
     rgba: 0
+  healerstospawn: 1
 --- !u!114 &3786093809242686097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +506,7 @@ MonoBehaviour:
   - {fileID: 5069659872662987114}
   healthshit: {fileID: 2726468080876986143}
   entit: {fileID: 0}
+  selecteditem: 0
   isrealowner: 0
 --- !u!50 &3786093809242686189
 Rigidbody2D:

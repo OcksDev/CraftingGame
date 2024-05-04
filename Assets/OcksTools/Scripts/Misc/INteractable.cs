@@ -25,6 +25,7 @@ public class INteractable : MonoBehaviour
     public void Interact()
     {
         var g = Gamer.Instance;
+        if (g.IsFading) return;
         switch(Type)
         {
             case "Crafter":

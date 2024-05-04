@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
     float bowsextimer = 0;
     private NetworkObject sexer;
+    public int selecteditem = 0;
 
     public bool isrealowner;
 
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        selecteditem = 0;
         rigid= GetComponent<Rigidbody2D>();
         entit = GetComponent<EntityOXS>();
         dicksplay = dicksplit.GetComponent<SpriteRenderer>();   
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
         if (GISLol.Instance.All_Containers.ContainsKey("Equips"))
         {
             var c = GISLol.Instance.All_Containers["Equips"];
-            mainweapon = c.slots[0].Held_Item;
+            mainweapon = c.slots[selecteditem].Held_Item;
         }
         else
         {
@@ -136,7 +138,19 @@ public class PlayerController : MonoBehaviour
     private void LateUpdate()
     {
         healthshit.transform.rotation = Quaternion.identity;
+        if (isrealowner)
+        {
+            if (InputManager.IsKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
+            else if (InputManager.IsKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
+        }
     }
+
+    public void SwitchWeapon(int s3x)
+    {
+        selecteditem = s3x;
+        SetData();
+    }
+
     void FixedUpdate()
     {
         if (HitCollider != null) HitCollider.SetActive(false);

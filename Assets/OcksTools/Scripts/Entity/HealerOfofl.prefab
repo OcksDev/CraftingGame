@@ -99,6 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SexChaser: {fileID: 0}
+  others: []
+  sex2: {fileID: 5324064331484682295}
+  vel: {x: 0, y: 0, z: 0}
+  sexer: 0
 --- !u!1 &5324064332859224902
 GameObject:
   m_ObjectHideFlags: 0

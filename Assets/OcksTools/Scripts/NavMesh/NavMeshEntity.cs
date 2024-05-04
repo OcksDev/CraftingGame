@@ -8,6 +8,7 @@ public class NavMeshEntity : MonoBehaviour
     private NavMeshAgent beans;
     public GameObject target;
     public I_Room originroom;
+    public double Damage;
     public SpriteRenderer WantASpriteCranberry;
     public List<Sprite> SpriteVarients = new List<Sprite> ();
     public float movespeed = 5f;
@@ -18,9 +19,11 @@ public class NavMeshEntity : MonoBehaviour
     public float SightRange = 15f;
     public float randommovetimer = 0f;
     public Vector3 spawn;
+    public EnemyHitShit sex2;
     // Start is called before the first frame update
     void Start()
     {
+        sex2.Damage = Damage;
         beans = GetComponent<NavMeshAgent>();
         sex = GetComponent<Rigidbody2D>();
         WantASpriteCranberry = GetComponent<SpriteRenderer>();
@@ -111,7 +114,7 @@ public class NavMeshEntity : MonoBehaviour
             if (timer2 > 1.5f)
             {
                 timer2 = 0;
-                Debug.Log("SHONK");
+                //Debug.Log("SHONK");
                 box.transform.rotation = Point2D(-180, 0);
                 box.SetActive(true);
             }
@@ -168,7 +171,7 @@ public class NavMeshEntity : MonoBehaviour
                 }
             }
         }
-        Debug.Log(hits);
+        //Debug.Log(hits);
         if (sex)
         {
             if(p.GetComponent<PlayerController>() != null)
@@ -182,26 +185,29 @@ public class NavMeshEntity : MonoBehaviour
         }
         if (range)
         {
-            for(int i = 0; i < Gamer.Instance.EnemiesExisting.Count; i++)
-            {
-                var pp = Gamer.Instance.EnemiesExisting[i];
-                if(pp == null)
-                {
-                    Gamer.Instance.EnemiesExisting.RemoveAt(i);
-                    i--;
-                    continue;
-                }
-                if ((transform.position - pp.transform.position).magnitude <= 10)
-                {
-                    Debug.Log("Checking for player via spread");
-                    pp.CheckCanSee(false, gameObject);
-                }
-            }
+            MyAssChecker();
         }
         range = false;
     }
 
-
+    public void MyAssChecker()
+    {
+        for (int i = 0; i < Gamer.Instance.EnemiesExisting.Count; i++)
+        {
+            var pp = Gamer.Instance.EnemiesExisting[i];
+            if (pp == null)
+            {
+                Gamer.Instance.EnemiesExisting.RemoveAt(i);
+                i--;
+                continue;
+            }
+            if ((transform.position - pp.transform.position).magnitude <= 10)
+            {
+                Debug.Log("Checking for player via spread");
+                pp.CheckCanSee(false, gameObject);
+            }
+        }
+    }
 
     private Quaternion Point2D(float offset2, float spread)
     {

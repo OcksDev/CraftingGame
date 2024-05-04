@@ -15,10 +15,12 @@ public class EntityOXS : MonoBehaviour
     private SpriteRenderer ren;
     private Rigidbody2D rg;
     public Color32 col;
+    public NavMeshEntity sexy;
     public int healerstospawn = 1;
     private void Start()
     {
         ren = GetComponent<SpriteRenderer>();
+        sexy = GetComponent<NavMeshEntity>();
         rg = GetComponent<Rigidbody2D>();
         if (ren != null)
         {
@@ -40,7 +42,14 @@ public class EntityOXS : MonoBehaviour
             var e = ((Vector2)transform.position - (Vector2)hit.AttackerPos).normalized * hit.Knockback * 2.5f;
             rg.velocity += e;
         }
-
+        switch (EnemyType)
+        {
+            case "Enemy":
+                Debug.Log("Sexy" + hit.attacker.name);
+                sexy.target = hit.attacker;
+                sexy.MyAssChecker();
+                break;
+        }
         foreach (var effect in hit.Effects)
         {
             AddEffect(effect);

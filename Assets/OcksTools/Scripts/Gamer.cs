@@ -69,7 +69,8 @@ public class Gamer : MonoBehaviour
     public void LoadLobbyScene()
     {
         Tags.refs["NextFloor"].transform.position = new Vector3(11.51f, 0, 0);
-        Tags.refs["Crafter"].transform.position = new Vector3(1.94f, -10, 0);
+        Tags.refs["Lobby"].SetActive(true);
+        Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
     }
 
     public void MainMenu()
@@ -136,6 +137,7 @@ public class Gamer : MonoBehaviour
     }
     public IEnumerator NextFloor()
     {
+        Tags.refs["Lobby"].SetActive(false);
         ClearMap();
         RoomLol.Instance.GenerateRandomLayout();
         

@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class WeaponDisplay : MonoBehaviour
 {
-    public GISItem WeaponItem;
+    public PlayerController controller;
     public SpriteRenderer[] displays = new SpriteRenderer[3];
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
         if (GISLol.Instance.All_Containers.ContainsKey("Equips"))
         {
-            WeaponItem = GISLol.Instance.All_Containers["Equips"].slots[0].Held_Item;
+            var WeaponItem = GISLol.Instance.All_Containers["Equips"].slots[controller.selecteditem].Held_Item;
             if (WeaponItem != null && WeaponItem.ItemIndex != 0)
             {
                 displays[0].sprite = GISDisplay.GetSprite(WeaponItem, 0);
