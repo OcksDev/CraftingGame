@@ -43,6 +43,8 @@ public class Gamer : MonoBehaviour
         MainMenu();
         StartCoroutine(FUCK());
     }
+    public static List<List<string>> Backup = new List<List<string>>();
+
 
     public void ClearMap()
     {
@@ -71,8 +73,20 @@ public class Gamer : MonoBehaviour
         Tags.refs["NextFloor"].transform.position = new Vector3(11.51f, 0, 0);
         Tags.refs["Lobby"].SetActive(true);
         Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
+        if (IsMultiplayer)
+        {
+            StartCoroutine(WaitForSexyGamer());
+        }
     }
-
+    public IEnumerator WaitForSexyGamer()
+    {
+        yield return new WaitUntil(() => { return ServerGamer.Instance != null; });
+        foreach(var s in Backup)
+        {
+            OcksNetworkVar g = new OcksNetworkVar(s[1], s[0]);
+            g.SetValue(s[2]);
+        }
+    }
     public void MainMenu()
     {
         if (IsMultiplayer) NetworkManager.Singleton.Shutdown();
@@ -281,3 +295,5 @@ public class Gamer : MonoBehaviour
         }
     }
 }
+
+

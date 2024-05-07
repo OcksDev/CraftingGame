@@ -15,6 +15,7 @@ public class Tags : MonoBehaviour
     [HideInInspector]
     [DoNotSerialize]
     public static Dictionary<string, GameObject> refs = new Dictionary<string, GameObject>();
+    public static Dictionary<string, Dictionary<string, string>> customdata = new Dictionary<string, Dictionary<string, string>>();
 
     /*
      * Tags Help:
@@ -70,6 +71,65 @@ public class Tags : MonoBehaviour
         else
         {
             refs.Add(name, ob);
+        }
+    }
+}
+
+[Serializable]
+public class OcksNetworkVar
+{
+    public string Data = "";
+    public string ID = "";
+    public string ObjectID;
+    public OcksNetworkVar(string iD, string objectID)
+    {
+        ID = iD;
+        ObjectID = objectID;
+    }
+    public OcksNetworkVar()
+    {
+    }
+    public void SetCreds(string objectid, string id)
+    {
+        ObjectID = objectid;
+        ID = id;
+    }
+    public string GetValue()
+    {
+        var p = ObjectID;
+        foreach(var k in Tags.customdata)
+        {
+            Debug.Log(k.Key);
+        }
+        Data = Tags.customdata[p][ID];
+        return Data;
+    }
+    public void SetValue(string c)
+    {
+        if(ServerGamer.Instance != null)
+        {
+            Data = c;
+            var p = ObjectID;
+            if (Tags.customdata.ContainsKey(p))
+            {
+                if (Tags.customdata[p].ContainsKey(ID))
+                {
+                    Tags.customdata[p][ID] = c;
+                }
+                else
+                {
+                    Tags.customdata[p].Add(ID, c);
+                }
+            }
+            else
+            {
+                Tags.customdata.Add(p, new Dictionary<string, string>() { { ID, c } });
+            }
+            ServerGamer.Instance.MessageServerRpc(p, "var", ObjectID, ID, c);
+        }
+        else
+        {
+            Gamer.Backup.Add(new List<string>() { ObjectID, ID, c });
         }
     }
 }

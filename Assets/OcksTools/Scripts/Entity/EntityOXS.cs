@@ -54,6 +54,15 @@ public class EntityOXS : MonoBehaviour
         {
             AddEffect(effect);
         }
+        if (Gamer.IsMultiplayer)
+        {
+            PlayerController s;
+            if (hit.attacker != null)
+            {
+                s = hit.attacker.GetComponent<PlayerController>();
+                if (s != null && !s.isrealowner) { return; }
+            }
+        }
         Shield -= hit.Damage;
         if (Shield < 0)
         {

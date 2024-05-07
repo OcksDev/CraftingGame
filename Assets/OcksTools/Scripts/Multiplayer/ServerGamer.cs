@@ -38,18 +38,23 @@ public class ServerGamer : NetworkBehaviour
 
 
     [ServerRpc(RequireOwnership = false)]
-    public void MessageServerRpc(string id, string type, string data)
+    public void MessageServerRpc(string id, string type, string data, string data2 = "", string data3 = "")
     {
-        RecieveMessageClientRpc(id, type, data);
+        RecieveMessageClientRpc(id, type, data, data2, data3);
     }
 
-    //chat related method
     [ClientRpc]
-    public void RecieveMessageClientRpc(string id, string type, string data)
+    public void RecieveMessageClientRpc(string id, string type, string data, string data2, string data3)
     {
         if (id == RandomFunctions.Instance.ClientID) return;
         switch (type)
         {
+            case "initattack":
+                Tags.dict[data].GetComponent<PlayerController>().StartAttack();
+                break;
+            case "var":
+                Tags.customdata[data][data2] = data3;
+                break;
             default:
                 break;
         }

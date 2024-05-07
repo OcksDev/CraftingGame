@@ -1,5 +1,7 @@
+
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,32 +36,72 @@ public class PlayerController : MonoBehaviour
     float bowsextimer = 0;
     private NetworkObject sexer;
     public int selecteditem = 0;
-
+    private SpawnData spawnData;
     public bool isrealowner;
+    public OcksNetworkVar cuum = new OcksNetworkVar();
+    public OcksNetworkVar cuum2 = new OcksNetworkVar();
 
     private void Awake()
     {
-        if (Gamer.IsMultiplayer)
-        {
-            sexer = GetComponent<NetworkObject>();
-            isrealowner = sexer.IsOwner;
-        }
-        else
-        {
-            isrealowner = true;
-        }
         Gamer.Instance.Players.Add(this);
-        if(isrealowner)Instance = this;
     }
 
     private void Start()
     {
+        spawnData = GetComponent<SpawnData>(); 
+        if (Gamer.IsMultiplayer)
+        {
+            sexer = GetComponent<NetworkObject>();
+            isrealowner = sexer.IsOwner;
+            if (isrealowner)
+            {
+                spawnData.FardStart();
+                cuum.SetCreds("PlayerID", spawnData.Hidden_Data[0]);
+                cuum2.SetCreds("PlayerIDAGAIN", spawnData.Hidden_Data[0]);
+                cuum.SetValue(spawnData.Hidden_Data[0]);
+                cuum2.SetValue("AHHHHHHHHHHH");
+                Debug.Log("R? " + cuum.GetValue());
+            }
+            else
+            {
+                //for (int i = 0; i < 1; i++) StartCoroutine(WaitForIncomingData(i));
+            }
+        }
+        else
+        {
+            isrealowner = true;
+            spawnData.FardStart();
+        }
+        if (isrealowner) Instance = this;
         selecteditem = 0;
         rigid= GetComponent<Rigidbody2D>();
         entit = GetComponent<EntityOXS>();
         dicksplay = dicksplit.GetComponent<SpriteRenderer>();   
         SetData();
     }
+
+    public IEnumerator WaitForSend()
+    {
+        yield return null;
+    }
+
+    /*
+    public IEnumerator WaitForIncomingData(int sex)
+    {
+        yield return null;
+        switch (sex)
+        {
+            case 0:
+                yield return new WaitUntil(() => { return PlayerID.Value.ToString() != "-"; });
+                var e = RandomFunctions.Instance.GenerateBlankHiddenData();
+                e[0] = PlayerID.Value.ToString();
+                spawnData.Hidden_Data = e;
+                spawnData.FardStart();
+                break;
+        }
+    }
+    */
+
     public void SetData()
     {
         helth = entit.Max_Health;
@@ -216,9 +258,12 @@ public class PlayerController : MonoBehaviour
         g = g * g * g * g;
         if (f >= 1)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Point2D(-90, 0), 25f);
+            if (isrealowner)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Point2D(-90, 0), 25f);
+                dicksplay.flipX = (transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x < 0;
+            }
             dicksplit.rotation = Quaternion.identity;
-            dicksplay.flipX = (transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x < 0;
         }
         if (mainweapon != null)
         {
