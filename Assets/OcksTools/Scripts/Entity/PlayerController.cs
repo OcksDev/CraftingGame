@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private float f = 0;
     private float f2 = 0;
     private int reverse = 1;
-    private GISItem mainweapon;
+    public GISItem mainweapon;
     private double helth = 0;
     public EntityOXS entit;
     private SpriteRenderer dicksplay;
@@ -92,20 +92,14 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < 1; i++) StartCoroutine(WaitFOrThing(i));
         }
     }
-
+    
     public IEnumerator WaitFOrThing(int i)
     {
         switch (i)
         {
             case 0:
                 yield return new WaitUntil(() => { return network_helditem.GetValue() != "WAITING FOR DATA"; });
-                var s = network_helditem.GetValue();
-                if(s != "")
-                {
-                    GISItem se = new GISItem();
-                    se.StringToItem(s);
-                    mainweapon = se;
-                }
+                SetData();
                 break;
         }
     }
@@ -132,11 +126,25 @@ public class PlayerController : MonoBehaviour
         helth = entit.Max_Health;
         if (GISLol.Instance.All_Containers.ContainsKey("Equips"))
         {
-            var c = GISLol.Instance.All_Containers["Equips"];
-            mainweapon = c.slots[selecteditem].Held_Item;
             if (isrealowner)
             {
+                var c = GISLol.Instance.All_Containers["Equips"];
+                mainweapon = c.slots[selecteditem].Held_Item;
                 network_helditem.SetValue(mainweapon.ItemToString());
+            }
+            else
+            {
+                try
+                {
+                    var s = network_helditem.GetValue();
+                    GISItem se = new GISItem();
+                    se.StringToItem(s);
+                    mainweapon = se;
+                }
+                catch
+                {
+
+                }
             }
         }
         else

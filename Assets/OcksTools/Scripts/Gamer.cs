@@ -44,6 +44,7 @@ public class Gamer : MonoBehaviour
         StartCoroutine(FUCK());
     }
     public static List<List<string>> Backup = new List<List<string>>();
+    public static List<List<string>> QBackup = new List<List<string>>();
 
 
     public void ClearMap()
@@ -82,10 +83,26 @@ public class Gamer : MonoBehaviour
     public IEnumerator WaitForSexyGamer()
     {
         yield return new WaitUntil(() => { return ServerGamer.Instance != null; });
-        foreach(var s in Backup)
+        foreach (var s in Backup)
         {
             OcksNetworkVar g = new OcksNetworkVar(s[1], s[0]);
             g.SetValue(s[2]);
+        }
+        foreach (var s in QBackup)
+        {
+            if (Tags.customdata.ContainsKey(s[0]))
+            {
+                if (!Tags.customdata[s[0]].ContainsKey(s[1]))
+                {
+                    OcksNetworkVar g = new OcksNetworkVar(s[1], s[0]);
+                    g.Query();
+                }
+            }
+            else
+            {
+                OcksNetworkVar g = new OcksNetworkVar(s[1], s[0]);
+                g.Query();
+            }
         }
     }
     public void MainMenu()

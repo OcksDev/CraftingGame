@@ -11,7 +11,8 @@ public class WeaponDisplay : MonoBehaviour
     {
         if (GISLol.Instance.All_Containers.ContainsKey("Equips"))
         {
-            var WeaponItem = GISLol.Instance.All_Containers["Equips"].slots[controller.selecteditem].Held_Item;
+            //var WeaponItem = GISLol.Instance.All_Containers["Equips"].slots[controller.selecteditem].Held_Item;
+            var WeaponItem = controller.mainweapon;
             if (WeaponItem != null && WeaponItem.ItemIndex != 0)
             {
                 displays[0].sprite = GISDisplay.GetSprite(WeaponItem, 0);

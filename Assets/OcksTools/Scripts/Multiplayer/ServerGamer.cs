@@ -36,11 +36,12 @@ public class ServerGamer : NetworkBehaviour
         RandomFunctions.Instance.SpawnObject(refe, gameObject, pos, rot, false, data, hdata);
     }
 
-
+    private bool ShowLogs = true;
 
     [ServerRpc(RequireOwnership = false)]
     public void MessageServerRpc(string id, string type, string data, string data2 = "", string data3 = "")
     {
+        if (ShowLogs) Console.Log($"Sent Message: {id}, {type}, {data}, {data2}, {data3}");
         RecieveMessageClientRpc(id, type, data, data2, data3);
     }
 
@@ -49,6 +50,7 @@ public class ServerGamer : NetworkBehaviour
     {
         var cid = RandomFunctions.Instance.ClientID;
         if (id == cid) return;
+        if (ShowLogs) Console.Log($"Revieved Message: {id}, {type}, {data}, {data2}, {data3}");
         string ID = "";
         string c = "";
         string p = "";

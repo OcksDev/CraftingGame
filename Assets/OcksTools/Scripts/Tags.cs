@@ -102,24 +102,31 @@ public class OcksNetworkVar
     }
     public void Query()
     {
-        var p = ObjectID;
-        var c = "WAITING FOR DATA";
-        if (Tags.customdata.ContainsKey(p))
+        if(ServerGamer.Instance != null)
         {
-            if (Tags.customdata[p].ContainsKey(ID))
+            var p = ObjectID;
+            var c = "WAITING FOR DATA";
+            if (Tags.customdata.ContainsKey(p))
             {
-                Tags.customdata[p][ID] = c;
+                if (Tags.customdata[p].ContainsKey(ID))
+                {
+                    Tags.customdata[p][ID] = c;
+                }
+                else
+                {
+                    Tags.customdata[p].Add(ID, c);
+                }
             }
             else
             {
-                Tags.customdata[p].Add(ID, c);
+                Tags.customdata.Add(p, new Dictionary<string, string>() { { ID, c } });
             }
+            ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "var", ObjectID, ID);
         }
         else
         {
-            Tags.customdata.Add(p, new Dictionary<string, string>() { { ID, c } });
+            Gamer.QBackup.Add(new List<string>() { ObjectID, ID });
         }
-        ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "var", ObjectID, ID);
     }
     public void SetValue(string c)
     {
