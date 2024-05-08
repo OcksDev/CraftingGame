@@ -97,12 +97,29 @@ public class OcksNetworkVar
     public string GetValue()
     {
         var p = ObjectID;
-        foreach(var k in Tags.customdata)
-        {
-            Debug.Log(k.Key);
-        }
         Data = Tags.customdata[p][ID];
         return Data;
+    }
+    public void Query()
+    {
+        var p = ObjectID;
+        var c = "WAITING FOR DATA";
+        if (Tags.customdata.ContainsKey(p))
+        {
+            if (Tags.customdata[p].ContainsKey(ID))
+            {
+                Tags.customdata[p][ID] = c;
+            }
+            else
+            {
+                Tags.customdata[p].Add(ID, c);
+            }
+        }
+        else
+        {
+            Tags.customdata.Add(p, new Dictionary<string, string>() { { ID, c } });
+        }
+        ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "var", ObjectID, ID);
     }
     public void SetValue(string c)
     {
@@ -125,7 +142,7 @@ public class OcksNetworkVar
             {
                 Tags.customdata.Add(p, new Dictionary<string, string>() { { ID, c } });
             }
-            ServerGamer.Instance.MessageServerRpc(p, "var", ObjectID, ID, c);
+            ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "var", ObjectID, ID, c);
         }
         else
         {

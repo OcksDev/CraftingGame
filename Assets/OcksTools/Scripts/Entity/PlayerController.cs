@@ -38,8 +38,7 @@ public class PlayerController : MonoBehaviour
     public int selecteditem = 0;
     public SpawnData spawnData;
     public bool isrealowner;
-    public OcksNetworkVar cuum = new OcksNetworkVar();
-    public OcksNetworkVar cuum2 = new OcksNetworkVar();
+    public OcksNetworkVar network_helditem = new OcksNetworkVar();
 
     private void Awake()
     {
@@ -69,6 +68,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             isrealowner = true;
+            spawnData.FardStart();
         }
         if (isrealowner) Instance = this;
         selecteditem = 0;
@@ -80,9 +80,34 @@ public class PlayerController : MonoBehaviour
 
     public void Aids()
     {
-        cuum.SetCreds(spawnData.Hidden_Data[0], "Test");
-        cuum.SetValue("GIGA CUUM " + spawnData.Hidden_Data[0]);
+        network_helditem.SetCreds(spawnData.Hidden_Data[0], "Held Item");
         Console.Log("GIGA CUUM " + spawnData.Hidden_Data[0]);
+        if (isrealowner)
+        {
+            //network_helditem.SetValue(mainweapon.ItemToString());
+        }
+        else
+        {
+            network_helditem.Query();
+            for (int i = 0; i < 1; i++) StartCoroutine(WaitFOrThing(i));
+        }
+    }
+
+    public IEnumerator WaitFOrThing(int i)
+    {
+        switch (i)
+        {
+            case 0:
+                yield return new WaitUntil(() => { return network_helditem.GetValue() != "WAITING FOR DATA"; });
+                var s = network_helditem.GetValue();
+                if(s != "")
+                {
+                    GISItem se = new GISItem();
+                    se.StringToItem(s);
+                    mainweapon = se;
+                }
+                break;
+        }
     }
 
     /*
@@ -109,10 +134,18 @@ public class PlayerController : MonoBehaviour
         {
             var c = GISLol.Instance.All_Containers["Equips"];
             mainweapon = c.slots[selecteditem].Held_Item;
+            if (isrealowner)
+            {
+                network_helditem.SetValue(mainweapon.ItemToString());
+            }
         }
         else
         {
             mainweapon = null;
+            if (isrealowner)
+            {
+                network_helditem.SetValue("");
+            }
         }
         working_move_speed = 2;
         Damage = 5;

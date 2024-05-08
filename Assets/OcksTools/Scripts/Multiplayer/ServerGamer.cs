@@ -47,7 +47,11 @@ public class ServerGamer : NetworkBehaviour
     [ClientRpc]
     public void RecieveMessageClientRpc(string id, string type, string data, string data2, string data3)
     {
-        if (id == RandomFunctions.Instance.ClientID) return;
+        var cid = RandomFunctions.Instance.ClientID;
+        if (id == cid) return;
+        string ID = "";
+        string c = "";
+        string p = "";
         switch (type)
         {
             case "initattack":
@@ -64,7 +68,7 @@ public class ServerGamer : NetworkBehaviour
                             var epe = RandomFunctions.Instance.GenerateBlankHiddenData();
                             e.spawnData.Hidden_Data = epe;
                             e.spawnData.FardStart();
-                            MessageServerRpc(RandomFunctions.Instance.ClientID, "FoundWhoAm", data, RandomFunctions.Instance.ListToString(epe));
+                            MessageServerRpc(cid, "FoundWhoAm", data, RandomFunctions.Instance.ListToString(epe));
                             break;
                         }
                     }
@@ -78,7 +82,7 @@ public class ServerGamer : NetworkBehaviour
                     {
                         if (e.sexer.NetworkObjectId == id2)
                         {
-                            MessageServerRpc(RandomFunctions.Instance.ClientID, "FoundWhoAm", data, RandomFunctions.Instance.ListToString(e.spawnData.Hidden_Data));
+                            MessageServerRpc(cid, "FoundWhoAm", data, RandomFunctions.Instance.ListToString(e.spawnData.Hidden_Data));
                             break;
                         }
                     }
@@ -100,10 +104,31 @@ public class ServerGamer : NetworkBehaviour
                     }
                 }
                 break;
+            case "Qvar":
+                p = data;
+                ID = data2;
+                c = "";
+                if (Tags.customdata.ContainsKey(p))
+                {
+                    if (Tags.customdata[p].ContainsKey(ID))
+                    {
+                        c = Tags.customdata[p][ID];
+                    }
+                    else
+                    {
+                        Tags.customdata[p].Add(ID, c);
+                    }
+                }
+                else
+                {
+                    Tags.customdata.Add(p, new Dictionary<string, string>() { { ID, c } });
+                }
+                MessageServerRpc(cid, "var", p, ID, c);
+                break;
             case "var":
-                var p = data;
-                var ID = data2;
-                var c = data3;
+                p = data;
+                ID = data2;
+                c = data3;
                 if (Tags.customdata.ContainsKey(p))
                 {
                     if (Tags.customdata[p].ContainsKey(ID))
