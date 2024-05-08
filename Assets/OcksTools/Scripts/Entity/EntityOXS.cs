@@ -46,8 +46,11 @@ public class EntityOXS : MonoBehaviour
         {
             case "Enemy":
                 Debug.Log("Sexy" + hit.attacker.name);
-                sexy.target = hit.attacker;
-                sexy.MyAssChecker();
+                if(sexy != null)
+                {
+                    sexy.target = hit.attacker;
+                    sexy.MyAssChecker();
+                }
                 break;
         }
         foreach (var effect in hit.Effects)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -52,8 +53,72 @@ public class ServerGamer : NetworkBehaviour
             case "initattack":
                 Tags.dict[data].GetComponent<PlayerController>().StartAttack();
                 break;
+            case "WhoAmI":
+                if (Gamer.Instance.IsHost)
+                {
+                    var id2 = ulong.Parse(data);
+                    foreach (var e in Gamer.Instance.Players)
+                    {
+                        if (e.sexer.NetworkObjectId == id2)
+                        {
+                            var epe = RandomFunctions.Instance.GenerateBlankHiddenData();
+                            e.spawnData.Hidden_Data = epe;
+                            e.spawnData.FardStart();
+                            MessageServerRpc(RandomFunctions.Instance.ClientID, "FoundWhoAm", data, RandomFunctions.Instance.ListToString(epe));
+                            break;
+                        }
+                    }
+                }
+                break;
+            case "WhoTheFuckIsThisYo":
+                if (Gamer.Instance.IsHost)
+                {
+                    var id2 = ulong.Parse(data);
+                    foreach (var e in Gamer.Instance.Players)
+                    {
+                        if (e.sexer.NetworkObjectId == id2)
+                        {
+                            MessageServerRpc(RandomFunctions.Instance.ClientID, "FoundWhoAm", data, RandomFunctions.Instance.ListToString(e.spawnData.Hidden_Data));
+                            break;
+                        }
+                    }
+                }
+                break;
+            case "FoundWhoAm":
+                if (!Gamer.Instance.IsHost)
+                {
+                    foreach (var e in Gamer.Instance.Players)
+                    {
+                        if (e.sexer.NetworkObjectId.ToString() == data)
+                        {
+                            if (e.spawnData.Hidden_Data.Count != 0) return;
+                            var epe = RandomFunctions.Instance.StringToList(data2);
+                            e.spawnData.Hidden_Data = epe;
+                            e.spawnData.FardStart();
+                            break;
+                        }
+                    }
+                }
+                break;
             case "var":
-                Tags.customdata[data][data2] = data3;
+                var p = data;
+                var ID = data2;
+                var c = data3;
+                if (Tags.customdata.ContainsKey(p))
+                {
+                    if (Tags.customdata[p].ContainsKey(ID))
+                    {
+                        Tags.customdata[p][ID] = c;
+                    }
+                    else
+                    {
+                        Tags.customdata[p].Add(ID, c);
+                    }
+                }
+                else
+                {
+                    Tags.customdata.Add(p, new Dictionary<string, string>() { { ID, c } });
+                }
                 break;
             default:
                 break;

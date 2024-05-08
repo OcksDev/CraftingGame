@@ -18,6 +18,7 @@ public class SpawnData : MonoBehaviour
         if (Hidden_Data.Count == 0) Hidden_Data = RandomFunctions.Instance.GenerateBlankHiddenData();
 
         Tags.DefineReference(gameObject, Hidden_Data[0]);
+        if (Type == "Player") GetComponent<PlayerController>().Aids();
     }
     private void OnDestroy()
     {

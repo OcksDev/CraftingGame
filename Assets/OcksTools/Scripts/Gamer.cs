@@ -67,7 +67,7 @@ public class Gamer : MonoBehaviour
         }
         RoomLol.Instance.SpawnedRooms.Clear();
     }
-
+    public bool IsHost;
     public void LoadLobbyScene()
     {
         Tags.refs["NextFloor"].transform.position = new Vector3(11.51f, 0, 0);
@@ -75,6 +75,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
         if (IsMultiplayer)
         {
+            IsHost = NetworkManager.Singleton.IsHost;
             StartCoroutine(WaitForSexyGamer());
         }
     }

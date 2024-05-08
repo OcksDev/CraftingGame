@@ -34,9 +34,9 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer dicksplay;
     public static PlayerController Instance;
     float bowsextimer = 0;
-    private NetworkObject sexer;
+    public NetworkObject sexer;
     public int selecteditem = 0;
-    private SpawnData spawnData;
+    public SpawnData spawnData;
     public bool isrealowner;
     public OcksNetworkVar cuum = new OcksNetworkVar();
     public OcksNetworkVar cuum2 = new OcksNetworkVar();
@@ -53,24 +53,22 @@ public class PlayerController : MonoBehaviour
         {
             sexer = GetComponent<NetworkObject>();
             isrealowner = sexer.IsOwner;
-            if (isrealowner)
+            if (isrealowner && Gamer.Instance.IsHost)
             {
                 spawnData.FardStart();
-                cuum.SetCreds("PlayerID", spawnData.Hidden_Data[0]);
-                cuum2.SetCreds("PlayerIDAGAIN", spawnData.Hidden_Data[0]);
-                cuum.SetValue(spawnData.Hidden_Data[0]);
-                cuum2.SetValue("AHHHHHHHHHHH");
-                Debug.Log("R? " + cuum.GetValue());
+            }
+            else if (isrealowner)
+            {
+                ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "WhoAmI", sexer.NetworkObjectId.ToString());
             }
             else
             {
-                //for (int i = 0; i < 1; i++) StartCoroutine(WaitForIncomingData(i));
+                ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "WhoTheFuckIsThisYo", sexer.NetworkObjectId.ToString());
             }
         }
         else
         {
             isrealowner = true;
-            spawnData.FardStart();
         }
         if (isrealowner) Instance = this;
         selecteditem = 0;
@@ -80,9 +78,11 @@ public class PlayerController : MonoBehaviour
         SetData();
     }
 
-    public IEnumerator WaitForSend()
+    public void Aids()
     {
-        yield return null;
+        cuum.SetCreds(spawnData.Hidden_Data[0], "Test");
+        cuum.SetValue("GIGA CUUM " + spawnData.Hidden_Data[0]);
+        Console.Log("GIGA CUUM " + spawnData.Hidden_Data[0]);
     }
 
     /*
@@ -195,6 +195,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //cuum.GetValue();
         if (HitCollider != null) HitCollider.SetActive(false);
         healthshit.fillAmount = (float)(entit.Health / entit.Max_Health);
         if (isrealowner)
