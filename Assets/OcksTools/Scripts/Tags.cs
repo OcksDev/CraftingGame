@@ -96,9 +96,16 @@ public class OcksNetworkVar
     }
     public string GetValue()
     {
-        var p = ObjectID;
-        Data = Tags.customdata[p][ID];
-        return Data;
+        try
+        {
+            var p = ObjectID;
+            Data = Tags.customdata[p][ID];
+            return Data;
+        }
+        catch
+        {
+            return "";
+        }
     }
     public void Query()
     {
@@ -121,7 +128,7 @@ public class OcksNetworkVar
             {
                 Tags.customdata.Add(p, new Dictionary<string, string>() { { ID, c } });
             }
-            ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "var", ObjectID, ID);
+            ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "Qvar", ObjectID, ID);
         }
         else
         {

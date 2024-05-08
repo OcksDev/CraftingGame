@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     public SpawnData spawnData;
     public bool isrealowner;
     public OcksNetworkVar network_helditem = new OcksNetworkVar();
+    private bool HasLoadedWeapon = false;
 
     private void Awake()
     {
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
             case 0:
                 yield return new WaitUntil(() => { return network_helditem.GetValue() != "WAITING FOR DATA"; });
                 SetData();
+                HasLoadedWeapon = true;
                 break;
         }
     }
@@ -233,10 +235,14 @@ public class PlayerController : MonoBehaviour
         selecteditem = s3x;
         SetData();
     }
-
+    private string oldval;
     void FixedUpdate()
     {
-        //cuum.GetValue();
+        if(!isrealowner && HasLoadedWeapon && network_helditem.GetValue() != oldval)
+        {
+            oldval = network_helditem.GetValue();
+            SetData();
+        }
         if (HitCollider != null) HitCollider.SetActive(false);
         healthshit.fillAmount = (float)(entit.Health / entit.Max_Health);
         if (isrealowner)
