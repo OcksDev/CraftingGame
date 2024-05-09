@@ -33,6 +33,7 @@ public class NavMeshEntity : MonoBehaviour
         ReRollPos();
         WantASpriteCranberry.flipX = Random.Range(0, 2) == 1;
         WantASpriteCranberry.sprite = SpriteVarients[Random.Range(0, SpriteVarients.Count)];
+        randommovetimer = 0;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -125,7 +126,7 @@ public class NavMeshEntity : MonoBehaviour
                 beans.SetDestination(target.transform.position);
                 beans.speed = movespeed;
             }
-            else
+            else if(existing)
             {
                 beans.speed = movespeed / 2;
                 randommovetimer -= Time.deltaTime;
@@ -151,7 +152,6 @@ public class NavMeshEntity : MonoBehaviour
         var hit = Physics2D.RaycastAll(transform.position, p.transform.position - transform.position, range?SightRange:(SightRange*1.5f));
         // Does the ray intersect any objects excluding the player layer
         bool sex = false;
-        string hits = "Sexhit; ";
         float dist = 69;
         foreach (var h in hit)
         {
@@ -159,13 +159,11 @@ public class NavMeshEntity : MonoBehaviour
             {
                 if (h.transform == p.transform)
                 {
-                    hits += h.transform.name + $"_({h.distance}):";
                     sex = true;
                     dist = h.distance;
                 }
                 if (h.transform.parent != null && !h.transform.GetComponent<BoxCollider2D>().isTrigger && h.transform.parent.GetComponent<I_Room>() != null)
                 {
-                    hits += h.transform.name + $"_({h.distance}):";
                     sex = false;
                     dist = h.distance;
                 }
