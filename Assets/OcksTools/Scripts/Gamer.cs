@@ -17,9 +17,11 @@ public class Gamer : MonoBehaviour
     public List<GameObject> Enemies = new List<GameObject>();
     public List<PlayerController> Players = new List<PlayerController>();
     public List<NavMeshEntity> EnemiesExisting = new List<NavMeshEntity>();
+    public List<GameObject> Chests = new List<GameObject>();
     public GameObject HealerGFooFO;
     public NavMeshRefresher nmr;
     public static bool IsMultiplayer = false;
+    public GameObject GroundItemShit;
     public int CraftSex = 3;
     public Selector cuumer;
     public GameObject PlayerPrefab;
@@ -79,7 +81,23 @@ public class Gamer : MonoBehaviour
             IsHost = NetworkManager.Singleton.IsHost;
             StartCoroutine(WaitForSexyGamer());
         }
+
+
     }
+
+    public IEnumerator instancecoolmenus()
+    {
+        checks[0] = true;
+        checks[1] = true;
+        checks[2] = true;
+        UpdateMenus();
+        yield return new WaitForSeconds(0.2f);
+        checks[0] = false;
+        checks[1] = false;
+        checks[2] = false;
+        UpdateMenus();
+    }
+
     public IEnumerator WaitForSexyGamer()
     {
         yield return new WaitUntil(() => { return ServerGamer.Instance != null; });
@@ -130,6 +148,8 @@ public class Gamer : MonoBehaviour
             e.Start();
             e.LoadContents();
         }
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(instancecoolmenus());
     }
 
     public void Update()
@@ -211,12 +231,25 @@ public class Gamer : MonoBehaviour
         }
         if(rm==null) rm = enders[(int)pp[0][0]];
         rm.isused = true;
+        enders.Remove(rm);
         Tags.refs["NextFloor"].transform.position = rm.transform.position;
         var e2 = CameraLol.Instance.transform.position;
         e2.x = PlayerController.Instance.transform.position.x;
         e2.y = PlayerController.Instance.transform.position.y;
         CameraLol.Instance.transform.position = e2;
         CameraLol.Instance.ppos = e2;
+
+        foreach(var e in enders)
+        {
+            var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
+            e.isused = true;
+            var f = new GISItem(1);
+            f.ItemType = "Craftable";
+            f.Materials.Add(new GISMaterial(0));
+            f.Amount = 1;
+            c.cuum = f;
+        }
+
 
         yield return new WaitForFixedUpdate();
 
@@ -241,6 +274,10 @@ public class Gamer : MonoBehaviour
             }
         }
     }
+
+
+
+
     public bool IsFading = false;
     public IEnumerator StartFade(string type)
     {
@@ -283,6 +320,11 @@ public class Gamer : MonoBehaviour
     public bool RandomChance(float percent01)
     {
         return Random.Range(0, 1f) < percent01;
+    }
+
+    public GameObject GetChest()
+    {
+        return Chests[0];
     }
 
     public void AttemptCraft()

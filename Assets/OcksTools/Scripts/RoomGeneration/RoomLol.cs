@@ -69,6 +69,11 @@ public class RoomLol : MonoBehaviour
             new Room(4),
             new Room(5),
             new Room(6),
+            new Room(6),
+            new Room(7),
+            new Room(8),
+            new Room(9),
+            new Room(10),
         };
         LeftRooms.Clear();
         RightRooms.Clear();
@@ -354,51 +359,6 @@ public class Room
                 TopDoor = new Vector2(0, 0);
                 BottomDoor = new Vector2(0, 0);
                 break;
-            /*
-        case 3:
-            RoomSize = new Vector2(1, 1);
-            //HasBottomDoor = true;
-            HasTopDoor = true;
-            HasLeftDoor = true;
-            //HasRightDoor = true;
-            LeftDoor = new Vector2(0, 0);
-            //RightDoor = new Vector2(0, 0);
-            TopDoor = new Vector2(0, 0);
-            //BottomDoor = new Vector2(0, 0);
-            break;
-        case 4:
-            RoomSize = new Vector2(1, 1);
-            //HasBottomDoor = true;
-            HasTopDoor = true;
-            //HasLeftDoor = true;
-            HasRightDoor = true;
-            //LeftDoor = new Vector2(0, 0);
-            RightDoor = new Vector2(0, 0);
-            TopDoor = new Vector2(0, 0);
-            //BottomDoor = new Vector2(0, 0);
-            break;
-        case 5:
-            RoomSize = new Vector2(1, 1);
-            HasBottomDoor = true;
-            //HasTopDoor = true;
-            //HasLeftDoor = true;
-            HasRightDoor = true;
-            //LeftDoor = new Vector2(0, 0);
-            RightDoor = new Vector2(0, 0);
-            //TopDoor = new Vector2(0, 0);
-            BottomDoor = new Vector2(0, 0);
-            break;
-        case 6:
-            RoomSize = new Vector2(1, 1);
-            HasBottomDoor = true;
-            //HasTopDoor = true;
-            HasLeftDoor = true;
-            //HasRightDoor = true;
-            LeftDoor = new Vector2(0, 0);
-            //RightDoor = new Vector2(0, 0);
-            //TopDoor = new Vector2(0, 0);
-            BottomDoor = new Vector2(0, 0);
-            break;*/
             case 3:
                 RoomSize = new Vector2(1, 1);
                 //HasBottomDoor = true;
@@ -458,6 +418,50 @@ public class Room
                 RightDoor = new Vector2(0,0);
                 TopDoor = new Vector2(0,0);
                 BottomDoor = new Vector2(0,0);
+                break;
+            case 9:
+                RoomSize = new Vector2(1, 1);
+                //HasBottomDoor = true;
+                HasTopDoor = true;
+                HasLeftDoor = true;
+                //HasRightDoor = true;
+                LeftDoor = new Vector2(0, 0);
+                //RightDoor = new Vector2(0, 0);
+                TopDoor = new Vector2(0, 0);
+                //BottomDoor = new Vector2(0, 0);
+                break;
+            case 8:
+                RoomSize = new Vector2(1, 1);
+                //HasBottomDoor = true;
+                HasTopDoor = true;
+                //HasLeftDoor = true;
+                HasRightDoor = true;
+                //LeftDoor = new Vector2(0, 0);
+                RightDoor = new Vector2(0, 0);
+                TopDoor = new Vector2(0, 0);
+                //BottomDoor = new Vector2(0, 0);
+                break;
+            case 7:
+                RoomSize = new Vector2(1, 1);
+                HasBottomDoor = true;
+                //HasTopDoor = true;
+                //HasLeftDoor = true;
+                HasRightDoor = true;
+                //LeftDoor = new Vector2(0, 0);
+                RightDoor = new Vector2(0, 0);
+                //TopDoor = new Vector2(0, 0);
+                BottomDoor = new Vector2(0, 0);
+                break;
+            case 10:
+                RoomSize = new Vector2(1, 1);
+                HasBottomDoor = true;
+                //HasTopDoor = true;
+                HasLeftDoor = true;
+                //HasRightDoor = true;
+                LeftDoor = new Vector2(0, 0);
+                //RightDoor = new Vector2(0, 0);
+                //TopDoor = new Vector2(0, 0);
+                BottomDoor = new Vector2(0, 0);
                 break;
         }
     }

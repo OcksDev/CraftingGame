@@ -454,7 +454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: RoomPrefabs.Array.size
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: RoomPrefabs.Array.data[0]
@@ -487,11 +487,19 @@ PrefabInstance:
     - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: RoomPrefabs.Array.data[7]
       value: 
-      objectReference: {fileID: 4907181321737109003, guid: ba770ca64b42a784caece4bbe2b9f171, type: 3}
+      objectReference: {fileID: 4907181321737109003, guid: 96e1089260544fc419f391149b8c2f1a, type: 3}
     - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: RoomPrefabs.Array.data[8]
       value: 
-      objectReference: {fileID: 4907181321737109003, guid: cb89b21cfe3f8024daa45dcae57320aa, type: 3}
+      objectReference: {fileID: 4907181321737109003, guid: ba3cf98db53f81346ab46b223f5605b4, type: 3}
+    - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
+      propertyPath: RoomPrefabs.Array.data[9]
+      value: 
+      objectReference: {fileID: 4907181321737109003, guid: d50b82a3bd3d1454ea4751970d9c9e2a, type: 3}
+    - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
+      propertyPath: RoomPrefabs.Array.data[10]
+      value: 
+      objectReference: {fileID: 4907181321737109003, guid: c9498aea999d78e47871efb56f8661ce, type: 3}
     - target: {fileID: 2820689779679550378, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -578,7 +586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -35.647755}
+  m_AnchoredPosition: {x: 0, y: -35.42095}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &84463141
@@ -1650,7 +1658,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 547125997}
-  m_PlaneDistance: 10
+  m_PlaneDistance: 5.3
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -3833,7 +3841,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 612660798}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9977224
+  m_Size: 0.9892191
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6181,7 +6189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9086538579855579347, guid: 801a988da373501439ffa7ddd98a7e3d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.68
+      value: 25.8
       objectReference: {fileID: 0}
     - target: {fileID: 9086538579855579347, guid: 801a988da373501439ffa7ddd98a7e3d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7556,6 +7564,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3786093809242686102, guid: d104602a90a383d41ab3b80703ffbf23, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: GroundItemShit
+      value: 
+      objectReference: {fileID: 9155232902226076759, guid: f3d8bfae903ae0f4a80d2ff1f26706d7, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Chests.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Enemies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -7571,6 +7587,10 @@ PrefabInstance:
       propertyPath: sexex.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 55ac9662ad543d748894f11f67992bb7, type: 2}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Chests.Array.data[0]
+      value: 
+      objectReference: {fileID: 1914284171256945408, guid: 78e568ed05a373944960000e3e77d1d3, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Enemies.Array.data[0]
       value: 
@@ -7734,15 +7754,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].BowParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 6b1fa7bf9b9613740843ca2970de13e1, type: 3}
+      objectReference: {fileID: 21300000, guid: be434e5615bde7f4890fb00f6768f281, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].BowParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: e35954c0a36a4134d9d5d3e6b90917b2, type: 3}
+      objectReference: {fileID: 21300000, guid: 44e1b4dc79ebe394697b5306fe017ebb, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].BowParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 8d5550e0b6bad354996dba9582651d3d, type: 3}
+      objectReference: {fileID: 21300000, guid: f36ec8c03ee890548ae5236d92702a3c, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].BowParts.Array.data[0]
       value: 
@@ -7762,15 +7782,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SpearParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: c10ad45652376844cadf93bcb98bad61, type: 3}
+      objectReference: {fileID: 21300000, guid: 6776301147e8e4040b93616dbfd9968e, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SpearParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 2ee268dd406324d4b8b7ecdfa7d1b395, type: 3}
+      objectReference: {fileID: 21300000, guid: 9cfb426f4c70fad4490a7be56fd6dfa2, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SpearParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 2968ca37412ec8d49974646947461fda, type: 3}
+      objectReference: {fileID: 21300000, guid: 6f6412a02fdd93642bd14b4ea39fb3c6, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SwordParts.Array.data[0]
       value: 
@@ -7814,15 +7834,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: bc45465880de01e4eb6fed7ac298f85d, type: 3}
+      objectReference: {fileID: 21300000, guid: 40420d45554f8e142abd55fea287c388, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: d2d27a24003be0e488a796c85bcf63a2, type: 3}
+      objectReference: {fileID: 21300000, guid: 2d290dc5c40c994429aeae3925bfdce1, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: e382d287af98d8f478cd43f04a097ce5, type: 3}
+      objectReference: {fileID: 21300000, guid: c3c45d1bd0a5f3a4ba335cd388044835, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].CrossbowParts.Array.data[0]
       value: 

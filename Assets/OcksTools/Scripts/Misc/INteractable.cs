@@ -21,7 +21,7 @@ public class INteractable : MonoBehaviour
             }
         }
     }
-
+    public GISItem cuum;
     public void Interact()
     {
         var g = Gamer.Instance;
@@ -37,6 +37,14 @@ public class INteractable : MonoBehaviour
                 break;
             case "StartGame":
                 StartCoroutine(Gamer.Instance.StartFade("NextFloor"));
+                break;
+            case "Item":
+                GetComponent<GroundItem>().AttemptPickup();
+                break;
+            case "Chest":
+                var itema = Instantiate(Gamer.Instance.GroundItemShit, transform.position, transform.rotation).GetComponent<GroundItem>();
+                itema.sexyballer = cuum;
+                Destroy(gameObject);
                 break;
         }
     }

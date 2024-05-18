@@ -201,7 +201,7 @@ public class NavMeshEntity : MonoBehaviour
             }
             if ((transform.position - pp.transform.position).magnitude <= 10)
             {
-                Debug.Log("Checking for player via spread");
+                //Debug.Log("Checking for player via spread");
                 pp.CheckCanSee(false, gameObject);
             }
         }
