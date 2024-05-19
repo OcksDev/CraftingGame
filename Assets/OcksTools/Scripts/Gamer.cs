@@ -42,6 +42,7 @@ public class Gamer : MonoBehaviour
     }
     private void Start()
     {
+        Tags.refs["BGblack"].SetActive(true);
         MainMenu();
         StartCoroutine(FUCK());
     }
