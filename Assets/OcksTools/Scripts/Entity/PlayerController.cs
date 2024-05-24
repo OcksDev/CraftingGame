@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 move = new Vector3(0, 0, 0);
     public Transform SwordFart;
     public Transform dicksplit;
+    public Transform MyAssHurts;
     public Transform[] cummers = new Transform[2];
     public GameObject[] SlashEffect;
     public GameObject HitCollider;
@@ -316,7 +317,7 @@ public class PlayerController : MonoBehaviour
         if (mainweapon != null)
         {
             SwordFart.localPosition = new Vector3(0, 0, 0);
-            SwordFart.localScale = new Vector3(1, 1, 1);
+            
             switch (mainweapon.ItemIndex)
             {
                 case 3:
@@ -327,7 +328,6 @@ public class PlayerController : MonoBehaviour
                     SwordFart.rotation = transform.rotation;
                     break;
                 case 4:
-                    SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.7f, bowsextimer/MaxBowMult), 1, 1);
                     SwordFart.localPosition = new Vector3(0, -1f, 0);
                     SwordFart.rotation = transform.rotation;
                     break;
@@ -342,6 +342,12 @@ public class PlayerController : MonoBehaviour
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 11 * reverse)) * transform.rotation;
                     SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g)*-reverse, Mathf.Lerp(0.5f, -2.5f, g), 0);
                     break;
+            }
+            int reverse2 = (transform.position-MyAssHurts.transform.position).x < 0?1:-1;
+            switch (mainweapon.ItemIndex)
+            {
+                case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.7f, bowsextimer / MaxBowMult) * reverse2, 1, 1); break;
+                default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
             }
         }
     }

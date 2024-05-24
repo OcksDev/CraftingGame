@@ -586,7 +586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -35.64915}
+  m_AnchoredPosition: {x: 0, y: -35.11412}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &84463141
@@ -3941,7 +3941,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 612660798}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9980655
+  m_Size: 0.8715019
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8011,15 +8011,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 40420d45554f8e142abd55fea287c388, type: 3}
+      objectReference: {fileID: 21300000, guid: 1de2eddbb5f6c654c9046fac3ad1c9e9, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 2d290dc5c40c994429aeae3925bfdce1, type: 3}
+      objectReference: {fileID: 21300000, guid: bb1bbc8128ceac44bba17b5bc36d2ce3, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: c3c45d1bd0a5f3a4ba335cd388044835, type: 3}
+      objectReference: {fileID: 21300000, guid: 45d7e3930de2b8e4799eda6f46b14d44, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].CrossbowParts.Array.data[0]
       value: 
