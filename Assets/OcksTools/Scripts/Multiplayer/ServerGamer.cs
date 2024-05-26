@@ -90,6 +90,10 @@ public class ServerGamer : NetworkBehaviour
                     }
                 }
                 break;
+            case "PAtt":
+                var pp = Tags.dict[data].GetComponent<PlayerController>();
+                pp.StartAttack();
+                break;
             case "FoundWhoAm":
                 if (!Gamer.Instance.IsHost)
                 {

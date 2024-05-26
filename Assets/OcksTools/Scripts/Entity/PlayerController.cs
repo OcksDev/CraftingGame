@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -25,7 +26,6 @@ public class PlayerController : MonoBehaviour
     public GameObject[] SlashEffect;
     public GameObject HitCollider;
     public GameObject[] HitColliders;
-    public Image healthshit;
     private float f = 0;
     private float f2 = 0;
     private int reverse = 1;
@@ -76,23 +76,31 @@ public class PlayerController : MonoBehaviour
         selecteditem = 0;
         rigid= GetComponent<Rigidbody2D>();
         entit = GetComponent<EntityOXS>();
-        dicksplay = dicksplit.GetComponent<SpriteRenderer>();   
+        dicksplay = dicksplit.GetComponent<SpriteRenderer>();
         SetData();
+        //SetData();
     }
-
+    public bool hasaids = false;
     public void Aids()
     {
+        StartCoroutine(AidsFix());
+    }
+
+    public IEnumerator AidsFix()
+    {
+        yield return null;
         network_helditem.SetCreds(spawnData.Hidden_Data[0], "Held Item");
         Console.Log("GIGA CUUM " + spawnData.Hidden_Data[0]);
         if (isrealowner)
         {
-            //network_helditem.SetValue(mainweapon.ItemToString());
+            network_helditem.SetValue(mainweapon.ItemToString());
         }
         else
         {
             network_helditem.Query();
             for (int i = 0; i < 1; i++) StartCoroutine(WaitFOrThing(i));
         }
+        hasaids = true;
     }
     
     public IEnumerator WaitFOrThing(int i)
@@ -133,7 +141,7 @@ public class PlayerController : MonoBehaviour
             {
                 var c = GISLol.Instance.All_Containers["Equips"];
                 mainweapon = c.slots[selecteditem].Held_Item;
-                network_helditem.SetValue(mainweapon.ItemToString());
+                if(hasaids)network_helditem.SetValue(mainweapon.ItemToString());
             }
             else
             {
@@ -153,7 +161,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             mainweapon = null;
-            if (isrealowner)
+            if (isrealowner && hasaids)
             {
                 network_helditem.SetValue("");
             }
@@ -223,7 +231,7 @@ public class PlayerController : MonoBehaviour
     }
     private void LateUpdate()
     {
-        healthshit.transform.rotation = Quaternion.identity;
+        dicksplit.rotation = Quaternion.identity;
         if (isrealowner)
         {
             if (InputManager.IsKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
@@ -245,7 +253,6 @@ public class PlayerController : MonoBehaviour
             SetData();
         }
         if (HitCollider != null) HitCollider.SetActive(false);
-        healthshit.fillAmount = (float)(entit.Health / entit.Max_Health);
         if (isrealowner)
         {
             SetMoveSpeed();
@@ -261,7 +268,7 @@ public class PlayerController : MonoBehaviour
                 move += dir;
             }
 
-            if (mainweapon != null)
+            if (mainweapon != null && isrealowner)
             {
                 if (mainweapon.ItemIndex == 4)
                 {
@@ -310,9 +317,8 @@ public class PlayerController : MonoBehaviour
             if (isrealowner)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Point2D(-90, 0), 25f);
-                dicksplay.flipX = (transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x < 0;
+                dicksplay.transform.localScale = new Vector3((transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x > 0?1:-1, 1,1);
             }
-            dicksplit.rotation = Quaternion.identity;
         }
         if (mainweapon != null)
         {
@@ -421,10 +427,17 @@ public class PlayerController : MonoBehaviour
                 reverse *= -1;
                 break;
         }
-        rigid.velocity += new Vector2(epe.x, epe.y);
-        if (HitCollider != null) { HitCollider.SetActive(true);
+        if (isrealowner)
+        {
+            rigid.velocity += new Vector2(epe.x, epe.y);
+        }
+        if (HitCollider != null)
+        {
+            HitCollider.SetActive(true);
             HitCollider.GetComponent<HitBalls>().Damage = d;
         }
+
+        if (isrealowner)ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "PAtt", spawnData.Hidden_Data[0]);
         bowsextimer = 0;
     }
 
