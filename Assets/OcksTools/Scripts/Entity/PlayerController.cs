@@ -330,7 +330,6 @@ public class PlayerController : MonoBehaviour
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, g) * reverse)) * transform.rotation;
                     break;
                 case 6:
-                    SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2/ (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)), 1, 1);
                     SwordFart.rotation = transform.rotation;
                     break;
                 case 4:
@@ -352,7 +351,7 @@ public class PlayerController : MonoBehaviour
             int reverse2 = (transform.position-MyAssHurts.transform.position).x < 0?1:-1;
             switch (mainweapon.ItemIndex)
             {
-                case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.7f, bowsextimer / MaxBowMult) * reverse2, 1, 1); break;
+                case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse, 1, 1); break;
                 default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
             }
         }
@@ -437,7 +436,7 @@ public class PlayerController : MonoBehaviour
             HitCollider.GetComponent<HitBalls>().Damage = d;
         }
 
-        if (isrealowner)ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "PAtt", spawnData.Hidden_Data[0]);
+        if (isrealowner && Gamer.IsMultiplayer)ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "PAtt", spawnData.Hidden_Data[0]);
         bowsextimer = 0;
     }
 

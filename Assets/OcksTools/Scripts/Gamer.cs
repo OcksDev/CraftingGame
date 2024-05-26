@@ -26,6 +26,11 @@ public class Gamer : MonoBehaviour
     public Selector cuumer;
     public GameObject PlayerPrefab;
     public List<GameObject> healers = new List<GameObject>();
+
+
+    public delegate void JustFuckingRunTheMethods();
+    public event JustFuckingRunTheMethods RefreshUIPos;
+
     public void UpdateMenus()
     {
         Tags.refs["Inventory"].SetActive(checks[0]);
@@ -33,6 +38,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["Equips"].SetActive(checks[2]);
         Tags.refs["MainMenu"].SetActive(checks[3]);
         Tags.refs["PauseMenu"].SetActive(checks[4]);
+        RefreshUIPos?.Invoke();
     }
 
     public static Gamer Instance;

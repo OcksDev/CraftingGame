@@ -45,7 +45,7 @@ public class EntityOXS : MonoBehaviour
         switch (EnemyType)
         {
             case "Enemy":
-                Debug.Log("Sexy" + hit.attacker.name);
+                //Debug.Log("Sexy" + hit.attacker.name);
                 if(sexy != null)
                 {
                     sexy.target = hit.attacker;
@@ -57,19 +57,42 @@ public class EntityOXS : MonoBehaviour
         {
             AddEffect(effect);
         }
-        if (Gamer.IsMultiplayer)
+        PlayerController s2 = null;
+        switch (EnemyType)
         {
-            PlayerController s;
-            if (hit.attacker != null)
-            {
-                s = hit.attacker.GetComponent<PlayerController>();
-                if (s != null && !s.isrealowner) { return; }
-            }
+            case "Player":
+                s2 = GetComponent<PlayerController>();
+                if (PlayerController.Instance == s2) CameraLol.Instance.Shake(0.1f, 0.85f);
+                break;
+            default:
+                if (Gamer.IsMultiplayer)
+                {
+                    PlayerController s = null;
+                    if (hit.attacker != null)
+                    {
+                        s = hit.attacker.GetComponent<PlayerController>();
+                    }
+                    if (s != null && !s.isrealowner) { return; }
+                }
+                break;
         }
-        Shield -= hit.Damage;
-        if (Shield < 0)
+        switch (EnemyType)
         {
-            Health += Shield;
+            case "Player":
+                if (!s2.isrealowner) break;
+                Shield -= hit.Damage;
+                if (Shield < 0)
+                {
+                    Health += Shield;
+                }
+                break;
+            default:
+                Shield -= hit.Damage;
+                if (Shield < 0)
+                {
+                    Health += Shield;
+                }
+                break;
         }
     }
     public void Kill()
@@ -89,6 +112,8 @@ public class EntityOXS : MonoBehaviour
                     h.others = others;
                 }
                 break;
+            case "Player":
+                return;
         }
         Destroy(gameObject);
     }
