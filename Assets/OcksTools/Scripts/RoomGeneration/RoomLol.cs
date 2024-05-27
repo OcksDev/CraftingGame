@@ -28,8 +28,7 @@ public class RoomLol : MonoBehaviour
         Instance = this;
     }
 
-
-
+    private int wseed = 0;
     public void ClearRooms()
     {
         RoomColliders = new int[200, 200];
@@ -46,6 +45,7 @@ public class RoomLol : MonoBehaviour
     public int cycles = 0;
     public void GenerateRandomLayout()
     {
+        wseed = Gamer.Seed;
         runs = 0;
         cycles = 0;
         ClearRooms();
@@ -99,7 +99,8 @@ public class RoomLol : MonoBehaviour
     public CoolRoom GenerateFromRooms(int lvl, int[,] roomcol, int dir, Vector2 pos)
     {
         CoolRoom ret = new CoolRoom();
-
+        var r = new System.Random(wseed);
+        wseed+=169;
         runs++;
         if (lvl < 1) 
         {
@@ -150,7 +151,7 @@ public class RoomLol : MonoBehaviour
         while (available_rooms.Count > 0)
         {
             cycles++;
-            int index = Random.Range(0, available_rooms.Count);
+            int index = r.Next(0, available_rooms.Count);
             Room rom = available_rooms[index];
             bool keepgoing = true;
             ret.room = rom;

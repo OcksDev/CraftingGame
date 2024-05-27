@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
     public bool isrealowner;
     public OcksNetworkVar network_helditem = new OcksNetworkVar();
     private bool HasLoadedWeapon = false;
-
     private void Awake()
     {
         Gamer.Instance.Players.Add(this);

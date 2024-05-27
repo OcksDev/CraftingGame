@@ -26,6 +26,7 @@ public class Gamer : MonoBehaviour
     public Selector cuumer;
     public GameObject PlayerPrefab;
     public List<GameObject> healers = new List<GameObject>();
+    public static int Seed = 0;
 
 
     public delegate void JustFuckingRunTheMethods();
@@ -196,6 +197,12 @@ public class Gamer : MonoBehaviour
     }
     public IEnumerator NextFloor()
     {
+        Seed = Random.Range(-999999999, 999999999);
+        if(IsMultiplayer && IsHost)
+        {
+
+        }
+
         Tags.refs["Lobby"].SetActive(false);
         ClearMap();
         RoomLol.Instance.GenerateRandomLayout();
@@ -209,7 +216,8 @@ public class Gamer : MonoBehaviour
                 enders.Add(e);
             }
         }
-        var rm = enders[Random.Range(0, enders.Count)];
+        var r = new System.Random(Seed-150);
+        var rm = enders[r.Next(0, enders.Count)];
         rm.isused = true;
         PlayerController.Instance.transform.position = rm.transform.position;
         var rmod = rm;
@@ -234,7 +242,7 @@ public class Gamer : MonoBehaviour
         rm = null;
         for (int i =0; i < pp.Count; i++)
         {
-            if (Random.Range(0, 3) == 1) { rm = enders[(int)pp[i][0]]; break; }
+            if (r.Next(0, 3) == 1) { rm = enders[(int)pp[i][0]]; break; }
         }
         if(rm==null) rm = enders[(int)pp[0][0]];
         rm.isused = true;
@@ -275,11 +283,12 @@ public class Gamer : MonoBehaviour
             {
                 var s = e.gm.transform;
                 var ss = Instantiate(Enemies[0], s.position, PlayerController.Instance.transform.rotation);
-                var r = ss.GetComponent<NavMeshEntity>();
-                r.originroom = e;
-                EnemiesExisting.Add(r);
+                var rs = ss.GetComponent<NavMeshEntity>();
+                rs.originroom = e;
+                EnemiesExisting.Add(rs);
             }
         }
+        completetetge = true;
     }
 
 
@@ -305,7 +314,9 @@ public class Gamer : MonoBehaviour
         switch (type)
         {
             case "NextFloor":
+                completetetge = false;
                 StartCoroutine(NextFloor());
+                yield return new WaitUntil(() => { return completetetge; });
                 break;
         }
         for (int i = 0; i < steps; i++)
@@ -333,7 +344,7 @@ public class Gamer : MonoBehaviour
     {
         return Chests[0];
     }
-
+    public bool completetetge = false;
     public void AttemptCraft()
     {
         var con = GISLol.Instance.All_Containers["Crafting"];
