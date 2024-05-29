@@ -8539,15 +8539,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].BowParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: be434e5615bde7f4890fb00f6768f281, type: 3}
+      objectReference: {fileID: 21300000, guid: b79bbd0fc1f9f2d40963e4a27032c0bd, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].BowParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 44e1b4dc79ebe394697b5306fe017ebb, type: 3}
+      objectReference: {fileID: 21300000, guid: d4f6677d9709c7141a79ef05d01315a1, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].BowParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: f36ec8c03ee890548ae5236d92702a3c, type: 3}
+      objectReference: {fileID: 21300000, guid: 9fe505ccf198411438e78452068959cf, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].BowParts.Array.data[0]
       value: 
@@ -8595,27 +8595,27 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].SpearParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 7c4383d5703a804449152075d5da86c7, type: 3}
+      objectReference: {fileID: 21300000, guid: 9c82eb049b862e74aa5da5bf7d412641, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].SpearParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: b6342383e4e435540ad480ddea0efe2c, type: 3}
+      objectReference: {fileID: 21300000, guid: 6a2adc5e951bbe34985f437097f05f48, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].SpearParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 28eb11fd39f26d848bebae62be5a40da, type: 3}
+      objectReference: {fileID: 21300000, guid: 385d87a00b2812c4883f53772d0b7e88, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].SwordParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: bb04fb030af92eb43b8f0101a104c2f7, type: 3}
+      objectReference: {fileID: 21300000, guid: 552aba960a96522428620d1e9f41e5c7, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].SwordParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: a18bf118929dc7947a6fc162b31d9193, type: 3}
+      objectReference: {fileID: 21300000, guid: 501931a9778fbb7418173a79dde63e6f, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].SwordParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: ffc1194de66387d4eac6b7e03e444930, type: 3}
+      objectReference: {fileID: 21300000, guid: 4c955ab66a92221428404a4bfdb3af09, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[0]
       value: 
