@@ -27,6 +27,7 @@ public class Gamer : MonoBehaviour
     public GameObject PlayerPrefab;
     public List<GameObject> healers = new List<GameObject>();
     public static int Seed = 0;
+    public static string GameState = "Main Menu";
 
 
     public delegate void JustFuckingRunTheMethods();
@@ -39,6 +40,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["Equips"].SetActive(checks[2]);
         Tags.refs["MainMenu"].SetActive(checks[3]);
         Tags.refs["PauseMenu"].SetActive(checks[4]);
+        Tags.refs["ItemMenu"].SetActive(checks[5]);
         RefreshUIPos?.Invoke();
     }
 
@@ -81,6 +83,7 @@ public class Gamer : MonoBehaviour
     public bool IsHost;
     public void LoadLobbyScene()
     {
+        GameState = "Lobby";
         Tags.refs["NextFloor"].transform.position = new Vector3(11.51f, 0, 0);
         Tags.refs["Lobby"].SetActive(true);
         Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
@@ -143,6 +146,7 @@ public class Gamer : MonoBehaviour
         checks[3] = true;
         CraftSex = 3;
         Players.Clear();
+        GameState = "Main Menu";
         if (PlayerController.Instance != null) Destroy(PlayerController.Instance.gameObject);
         UpdateMenus();
     }
@@ -198,10 +202,8 @@ public class Gamer : MonoBehaviour
     public IEnumerator NextFloor()
     {
         Seed = Random.Range(-999999999, 999999999);
-        if(IsMultiplayer && IsHost)
-        {
 
-        }
+        GameState = "Game";
 
         Tags.refs["Lobby"].SetActive(false);
         ClearMap();
@@ -291,7 +293,32 @@ public class Gamer : MonoBehaviour
         completetetge = true;
     }
 
-
+    private void FixedUpdate()
+    {
+        if (GameState == "Game")
+        {
+            if (checks[5])
+            {
+                if (!InputManager.IsKey(KeyCode.Tab))
+                {
+                    checks[5] = false;
+                    UpdateMenus();
+                }
+            }
+            else
+            {
+                if (InputManager.IsKey(KeyCode.Tab))
+                {
+                    checks[5] = true;
+                    UpdateMenus();
+                }
+            }
+        }
+        else
+        {
+            checks[5] = false;
+        }
+    }
 
 
     public bool IsFading = false;
@@ -338,6 +365,12 @@ public class Gamer : MonoBehaviour
     public bool RandomChance(float percent01)
     {
         return Random.Range(0, 1f) < percent01;
+    }
+
+    public int Rand(int min, int max, int seedoffset)
+    {
+        var r = new System.Random(Seed + seedoffset);
+        return r.Next(min, max);
     }
 
     public GameObject GetChest()
