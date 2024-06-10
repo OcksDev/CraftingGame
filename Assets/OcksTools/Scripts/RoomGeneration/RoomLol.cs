@@ -133,16 +133,16 @@ public class RoomLol : MonoBehaviour
                 }
                 break;
             case 0:
-                available_rooms = new List<Room>(lvl ==  1? EndDownRooms : DownRooms);
+                available_rooms = new List<Room>(lvl <=  1? EndDownRooms : DownRooms);
                 break;
             case 1:
-                available_rooms = new List<Room>(lvl == 1 ? EndUpRooms : UpRooms);
+                available_rooms = new List<Room>(lvl <= 1 ? EndUpRooms : UpRooms);
                 break;
             case 2:
-                available_rooms = new List<Room>(lvl == 1 ? EndRightRooms : RightRooms);
+                available_rooms = new List<Room>(lvl <= 1 ? EndRightRooms : RightRooms);
                 break;
             case 3:
-                available_rooms = new List<Room>(lvl == 1 ? EndLeftRooms : LeftRooms);
+                available_rooms = new List<Room>(lvl <= 1 ? EndLeftRooms : LeftRooms);
                 break;
         }
         bool found_place = false;
@@ -221,36 +221,52 @@ public class RoomLol : MonoBehaviour
                     }
                 }
                 bool good = true;
+
+                
+                List<int> doors = new List<int>();
+                if (dir != 1 && rom.HasTopDoor) doors.Add(0);
+                if (dir != 0 && rom.HasBottomDoor) doors.Add(1);
+                if (dir != 3 && rom.HasLeftDoor) doors.Add(2);
+                if (dir != 2 && rom.HasRightDoor) doors.Add(3);
+                if(doors.Count > 0) doors.RemoveAt(r.Next(0, doors.Count));
+                var x = lvl - 1;
                 if (good && dir != 1 && rom.HasTopDoor)
                 {
-                    var a = GenerateFromRooms(lvl - 1, roomcol, 0, pos2 + rom.TopDoor);
+                    if (doors.Contains(0)) x = 1;
+                    var a = GenerateFromRooms(x, roomcol, 0, pos2 + rom.TopDoor);
                     if (a.room != null && a.WasChill)
                     {
                         ret.comlpetedRooms.Add(a);
                     }
                     good = a.WasChill;
                 }
+                x = lvl - 1;
                 if (good && dir != 0 && rom.HasBottomDoor)
                 {
-                    var a = GenerateFromRooms(lvl - 1, roomcol, 1, pos2 + rom.BottomDoor);
+                    if (doors.Contains(1)) x = 1;
+                    var a = GenerateFromRooms(x, roomcol, 1, pos2 + rom.BottomDoor);
                     if (a.room != null && a.WasChill)
                     {
                         ret.comlpetedRooms.Add(a);
                     }
                     good = a.WasChill;
                 }
+                x = lvl - 1;
                 if (good && dir != 3 && rom.HasLeftDoor)
                 {
-                    var a = GenerateFromRooms(lvl - 1, roomcol, 2, pos2 + rom.LeftDoor);
+                    if (doors.Contains(2)) x = 1;
+                    var a = GenerateFromRooms(x, roomcol, 2, pos2 + rom.LeftDoor);
                     if (a.room != null && a.WasChill)
                     {
                         ret.comlpetedRooms.Add(a);
                     }
                     good = a.WasChill;
                 }
+                x = lvl - 1;
                 if (good && dir != 2 && rom.HasRightDoor)
                 {
-                    var a = GenerateFromRooms(lvl - 1, roomcol, 3, pos2 + rom.RightDoor);
+                    if (doors.Contains(3)) x = 1;
+                    var a = GenerateFromRooms(x, roomcol, 3, pos2 + rom.RightDoor);
                     if (a.room != null && a.WasChill)
                     {
                         ret.comlpetedRooms.Add(a);
@@ -297,20 +313,22 @@ public class RoomLol : MonoBehaviour
         }
         cr.comlpetedRooms.Clear();
     }
-    public void PlaceFromCoolRoom(CoolRoom cr, GameObject parent)
+    public void PlaceFromCoolRoom(CoolRoom cr, GameObject parent, int fard = 0)
     {
+        fard++;
         float z = 0;
         int sz = RoomColliders.GetLength(0) / 2;
         var sp = RoomPrefabs[cr.room.RoomIndexToPrefabIndex(cr.room.RoomID)];
-        var gm = Instantiate(sp, CenterSpawn + ((new Vector3(cr.pos.x, cr.pos.y, z) - new Vector3(sz, sz, 0)) * DistanceScaler) + (new Vector3((sp.transform.localScale.x/2) - 0.5f, (sp.transform.localScale.y / 2), 0)), parent.transform.rotation, parent.transform);
+        var gm = Instantiate(sp, CenterSpawn + ((new Vector3(cr.pos.x, cr.pos.y, z) - new Vector3(sz, sz, 0)) * DistanceScaler) + (new Vector3((sp.transform.localScale.x / 2) - 0.5f, (sp.transform.localScale.y / 2), 0)), parent.transform.rotation, parent.transform);
         var s = gm.GetComponent<I_Room>();
         s.gm = gm;
         s.room = cr.room;
+        s.level = fard;
         SpawnedRooms.Add(gm);
         SpawnedRoomsDos.Add(s);
         foreach (var c in cr.comlpetedRooms)
         {
-            PlaceFromCoolRoom(c, parent);
+            PlaceFromCoolRoom(c, parent, fard);
         }
     }
 }

@@ -9,6 +9,7 @@ public class HealthBarSex : MonoBehaviour
     public Transform mover;
     public Image Healthbar;
     public Image HealthbarTrailer;
+    public Image Healthbarsex;
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -16,6 +17,7 @@ public class HealthBarSex : MonoBehaviour
         {
             float x = (float)(PlayerController.Instance.entit.Health / PlayerController.Instance.entit.Max_Health);
             Healthbar.fillAmount = x;
+            Healthbarsex.fillAmount = (float)(PlayerController.Instance.entit.Shield / PlayerController.Instance.entit.Max_Shield);
             HealthbarTrailer.fillAmount = Mathf.Lerp(HealthbarTrailer.fillAmount, x - 0.01f, 0.06f);
             Vector3 p = orignalpos.position;
             if (x <= 0.20f)

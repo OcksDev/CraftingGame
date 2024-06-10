@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        
         spawnData = GetComponent<SpawnData>(); 
         if (Gamer.IsMultiplayer)
         {
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour
         rigid= GetComponent<Rigidbody2D>();
         entit = GetComponent<EntityOXS>();
         dicksplay = dicksplit.GetComponent<SpriteRenderer>();
+        entit.Shield = 0;
         SetData();
         //SetData();
     }
@@ -190,7 +192,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         entit.Max_Health = helth;
-        entit.Max_Shield = 0;
+        entit.Max_Shield = helth/2;
     }
     public void ParseMaterial(int mat)
     {
@@ -251,6 +253,7 @@ public class PlayerController : MonoBehaviour
             oldval = network_helditem.GetValue();
             SetData();
         }
+        if (entit.Shield > 0) entit.Shield -= 0.1;
         if (HitCollider != null) HitCollider.SetActive(false);
         if (isrealowner)
         {

@@ -28,7 +28,7 @@ public class Gamer : MonoBehaviour
     public List<GameObject> healers = new List<GameObject>();
     public static int Seed = 0;
     public static string GameState = "Main Menu";
-
+    public static System.Random GlobalRand = new System.Random();
 
     public delegate void JustFuckingRunTheMethods();
     public event JustFuckingRunTheMethods RefreshUIPos;
@@ -202,7 +202,7 @@ public class Gamer : MonoBehaviour
     public IEnumerator NextFloor()
     {
         Seed = Random.Range(-999999999, 999999999);
-
+        GlobalRand = new System.Random(Seed);
         GameState = "Game";
 
         Tags.refs["Lobby"].SetActive(false);
@@ -218,8 +218,18 @@ public class Gamer : MonoBehaviour
                 enders.Add(e);
             }
         }
-        var r = new System.Random(Seed-150);
-        var rm = enders[r.Next(0, enders.Count)];
+        var r = GlobalRand;
+        List<I_Room> endos = new List<I_Room>();
+        int level = -1;
+        foreach (var psex in enders)
+        {
+            if (psex.level > level) level = psex.level;
+        }
+        foreach (var psex in enders)
+        {
+            if (psex.level == level) endos.Add(psex);
+        }
+        var rm = endos[r.Next(0, endos.Count)];
         rm.isused = true;
         PlayerController.Instance.transform.position = rm.transform.position;
         var rmod = rm;
@@ -284,7 +294,7 @@ public class Gamer : MonoBehaviour
             for(int i =0; i < 5; i++)
             {
                 var s = e.gm.transform;
-                var ss = Instantiate(Enemies[0], s.position, PlayerController.Instance.transform.rotation);
+                var ss = Instantiate(GetEnemyForDiff(), s.position, PlayerController.Instance.transform.rotation);
                 var rs = ss.GetComponent<NavMeshEntity>();
                 rs.originroom = e;
                 EnemiesExisting.Add(rs);
@@ -292,7 +302,10 @@ public class Gamer : MonoBehaviour
         }
         completetetge = true;
     }
-
+    public GameObject GetEnemyForDiff()
+    {
+        return Enemies[GlobalRand.Next(0, Enemies.Count)];
+    }
     private void FixedUpdate()
     {
         if (GameState == "Game")

@@ -7,7 +7,7 @@ public class EntityOXS : MonoBehaviour
 {
     public string EnemyType = "Enemy";
     public double Health = 100;
-    public double Shield = 100f;
+    public double Shield = 0f;
     public double Max_Health = 100f;
     public double Max_Shield = 100f;
     public List<EffectProfile> Effects = new List<EffectProfile>();

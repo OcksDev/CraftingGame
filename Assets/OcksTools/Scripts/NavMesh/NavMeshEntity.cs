@@ -5,25 +5,28 @@ using UnityEngine.AI;
 
 public class NavMeshEntity : MonoBehaviour
 {
+    public string EnemyType = "Rat";
+    public string AttackType = "Melee";
+    public float movespeed = 5f;
+    public float SightRange = 15f;
+    public float AttackCooldown = 1.5f;
+    public float randommovetimer = 0f;
     private NavMeshAgent beans;
     public GameObject target;
     public I_Room originroom;
     public double Damage;
     public SpriteRenderer WantASpriteCranberry;
     public List<Sprite> SpriteVarients = new List<Sprite> ();
-    public float movespeed = 5f;
     private Rigidbody2D sex;
     public GameObject box;
     float timer = 0f;
-    float timer2 = 0f;
-    public float SightRange = 15f;
-    public float randommovetimer = 0f;
+    public float timer2 = 0f;
     public Vector3 spawn;
     public EnemyHitShit sex2;
     // Start is called before the first frame update
     void Start()
     {
-        sex2.Damage = Damage;
+        if(AttackType == "Melee")sex2.Damage = Damage;
         beans = GetComponent<NavMeshAgent>();
         sex = GetComponent<Rigidbody2D>();
         WantASpriteCranberry = GetComponent<SpriteRenderer>();
@@ -105,19 +108,38 @@ public class NavMeshEntity : MonoBehaviour
                 CheckCanSee(true, PlayerController.Instance.gameObject);
             }
 
-            if (target != null && dist <= 2.5f)
-            {
-                timer2 += Time.deltaTime;
-            }
 
-
-            box.SetActive(false);
-            if (timer2 > 1.5f)
+            switch (AttackType)
             {
-                timer2 = 0;
-                //Debug.Log("SHONK");
-                box.transform.rotation = Point2D(-180, 0);
-                box.SetActive(true);
+                case "Melee":
+                    if (target != null && dist <= 2.5f)
+                    {
+                        timer2 += Time.deltaTime;
+                    }
+                    box.SetActive(false);
+                    if (timer2 > AttackCooldown)
+                    {
+                        timer2 = 0;
+                        //Debug.Log("SHONK");
+                        box.transform.rotation = Point2D(-180, 0);
+                        box.SetActive(true);
+                    }
+                    break;
+                case "Ranged":
+                    if (target != null && canseemysexybooty)
+                    {
+                        timer2 += Time.deltaTime;
+                    }
+                    if (timer2 > AttackCooldown)
+                    {
+                        timer2 = 0;
+                        Debug.Log("AttaemptSpawn sex!");
+                        var wenis = Instantiate(box, transform.position, Quaternion.identity);
+                        var e = wenis.GetComponent<EnemyHitShit>();
+                        e.Damage = Damage;
+                        e.balling = transform;
+                    }
+                    break;
             }
             if (Mathf.Abs(beans.velocity.x) > 0.1f)
                 WantASpriteCranberry.flipX = beans.velocity.x > 0;
@@ -137,48 +159,63 @@ public class NavMeshEntity : MonoBehaviour
             }
         }
     }
-
+    public bool canseemysexybooty = false;
     public void RandomMove()
     {
         randommovetimer = Random.Range(1f, 7f);
         float wanderrange = 3f;
         beans.SetDestination(spawn + new Vector3(Random.Range(-wanderrange, wanderrange), Random.Range(-wanderrange, wanderrange),0));
     }
-
+    int fuckyouunity = 0;
     public void CheckCanSee(bool range, GameObject shart)
     {
-        if (target != null) return;
         var p = shart;
         var hit = Physics2D.RaycastAll(transform.position, p.transform.position - transform.position, range?SightRange:(SightRange*1.5f));
         // Does the ray intersect any objects excluding the player layer
         bool sex = false;
         float dist = 69;
+        GameObject sexp = null;
         foreach (var h in hit)
         {
             if (h.distance <= dist)
             {
+                if (h.collider.GetComponent<NavMeshEntity>() != null) continue;
                 if (h.transform == p.transform)
                 {
                     sex = true;
                     dist = h.distance;
+                    sexp = h.collider.gameObject;
                 }
                 if (h.transform.parent != null && !h.transform.GetComponent<BoxCollider2D>().isTrigger && h.transform.parent.GetComponent<I_Room>() != null)
                 {
                     sex = false;
                     dist = h.distance;
+                    sexp = h.collider.gameObject;
                 }
             }
         }
         //Debug.Log(hits);
         if (sex)
         {
-            if(p.GetComponent<PlayerController>() != null)
+            //Debug.Log("Assert my balls");
+            if (sexp.GetComponent<PlayerController>() != null)
             {
-                target = p.gameObject;
+                canseemysexybooty = true;
+                fuckyouunity = 4;
+                //Debug.Log("Sexyboooty");
+                if (target == null) target = p.gameObject;
             }
             else
             {
-                target = p.GetComponent<NavMeshEntity>().target;
+                if (target == null) target = p.GetComponent<NavMeshEntity>().target;
+            }
+        }
+        else
+        {
+            fuckyouunity--;
+            if(canseemysexybooty && fuckyouunity < 0)
+            {
+                canseemysexybooty = false;
             }
         }
         if (range)
