@@ -134,7 +134,8 @@ public class NavMeshEntity : MonoBehaviour
                     {
                         timer2 = 0;
                         Debug.Log("AttaemptSpawn sex!");
-                        var wenis = Instantiate(box, transform.position, Quaternion.identity);
+
+                        var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0));
                         var e = wenis.GetComponent<EnemyHitShit>();
                         e.Damage = Damage;
                         e.balling = transform;
@@ -263,4 +264,23 @@ public class NavMeshEntity : MonoBehaviour
     }
 
 
+    private Quaternion PointAtPoint(Vector3 start_location, Vector3 location)
+    {
+        Quaternion _lookRotation =
+            Quaternion.LookRotation((location - start_location).normalized, Vector3.forward);
+        return _lookRotation;
+    }
+    private Quaternion PointAtPoint2D(Vector3 location, float spread)
+    {
+        // a different version of PointAtPoint with some extra shtuff
+        //returns the rotation the gameobject requires to point at a specific location
+        var offset = UnityEngine.Random.Range(-spread, spread);
+
+        //Debug.Log(offset);
+        Vector3 difference = NoZ(location) - NoZ(transform.position);
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);
+        return sex;
+    }
 }

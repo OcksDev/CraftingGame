@@ -17,7 +17,7 @@ public class EnemyHitShit : MonoBehaviour
             if (balling == null) balling = transform.parent;
             var dam = new DamageProfile(type, Damage);
             dam.SpecificLocation = true;
-            if (balling == null) dam.AttackerPos = balling.position;
+            try { dam.AttackerPos = balling.position; } catch { };
             dam.Knockback = 1f;
             pp.entit.Hit(dam);
         }
