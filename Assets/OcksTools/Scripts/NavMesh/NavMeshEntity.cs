@@ -146,8 +146,25 @@ public class NavMeshEntity : MonoBehaviour
                 WantASpriteCranberry.flipX = beans.velocity.x > 0;
             if (target != null)
             {
-                beans.SetDestination(target.transform.position);
                 beans.speed = movespeed;
+                switch (AttackType)
+                {
+                    case "Ranged":
+                        if (canseemysexybooty)
+                        {
+                            var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized*-2.5f + transform.position;
+                            beans.SetDestination(e);
+                            Debug.Log($"{e.x}, {e.y}, {e.z}");
+                        }
+                        else
+                        {
+                            beans.SetDestination(target.transform.position);
+                        }
+                        break;
+                    default:
+                        beans.SetDestination(target.transform.position);
+                        break;
+                }
             }
             else if(existing)
             {
@@ -170,7 +187,7 @@ public class NavMeshEntity : MonoBehaviour
     int fuckyouunity = 0;
     public void CheckCanSee(bool range, GameObject shart)
     {
-        var p = shart;
+        var p = shart;                                                                                                                                              
         var hit = Physics2D.RaycastAll(transform.position, p.transform.position - transform.position, range?SightRange:(SightRange*1.5f));
         // Does the ray intersect any objects excluding the player layer
         bool sex = false;
@@ -208,7 +225,8 @@ public class NavMeshEntity : MonoBehaviour
             }
             else
             {
-                if (target == null) target = p.GetComponent<NavMeshEntity>().target;
+                var ss = p.GetComponent<NavMeshEntity>();
+                if (target == null && ss != null) target = ss.target;
             }
         }
         else
