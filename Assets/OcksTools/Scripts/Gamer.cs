@@ -29,6 +29,10 @@ public class Gamer : MonoBehaviour
     public static int Seed = 0;
     public static string GameState = "Main Menu";
     public static System.Random GlobalRand = new System.Random();
+    public Transform balls;
+    public List<INteractable> spawnedchests = new List<INteractable>();
+    public List<OcksItem> ItemShites = new List<OcksItem>();
+    public Dictionary<string, OcksItem> ItemShitDick = new Dictionary<string, OcksItem>();
 
     public delegate void JustFuckingRunTheMethods();
     public event JustFuckingRunTheMethods RefreshUIPos;
@@ -41,6 +45,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["MainMenu"].SetActive(checks[3]);
         Tags.refs["PauseMenu"].SetActive(checks[4]);
         Tags.refs["ItemMenu"].SetActive(checks[5]);
+        Tags.refs["DedMenu"].SetActive(checks[6]);
         RefreshUIPos?.Invoke();
     }
 
@@ -48,6 +53,10 @@ public class Gamer : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
+        foreach(var a in ItemShites)
+        {
+            ItemShitDick.Add(a.Name, a);
+        }
     }
     private void Start()
     {
@@ -79,6 +88,16 @@ public class Gamer : MonoBehaviour
             Destroy(room);
         }
         RoomLol.Instance.SpawnedRooms.Clear();
+        foreach (var sex in spawnedchests)
+        {
+            if (sex == null) continue;
+            Destroy(sex.gameObject);
+        }
+        spawnedchests.Clear();
+        foreach (var sex in balls.GetComponentsInChildren<EnemyHitShit>())
+        {
+            Destroy(sex.gameObject);
+        }
     }
     public bool IsHost;
     public void LoadLobbyScene()
@@ -275,6 +294,7 @@ public class Gamer : MonoBehaviour
             f.Materials.Add(new GISMaterial(0));
             f.Amount = 1;
             c.cuum = f;
+            spawnedchests.Add(c);
         }
 
 
@@ -421,3 +441,9 @@ public class Gamer : MonoBehaviour
 }
 
 
+[System.Serializable]
+public class OcksItem
+{
+    public string Name = "";
+    public Sprite Image;
+}

@@ -135,10 +135,11 @@ public class NavMeshEntity : MonoBehaviour
                         timer2 = 0;
                         Debug.Log("AttaemptSpawn sex!");
 
-                        var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0));
+                        var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
                         var e = wenis.GetComponent<EnemyHitShit>();
                         e.Damage = Damage;
                         e.balling = transform;
+
                     }
                     break;
             }
@@ -152,9 +153,8 @@ public class NavMeshEntity : MonoBehaviour
                     case "Ranged":
                         if (canseemysexybooty)
                         {
-                            var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized*-2.5f + transform.position;
+                            var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized*-13f + target.transform.position;
                             beans.SetDestination(e);
-                            Debug.Log($"{e.x}, {e.y}, {e.z}");
                         }
                         else
                         {

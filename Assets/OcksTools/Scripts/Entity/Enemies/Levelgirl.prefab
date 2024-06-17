@@ -123,9 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 15
+  Health: 20
   Shield: 0
-  Max_Health: 15
+  Max_Health: 20
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyType: Spitter
   AttackType: Ranged
-  movespeed: 5
+  movespeed: 4
   SightRange: 15
   AttackCooldown: 1.5
   randommovetimer: 0

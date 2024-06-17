@@ -113,6 +113,9 @@ public class EntityOXS : MonoBehaviour
                 }
                 break;
             case "Player":
+                Gamer.Instance.ClearMap();
+                Gamer.Instance.checks[6] = true;
+                Gamer.Instance.UpdateMenus();
                 return;
         }
         Destroy(gameObject);

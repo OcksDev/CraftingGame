@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public SpawnData spawnData;
     public bool isrealowner;
     public OcksNetworkVar network_helditem = new OcksNetworkVar();
+    public Dictionary<string, int> Items = new Dictionary<string, int>();
     private bool HasLoadedWeapon = false;
     private void Awake()
     {
@@ -85,6 +86,30 @@ public class PlayerController : MonoBehaviour
     public void Aids()
     {
         StartCoroutine(AidsFix());
+    }
+
+    public void AddItem(string item, int amount)
+    {
+        if (Items.ContainsKey(item))
+        {
+            Items[item] += amount;
+        }
+        else
+        {
+            Items.Add(item, amount);
+        }
+    }
+
+    public int GetItem(string item)
+    {
+        if (Items.ContainsKey(item))
+        {
+            return Items[item];
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public IEnumerator AidsFix()
