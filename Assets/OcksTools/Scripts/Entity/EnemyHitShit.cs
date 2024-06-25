@@ -35,7 +35,7 @@ public class EnemyHitShit : MonoBehaviour
             try { dam.AttackerPos = balling.position; } catch { };
             dam.Knockback = 1f;
             pp.entit.Hit(dam);
-            if(type=="splitter")Kill();
+            if(type=="spitter")Kill();
         } else if (type == "spitter" && collision.transform.parent != null && collision.transform.parent.GetComponent<I_Room>() != null && !collision.GetComponent<BoxCollider2D>().isTrigger)
         {
             Kill();

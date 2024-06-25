@@ -6,10 +6,10 @@ public class HitBalls : MonoBehaviour
 {
     public bool t = false;
     public PlayerController playerController;
+    public AttackProfile attackProfile;
     public string type = "HitBox";
     public bool OnlyHitOne = false;
     private bool hite = false;
-    public double Damage = 0;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("hit " + collision.gameObject.name);
@@ -22,7 +22,7 @@ public class HitBalls : MonoBehaviour
                 {
                     hite = true;
                 }
-                var dam = new DamageProfile(type, Damage);
+                var dam = new DamageProfile(type, attackProfile.CalcDamage());
                 dam.Knockback = 1f;
                 dam.attacker = playerController.gameObject;
                 if (type == "Arrow")

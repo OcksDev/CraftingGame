@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public float Spread = 15f;
     public float MaxBowMult = 2f;
     public float BowChargeSpeed = 1f;
+    public float CritChance = 0.01f;
     private Vector3 move = new Vector3(0, 0, 0);
     public Transform SwordFart;
     public Transform dicksplit;
@@ -160,7 +161,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetData()
     {
-        helth = entit.Max_Health;
+        helth = 100.0;
         if (GISLol.Instance.All_Containers.ContainsKey("Equips"))
         {
             if (isrealowner)
@@ -192,12 +193,13 @@ public class PlayerController : MonoBehaviour
                 network_helditem.SetValue("");
             }
         }
+        CritChance = 0.01f;
         working_move_speed = 2;
         Damage = 5;
         AttacksPerSecond = 3;
         Spread = 15f;
         MaxBowMult = 1.5f;
-        BowChargeSpeed = 1f;
+        BowChargeSpeed = 1.5f;
         if(mainweapon != null)
         {
             switch (mainweapon.ItemIndex)
@@ -206,9 +208,14 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond = 1.5f;
                     Damage = 10;
                     break;
+                case 6:
+                    AttacksPerSecond = 4f;
+                    Spread = 20f;
+                    break;
                 case 4:
                     AttacksPerSecond = 1.5f;
-                    Damage = 4;
+                    Spread = 5f;
+                    Damage = 10f;
                     break;
             }
             foreach(var m in mainweapon.Materials)
@@ -216,8 +223,15 @@ public class PlayerController : MonoBehaviour
                 ParseMaterial(m.index);
             }
         }
+        helth += GetItem("steak") * 10;
+        Damage += GetItem("what") * 10;
+        working_move_speed *= 1 + (GetItem("peed")*0.1f);
+        Damage *= 1 + (GetItem("damag")*0.1f);
+        AttacksPerSecond *= 1 + (GetItem("atkpeed")*0.1f);
+        CritChance += (GetItem("critglass")*0.1f);
         entit.Max_Health = helth;
         entit.Max_Shield = helth/2;
+        SetMoveSpeed();
     }
     public void ParseMaterial(int mat)
     {
@@ -406,6 +420,15 @@ public class PlayerController : MonoBehaviour
         Slasher s2;
         HitBalls s3;
         Projectile s4;
+
+        AttackProfile Shart = new AttackProfile();
+        Shart.Damage = Damage;
+        Shart.CritChance = CritChance;
+        var ff = Random.Range(0f, 1f);
+        int tt = Mathf.FloorToInt(CritChance);
+        Shart.PreCritted = tt + (ff<(CritChance%1)?2:1);
+        //Debug.Log($"D: {CritChance}, {GetItem("critglass")}, {Shart.PreCritted}, {Shart.CalcDamage()}");
+
         switch (mainweapon.ItemIndex)
         {
             case 3:
@@ -414,6 +437,7 @@ public class PlayerController : MonoBehaviour
                 s.GetComponent<Slasher>().wait = (0.1f * 3) / AttacksPerSecond;
                 reverse *= -1;
                 HitCollider = HitColliders[0];
+                Shart.PreCritted = -1;
                 break;
             case 5:
                 s = Instantiate(SlashEffect[1], transform.position + transform.up * 2.3f, transform.rotation);
@@ -422,12 +446,13 @@ public class PlayerController : MonoBehaviour
                 s2.wait = (0.05f * 1.5f) / AttacksPerSecond;
                 s2.speedmult = 8f;
                 HitCollider = HitColliders[1];
+                Shart.PreCritted = -1;
                 break;
             case 6:
                 s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
-                s3.Damage = d;
+                s3.attackProfile = Shart;
                 epe *= -0.5f;
                 HitCollider = null;
                 f = 1;
@@ -436,12 +461,12 @@ public class PlayerController : MonoBehaviour
             case 4:
 
 
-                for(int i = -1; i < 2; i++)
+                for(int i = 0; i < 1; i++)
                 {
                     s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, (Random.Range(Spread / 2, -Spread / 2)) + (15*i))));
                     s3 = s.GetComponent<HitBalls>();
                     s3.playerController = this;
-                    s3.Damage = d;
+                    s3.attackProfile = Shart;
                 }
                 epe *= -0.5f;
                 HitCollider = null;
@@ -460,7 +485,7 @@ public class PlayerController : MonoBehaviour
         if (HitCollider != null)
         {
             HitCollider.SetActive(true);
-            HitCollider.GetComponent<HitBalls>().Damage = d;
+            HitCollider.GetComponent<HitBalls>().attackProfile = Shart;
         }
 
         if (isrealowner && Gamer.IsMultiplayer)ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "PAtt", spawnData.Hidden_Data[0]);
@@ -489,4 +514,34 @@ public class PlayerController : MonoBehaviour
         enem.Hit(dam);
     }
 
+}
+
+
+
+
+public class AttackProfile
+{
+    public string NerdType = "Player";
+    public PlayerController controller = null;
+    public double Damage = 0;
+    public double CritChance = 0;
+    public int PreCritted = -1;
+    public double CalcDamage()
+    {
+        var x = Damage;
+        if(PreCritted > -1)
+        {
+            x *= PreCritted;
+        }
+        else
+        {
+            var ff = Random.Range(0f, 1f);
+            int tt = (int)System.Math.Floor(CritChance);
+            x *= tt + (ff < (CritChance % 1) ? 2 : 1);
+
+        }
+
+
+        return x;
+    }
 }

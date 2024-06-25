@@ -29,14 +29,6 @@ public class EntityOXS : MonoBehaviour
     }
     public void Hit(DamageProfile hit)
     {
-        if(hit.Damage > 0)
-        {
-            var x = (transform.localScale.x / 2)-0.25f;
-            var y = (transform.localScale.y / 2)-0.25f;
-            var e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], transform.position + new Vector3(Random.Range(-x,x), Random.Range(-y, y), 0), Quaternion.identity);
-            e.GetComponent<TextMeshProUGUI>().text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(hit.Damage)).ToString());
-            DamageTimer = 0.1f;
-        }
         if (rg != null && hit.SpecificLocation)
         {
             var e = ((Vector2)transform.position - (Vector2)hit.AttackerPos).normalized * hit.Knockback * 2.5f;
@@ -76,15 +68,30 @@ public class EntityOXS : MonoBehaviour
                 }
                 break;
         }
+        bool block = false;
         switch (EnemyType)
         {
             case "Player":
                 if (!s2.isrealowner) break;
-                Shield -= hit.Damage;
-                if (Shield < 0)
+                hit.Damage -= s2.GetItem("repulse");
+                if (hit.Damage < 1) hit.Damage = 1;
+                var y = s2.GetItem("blocker");
+                float x = ((float)y)/(19f+y);
+                //Debug.Log("shar: " + x);
+                if (Random.Range(0f, 1f) > x)
                 {
-                    Health += Shield;
+                    Shield -= hit.Damage;
+                    if (Shield < 0)
+                    {
+                        Health += Shield;
+                    }
                 }
+                else
+                {
+                    block = true;
+                    //blocked!
+                }
+
                 break;
             default:
                 Shield -= hit.Damage;
@@ -93,6 +100,15 @@ public class EntityOXS : MonoBehaviour
                     Health += Shield;
                 }
                 break;
+        }
+
+        if (hit.Damage > 0 && !block)
+        {
+            var x = (transform.localScale.x / 2) - 0.25f;
+            var y = (transform.localScale.y / 2) - 0.25f;
+            var e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], transform.position + new Vector3(Random.Range(-x, x), Random.Range(-y, y), 0), Quaternion.identity);
+            e.GetComponent<TextMeshProUGUI>().text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(hit.Damage)).ToString());
+            DamageTimer = 0.1f;
         }
     }
     public void Kill()

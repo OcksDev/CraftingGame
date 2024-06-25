@@ -33,6 +33,9 @@ public class Gamer : MonoBehaviour
     public List<INteractable> spawnedchests = new List<INteractable>();
     public List<OcksItem> ItemShites = new List<OcksItem>();
     public Dictionary<string, OcksItem> ItemShitDick = new Dictionary<string, OcksItem>();
+    public Transform ItemDisplayParent;
+    public GameObject ItemDisplay;
+    public List<ItemDikpoop> ItemDikPoops = new List<ItemDikpoop>();
 
     public delegate void JustFuckingRunTheMethods();
     public event JustFuckingRunTheMethods RefreshUIPos;
@@ -57,6 +60,7 @@ public class Gamer : MonoBehaviour
         {
             ItemShitDick.Add(a.Name, a);
         }
+        StartCoroutine(InitItemDisplayers());
     }
     private void Start()
     {
@@ -203,8 +207,31 @@ public class Gamer : MonoBehaviour
             checks[1] = false;
             UpdateMenus();
         }
+        if (InputManager.IsKeyDown(KeyCode.P))
+        {
+            PlayerController.Instance.AddItem("peed", 1);
+            PlayerController.Instance.SetData();
+        }
+        if (InputManager.IsKeyDown(KeyCode.L))
+        {
+            PlayerController.Instance.AddItem("critglass", 1);
+            PlayerController.Instance.SetData();
+        }
 
     }
+
+    public IEnumerator InitItemDisplayers()
+    {
+        foreach(var item in ItemShites)
+        {
+            var w= Instantiate(ItemDisplay, ItemDisplayParent).GetComponent<ItemDikpoop>();
+            ItemDikPoops.Add(w);
+            w.Name = item.Name;
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+
     public void StartLobby()
     {
         checks[3] = false;
@@ -445,5 +472,7 @@ public class Gamer : MonoBehaviour
 public class OcksItem
 {
     public string Name = "";
+    public string DisplayName = "";
     public Sprite Image;
+    public int rarity = 0;
 }
