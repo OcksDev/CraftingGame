@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 52305131}
   - component: {fileID: 52305133}
   - component: {fileID: 52305132}
+  - component: {fileID: 52305134}
   m_Layer: 26
   m_Name: Image
   m_TagString: Untagged
@@ -581,6 +582,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52305130}
   m_CullTransparentMesh: 1
+--- !u!114 &52305134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52305130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 10
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 46.889, y: 49.895}
+  m_Spacing: {x: 8, y: 8}
+  m_Constraint: 1
+  m_ConstraintCount: 10
 --- !u!1001 &57249030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5184,7 +5209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &887485161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9244,6 +9269,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1043070066}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ItemDisplay
+      value: 
+      objectReference: {fileID: 1346095704441047819, guid: 7169d892df7168a428b969afbc184439, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: HealerGFooFO
       value: 
       objectReference: {fileID: 5324064331484682294, guid: 86f7840ccc939c8499db9e79204955d7, type: 3}
@@ -9259,6 +9288,10 @@ PrefabInstance:
       propertyPath: Chests.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ItemDisplayParent
+      value: 
+      objectReference: {fileID: 52305131}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Enemies.Array.size
       value: 2
@@ -9295,6 +9328,22 @@ PrefabInstance:
       propertyPath: ballers.Array.data[0]
       value: 
       objectReference: {fileID: 143059786}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ItemDikPoops.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ItemShites.Array.data[0].Name
+      value: peed
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ItemShites.Array.data[0].Image
+      value: 
+      objectReference: {fileID: 21300000, guid: 632dbb917d9a5ec4ba6f39842e756943, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ItemShites.Array.data[0].DisplayName
+      value: Speed Boots
+      objectReference: {fileID: 0}
     - target: {fileID: 1919247279447903412, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: SpawnRefs.Array.data[0]
       value: 

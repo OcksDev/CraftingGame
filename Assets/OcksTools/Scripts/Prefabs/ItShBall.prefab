@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   Shirt: {fileID: 5022494763665512549}
-  TShirt: {fileID: 0}
+  TShirt: {fileID: 31035216205153720}
 --- !u!1 &4106587621525211393
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,6 +49,8 @@ public class Gamer : MonoBehaviour
         Tags.refs["PauseMenu"].SetActive(checks[4]);
         Tags.refs["ItemMenu"].SetActive(checks[5]);
         Tags.refs["DedMenu"].SetActive(checks[6]);
+
+
         RefreshUIPos?.Invoke();
     }
 
@@ -355,22 +357,22 @@ public class Gamer : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (GameState == "Game")
+        if (GameState == "Game" || GameState == "Lobby")
         {
             if (checks[5])
             {
                 if (!InputManager.IsKey(KeyCode.Tab))
                 {
+                    ToggleTabMenu();
                     checks[5] = false;
-                    UpdateMenus();
                 }
             }
             else
             {
                 if (InputManager.IsKey(KeyCode.Tab))
                 {
+                    ToggleTabMenu();
                     checks[5] = true;
-                    UpdateMenus();
                 }
             }
         }
@@ -378,6 +380,19 @@ public class Gamer : MonoBehaviour
         {
             checks[5] = false;
         }
+    }
+
+    public void ToggleTabMenu()
+    {
+        checks[5] = !checks[5];
+        if (checks[5])
+        {
+            foreach(var a in ItemDikPoops)
+            {
+                a.UpdateDisplay();
+            }
+        }
+        UpdateMenus();
     }
 
 
