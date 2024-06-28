@@ -49,6 +49,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["PauseMenu"].SetActive(checks[4]);
         Tags.refs["ItemMenu"].SetActive(checks[5]);
         Tags.refs["DedMenu"].SetActive(checks[6]);
+        Tags.refs["TempMatMenu"].SetActive(checks[7]);
 
 
         RefreshUIPos?.Invoke();
@@ -121,16 +122,18 @@ public class Gamer : MonoBehaviour
 
     }
 
-    public IEnumerator instancecoolmenus()
+    public IEnumerator instancecoolmenus() // this is the most retarded fix for a thing I have made in a while
     {
         checks[0] = true;
         checks[1] = true;
         checks[2] = true;
+        checks[7] = true;
         UpdateMenus();
         yield return new WaitForSeconds(0.2f);
         checks[0] = false;
         checks[1] = false;
         checks[2] = false;
+        checks[7] = false;
         UpdateMenus();
     }
 
