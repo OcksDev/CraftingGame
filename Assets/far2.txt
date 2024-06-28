@@ -1,0 +1,16 @@
+Goals:
+O Reduce bow/crossbow spread (also bow arc?)
+O Rebalance bow/crossbow to fit new sex scheme
+X Start work on creating the effects of some of the items
+- Create some kind of item display in the tab menu
+- wank
+- Make some new room types?
+- thikn about ow items will be obtained in runs as opposed to materials.
+ - current thoughts are that items are found from chests (instead of materials as they currntly are) and materials are obtained some other way. Not sure if I want items to have a cost to them or not, def gonna have a "lunar" tier like ror2 but like idk about normal items. 
+- Think about bow remake cuz currently its just a crossbow but wacky.
+  - The charge idea was neat but it made the game slower, so thats a no go.
+  - Perhaps crossbow is the less accurate but faster shooting whereas bow is pinpoint yet slower firing. Damage can also apply
+- think about how ima do walls. Will it be a similar method to current sex scheme or will I tear out the walls and replace them with sprited varients. I want them to look nice while being flexible. Tile grids seem nice for this but could prove to be a problem, review later
+
+
+cant draw any sprites, no Krita

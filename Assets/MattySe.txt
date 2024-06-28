@@ -1,0 +1,23 @@
+Matlist:
+X Rock: Slight increase to attack speed across
+X Gold: Slight increase to damage
+- Slime: Slower attack speed, increased damage
+- Baller: +10% chance for any attack to deal damage a second time after 0.5s (cannot proc self) (yes this can go to 100% with certain buffs)
+- Spitter: Shoot +1 spitter ball on attack that deals 5 damage
+- Rat: +15% movement speed, -10 max health (max health min at 1), +10% total damage
+- Morkite: +10% movement speed
+- Bronze: +15% health
+- Jade: +25% shield gain
+- Aquart: +10% all healing
+- Dasine: -15% dash cooldown (yes this can go to 100% with certain buffs)
+- Amethyst: +25% attack speed, -10% move speed
+- Diamond: +35% damage, -20% (hyperbolic) attack speed
+- Red Stone: slight attack speed increase, +1 healing on hit, -5 max heath
+- Quartz: +10% chance to proc lightning on hit
+- Emerald: +3 damage
+- Iron: 
+- Ruby: +50% shield gain, -10% move speed
+- Volcanic Rock: +10% chance on kill to create an explosion
+- Hellish Ingot: +20% damage, -20% movement speed;
+- Angelic Ingot: +10% movespeed, +10% damage, +10% attack speed, -10 health
+- Dildo: +1% chance to instantly kill any non-boss enemy on hit 

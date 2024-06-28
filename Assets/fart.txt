@@ -1,0 +1,53 @@
+Variable Ideas;
+- Projectile Pierce
+- Dash Distance
+- Dash Cooldown
+
+
+Item ideas:
+
+-Basic- (white)
+X Speed Boots: +10% movespeed
+X Shungite: +10% attack speed
+X Touger Times: +5% chance to block damage (stacks like 1/20, 2/21, 3/22, 4/23, etc, approaching but never reaching 100%)  (x/(a+x))
+X Red Glasses: +10% crit chance (can go past 100, each roll adds 100% damage meaning at 200% crit chance you do x3 damage, then x4, x5, etc)
+- Bloody Knife: +10% chance on hit to bleed enemy (stacks over 100% add multiple stacks of bleed at once), bleed deals stack amount * 5 damage per second, lasts 5 seconds by default, idk how cooldown should be affetced
+X Repulsion Armor Plate: -1 damage taken from all sources, can not reduce below 1.
+X Power Elixir: +10% damage dealth
+- Scope: deal +10% damage to enemies further than 10m
+X Bison Steak: +10 Max health
+X What (0.1% of spawning, not pixelated like other items, only can spawn after a set point in the game): +10 damage
+
+
+-Rare- (green)
+- Infected: Hitting an enemy applies poison which deals % health damage, stacking increases effect duration as base duration is only 3 seconds.
+- Critical _: (looks like a red thing) increases attack speed by 20% (+20% per stack) for the next attack after a crit.
+- Fireball: +10% chance to shoot a small fireball dealing 50% damage. (stacks above 100% spawn multiple fireballs)
+- Retaliation: +50% of damage taken is also dealt to the attacker.
+- Leeching Seed: Heal +1 health for every hit
+- Volitale Grapes: Enemies explode on death in a 3m (+2m per stack) radius circle which deals 50% damage.
+- Better Shielding: Reduce shield decay rate by 20% (+20% per stack, approaching 0%) (0.8^x)
+- Shielded Blade: While in shield, increase damage by 30% (+20% per stack)
+- Phantom Bleed: gain a 20% chance whenever applying bleed to also apply it to another enemy within 5m (+3m per stack)
+- Purer Soul: collected souls heal for +1 health
+- Weakpoint: gain +20% crit chance against enemies afflicted by bleed
+- Homewrecker: 
+- Beefy Shields: Max shield is increased by 10%
+- Berzerk: While under 50% of max health gain +20% attack speed and +10% movement speed
+- Glass Shield: When at full health, health can not be reduced below 10 (+10 per stack) (min damage taken is 1)
+- Deeper: Each floor cleared increases damage by +1
+- Mimic: Randomly transforms into one of your other items that can stack. (if no valid items are present then keep item in inventory and check for possible dupe on each item pickup until it can actually shit itself)
+
+-Legendary- (red)
+- Criminal Dagger: A dagger floats around you attacking nearby enemies for 100% (+100% per stack) damage
+- Soul Ripper: Enemies gain a 50% (+50% per stack) chance of creating an additional soul on death
+- Foreign Fruit: All sources of healing grant +1 extra healing
+- Dio's Worst Friend: Gain an additional life, consumed on death
+
+- Plague: Enemies within 5m (+3m per stack) are affliced with poison
+- (unnamed): deal +10% damage to an enemy per stack of any debuff they have.
+- Lust: Gain a buff on kill which provides healing over time (1% of max hp per second * stack count), lasts for 2s (+2s per stack), stacking refreshes cooldown
+- Greed: Each material on your weapon counts +1 times
+- Gluttony: Deal +5% damage per item picked up this run
+- Sin:
+- Wrath (unstackable): Movement speed multiplier now applies to damage dealt
