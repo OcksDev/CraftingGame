@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class NavMeshEntity : MonoBehaviour
     public float timer2 = 0f;
     public Vector3 spawn;
     public EnemyHitShit sex2;
+    public event Gamer.JustFuckingRunTheMethods CLearShit;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,8 +39,25 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.flipX = Random.Range(0, 2) == 1;
         WantASpriteCranberry.sprite = SpriteVarients[Random.Range(0, SpriteVarients.Count)];
         randommovetimer = 0;
+        switch (EnemyType)
+        {
+            case "Charger":
+                CLearShit += box.GetComponent<EnemyHitShit>().OnSpawn;
+                break;
+        }
     }
-
+    private void Update()
+    {
+        switch (EnemyType)
+        {
+            case "Charger":
+                if(ddist < SightRange)
+                {
+                    transform.position += chargedir * alt_speed * Time.deltaTime;
+                }
+                break;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (timer <= 0.1f)
@@ -73,10 +92,11 @@ public class NavMeshEntity : MonoBehaviour
         if(!sex) ReRollPos();
     }
     public bool existing = false;
+    public float ddist;
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(timer > 0.1f && !existing)
+        if (timer > 0.1f && !existing)
         {
             existing = true;
             WantASpriteCranberry.enabled = true;
@@ -99,7 +119,7 @@ public class NavMeshEntity : MonoBehaviour
                 dist = x;
             }
         }
-
+        ddist= dist;
         if(nearestnerd != null && dist <= 30)
         {
 
@@ -107,7 +127,18 @@ public class NavMeshEntity : MonoBehaviour
             {
                 CheckCanSee(true, PlayerController.Instance.gameObject);
             }
-
+            switch (EnemyType)
+            {
+                case "Charger":
+                    if (!charging2)
+                    {
+                        chargedir *= 0.9f;
+                    }
+                    else
+                    { 
+                    }
+                    break;
+            }
 
             switch (AttackType)
             {
@@ -122,35 +153,50 @@ public class NavMeshEntity : MonoBehaviour
                         timer2 = 0;
                         //Debug.Log("SHONK");
                         box.transform.rotation = Point2D(-180, 0);
+                        CLearShit?.Invoke();
                         box.SetActive(true);
                     }
                     break;
                 case "Ranged":
-                    if (target != null && canseemysexybooty)
+                    if (target != null && canseemysexybooty && !charging)
                     {
                         timer2 += Time.deltaTime;
                     }
                     if (timer2 > AttackCooldown)
                     {
                         timer2 = 0;
-                        Debug.Log("AttaemptSpawn sex!");
+                        switch (EnemyType)
+                        {
+                            case "Charger":
+                                StartCoroutine(ChargeSex());
+                                break;
+                            default:
 
-                        var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
-                        var e = wenis.GetComponent<EnemyHitShit>();
-                        e.Damage = Damage;
-                        e.balling = transform;
+                                var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
+                                var e = wenis.GetComponent<EnemyHitShit>();
+                                e.Damage = Damage;
+                                e.balling = transform;
+                                break;
+                        }
 
                     }
                     break;
             }
-            if (Mathf.Abs(beans.velocity.x) > 0.1f)
-                WantASpriteCranberry.flipX = beans.velocity.x > 0;
+            if (charging)
+            {
+                WantASpriteCranberry.flipX = chargedir.x > 0;
+            }
+            else
+            {
+                if (Mathf.Abs(beans.velocity.x) > 0.1f)
+                    WantASpriteCranberry.flipX = beans.velocity.x > 0;
+            }
             if (target != null)
             {
                 beans.speed = movespeed;
-                switch (AttackType)
+                switch (EnemyType)
                 {
-                    case "Ranged":
+                    case "Spitter":
                         if (canseemysexybooty)
                         {
                             var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized*-13f + target.transform.position;
@@ -177,6 +223,29 @@ public class NavMeshEntity : MonoBehaviour
             }
         }
     }
+    public bool charging = false;
+    public bool charging2 = false;
+    public float alt_speed = 10f;
+    private Vector3 chargedir = Vector3.zero;
+    public IEnumerator ChargeSex()
+    {
+        float premove = movespeed;
+        movespeed = 0.5f;
+        charging = true;
+        yield return new WaitForSeconds(0.2f);
+        chargedir = (NoZ(target.transform.position) - NoZ(transform.position)).normalized;
+        movespeed = 0;
+        charging2 = true;
+        CLearShit?.Invoke();
+        box.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        charging = false;
+        charging2 = false;
+        movespeed = premove;
+        timer2 = Random.Range(-0.25f, 0.25f);
+        box.SetActive(false);
+    }
+
     public bool canseemysexybooty = false;
     public void RandomMove()
     {
@@ -263,6 +332,12 @@ public class NavMeshEntity : MonoBehaviour
         }
     }
 
+    private Quaternion RotateTowards(GameObject target, float max_angle_change)
+    {
+        Vector3 a = target.transform.position;
+        var b = Quaternion.LookRotation((a - transform.position).normalized);
+        return Quaternion.RotateTowards(transform.rotation, b, max_angle_change);
+    }
     private Quaternion Point2D(float offset2, float spread)
     {
         //returns the rotation required to make the current gameobject point at the mouse, untested in 3D.

@@ -7,7 +7,7 @@ public class EnemyHitShit : MonoBehaviour
     public string type = "rat";
     public double Damage = 10;
     float time = 10f;
-
+    List<PlayerController> hits = new List<PlayerController>(); 
     private void Update()
     {
         if (isdea)
@@ -23,11 +23,16 @@ public class EnemyHitShit : MonoBehaviour
 
     public Transform balling = null;
 
+    public void OnSpawn()
+    {
+        hits.Clear();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isdea) return;
         var pp = collision.GetComponent<PlayerController>();
-        if (pp != null)
+        if (pp != null && !hits.Contains(pp))
         {
             if (balling == null) balling = transform.parent;
             var dam = new DamageProfile(type, Damage);
@@ -35,6 +40,7 @@ public class EnemyHitShit : MonoBehaviour
             try { dam.AttackerPos = balling.position; } catch { };
             dam.Knockback = 1f;
             pp.entit.Hit(dam);
+            hits.Add(pp);
             if(type=="spitter")Kill();
         } else if (type == "spitter" && collision.transform.parent != null && collision.transform.parent.GetComponent<I_Room>() != null && !collision.GetComponent<BoxCollider2D>().isTrigger)
         {
