@@ -273,7 +273,7 @@ public class NavMeshEntity : MonoBehaviour
                     dist = h.distance;
                     sexp = h.collider.gameObject;
                 }
-                if (h.transform.parent != null && !h.transform.GetComponent<BoxCollider2D>().isTrigger && h.transform.parent.GetComponent<I_Room>() != null)
+                if (h.transform.parent != null && h.transform.parent.GetComponent<I_Room>() != null && !h.transform.GetComponent<BoxCollider2D>().isTrigger)
                 {
                     sex = false;
                     dist = h.distance;

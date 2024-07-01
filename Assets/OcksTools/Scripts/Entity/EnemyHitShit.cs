@@ -42,9 +42,17 @@ public class EnemyHitShit : MonoBehaviour
             pp.entit.Hit(dam);
             hits.Add(pp);
             if(type=="spitter")Kill();
-        } else if (type == "spitter" && collision.transform.parent != null && collision.transform.parent.GetComponent<I_Room>() != null && !collision.GetComponent<BoxCollider2D>().isTrigger)
+        }
+        else if (type == "spitter" && collision.transform.parent != null)
         {
-            Kill();
+            if (collision.transform.parent.GetComponent<I_Room>() != null && !collision.GetComponent<BoxCollider2D>().isTrigger)
+            {
+                Kill();
+            }
+            else if(collision.transform.parent.GetComponent<I_RoomWall>() != null)
+            {
+                Kill();
+            }
         }
     }
     bool isdea = false;

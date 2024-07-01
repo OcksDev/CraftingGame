@@ -346,7 +346,7 @@ public class Gamer : MonoBehaviour
             for(int i =0; i < 5; i++)
             {
                 var s = e.gm.transform;
-                var ss = Instantiate(GetEnemyForDiff(), s.position, PlayerController.Instance.transform.rotation);
+                var ss = Instantiate(GetEnemyForDiff(), s.position, PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
                 var rs = ss.GetComponent<NavMeshEntity>();
                 rs.originroom = e;
                 EnemiesExisting.Add(rs);

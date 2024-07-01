@@ -729,6 +729,7 @@ MonoBehaviour:
   gm: {fileID: 0}
   dist: 9.438574e+10
   isused: 0
+  level: 0
 --- !u!1 &8794138887962629209
 GameObject:
   m_ObjectHideFlags: 0
