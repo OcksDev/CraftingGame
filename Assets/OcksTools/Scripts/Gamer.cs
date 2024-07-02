@@ -171,6 +171,7 @@ public class Gamer : MonoBehaviour
             checks[i] = false;
         }
         ClearMap();
+        Tags.refs["BlackBG"].SetActive(false);
         checks[3] = true;
         CraftSex = 3;
         Players.Clear();
@@ -257,6 +258,7 @@ public class Gamer : MonoBehaviour
         GameState = "Game";
 
         Tags.refs["Lobby"].SetActive(false);
+        Tags.refs["BlackBG"].SetActive(true);
         ClearMap();
         RoomLol.Instance.GenerateRandomLayout();
         
@@ -357,6 +359,7 @@ public class Gamer : MonoBehaviour
     public GameObject GetEnemyForDiff()
     {
         return Enemies[GlobalRand.Next(0, Enemies.Count)];
+        //return Enemies[0];
     }
     private void FixedUpdate()
     {

@@ -44,6 +44,9 @@ public class NavMeshEntity : MonoBehaviour
             case "Charger":
                 CLearShit += box.GetComponent<EnemyHitShit>().OnSpawn;
                 break;
+            case "Rat":
+                CLearShit += box.GetComponentInChildren<EnemyHitShit>().OnSpawn;
+                break;
         }
     }
     private void Update()
@@ -232,7 +235,7 @@ public class NavMeshEntity : MonoBehaviour
         float premove = movespeed;
         movespeed = 0.5f;
         charging = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         chargedir = (NoZ(target.transform.position) - NoZ(transform.position)).normalized;
         movespeed = 0;
         charging2 = true;
@@ -273,11 +276,14 @@ public class NavMeshEntity : MonoBehaviour
                     dist = h.distance;
                     sexp = h.collider.gameObject;
                 }
-                if (h.transform.parent != null && h.transform.parent.GetComponent<I_Room>() != null && !h.transform.GetComponent<BoxCollider2D>().isTrigger)
+                if (h.transform.parent != null)
                 {
-                    sex = false;
-                    dist = h.distance;
-                    sexp = h.collider.gameObject;
+                    if((h.transform.parent.GetComponent<I_Room>() != null && !h.transform.GetComponent<BoxCollider2D>().isTrigger) || h.transform.parent.GetComponent<I_RoomWall>() != null)
+                    {
+                        sex = false;
+                        dist = h.distance;
+                        sexp = h.collider.gameObject;
+                    }
                 }
             }
         }
