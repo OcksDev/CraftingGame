@@ -36,18 +36,30 @@ public class HitBalls : MonoBehaviour
             {
                 //Debug.Log("AM DIE! " + collision.gameObject.name);
                 hite = true;
-                StartCoroutine(WaitForDIe());
+                StartCoroutine(WaitForDIe(true));
             }
         }
     }
 
-    public IEnumerator WaitForDIe()
+    public IEnumerator WaitForDIe(bool fart = false)
     {
-        var f = GetComponent<SpriteRenderer>();
-            if (f != null) f.enabled = false;
         var e = GetComponent<Projectile>();
-        if (e != null) e.speed = 0f;
-        yield return new WaitForSeconds(3f);
+        if (fart && e != null) e.speed = 0;
+        var f = GetComponent<SpriteRenderer>();
+        for (int i = 0; i < 50; i++)
+        {
+            if (f != null)
+            {
+                var c = f.color;
+                c.a -= 0.02f;
+                f.color = c;
+            }
+            if (e != null) e.speed *= 0.93f;
+            yield return new WaitForFixedUpdate();
+        }
+        if (e != null) e.speed = 0;
+        yield return new WaitForSeconds(0.5f);
+        if (f != null) f.enabled = false;
         Destroy(gameObject);
     }
 }

@@ -197,6 +197,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6193982676122008170}
   - {fileID: 1066387814657488983}
   m_Father: {fileID: 3786093809242686098}
   m_RootOrder: 5
@@ -387,6 +388,7 @@ MonoBehaviour:
   Spread: 15
   MaxBowMult: 2
   BowChargeSpeed: 1
+  CritChance: 0.01
   SwordFart: {fileID: 4699981174079926565}
   dicksplit: {fileID: 3033001111833298205}
   MyAssHurts: {fileID: 1066387814657488983}
@@ -397,7 +399,7 @@ MonoBehaviour:
   - {fileID: 2465215774330135491, guid: ecb9d26123be0a645b3e02702b689387, type: 3}
   - {fileID: 4431982715731471214, guid: fa8f91ac75f24d94f86ec370ca99d8f5, type: 3}
   - {fileID: 2278403275201244645, guid: a7f86f0f880979f49af6ff7225fe8d57, type: 3}
-  - {fileID: 3112285486678960361}
+  - {fileID: 4220264068934514932}
   HitCollider: {fileID: 8591088333642842602}
   HitColliders:
   - {fileID: 8591088333642842602}
@@ -411,6 +413,7 @@ MonoBehaviour:
     Data: 
     ID: 
     ObjectID: 
+  hasaids: 0
 --- !u!114 &6584350868192443160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,6 +561,37 @@ Transform:
   - {fileID: 6194560343390447911}
   - {fileID: 4742373065510669267}
   m_Father: {fileID: 4699981174079926565}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4220264068934514932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6193982676122008170}
+  m_Layer: 7
+  m_Name: arrowSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6193982676122008170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4220264068934514932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.311, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4699981174079926565}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4381958141999931584
@@ -666,7 +700,6 @@ MonoBehaviour:
   playerController: {fileID: 3786093809242686097}
   type: HitBox
   OnlyHitOne: 0
-  Damage: 0
 --- !u!1 &7836254537959484780
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +922,6 @@ MonoBehaviour:
   playerController: {fileID: 3786093809242686097}
   type: HitBox
   OnlyHitOne: 0
-  Damage: 0
 --- !u!1 &9067443756659564030
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,9 +16,11 @@ public class Projectile : MonoBehaviour
     void FixedUpdate()
     {
         transform.position += transform.up * speed;
-        if((life += Time.deltaTime) > 5f)
+        if((life += Time.deltaTime) > 0.2f)
         {
-            Destroy(gameObject);
+            var a = GetComponent<HitBalls>();
+            a.StartCoroutine(a.WaitForDIe());
+            //speed = 0f;
         }
     }
 }

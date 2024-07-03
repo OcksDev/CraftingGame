@@ -105,7 +105,6 @@ MonoBehaviour:
   playerController: {fileID: 0}
   type: Arrow
   OnlyHitOne: 0
-  Damage: 0
 --- !u!61 &8697135337092443322
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -192,7 +191,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4272049880165161337}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.334, z: 0}
+  m_LocalPosition: {x: 0, y: 0.286, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

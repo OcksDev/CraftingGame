@@ -523,9 +523,23 @@ public class AttackProfile
 {
     public string NerdType = "Player";
     public PlayerController controller = null;
+    public NavMeshEntity entity = null;
+    public DamageProfile damprof;
     public double Damage = 0;
     public double CritChance = 0;
     public int PreCritted = -1;
+
+    public AttackProfile()
+    {
+    }
+    public AttackProfile(DamageProfile sex)
+    {
+        damprof = sex;
+        Damage = sex.Damage;
+    }
+
+
+
     public double CalcDamage()
     {
         var x = Damage;

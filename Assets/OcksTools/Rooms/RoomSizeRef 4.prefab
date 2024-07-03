@@ -221,6 +221,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4907181321737109001}
     m_Modifications:
+    - target: {fileID: 1853089561715945218, guid: 91e72f0011e5dda498107070c0c8fdd6, type: 3}
+      propertyPath: m_UsedByComposite
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1992696826420647025, guid: 91e72f0011e5dda498107070c0c8fdd6, type: 3}
       propertyPath: m_Name
       value: Grid
@@ -5238,8 +5242,12 @@ PrefabInstance:
       value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 7400683474330949592, guid: 91e72f0011e5dda498107070c0c8fdd6, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400683474330949592, guid: 91e72f0011e5dda498107070c0c8fdd6, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7400683474330949592, guid: 91e72f0011e5dda498107070c0c8fdd6, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.size
@@ -6007,7 +6015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7400683474330949592, guid: 91e72f0011e5dda498107070c0c8fdd6, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7400683474330949592, guid: 91e72f0011e5dda498107070c0c8fdd6, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.size
