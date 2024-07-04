@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2284451541892325392}
   m_Layer: 0
   m_Name: Levelgirl
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,8 +196,13 @@ MonoBehaviour:
   SpriteVarients:
   - {fileID: 21300000, guid: d4563c59e9177e142abe7626f0a30b0a, type: 3}
   box: {fileID: 1894346058258269852, guid: 9498607ce0dfa6344bbd253f28008e8b, type: 3}
+  EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
   sex2: {fileID: 0}
   existing: 0
+  ddist: 0
+  charging: 0
+  charging2: 0
+  alt_speed: 10
   canseemysexybooty: 0

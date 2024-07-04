@@ -10,14 +10,17 @@ public class HitBalls : MonoBehaviour
     public string type = "HitBox";
     public bool OnlyHitOne = false;
     private bool hite = false;
+    public List<GameObject> hitlist = new List<GameObject>();
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("hit " + collision.gameObject.name);
-        if (!hite)
+        if (!hite && !NO)
         {
-            var e = collision.GetComponent<EntityOXS>();
-            if (e != null && e.EnemyType == "Enemy" && !hite)
+            var shunk = Gamer.Instance.GetObjectType(collision.gameObject);
+
+            if ((shunk.type == "Enemy" || shunk.type == "Hitable") && !hite && !hitlist.Contains(collision.gameObject))
             {
+                var e = shunk.entityoxs;
                 if (OnlyHitOne)
                 {
                     hite = true;
@@ -31,16 +34,18 @@ public class HitBalls : MonoBehaviour
                     dam.AttackerPos = transform.position;
                 }
                 playerController.HitEnemy(e, dam);
+                hitlist.Add(collision.gameObject);
             }
-            if ((collision.tag == "Sexy" && type == "Arrow") || (OnlyHitOne && hite))
+            else if ((shunk.type == "Wall" && type == "Arrow") || (OnlyHitOne && hite))
             {
                 //Debug.Log("AM DIE! " + collision.gameObject.name);
                 hite = true;
                 StartCoroutine(WaitForDIe(true));
             }
+            shunk.FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork();
         }
     }
-
+    bool NO = false;
     public IEnumerator WaitForDIe(bool fart = false)
     {
         var e = GetComponent<Projectile>();
@@ -54,6 +59,7 @@ public class HitBalls : MonoBehaviour
                 c.a -= 0.02f;
                 f.color = c;
             }
+            if (i > 40) NO = true;
             if (e != null) e.speed *= 0.93f;
             yield return new WaitForFixedUpdate();
         }

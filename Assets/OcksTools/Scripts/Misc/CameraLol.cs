@@ -49,38 +49,40 @@ public class CameraLol : MonoBehaviour
         }
         */
         transform.position = ppos;
-        //handles getting the mouse position and making the camera adjust to move to it
-        Vector3 p = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        p -= transform.position;
-        p /= 5;
-
-        // "pos" is the location the camera tries to get to
-        p += targetpos;
-        p.z = -10;
-        var z = Vector3.MoveTowards(transform.position, p, Dist(p, transform.position) * 8 * Time.deltaTime);
-
-        /* zz can be the max size the camera can go to, remove/change as needed
-        float zz = 99999;
-        z.x = Mathf.Clamp(z.x, -zz, zz);
-        z.y = Mathf.Clamp(z.y, -zz, zz);
-        */
-        ppos = z;
-        Vector3 ss = ppos;
-        foreach (var shake in shakeo)
+        if(Gamer.GameState != "Main Menu")
         {
-            float f1 = 1;
-            float f2 = 1;
-            if (shake[2] != 0 || shake[3] != 0)
+            //handles getting the mouse position and making the camera adjust to move to it
+            Vector3 p = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            p -= transform.position;
+            p /= 5;
+
+            // "pos" is the location the camera tries to get to
+            p += targetpos;
+            p.z = -10;
+            var z = Vector3.MoveTowards(transform.position, p, Dist(p, transform.position) * 8 * Time.deltaTime);
+            /* zz can be the max size the camera can go to, remove/change as needed
+            float zz = 99999;
+            z.x = Mathf.Clamp(z.x, -zz, zz);
+            z.y = Mathf.Clamp(z.y, -zz, zz);
+            */
+            ppos = z;
+            Vector3 ss = ppos;
+            foreach (var shake in shakeo)
             {
-                f1 = shake[2];
-                f2 = shake[3];
+                float f1 = 1;
+                float f2 = 1;
+                if (shake[2] != 0 || shake[3] != 0)
+                {
+                    f1 = shake[2];
+                    f2 = shake[3];
+                }
+                float ff1 = UnityEngine.Random.Range(-f1, f1) * shake[0];
+                float ff2 = UnityEngine.Random.Range(-f2, f2) * shake[0];
+                ss.x += ff1;
+                ss.y += ff2;
             }
-            float ff1 = UnityEngine.Random.Range(-f1, f1) * shake[0];
-            float ff2 = UnityEngine.Random.Range(-f2, f2) * shake[0];
-            ss.x += ff1;
-            ss.y += ff2;
+            transform.position = ss;
         }
-        transform.position = ss;
     }
 
     public void Shake(float shake, float falloff, int dir1 = 0, int dir2 = 0)

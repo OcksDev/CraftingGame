@@ -20,6 +20,7 @@ public class NavMeshEntity : MonoBehaviour
     public List<Sprite> SpriteVarients = new List<Sprite> ();
     private Rigidbody2D sex;
     public GameObject box;
+    public EntityOXS EntityOXS;
     float timer = 0f;
     public float timer2 = 0f;
     public Vector3 spawn;
@@ -31,6 +32,7 @@ public class NavMeshEntity : MonoBehaviour
         if(AttackType == "Melee")sex2.Damage = Damage;
         beans = GetComponent<NavMeshAgent>();
         sex = GetComponent<Rigidbody2D>();
+        EntityOXS = GetComponent<EntityOXS>();
         WantASpriteCranberry = GetComponent<SpriteRenderer>();
         transform.rotation = Quaternion.identity;
         beans.updateRotation= false;

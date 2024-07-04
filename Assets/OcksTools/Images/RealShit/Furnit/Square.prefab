@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &338418917981126028
+--- !u!1 &1946281552617000341
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5260182384836086568}
-  - component: {fileID: 8838448548814820728}
-  - component: {fileID: 5112165932013836978}
+  - component: {fileID: 1946281552617000346}
+  - component: {fileID: 1946281552617000347}
+  - component: {fileID: 1946281552617000340}
+  - component: {fileID: -9086215895402753094}
   m_Layer: 0
-  m_Name: CarpetPrefab
+  m_Name: Square
   m_TagString: Furniture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5260182384836086568
+--- !u!4 &1946281552617000346
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338418917981126028}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1946281552617000341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.94, y: -1.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8838448548814820728
+--- !u!212 &1946281552617000347
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338418917981126028}
+  m_GameObject: {fileID: 1946281552617000341}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -73,9 +74,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -999
-  m_Sprite: {fileID: 21300000, guid: 49107d8d712551747b789477dc908f8c, type: 3}
-  m_Color: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 1}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -85,26 +86,46 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5112165932013836978
+--- !u!114 &1946281552617000340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338418917981126028}
+  m_GameObject: {fileID: 1946281552617000341}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645f88f232723c74d87647d5b20bb724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 
+  type: Barrel
   sprites:
-  - {fileID: 21300000, guid: 4328c819d430cb4418a39c90e10d3d78, type: 3}
-  - {fileID: 21300000, guid: 54d3b406dde954b41ad8577c9c56523f, type: 3}
-  - {fileID: 21300000, guid: 42099b2e55f6d6d418480b896f33b548, type: 3}
-  - {fileID: 21300000, guid: 49107d8d712551747b789477dc908f8c, type: 3}
-  - {fileID: 21300000, guid: b390d9243cf638148b0db6602ab7420a, type: 3}
-  - {fileID: 21300000, guid: 0bf599adf1558fb4ab780e22b9a3ea42, type: 3}
-  - {fileID: 21300000, guid: 45a868bcef1bd9b4cb2a90298de65c8c, type: 3}
-  - {fileID: 21300000, guid: cb0df9b01c9a38c46adc25183c9c2000, type: 3}
+  - {fileID: 21300000, guid: 7f4b7669c0b2bf54b85ebf6a0001ed4c, type: 3}
+  - {fileID: 21300000, guid: 41aec74b0eb3e204d8eaab60d90493ef, type: 3}
   CanNotSpawn: 0
+--- !u!61 &-9086215895402753094
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946281552617000341}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

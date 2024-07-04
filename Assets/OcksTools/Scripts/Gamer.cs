@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
 using Unity.Netcode.Components;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +35,12 @@ public class Gamer : MonoBehaviour
     public Transform ItemDisplayParent;
     public GameObject ItemDisplay;
     public List<ItemDikpoop> ItemDikPoops = new List<ItemDikpoop>();
+
+    public List<GameObject> ParticleSpawns = new List<GameObject>();
+
+
+    public List<Image> HitSexers = new List<Image>();
+
 
     public delegate void JustFuckingRunTheMethods();
     public event JustFuckingRunTheMethods RefreshUIPos;
@@ -170,6 +175,7 @@ public class Gamer : MonoBehaviour
         {
             checks[i] = false;
         }
+        ShartPoop = 0f;
         ClearMap();
         Tags.refs["BlackBG"].SetActive(false);
         checks[3] = true;
@@ -178,6 +184,12 @@ public class Gamer : MonoBehaviour
         GameState = "Main Menu";
         if (PlayerController.Instance != null) Destroy(PlayerController.Instance.gameObject);
         UpdateMenus();
+        var e2 = CameraLol.Instance.transform.position;
+        e2.x = 0;
+        e2.y = 0;
+        CameraLol.Instance.transform.position = e2;
+        CameraLol.Instance.ppos = e2;
+        CameraLol.Instance.targetpos = e2;
     }
 
 
@@ -318,8 +330,9 @@ public class Gamer : MonoBehaviour
         e2.y = PlayerController.Instance.transform.position.y;
         CameraLol.Instance.transform.position = e2;
         CameraLol.Instance.ppos = e2;
+        CameraLol.Instance.targetpos = e2;
 
-        foreach(var e in enders)
+        foreach (var e in enders)
         {
             var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
             e.isused = true;
@@ -361,6 +374,8 @@ public class Gamer : MonoBehaviour
         return Enemies[GlobalRand.Next(0, Enemies.Count)];
         //return Enemies[0];
     }
+
+    public float ShartPoop = 0f;
     private void FixedUpdate()
     {
         if (GameState == "Game" || GameState == "Lobby")
@@ -381,11 +396,54 @@ public class Gamer : MonoBehaviour
                     checks[5] = true;
                 }
             }
+            ShartPoop -= Time.deltaTime;
+            ShartPoop = Mathf.Clamp01(ShartPoop);
+            var c = HitSexers[0].color;
+            c.a = ShartPoop;
+            foreach(var ca in HitSexers)
+            {
+                ca.color = c;
+            }
+
         }
         else
         {
             checks[5] = false;
         }
+    }
+
+    public ObjectType GetObjectType(GameObject shart)
+    {
+        var e = new ObjectType();
+        e.gm = shart;
+        if (shart.tag == "Sexy")
+        {
+            e.type = "Wall";
+        }
+        else if (shart.tag == "PlayerNerd")
+        {
+            e.playerController = shart.GetComponent<PlayerController>();
+            e.entityoxs = e.playerController.entit;
+            e.type = "Player";
+        }
+        else if (shart.tag == "Enemy")
+        {
+            e.entity = shart.GetComponent<NavMeshEntity>();
+            e.entityoxs = e.entity.EntityOXS;
+            e.type = "Enemy";
+        }
+        else if (shart.tag == "Furniture")
+        {
+            e.furniture = shart.GetComponent<Furniture>();
+            e.type = "Furniture";
+            e.DoOnTouch += e.furniture.OnTouch;
+        }
+        else if (shart.tag == "Hitable")
+        {
+            e.entityoxs = shart.GetComponent<EntityOXS>();
+            e.type = "Hitable";
+        }
+        return e;
     }
 
     public void ToggleTabMenu()
@@ -496,4 +554,22 @@ public class OcksItem
     public string DisplayName = "";
     public Sprite Image;
     public int rarity = 0;
+}
+
+
+public class ObjectType
+{
+    public GameObject gm = null;
+    public string type = "none";
+    public PlayerController playerController = null;
+    public NavMeshEntity entity = null;
+    public EntityOXS entityoxs=null;
+    public Furniture furniture = null;
+    public event Gamer.JustFuckingRunTheMethods DoOnTouch;
+
+    public void FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork()
+    {
+        DoOnTouch?.Invoke();
+    }
+
 }

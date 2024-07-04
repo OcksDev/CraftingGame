@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 286535096734906924}
   m_Layer: 0
   m_Name: Charger
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,6 +198,7 @@ MonoBehaviour:
   SpriteVarients:
   - {fileID: 1598183410, guid: 5c37c6038fcfd744c86960d7f6eb7190, type: 3}
   box: {fileID: 8995759446059404531}
+  EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
   sex2: {fileID: 4879188297316090174}

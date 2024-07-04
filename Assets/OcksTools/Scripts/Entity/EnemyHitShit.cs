@@ -31,8 +31,11 @@ public class EnemyHitShit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isdea) return;
-        var pp = collision.GetComponent<PlayerController>();
-        if (pp != null && !hits.Contains(pp))
+
+        var e = Gamer.Instance.GetObjectType(collision.gameObject);
+
+        var pp = e.playerController;
+        if (e.type == "Player" && !hits.Contains(pp))
         {
             if (balling == null) balling = transform.parent;
             var dam = new DamageProfile(type, Damage);
@@ -43,17 +46,11 @@ public class EnemyHitShit : MonoBehaviour
             hits.Add(pp);
             if(type=="spitter")Kill();
         }
-        else if (type == "spitter" && collision.transform.parent != null)
+        else if (type == "spitter" && e.type == "Wall")
         {
-            if (collision.transform.parent.GetComponent<I_Room>() != null && !collision.GetComponent<BoxCollider2D>().isTrigger)
-            {
-                Kill();
-            }
-            else if(collision.transform.parent.GetComponent<I_RoomWall>() != null)
-            {
-                Kill();
-            }
+            Kill();
         }
+        e.FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork();
     }
     bool isdea = false;
     public IEnumerator sexdie()

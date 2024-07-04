@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EntityOXS : MonoBehaviour
 {
@@ -54,7 +56,11 @@ public class EntityOXS : MonoBehaviour
         {
             case "Player":
                 s2 = GetComponent<PlayerController>();
-                if (PlayerController.Instance == s2) CameraLol.Instance.Shake(0.1f, 0.85f);
+                if (PlayerController.Instance == s2)
+                {
+                    CameraLol.Instance.Shake(0.4f, 0.87f);
+                    Gamer.Instance.ShartPoop += 0.4f;
+                }
                 break;
             default:
                 if (Gamer.IsMultiplayer)
@@ -127,6 +133,16 @@ public class EntityOXS : MonoBehaviour
                     h.SexChaser = PlayerController.Instance;
                     h.others = others;
                 }
+                int effect = -1;
+                switch (GetComponent<NavMeshEntity>().EnemyType)
+                {
+                    default:
+                        effect = 0;
+                        break;
+                }
+                if(effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                CameraLol.Instance.Shake(0.25f, 0.80f);
+
                 break;
             case "Player":
                 Gamer.Instance.ClearMap();

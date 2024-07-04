@@ -7,7 +7,7 @@ Variable Ideas;
 Item ideas:
 
 -Basic- (white)
-X Speed Boots: +10% movespeed
+X Battery Acid: +10% movespeed
 X Shungite: +10% attack speed
 X Touger Times: +5% chance to block damage (stacks like 1/20, 2/21, 3/22, 4/23, etc, approaching but never reaching 100%)  (x/(a+x))
 X Red Glasses: +10% crit chance (can go past 100, each roll adds 100% damage meaning at 200% crit chance you do x3 damage, then x4, x5, etc)

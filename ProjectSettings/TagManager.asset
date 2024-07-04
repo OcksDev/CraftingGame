@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Sexy
+  - PlayerNerd
+  - Enemy
+  - Furniture
+  - Hitable
   layers:
   - Default
   - TransparentFX
