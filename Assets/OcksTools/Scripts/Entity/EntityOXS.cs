@@ -136,6 +136,9 @@ public class EntityOXS : MonoBehaviour
                 int effect = -1;
                 switch (GetComponent<NavMeshEntity>().EnemyType)
                 {
+                    case "Charger":
+                        effect = 1;
+                        break;
                     default:
                         effect = 0;
                         break;

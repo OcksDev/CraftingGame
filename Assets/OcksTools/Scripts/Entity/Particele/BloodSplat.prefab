@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 569139315819550910}
   - component: {fileID: 219794239309678872}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: BloodSplat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
