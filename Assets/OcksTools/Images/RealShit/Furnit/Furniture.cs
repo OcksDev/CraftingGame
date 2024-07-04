@@ -50,6 +50,7 @@ public class Furniture : MonoBehaviour
         switch (type)
         {
             case "Barrel":
+                Instantiate(Gamer.Instance.ParticleSpawns[2], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 Destroy(gameObject);
                 break;
         }
