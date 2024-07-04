@@ -11,6 +11,10 @@ public class HitBalls : MonoBehaviour
     public bool OnlyHitOne = false;
     private bool hite = false;
     public List<GameObject> hitlist = new List<GameObject>();
+
+
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("hit " + collision.gameObject.name);
@@ -34,7 +38,7 @@ public class HitBalls : MonoBehaviour
                     dam.AttackerPos = transform.position;
                 }
                 playerController.HitEnemy(e, dam);
-                hitlist.Add(collision.gameObject);
+                if (type != "HitBox")hitlist.Add(collision.gameObject);
             }
             else if ((shunk.type == "Wall" && type == "Arrow") || (OnlyHitOne && hite))
             {
