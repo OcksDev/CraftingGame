@@ -359,6 +359,7 @@ public class PlayerController : MonoBehaviour
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Point2D(-90, 0), 25f);
                 dicksplay.transform.localScale = new Vector3((transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x > 0?1:-1, 1,1);
+                dicksplay.transform.localScale = new Vector3((transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x > 0?1:-1, 1,1);
             }
         }
         if (mainweapon != null)
@@ -392,7 +393,7 @@ public class PlayerController : MonoBehaviour
             int reverse2 = (transform.position-MyAssHurts.transform.position).x < 0?1:-1;
             switch (mainweapon.ItemIndex)
             {
-                case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse, 1, 1); break;
+                case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
                 default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
             }
         }

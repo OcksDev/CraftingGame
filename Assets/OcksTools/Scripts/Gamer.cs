@@ -412,7 +412,7 @@ public class Gamer : MonoBehaviour
         }
     }
 
-    public ObjectType GetObjectType(GameObject shart)
+    public ObjectType GetObjectType(GameObject shart, bool noget = false)
     {
         var e = new ObjectType();
         e.gm = shart;
@@ -422,25 +422,33 @@ public class Gamer : MonoBehaviour
         }
         else if (shart.tag == "PlayerNerd")
         {
-            e.playerController = shart.GetComponent<PlayerController>();
-            e.entityoxs = e.playerController.entit;
+            if (!noget)
+            {
+                e.playerController = shart.GetComponent<PlayerController>();
+                e.entityoxs = e.playerController.entit;
+            }
             e.type = "Player";
         }
         else if (shart.tag == "Enemy")
         {
-            e.entity = shart.GetComponent<NavMeshEntity>();
-            e.entityoxs = e.entity.EntityOXS;
+            if (!noget)
+            {
+                e.entity = shart.GetComponent<NavMeshEntity>();
+                e.entityoxs = e.entity.EntityOXS;
+            }
             e.type = "Enemy";
         }
         else if (shart.tag == "Furniture")
         {
-            e.furniture = shart.GetComponent<Furniture>();
+            if (!noget)
+                e.furniture = shart.GetComponent<Furniture>();
             e.type = "Furniture";
             e.DoOnTouch += e.furniture.OnTouch;
         }
         else if (shart.tag == "Hitable")
         {
-            e.entityoxs = shart.GetComponent<EntityOXS>();
+            if (!noget)
+                e.entityoxs = shart.GetComponent<EntityOXS>();
             e.type = "Hitable";
         }
         return e;

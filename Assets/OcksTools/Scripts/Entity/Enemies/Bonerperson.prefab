@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2284451541892325392}
   - component: {fileID: 286535096734906924}
   m_Layer: 0
-  m_Name: Charger
+  m_Name: Bonerperson
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

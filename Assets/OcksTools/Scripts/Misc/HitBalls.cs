@@ -24,21 +24,53 @@ public class HitBalls : MonoBehaviour
 
             if ((shunk.type == "Enemy" || shunk.type == "Hitable") && !hite && !hitlist.Contains(collision.gameObject))
             {
-                var e = shunk.entityoxs;
-                if (OnlyHitOne)
+                bool sex = true;
+                float dist = 69;
+                if (type == "HitBox")
                 {
-                    hite = true;
+                    var p = collision.gameObject;
+                    var hit = Physics2D.RaycastAll(playerController.transform.position, p.transform.position - playerController.transform.position, RandomFunctions.Instance.Dist(playerController.transform.position, p.transform.position));
+                    // Does the ray intersect any objects excluding the player layer
+                    GameObject sexp = null;
+                    foreach (var h in hit)
+                    {
+                        if (h.distance <= dist)
+                        {
+                            var obj = Gamer.Instance.GetObjectType(h.collider.gameObject, true);
+                            if (h.transform == p.transform)
+                            {
+                                sex = true;
+                                dist = h.distance;
+                                sexp = h.collider.gameObject;
+                            }
+                            else if (obj.type == "Wall")
+                            {
+                                sex = false;
+                                dist = h.distance;
+                                sexp = h.collider.gameObject;
+                            }
+                        }
+                    }
+
                 }
-                var dam = new DamageProfile(type, attackProfile.CalcDamage());
-                dam.Knockback = 1f;
-                dam.attacker = playerController.gameObject;
-                if (type == "Arrow")
+                if (sex)
                 {
-                    dam.SpecificLocation = true;
-                    dam.AttackerPos = transform.position;
+                    var e = shunk.entityoxs;
+                    if (OnlyHitOne)
+                    {
+                        hite = true;
+                    }
+                    var dam = new DamageProfile(type, attackProfile.CalcDamage());
+                    dam.Knockback = 1f;
+                    dam.attacker = playerController.gameObject;
+                    if (type == "Arrow")
+                    {
+                        dam.SpecificLocation = true;
+                        dam.AttackerPos = transform.position;
+                    }
+                    playerController.HitEnemy(e, dam);
+                    if (type != "HitBox") hitlist.Add(collision.gameObject);
                 }
-                playerController.HitEnemy(e, dam);
-                if (type != "HitBox")hitlist.Add(collision.gameObject);
             }
             else if ((shunk.type == "Wall" && type == "Arrow") || (OnlyHitOne && hite))
             {

@@ -271,21 +271,19 @@ public class NavMeshEntity : MonoBehaviour
         {
             if (h.distance <= dist)
             {
-                if (h.collider.GetComponent<NavMeshEntity>() != null) continue;
+                var obj = Gamer.Instance.GetObjectType(h.collider.gameObject, true);
+                if (obj.type == "Enemy") continue;
                 if (h.transform == p.transform)
                 {
                     sex = true;
                     dist = h.distance;
                     sexp = h.collider.gameObject;
                 }
-                if (h.transform.parent != null)
+                if (obj.type == "Wall")
                 {
-                    if((h.transform.parent.GetComponent<I_Room>() != null && !h.transform.GetComponent<BoxCollider2D>().isTrigger) || h.transform.parent.GetComponent<I_RoomWall>() != null)
-                    {
-                        sex = false;
-                        dist = h.distance;
-                        sexp = h.collider.gameObject;
-                    }
+                    sex = false;
+                    dist = h.distance;
+                    sexp = h.collider.gameObject;
                 }
             }
         }
