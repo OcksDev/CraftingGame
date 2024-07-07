@@ -288,6 +288,7 @@ public class Gamer : MonoBehaviour
         int level = -1;
         foreach (var psex in enders)
         {
+            Debug.Log("Level:" + psex.level);
             if (psex.level > level) level = psex.level;
         }
         foreach (var psex in enders)
@@ -295,36 +296,16 @@ public class Gamer : MonoBehaviour
             if (psex.level == level) endos.Add(psex);
         }
         var rm = endos[r.Next(0, endos.Count)];
+        Debug.Log("Endo Count: "+ endos.Count);
         rm.isused = true;
         PlayerController.Instance.transform.position = rm.transform.position;
-        var rmod = rm;
         enders.Remove(rm);
-        List<float[]> pp = new List<float[]>();
-        for(int i = 0; i < enders.Count; i++)
-        {
-            rm = enders[i];
-            var e = new float[2] {i,(rm.transform.position-rmod.transform.position).magnitude};
-            bool f = false;
-            for(int j = 0; j < pp.Count; j++)
-            {
-                if (e[1] > pp[j][1])
-                {
-                    pp.Insert(j, e);
-                    f = true;
-                    break;
-                }
-            }
-            if(!f)pp.Add(e);
-        }
-        rm = null;
-        for (int i =0; i < pp.Count; i++)
-        {
-            if (r.Next(0, 3) == 1) { rm = enders[(int)pp[i][0]]; break; }
-        }
-        if(rm==null) rm = enders[(int)pp[0][0]];
+        endos.Remove(rm);
+        rm = endos[r.Next(0,endos.Count)];
         rm.isused = true;
-        enders.Remove(rm);
         Tags.refs["NextFloor"].transform.position = rm.transform.position;
+        enders.Remove(rm);
+        endos.Remove(rm);
         var e2 = CameraLol.Instance.transform.position;
         e2.x = PlayerController.Instance.transform.position.x;
         e2.y = PlayerController.Instance.transform.position.y;

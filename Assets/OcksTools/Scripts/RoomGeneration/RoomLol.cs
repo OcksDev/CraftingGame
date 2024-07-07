@@ -20,6 +20,7 @@ public class RoomLol : MonoBehaviour
     private List<Room> EndRightRooms = new List<Room>();
     private List<Room> EndUpRooms = new List<Room>();
     private List<Room> EndDownRooms = new List<Room>();
+    private List<Room> ValidStartRooms = new List<Room>();
     public GameObject Parente;
 
     public static RoomLol Instance;
@@ -83,6 +84,7 @@ public class RoomLol : MonoBehaviour
         EndRightRooms.Clear();
         EndUpRooms.Clear();
         EndDownRooms.Clear();
+        ValidStartRooms.Clear();
         //whichs rooms are chosen for certain directions
         foreach (var room in AllRooms)
         {
@@ -95,6 +97,10 @@ public class RoomLol : MonoBehaviour
             if (room.HasTopDoor && room.IsEndpoint) EndUpRooms.Add(room);
             if (room.HasBottomDoor && room.IsEndpoint) EndDownRooms.Add(room);
         }
+        foreach (var a in LeftRooms) {ValidStartRooms.Add(a); }
+        foreach (var a in RightRooms) {ValidStartRooms.Add(a); }
+        foreach (var a in UpRooms) {ValidStartRooms.Add(a); }
+        foreach (var a in DownRooms) {ValidStartRooms.Add(a); }
     }
     public CoolRoom GenerateFromRooms(int lvl, int[,] roomcol, int dir, Vector2 pos)
     {
@@ -122,7 +128,7 @@ public class RoomLol : MonoBehaviour
         switch (dir)
         {
             default:
-                available_rooms = new List<Room>(AllRooms);
+                available_rooms = new List<Room>(ValidStartRooms);
                 for(int i= 0; i < available_rooms.Count; i++)
                 {
                     if (available_rooms[i].IsEndpoint)
@@ -222,13 +228,15 @@ public class RoomLol : MonoBehaviour
                 }
                 bool good = true;
 
-                
                 List<int> doors = new List<int>();
-                if (dir != 1 && rom.HasTopDoor) doors.Add(0);
-                if (dir != 0 && rom.HasBottomDoor) doors.Add(1);
-                if (dir != 3 && rom.HasLeftDoor) doors.Add(2);
-                if (dir != 2 && rom.HasRightDoor) doors.Add(3);
-                if(doors.Count > 0) doors.RemoveAt(r.Next(0, doors.Count));
+                if (dir != -1)
+                {
+                    if (dir != 1 && rom.HasTopDoor) doors.Add(0);
+                    if (dir != 0 && rom.HasBottomDoor) doors.Add(1);
+                    if (dir != 3 && rom.HasLeftDoor) doors.Add(2);
+                    if (dir != 2 && rom.HasRightDoor) doors.Add(3);
+                    if (doors.Count > 0) doors.RemoveAt(r.Next(0, doors.Count));
+                }
                 var x = lvl - 1;
                 if (good && dir != 1 && rom.HasTopDoor)
                 {
