@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HitBalls : MonoBehaviour
 {
@@ -11,12 +13,54 @@ public class HitBalls : MonoBehaviour
     public bool OnlyHitOne = false;
     private bool hite = false;
     public List<GameObject> hitlist = new List<GameObject>();
-
-
-
-
+    public List<SpriteRenderer> spriteballs = new List<SpriteRenderer>();
+    public List<GameObject> specialsharts = new List<GameObject>();
+    public float hsh = 26.3f;
+    private Dictionary<GameObject, int> hitdict = new Dictionary<GameObject, int>();
+    private void FixedUpdate()
+    {
+        switch (type)
+        {
+            case "Shuriken":
+                specialsharts[0].transform.rotation *= Quaternion.Euler(0,0,hsh);
+                hsh *= 0.985f;
+                for(int i = 0; i < hitdict.Count; i++)
+                {
+                    var x = hitdict.ElementAt(i);
+                    hitdict[x.Key] = hitdict[x.Key] - 1;
+                    if (x.Value <= 0)
+                    {
+                        hitdict.Remove(x.Key);
+                        i--;
+                    }
+                }
+                break;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (type == "Shuriken")
+        {
+            if (!hitdict.ContainsKey(collision.gameObject))
+            {
+                Collisonsns(collision);
+            }
+        }
+        else
+            Collisonsns(collision);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!hitdict.ContainsKey(collision.gameObject))
+        {
+            Collisonsns(collision);
+        }
+    }
+
+    public void Collisonsns(Collider2D collision)
+    {
+
         //Debug.Log("hit " + collision.gameObject.name);
         if (!hite && !NO)
         {
@@ -63,16 +107,26 @@ public class HitBalls : MonoBehaviour
                     var dam = new DamageProfile(type, attackProfile.CalcDamage());
                     dam.Knockback = 1f;
                     dam.attacker = playerController.gameObject;
-                    if (type == "Arrow")
+                    if (type == "Arrow" || type == "Shuriken")
                     {
                         dam.SpecificLocation = true;
                         dam.AttackerPos = transform.position;
                     }
                     playerController.HitEnemy(e, dam);
-                    if (type != "HitBox") hitlist.Add(collision.gameObject);
+                    switch (type)
+                    {
+                        case "Arrow":
+                            hitlist.Add(collision.gameObject);
+                            break;
+                        case "Shuriken":
+                            hitdict.Add(collision.gameObject, 12);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
-            else if ((shunk.type == "Wall" && type == "Arrow") || (OnlyHitOne && hite))
+            else if (shunk.type == "Wall" && (type == "Arrow"))
             {
                 //Debug.Log("AM DIE! " + collision.gameObject.name);
                 hite = true;
@@ -81,7 +135,11 @@ public class HitBalls : MonoBehaviour
             shunk.FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork();
         }
     }
+
+
+
     bool NO = false;
+    
     public IEnumerator WaitForDIe(bool fart = false)
     {
         var e = GetComponent<Projectile>();
@@ -95,12 +153,35 @@ public class HitBalls : MonoBehaviour
                 c.a -= 0.02f;
                 f.color = c;
             }
-            if (i > 40) NO = true;
-            if (e != null) e.speed *= 0.93f;
+            if (i > 40 && type != "Shuriken") NO = true;
+            if (e != null)
+            {
+                if (type == "Shuriken")
+                {
+                    e.speed *= 0.96f;
+                }
+                else
+                {
+                    e.speed *= 0.93f;
+                }
+            }
             yield return new WaitForFixedUpdate();
         }
         if (e != null) e.speed = 0;
-        yield return new WaitForSeconds(0.5f);
+        if (type == "Shuriken")
+        {
+            yield return new WaitForSeconds(1f);
+            for (int i = 0; i < 25 ; i++)
+            {
+                transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
+                if (transform.localScale.x <= 0) break;
+                yield return new WaitForFixedUpdate();
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
         if (f != null) f.enabled = false;
         Destroy(gameObject);
     }

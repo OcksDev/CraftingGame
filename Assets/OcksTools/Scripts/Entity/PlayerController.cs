@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
         }
         CritChance = 0.01f;
         working_move_speed = 2;
-        Damage = 5;
+        Damage = 7;
         AttacksPerSecond = 3;
         Spread = 15f;
         MaxBowMult = 1.5f;
@@ -206,16 +206,21 @@ public class PlayerController : MonoBehaviour
             {
                 case 5:
                     AttacksPerSecond = 1.5f;
-                    Damage = 10;
+                    Damage = 12;
                     break;
                 case 6:
                     AttacksPerSecond = 4f;
+                    Damage = 5;
                     Spread = 20f;
                     break;
                 case 4:
                     AttacksPerSecond = 1.5f;
                     Spread = 5f;
                     Damage = 10f;
+                    break;
+                case 7:
+                    AttacksPerSecond = 1.5f;
+                    Damage = 7f;
                     break;
             }
             foreach(var m in mainweapon.Materials)
@@ -241,29 +246,16 @@ public class PlayerController : MonoBehaviour
             case 0:
                 switch (mainweapon.ItemIndex)
                 {
-                    case 6:
-                    case 3:
-                        AttacksPerSecond += 0.5f;
-                        break;
-                    case 4:
-                        AttacksPerSecond += 0.25f;
-                        BowChargeSpeed += 0.25f;
-                        break;
-                    case 5:
-                        AttacksPerSecond += 0.25f;
+                    default:
+                        AttacksPerSecond *= 1.15f;
                         break;
                 }
                 break;
             case 1:
                 switch (mainweapon.ItemIndex)
                 {
-                    case 6:
-                    case 3:
-                    case 4:
-                        Damage += 2.5;
-                        break;
-                    case 5:
-                        Damage += 5;
+                    default:
+                        Damage *= 1.15f;
                         break;
                 }
                 break;
@@ -371,6 +363,9 @@ public class PlayerController : MonoBehaviour
                 case 3:
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, g) * reverse)) * transform.rotation;
                     break;
+                case 7:
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
+                    break;
                 case 6:
                     SwordFart.rotation = transform.rotation;
                     break;
@@ -394,6 +389,7 @@ public class PlayerController : MonoBehaviour
             switch (mainweapon.ItemIndex)
             {
                 case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
+                case 7: SwordFart.localScale = new Vector3(reverse2* (1 - g), (1 - g), (1 - g)); break;
                 default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
             }
         }
@@ -402,7 +398,7 @@ public class PlayerController : MonoBehaviour
     public void SetMoveSpeed()
     {
         move_speed = working_move_speed;
-        if (f < 1 || f2 > 0 || bowsextimer > 0) move_speed *= 0.35f;
+        if (f < 0.9f || f2 > 0 || bowsextimer > 0) move_speed *= 0.35f;
     }
 
     public void StartAttack(double d = -1)
@@ -474,6 +470,19 @@ public class PlayerController : MonoBehaviour
                 f = 1;
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
+            case 7:
+                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position,-90,0));
+                s3 = s.GetComponent<HitBalls>();
+                s3.playerController = this;
+                s3.attackProfile = Shart;
+                s3.hsh *= -reverse;
+                epe *= -0.5f;
+                HitCollider = null;
+                reverse *= -1;
+                s3.spriteballs[0].sprite = GISDisplay.GetSprite(mainweapon, 0);
+                s3.spriteballs[1].sprite = GISDisplay.GetSprite(mainweapon, 1);
+                s3.spriteballs[2].sprite = GISDisplay.GetSprite(mainweapon, 2);
+                break;
             default:
                 HitCollider = HitColliders[0];
                 reverse *= -1;
@@ -500,6 +509,18 @@ public class PlayerController : MonoBehaviour
         offset += offset2;
         //Debug.Log(offset);
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);
+        return sex;
+    }
+    private Quaternion Point2DMod(Vector3 pos, float offset2, float spread)
+    {
+        //returns the rotation required to make the current gameobject point at the mouse, untested in 3D.
+        var offset = UnityEngine.Random.Range(-spread, spread);
+        offset += offset2;
+        //Debug.Log(offset);
+        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - pos;
         difference.Normalize();
         float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);

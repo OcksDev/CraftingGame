@@ -400,6 +400,7 @@ MonoBehaviour:
   - {fileID: 4431982715731471214, guid: fa8f91ac75f24d94f86ec370ca99d8f5, type: 3}
   - {fileID: 2278403275201244645, guid: a7f86f0f880979f49af6ff7225fe8d57, type: 3}
   - {fileID: 4220264068934514932}
+  - {fileID: 2278403275201244645, guid: 35f717709a8751a49a658d7e91cdde9e, type: 3}
   HitCollider: {fileID: 8591088333642842602}
   HitColliders:
   - {fileID: 8591088333642842602}
@@ -479,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1873435979
+  GlobalObjectIdHash: 4157409539
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -700,6 +701,8 @@ MonoBehaviour:
   playerController: {fileID: 3786093809242686097}
   type: HitBox
   OnlyHitOne: 0
+  hitlist: []
+  spriteballs: []
 --- !u!1 &7836254537959484780
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,6 +925,8 @@ MonoBehaviour:
   playerController: {fileID: 3786093809242686097}
   type: HitBox
   OnlyHitOne: 0
+  hitlist: []
+  spriteballs: []
 --- !u!1 &9067443756659564030
 GameObject:
   m_ObjectHideFlags: 0
