@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class CameraLol : MonoBehaviour
@@ -10,6 +11,7 @@ public class CameraLol : MonoBehaviour
     public Vector3 ppos = new Vector3(0, 0, 0);
     private List<List<float>> shakeo = new List<List<float>>();
     private List<Vector4> shoveo = new List<Vector4>();
+    public float SmoothMod = 1f;
     // Start is called before the first frame update
     public static CameraLol Instance
     {
@@ -39,6 +41,14 @@ public class CameraLol : MonoBehaviour
         }
     }
 
+
+    public float offset(float x)
+    {
+        var y = Mathf.Round(x * 16) / 16;
+        x -= y;
+        return x;
+    }
+
     private void LateUpdate()
     {
         /* some an example for what hurting a player could be like
@@ -48,8 +58,11 @@ public class CameraLol : MonoBehaviour
             Shake(0.4f, 0.8f);
         }
         */
+
         transform.position = ppos;
-        if(Gamer.GameState != "Main Menu")
+        var a = new Vector3(offset(ppos.x) * SmoothMod, offset(ppos.y) * SmoothMod, 0);
+        Tags.refs["RenderHolder"].transform.position = Tags.refs["NormalRender"].transform.position + a;
+        if (Gamer.GameState != "Main Menu")
         {
             //handles getting the mouse position and making the camera adjust to move to it
             Vector3 p = Camera.main.ScreenToWorldPoint(Input.mousePosition);

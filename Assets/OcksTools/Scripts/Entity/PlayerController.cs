@@ -398,7 +398,15 @@ public class PlayerController : MonoBehaviour
     public void SetMoveSpeed()
     {
         move_speed = working_move_speed;
-        if (f < 0.9f || f2 > 0 || bowsextimer > 0) move_speed *= 0.35f;
+        switch (mainweapon.ItemIndex)
+        {
+            case 6:
+                if (f < 1f || f2 > 0 || bowsextimer > 0) move_speed *= 0.35f;
+                break;
+            default:
+                if (f < 0.85f) move_speed *= 0.35f;
+                break;
+        }
     }
 
     public void StartAttack(double d = -1)
