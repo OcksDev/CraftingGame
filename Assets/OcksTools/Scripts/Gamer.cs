@@ -35,11 +35,18 @@ public class Gamer : MonoBehaviour
     public Transform ItemDisplayParent;
     public GameObject ItemDisplay;
     public List<ItemDikpoop> ItemDikPoops = new List<ItemDikpoop>();
+    public GameObject DoorFab;
 
     public List<GameObject> ParticleSpawns = new List<GameObject>();
 
 
     public List<Image> HitSexers = new List<Image>();
+
+    [HideInInspector]
+    public bool InRoom = false;
+    [HideInInspector]
+    public I_Room CurrentRoom;
+
 
 
     public delegate void JustFuckingRunTheMethods();
@@ -337,19 +344,67 @@ public class Gamer : MonoBehaviour
                 availablerooms.Add(e);
             }
         }
-        foreach(var e in availablerooms)
-        {
-            for(int i =0; i < 5; i++)
-            {
-                var s = e.gm.transform;
-                var ss = Instantiate(GetEnemyForDiff(), s.position, PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
-                var rs = ss.GetComponent<NavMeshEntity>();
-                rs.originroom = e;
-                EnemiesExisting.Add(rs);
-            }
-        }
         completetetge = true;
     }
+
+    public IEnumerator StartRoom()
+    {
+        BoomyRoomy();
+        yield return new WaitForSeconds(1.5f);
+        var w = CurrentRoom.room.RoomSize;
+        int enemycount = 5* (int)(w.x*w.y);
+        for(int i = 0; i < enemycount; i++)
+        {
+            var s = CurrentRoom.gm.transform;
+            var ss = Instantiate(GetEnemyForDiff(), s.position, PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
+            var rs = ss.GetComponent<NavMeshEntity>();
+            rs.originroom = CurrentRoom;
+            EnemiesExisting.Add(rs);
+            yield return new WaitForSeconds(0.7f);
+        }
+        yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
+        CurrentRoom = null;
+        InRoom = false;
+    }
+    public void BoomyRoomy()
+    {
+        var pp = new Vector2(CurrentRoom.transform.position.x,CurrentRoom.transform.position.y);
+        var ppshex = CurrentRoom.room.RoomSize * 15f;
+        if (CurrentRoom.room.HasTopDoor)
+        {
+            var pz = pp - ppshex;
+            var ppos = CurrentRoom.room.TopDoor * 30f;
+            ppos.x += 15f;
+            Instantiate(DoorFab, new Vector3(pz.x + ppos.x, pz.y, 0), Quaternion.identity, nmr.transform);
+        }
+        if (CurrentRoom.room.HasBottomDoor)
+        {
+            var pz = ppshex;
+            pz.y *= -1;
+            pz = pp - pz;
+            var ppos = CurrentRoom.room.BottomDoor * 30f;
+            ppos.x += 15f;
+            Instantiate(DoorFab, new Vector3(pz.x + ppos.x, pz.y, 0), Quaternion.Euler(0,0,180), nmr.transform);
+        }
+        if (CurrentRoom.room.HasLeftDoor)
+        {
+            var pz = ppshex;
+            pz.y *= -1;
+            pz = pp - pz;
+            var ppos = CurrentRoom.room.LeftDoor * 30f;
+            ppos.y += 15f;
+            Instantiate(DoorFab, new Vector3(pz.x, pz.y - ppos.y, 0), Quaternion.Euler(0, 0, 270), nmr.transform);
+        }
+        if (CurrentRoom.room.HasRightDoor)
+        {
+            var pz = ppshex;
+            pz = pp + pz;
+            var ppos = CurrentRoom.room.RightDoor * 30f;
+            ppos.y += 15f;
+            Instantiate(DoorFab, new Vector3(pz.x, pz.y - ppos.y, 0), Quaternion.Euler(0, 0, 90), nmr.transform);
+        }
+    }
+
     public GameObject GetEnemyForDiff()
     {
         return Enemies[GlobalRand.Next(0, Enemies.Count)];

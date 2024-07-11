@@ -211,16 +211,16 @@ public class PlayerController : MonoBehaviour
                 case 6:
                     AttacksPerSecond = 4f;
                     Damage = 5;
-                    Spread = 20f;
+                    Spread = 15f;
                     break;
                 case 4:
                     AttacksPerSecond = 1.5f;
                     Spread = 5f;
-                    Damage = 10f;
+                    Damage = 1000f;
                     break;
                 case 7:
                     AttacksPerSecond = 1.5f;
-                    Damage = 7f;
+                    Damage = 6f;
                     break;
             }
             foreach(var m in mainweapon.Materials)
@@ -482,6 +482,14 @@ public class PlayerController : MonoBehaviour
                 s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position,-90,0));
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
+
+                var x = RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition)), RandomFunctions.Instance.NoZ(MyAssHurts.position));
+                if(x < 10)
+                {
+                    x /= 10;
+                    s.GetComponent<Projectile>().speed *= x;
+                }
+
                 s3.attackProfile = Shart;
                 s3.hsh *= -reverse;
                 epe *= -0.5f;
@@ -498,6 +506,11 @@ public class PlayerController : MonoBehaviour
         }
         if (isrealowner)
         {
+            if(AttacksPerSecond >= 10)
+            {
+                var x = AttacksPerSecond / 10f;
+                epe /= x;
+            }
             rigid.velocity += new Vector2(epe.x, epe.y);
         }
         if (HitCollider != null)

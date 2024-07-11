@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyType: Charger
   AttackType: Ranged
-  movespeed: 2.3
+  movespeed: 3
   SightRange: 15
   AttackCooldown: 1.2
   randommovetimer: 0

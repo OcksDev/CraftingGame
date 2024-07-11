@@ -634,7 +634,7 @@ PrefabInstance:
       objectReference: {fileID: 698161585}
     - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: RoomDensity
-      value: 13
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: CenterSpawn.x
@@ -646,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: DistanceScaler
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -3949468990596044743, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
       propertyPath: RoomPrefabs.Array.size
@@ -2515,6 +2515,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   namer: NormalRender
   nerd: {fileID: 360917632}
+--- !u!1001 &366640924
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 872685873}
+    m_Modifications:
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 25.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140139016934470287, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+      propertyPath: m_Name
+      value: DoorLol
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
 --- !u!1 &389961326
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,7 +3670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetpos: {x: 0, y: 0, z: 0}
   ppos: {x: 0, y: 0, z: 0}
-  SmoothMod: 0.5
+  SmoothMod: -1.006
 --- !u!114 &547126000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5428,6 +5485,7 @@ Transform:
   - {fileID: 730776758}
   - {fileID: 2101065590}
   - {fileID: 707252631}
+  - {fileID: 1226954671}
   m_Father: {fileID: 636545383}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7298,6 +7356,11 @@ MonoBehaviour:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4933656227016282864, guid: 283bb50cdbd4db74bbeedb431bd2ab0f, type: 3}
   m_PrefabInstance: {fileID: 710556267}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1226954671 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5948567117459824590, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+  m_PrefabInstance: {fileID: 366640924}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1297709906
 PrefabInstance:
@@ -10391,6 +10454,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1043070066}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: DoorFab
+      value: 
+      objectReference: {fileID: 8140139016934470287, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemDisplay
       value: 
       objectReference: {fileID: 1346095704441047819, guid: 7169d892df7168a428b969afbc184439, type: 3}
@@ -10753,7 +10820,7 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].DaggerParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: ead947bfb25325e40906660200e431f5, type: 3}
+      objectReference: {fileID: 21300000, guid: 2b11d6add9be0ec468032c4b964e625c, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].DaggerParts.Array.data[0]
       value: 
@@ -10765,7 +10832,7 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].DaggerParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: c69b5c04c91e2284a9c875d636430634, type: 3}
+      objectReference: {fileID: 21300000, guid: 1e16d39ea0016bc4cb14e8c1b833cf79, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[0]
       value: 

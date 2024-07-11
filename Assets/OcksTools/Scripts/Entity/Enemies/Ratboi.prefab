@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyType: Rat
   AttackType: Melee
-  movespeed: 5
+  movespeed: 8
   SightRange: 15
   AttackCooldown: 1.5
   randommovetimer: 0

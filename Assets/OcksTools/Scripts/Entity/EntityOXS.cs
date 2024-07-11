@@ -134,7 +134,8 @@ public class EntityOXS : MonoBehaviour
                     h.others = others;
                 }
                 int effect = -1;
-                switch (GetComponent<NavMeshEntity>().EnemyType)
+                var aa = GetComponent<NavMeshEntity>();
+                switch (aa.EnemyType)
                 {
                     case "Charger":
                         effect = 1;
@@ -143,7 +144,8 @@ public class EntityOXS : MonoBehaviour
                         effect = 0;
                         break;
                 }
-                if(effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                if (Gamer.Instance.EnemiesExisting.Contains(aa)) Gamer.Instance.EnemiesExisting.Remove(aa);
+                if (effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 CameraLol.Instance.Shake(0.25f, 0.80f);
 
                 break;

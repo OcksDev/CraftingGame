@@ -50,6 +50,7 @@ public class NavMeshEntity : MonoBehaviour
                 CLearShit += box.GetComponentInChildren<EnemyHitShit>().OnSpawn;
                 break;
         }
+        SightRange = 95f;
     }
     private void Update()
     {
@@ -112,7 +113,7 @@ public class NavMeshEntity : MonoBehaviour
         {
             timer += Time.deltaTime;
         }
-        float dist=69;
+        float dist=690;
         PlayerController nearestnerd = null;
         foreach(var p in Gamer.Instance.Players)
         {
@@ -125,7 +126,7 @@ public class NavMeshEntity : MonoBehaviour
             }
         }
         ddist= dist;
-        if(nearestnerd != null && dist <= 30)
+        if(nearestnerd != null && dist <= 100)
         {
 
             if (dist <= SightRange)
@@ -210,10 +211,26 @@ public class NavMeshEntity : MonoBehaviour
                         else
                         {
                             beans.SetDestination(target.transform.position);
+                            beans.speed = movespeed*2f;
+                        }
+                        if (dist >= 22f)
+                        {
+                            beans.speed *= 1.5f;
+                        }
+                        break;
+                    case "Charger":
+                        beans.SetDestination(target.transform.position);
+                        if (dist >= 15f)
+                        {
+                            beans.speed = movespeed * 2.5f;
                         }
                         break;
                     default:
                         beans.SetDestination(target.transform.position);
+                        if (dist >= 22f)
+                        {
+                            beans.speed = movespeed * 1.5f;
+                        }
                         break;
                 }
             }
@@ -262,7 +279,7 @@ public class NavMeshEntity : MonoBehaviour
     public void CheckCanSee(bool range, GameObject shart)
     {
         var p = shart;                                                                                                                                              
-        var hit = Physics2D.RaycastAll(transform.position, p.transform.position - transform.position, range?SightRange:(SightRange*1.5f));
+        var hit = Physics2D.RaycastAll(transform.position, p.transform.position - transform.position, SightRange);
         // Does the ray intersect any objects excluding the player layer
         bool sex = false;
         float dist = 69;
