@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 296656410540075653}
   - component: {fileID: 7608798594071078939}
   - component: {fileID: -4844476249270497945}
+  - component: {fileID: 1427643980547001212}
   m_Layer: 7
   m_Name: DmaageIndicator
   m_TagString: Untagged
@@ -149,4 +150,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sex: {fileID: 7608798594071078939}
+  shexysex: {fileID: 1427643980547001212}
+  critlevel: -1
   r: 0
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.73973227, b: 0, a: 1}
+  - {r: 0, g: 0.895895, b: 1, a: 1}
+  - {r: 0, g: 0.8584906, b: 0.20109616, a: 1}
+  - {r: 0.59044695, g: 0, b: 1, a: 1}
+--- !u!114 &1427643980547001212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8393889592928181090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205b9b9d8e2d21a468a5e8ad31112b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -113,7 +114,9 @@ public class EntityOXS : MonoBehaviour
             var x = (transform.localScale.x / 2) - 0.25f;
             var y = (transform.localScale.y / 2) - 0.25f;
             var e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], transform.position + new Vector3(Random.Range(-x, x), Random.Range(-y, y), 0), Quaternion.identity);
-            e.GetComponent<TextMeshProUGUI>().text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(hit.Damage)).ToString());
+            var fard = e.GetComponent<DamIndi>();
+            fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(hit.Damage)).ToString());
+            fard.critlevel = hit.WasCrit;
             DamageTimer = 0.1f;
         }
     }
@@ -262,6 +265,7 @@ public class DamageProfile
     public Vector3 AttackerPos = Vector3.zero;
     public float Knockback = 0f;
     public GameObject attacker = null;
+    public int WasCrit = -1;
     public DamageProfile(string name, double damage)
     {
         Damage = damage;
@@ -283,6 +287,7 @@ public class DamageProfile
         SpecificLocation = pp.SpecificLocation;
         Knockback = pp.Knockback;
         attacker = pp.attacker;
+        WasCrit = pp.WasCrit;
     }
 
 }

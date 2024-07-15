@@ -105,6 +105,7 @@ public class HitBalls : MonoBehaviour
                         hite = true;
                     }
                     var dam = new DamageProfile(type, attackProfile.CalcDamage());
+                    dam.WasCrit = attackProfile.WasCrit;
                     dam.Knockback = 1f;
                     dam.attacker = playerController.gameObject;
                     if (type == "Arrow" || type == "Shuriken")
@@ -119,7 +120,7 @@ public class HitBalls : MonoBehaviour
                             hitlist.Add(collision.gameObject);
                             break;
                         case "Shuriken":
-                            hitdict.Add(collision.gameObject, 12);
+                            hitdict.Add(collision.gameObject, 20);
                             break;
                         default:
                             break;

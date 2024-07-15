@@ -571,6 +571,7 @@ public class AttackProfile
     public double Damage = 0;
     public double CritChance = 0;
     public int PreCritted = -1;
+    public int WasCrit = -1;
 
     public AttackProfile()
     {
@@ -586,15 +587,25 @@ public class AttackProfile
     public double CalcDamage()
     {
         var x = Damage;
+        WasCrit = -1;
         if(PreCritted > -1)
         {
             x *= PreCritted;
+            if(PreCritted > 1)
+            {
+                WasCrit = PreCritted-2;
+            }
         }
         else
         {
             var ff = Random.Range(0f, 1f);
             int tt = (int)System.Math.Floor(CritChance);
-            x *= tt + (ff < (CritChance % 1) ? 2 : 1);
+            var shex = tt + (ff < (CritChance % 1) ? 2 : 1);
+            if(shex > 1)
+            {
+                WasCrit = shex - 2;
+            }
+            x *= shex;
 
         }
 
