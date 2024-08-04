@@ -36,8 +36,8 @@ public class EntityOXS : MonoBehaviour
         if (AntiDieJuice) return;
         if (rg != null && hit.SpecificLocation)
         {
-            var e = ((Vector2)transform.position - (Vector2)hit.AttackerPos).normalized * hit.Knockback * 2.5f;
-            rg.velocity += e;
+            var ewanker = ((Vector2)transform.position - (Vector2)hit.AttackerPos).normalized * hit.Knockback * 2.5f;
+            rg.velocity += ewanker;
         }
         switch (EnemyType)
         {
@@ -57,14 +57,6 @@ public class EntityOXS : MonoBehaviour
         PlayerController s2 = null;
         switch (EnemyType)
         {
-            case "Player":
-                s2 = GetComponent<PlayerController>();
-                if (PlayerController.Instance == s2)
-                {
-                    CameraLol.Instance.Shake(0.4f, 0.87f);
-                    Gamer.Instance.ShartPoop += 0.4f;
-                }
-                break;
             default:
                 if (Gamer.IsMultiplayer)
                 {
@@ -81,29 +73,43 @@ public class EntityOXS : MonoBehaviour
         switch (EnemyType)
         {
             case "Player":
+                s2 = GetComponent<PlayerController>();
                 if (!s2.isrealowner) break;
                 hit.Damage -= s2.GetItem("repulse");
                 if (hit.Damage < 1) hit.Damage = 1;
-                var y = s2.GetItem("blocker");
-                float x = ((float)y)/(19f+y);
-                //Debug.Log("shar: " + x);
-                if (Random.Range(0f, 1f) > x)
+
+                if (s2.IsDashing)
                 {
-                    Shield -= hit.Damage;
-                    if (Shield < 0)
-                    {
-                        Health += Shield;
-                    }
+                    block = true;
                 }
                 else
                 {
-                    block = true;
-                    //blocked!
-                }
+                    var y = s2.GetItem("blocker");
+                    float x = ((float)y) / (19f + y);
+                    //Debug.Log("shar: " + x);
+                    if (Random.Range(0f, 1f) > x)
+                    {
+                        if (PlayerController.Instance == s2)
+                        {
+                            CameraLol.Instance.Shake(0.4f, 0.87f);
+                            Gamer.Instance.ShartPoop += 0.4f;
+                        }
+                        Shield -= hit.Damage;
+                        if (Shield < 0)
+                        {
+                            Health += Shield;
+                        }
+                    }
+                    else
+                    {
+                        block = true;
+                        //blocked!
+                    }
 
+                }
                 break;
             default:
-                PlayerController.Instance.DashCoolDown -= 0.3f;
+                PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown/10f;
                 Shield -= hit.Damage;
                 if (Shield < 0)
                 {
@@ -112,15 +118,29 @@ public class EntityOXS : MonoBehaviour
                 break;
         }
 
-        if (hit.Damage > 0 && !block)
+        var xx = (transform.localScale.x / 2) - 0.25f;
+        var yy = (transform.localScale.y / 2) - 0.25f;
+        GameObject e = null;
+        if (hit.Damage > 0)
         {
-            var x = (transform.localScale.x / 2) - 0.25f;
-            var y = (transform.localScale.y / 2) - 0.25f;
-            var e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], transform.position + new Vector3(Random.Range(-x, x), Random.Range(-y, y), 0), Quaternion.identity);
+            e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], transform.position + new Vector3(Random.Range(-xx, xx), Random.Range(-yy, yy), 0), Quaternion.identity);
+        }
+        if (e != null)
+        {
             var fard = e.GetComponent<DamIndi>();
-            fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(hit.Damage)).ToString());
-            fard.critlevel = hit.WasCrit;
-            DamageTimer = 0.1f;
+            if (block)
+            {
+                fard.sex.text = "Blocked";
+                fard.critlevel = -1;
+                fard.NoCLor = true;
+                fard.sex.color = new Color32(109, 147, 207,255);
+            }
+            else
+            {
+                fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(hit.Damage)).ToString());
+                fard.critlevel = hit.WasCrit;
+                DamageTimer = 0.1f;
+            }
         }
     }
     public void Kill()
@@ -151,7 +171,7 @@ public class EntityOXS : MonoBehaviour
                         break;
                 }
                 if (Gamer.Instance.EnemiesExisting.Contains(aa)) Gamer.Instance.EnemiesExisting.Remove(aa);
-                PlayerController.Instance.DashCoolDown = 0;
+                PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown;
                 if (effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 CameraLol.Instance.Shake(0.25f, 0.80f);
 

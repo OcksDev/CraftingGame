@@ -5,16 +5,19 @@ using UnityEngine;
 public class DoorFart : MonoBehaviour
 {
     public BoxCollider2D boxcol;
+    public BoxCollider2D teleboxcol;
     public SpriteRenderer visual;
-
+    public bool IsGood = true;
     private void Start()
     {
+        if (!IsGood) return;
         StartCoroutine(fartmyballs());
     }
 
     public IEnumerator fartmyballs()
     {
         boxcol.enabled = true;
+        teleboxcol.enabled = true;
         var c = visual.color;
         c.a = 0;
         visual.color = c;
@@ -32,6 +35,7 @@ public class DoorFart : MonoBehaviour
         yield return new WaitUntil(() => { return !Gamer.Instance.InRoom; });
         yield return new WaitForSeconds(0.5f);
         boxcol.enabled = false;
+        teleboxcol.enabled = false;
         for (int i = 50; i <= 100; i++)
         {
             float f = i * cc;

@@ -344,6 +344,7 @@ public class Gamer : MonoBehaviour
             spawnedchests.Add(c);
         }
 
+        PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
 
         yield return new WaitForFixedUpdate();
 
@@ -367,6 +368,7 @@ public class Gamer : MonoBehaviour
         int enemycount = 5* (int)(w.x*w.y);
         for(int i = 0; i < enemycount; i++)
         {
+            if (GameState != "Game") break;
             var s = CurrentRoom.gm.transform;
             var ss = Instantiate(GetEnemyForDiff(), FindValidPos(CurrentRoom), PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
             var rs = ss.GetComponent<NavMeshEntity>();
@@ -376,6 +378,7 @@ public class Gamer : MonoBehaviour
         }
         yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
         CurrentRoom = null;
+        PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         InRoom = false;
     }
 

@@ -11,10 +11,13 @@ public class InputBuffer : MonoBehaviour
      *     GetBuffer() gets if the button exists in the buffer
      *     RemoveBuffer() removes the button from the buffer if it exists
      */
-
+    public static InputBuffer Instance;
 
     public Dictionary<string, BufferedInput> buffer = new Dictionary<string, BufferedInput>();
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     public void Update()
     {
         for(int i = 0; i < buffer.Count; i++)
@@ -38,9 +41,9 @@ public class InputBuffer : MonoBehaviour
         if (buffer.ContainsKey(name)) buffer.Remove(name);
     }
 
-    public void BufferListen(string name, KeyCode key, float time, bool isdown = true)
+    public void BufferListen(KeyCode key, string name, string ide, float time, bool isdown = true)
     {
-        if(isdown? InputManager.IsKeyDown(key, name) : InputManager.IsKey(key, name))
+        if(isdown? InputManager.IsKeyDown(key, ide) : InputManager.IsKey(key, ide))
         {
             var b = new BufferedInput();
             b.Name = name;

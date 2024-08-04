@@ -9,6 +9,7 @@ public class DamIndi : MonoBehaviour
     public TextMeshProUGUI sex;
     public TextAnimator shexysex;
     public int critlevel = -1;
+    public bool NoCLor = false;
     public float r = 0;
     float size = 2;
     float spd = 3;
@@ -39,8 +40,11 @@ public class DamIndi : MonoBehaviour
                 }
             }
         }
-        var e = colors[Mathf.Clamp(critlevel + 1, 0, colors.Length - 1)];
-        sex.color = e;
+        if (!NoCLor)
+        {
+            var e = colors[Mathf.Clamp(critlevel + 1, 0, colors.Length - 1)];
+            sex.color = e;
+        }
         sex.ForceMeshUpdate();
     }
     private void FixedUpdate()
@@ -50,7 +54,7 @@ public class DamIndi : MonoBehaviour
         transform.position += transform.up * Time.deltaTime;
         float g = size / (t);
         transform.localScale = new Vector3(g, g, g);
-        var e = colors[Mathf.Clamp(critlevel+1, 0, colors.Length-1)];
+        var e = sex.color;
         e.a = 1 - ((t-1)/3);
         sex.color = e;
         if(t >= 3.5f) Destroy(gameObject);

@@ -22,7 +22,9 @@ public class CanvasAnchorBald : MonoBehaviour
     {
         var e = target.transform.position;
         e.z = z;
-        if((transform.position-e).magnitude > 0.5f)
+        e.x = Mathf.Ceil(e.x*16)/16;
+        e.y = Mathf.Ceil(e.y*16)/16;
+        if((transform.position-e).magnitude > 0.25f)
         transform.position = e;
     }
 }

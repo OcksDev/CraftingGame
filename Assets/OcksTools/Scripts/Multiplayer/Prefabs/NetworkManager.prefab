@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 1919247279447903412}
   - component: {fileID: 8569775423251147444}
   - component: {fileID: 733915574832352348}
+  - component: {fileID: 7656966674552916447}
   - component: {fileID: 2965768894488407985}
   m_Layer: 0
   m_Name: NetworkManager
@@ -69,6 +70,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checks: 0000000000000000000000000000000000000000
+  sexex:
+  - {fileID: 0}
+  - {fileID: 0}
+  fader: {fileID: 0}
+  ballers: []
+  Enemies: []
+  Players: []
+  EnemiesExisting: []
+  Chests: []
+  HealerGFooFO: {fileID: 0}
+  nmr: {fileID: 0}
+  GroundItemShit: {fileID: 0}
+  CraftSex: 3
+  cuumer: {fileID: 0}
+  PlayerPrefab: {fileID: 0}
+  healers: []
+  balls: {fileID: 0}
+  spawnedchests: []
+  ItemShites: []
+  ItemDisplayParent: {fileID: 0}
+  ItemDisplay: {fileID: 0}
+  ItemDikPoops: []
+  DoorFab: {fileID: 0}
+  SpawnFix: {fileID: 0}
+  ParticleSpawns: []
+  HitSexers: []
+  InRoom: 0
+  CurrentRoom: {fileID: 0}
+  IsHost: 0
+  ShartPoop: 0
+  IsFading: 0
+  completetetge: 0
 --- !u!114 &5856764855215001397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Join_Code: 
   ServerGamerObject: {fileID: 880589326191894371, guid: 85c57e8fe3c62394fbdaaad429dd5d0e, type: 3}
+  SignInState: 
 --- !u!114 &6570595859471956945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +170,7 @@ MonoBehaviour:
   Mouse_Displayer: {fileID: 0}
   MouseFollower: {fileID: 0}
   Items: []
+  Materials: []
 --- !u!114 &6452671135146635083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +291,18 @@ MonoBehaviour:
   SFXVolume: 1
   MusicVolume: 1
   AudioClips: []
+--- !u!114 &7656966674552916447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7616261651428151895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f83b4aa201dd3424a9bce946e8b66b49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2965768894488407985
 MonoBehaviour:
   m_ObjectHideFlags: 0

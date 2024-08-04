@@ -59,7 +59,8 @@ public class NavMeshEntity : MonoBehaviour
         this.EntityOXS.AntiDieJuice = true;
         sex.bodyType = RigidbodyType2D.Static;
         var a = Instantiate(Gamer.Instance.SpawnFix, transform.position, transform.rotation, transform).GetComponent<SpriteRenderer>();
-        Instantiate(Gamer.Instance.ParticleSpawns[3], transform.position, transform.rotation, transform);
+        var esex = Instantiate(Gamer.Instance.ParticleSpawns[3], transform.position, transform.rotation, transform).GetComponent<partShitBall>();
+        esex.Particicic.localScale = new Vector3(beans.radius, beans.radius, beans.radius);
         a.sprite = WantASpriteCranberry.sprite;
         a.material = Gamer.Instance.sexex[1];
         var c = (Color)new Color32(120, 0, 255, 0);

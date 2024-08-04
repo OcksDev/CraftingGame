@@ -8,7 +8,7 @@ public class partShitBall : MonoBehaviour
     public float lifetime = 3f;
 
     public SpriteRenderer spspsp;
-
+    public Transform Particicic;
     private void Start()
     {
         switch (type)

@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
     public OcksNetworkVar network_helditem = new OcksNetworkVar();
     public Dictionary<string, int> Items = new Dictionary<string, int>();
     private bool HasLoadedWeapon = false;
+    public static float BaseDashCooldown = 5f;
+    public SpriteRenderer Underlay;
     private void Awake()
     {
         Gamer.Instance.Players.Add(this);
@@ -81,8 +83,10 @@ public class PlayerController : MonoBehaviour
         rigid= GetComponent<Rigidbody2D>();
         entit = GetComponent<EntityOXS>();
         dicksplay = dicksplit.GetComponent<SpriteRenderer>();
+        oldsex = Underlay.color;
         entit.Shield = 0;
         SetData();
+        DashCoolDown = MaxDashCooldown * 3;
         //SetData();
     }
     public bool hasaids = false;
@@ -202,7 +206,7 @@ public class PlayerController : MonoBehaviour
         Spread = 15f;
         MaxBowMult = 1.5f;
         BowChargeSpeed = 1.5f;
-        MaxDashCooldown = 3f;
+        MaxDashCooldown = BaseDashCooldown;
         if(mainweapon != null)
         {
             switch (mainweapon.ItemIndex)
@@ -264,6 +268,12 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    private void Update()
+    {
+        InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"], "Dash", "player", 0.1f, true);
+    }
+
     private void LateUpdate()
     {
         dicksplit.rotation = Quaternion.identity;
@@ -279,6 +289,9 @@ public class PlayerController : MonoBehaviour
         selecteditem = s3x;
         SetData();
     }
+    Color oldsex;
+    [HideInInspector]
+    public bool IsDashing = false;
     private string oldval;
     void FixedUpdate()
     {
@@ -331,11 +344,18 @@ public class PlayerController : MonoBehaviour
             rigid.velocity += new Vector2(bgalls.x, bgalls.y);
             if (isrealowner)
             {
-                DashCoolDown -= Time.deltaTime;
-                if(DashCoolDown <= 0 && InputManager.IsKey(InputManager.gamekeys["dash"], "player"))
+                float sex = Time.deltaTime;
+                if (!Gamer.Instance.InRoom) sex *= 5;
+                DashCoolDown = Mathf.Clamp(DashCoolDown + sex, 0, MaxDashCooldown * 3);
+                bool candash = DashCoolDown >= MaxDashCooldown && !IsDashing;
+                if (candash && InputBuffer.Instance.GetBuffer("Dash"))
                 {
+                    InputBuffer.Instance.RemoveBuffer("Dash");
                     StartDash(dir);
                 }
+                var c = IsDashing ? (Color)new Color32(15, 140, 0, 255) : oldsex;
+                c.a = candash||IsDashing?1:0.3f;
+                Underlay.color = c;
             }
             if (CameraLol.Instance != null)
             {
@@ -423,7 +443,9 @@ public class PlayerController : MonoBehaviour
     }
     public void StartDash(Vector3 dir)
     {
-        DashCoolDown = MaxDashCooldown;
+        IsDashing = true;
+        DashCoolDown -= MaxDashCooldown;
+        Instantiate(Gamer.Instance.ParticleSpawns[4], transform.position, transform.rotation, transform);
         StartCoroutine(Dash(dir));
     }
 
@@ -434,6 +456,8 @@ public class PlayerController : MonoBehaviour
             rigid.velocity += (Vector2)(dir*17);
             yield return new WaitForFixedUpdate();
         }
+        yield return new WaitForSeconds(0.1f);
+        IsDashing = false;
     }
     public void StartAttack(double d = -1)
     {
