@@ -20,6 +20,7 @@ public class EntityOXS : MonoBehaviour
     public Color32 col;
     public NavMeshEntity sexy;
     public int healerstospawn = 1;
+    public bool AntiDieJuice = false;
     private void Start()
     {
         ren = GetComponent<SpriteRenderer>();
@@ -32,6 +33,7 @@ public class EntityOXS : MonoBehaviour
     }
     public void Hit(DamageProfile hit)
     {
+        if (AntiDieJuice) return;
         if (rg != null && hit.SpecificLocation)
         {
             var e = ((Vector2)transform.position - (Vector2)hit.AttackerPos).normalized * hit.Knockback * 2.5f;
@@ -101,6 +103,7 @@ public class EntityOXS : MonoBehaviour
 
                 break;
             default:
+                PlayerController.Instance.DashCoolDown -= 0.3f;
                 Shield -= hit.Damage;
                 if (Shield < 0)
                 {
@@ -148,6 +151,7 @@ public class EntityOXS : MonoBehaviour
                         break;
                 }
                 if (Gamer.Instance.EnemiesExisting.Contains(aa)) Gamer.Instance.EnemiesExisting.Remove(aa);
+                PlayerController.Instance.DashCoolDown = 0;
                 if (effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 CameraLol.Instance.Shake(0.25f, 0.80f);
 
@@ -162,6 +166,7 @@ public class EntityOXS : MonoBehaviour
     }
     private void Update()
     {
+        if (AntiDieJuice) return;
         if (ren != null)
         {
             ren.material = Gamer.Instance.sexex[DamageTimer >= 0 ? 1 : 0];

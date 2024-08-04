@@ -7,6 +7,7 @@ public class EnemyHitShit : MonoBehaviour
     public string type = "rat";
     public double Damage = 10;
     float time = 10f;
+    public NavMeshEntity sexballs;
     List<PlayerController> hits = new List<PlayerController>(); 
     private void Update()
     {
@@ -31,7 +32,7 @@ public class EnemyHitShit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isdea) return;
-
+        if (sexballs != null && sexballs.EntityOXS.AntiDieJuice) return;
         var e = Gamer.Instance.GetObjectType(collision.gameObject);
 
         var pp = e.playerController;

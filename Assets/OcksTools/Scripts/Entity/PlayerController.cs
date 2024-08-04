@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public float MaxBowMult = 2f;
     public float BowChargeSpeed = 1f;
     public float CritChance = 0.01f;
+    public float MaxDashCooldown = 3f;
     private Vector3 move = new Vector3(0, 0, 0);
     public Transform SwordFart;
     public Transform dicksplit;
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public int selecteditem = 0;
     public SpawnData spawnData;
     public bool isrealowner;
+    public float DashCoolDown = 0f;
     public OcksNetworkVar network_helditem = new OcksNetworkVar();
     public Dictionary<string, int> Items = new Dictionary<string, int>();
     private bool HasLoadedWeapon = false;
@@ -194,12 +196,13 @@ public class PlayerController : MonoBehaviour
             }
         }
         CritChance = 0.01f;
-        working_move_speed = 2;
+        working_move_speed = 1.5f;
         Damage = 7;
         AttacksPerSecond = 3;
         Spread = 15f;
         MaxBowMult = 1.5f;
         BowChargeSpeed = 1.5f;
+        MaxDashCooldown = 3f;
         if(mainweapon != null)
         {
             switch (mainweapon.ItemIndex)
@@ -266,8 +269,8 @@ public class PlayerController : MonoBehaviour
         dicksplit.rotation = Quaternion.identity;
         if (isrealowner)
         {
-            if (InputManager.IsKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
-            else if (InputManager.IsKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
+            if (InputManager.IsKeyDown(KeyCode.Alpha1, "player")) SwitchWeapon(0);
+            else if (InputManager.IsKeyDown(KeyCode.Alpha2, "player")) SwitchWeapon(1);
         }
     }
 
@@ -291,10 +294,10 @@ public class PlayerController : MonoBehaviour
             SetMoveSpeed();
             move *= decay;
             Vector3 dir = new Vector3(0, 0, 0);
-            if (InputManager.IsKey(KeyCode.W)) dir += Vector3.up;
-            if (InputManager.IsKey(KeyCode.S)) dir += Vector3.down;
-            if (InputManager.IsKey(KeyCode.D)) dir += Vector3.right;
-            if (InputManager.IsKey(KeyCode.A)) dir += Vector3.left;
+            if (InputManager.IsKey(KeyCode.W, "player")) dir += Vector3.up;
+            if (InputManager.IsKey(KeyCode.S, "player")) dir += Vector3.down;
+            if (InputManager.IsKey(KeyCode.D, "player")) dir += Vector3.right;
+            if (InputManager.IsKey(KeyCode.A, "player")) dir += Vector3.left;
             if (dir.magnitude > 0.5f)
             {
                 dir.Normalize();
@@ -307,9 +310,9 @@ public class PlayerController : MonoBehaviour
                 {
                     if (f2 <= 0 && f >= 1)
                     {
-                        if (InputManager.IsKey(InputManager.gamekeys["shoot"])) bowsextimer += Time.deltaTime * BowChargeSpeed;
+                        if (InputManager.IsKey(InputManager.gamekeys["shoot"], "player")) bowsextimer += Time.deltaTime * BowChargeSpeed;
                         if (bowsextimer > MaxBowMult) bowsextimer = MaxBowMult;
-                        if (bowsextimer > 0 && !InputManager.IsKey(InputManager.gamekeys["shoot"]))
+                        if (bowsextimer > 0 && !InputManager.IsKey(InputManager.gamekeys["shoot"], "player"))
                         {
                             //Debug.Log(bowsextimer + ", " + Damage);
                             StartAttack(Damage * (1 + bowsextimer));
@@ -321,11 +324,19 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    if (InputManager.IsKey(InputManager.gamekeys["shoot"]) && f2 <= 0 && f >= 1) StartAttack();
+                    if (InputManager.IsKey(InputManager.gamekeys["shoot"], "player") && f2 <= 0 && f >= 1) StartAttack();
                 }
             }
             Vector3 bgalls = move * Time.deltaTime * move_speed * 20;
             rigid.velocity += new Vector2(bgalls.x, bgalls.y);
+            if (isrealowner)
+            {
+                DashCoolDown -= Time.deltaTime;
+                if(DashCoolDown <= 0 && InputManager.IsKey(InputManager.gamekeys["dash"], "player"))
+                {
+                    StartDash(dir);
+                }
+            }
             if (CameraLol.Instance != null)
             {
                 CameraLol.Instance.targetpos = transform.position;
@@ -347,10 +358,9 @@ public class PlayerController : MonoBehaviour
         g = g * g * g * g;
         if (f >= 1)
         {
-            if (isrealowner)
+            if (isrealowner && !Gamer.WithinAMenu)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Point2D(-90, 0), 25f);
-                dicksplay.transform.localScale = new Vector3((transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x > 0?1:-1, 1,1);
                 dicksplay.transform.localScale = new Vector3((transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x > 0?1:-1, 1,1);
             }
         }
@@ -385,12 +395,15 @@ public class PlayerController : MonoBehaviour
                     SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g)*-reverse, Mathf.Lerp(0.5f, -2.5f, g), 0);
                     break;
             }
-            int reverse2 = (transform.position-MyAssHurts.transform.position).x < 0?1:-1;
-            switch (mainweapon.ItemIndex)
+            if (!Gamer.WithinAMenu)
             {
-                case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
-                case 7: SwordFart.localScale = new Vector3(reverse2* (1 - g), (1 - g), (1 - g)); break;
-                default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
+                int reverse2 = (transform.position - MyAssHurts.transform.position).x < 0 ? 1 : -1;
+                switch (mainweapon.ItemIndex)
+                {
+                    case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
+                    case 7: SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
+                    default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
+                }
             }
         }
     }
@@ -408,7 +421,20 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+    public void StartDash(Vector3 dir)
+    {
+        DashCoolDown = MaxDashCooldown;
+        StartCoroutine(Dash(dir));
+    }
 
+    public IEnumerator Dash(Vector3 dir)
+    {
+        for(int i = 0; i < 7; i++)
+        {
+            rigid.velocity += (Vector2)(dir*17);
+            yield return new WaitForFixedUpdate();
+        }
+    }
     public void StartAttack(double d = -1)
     {
         if (d == -1) d = Damage;

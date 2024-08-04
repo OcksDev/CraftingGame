@@ -192,6 +192,8 @@ public class InputManager : MonoBehaviour
         gamekeynames.Add("interact", "Interacts Wit Yo Shit");
         gamekeys.Add("craft", KeyCode.R);
         gamekeynames.Add("craft", "Fucks Yo Shit again");
+        gamekeys.Add("dash", KeyCode.LeftShift);
+        gamekeynames.Add("dash", "Fucks Yo Shit again again");
 
         var lang = LanguageFileSystem.Instance;
         lang.UpdateGameFromFile();
@@ -257,7 +259,7 @@ public class InputManager : MonoBehaviour
 
     public static bool GetSelected(string ide)
     {
-        return locklevel == ide || locklevel == "";
+        return locklevel == ide || locklevel == "" || ide == "";
     }
 
     public static void ResetLockLevel()
@@ -277,6 +279,18 @@ public class InputManager : MonoBehaviour
 
         //add code to change boolean to true if the input is denied
 
+        if (b2 != locklevel && locklevel != "")
+        {
+            if (b2 != "")
+            {
+                Debug.Log("Cockblocked!");
+                a=true;
+            }
+            else
+            {
+                Debug.Log("FakeBlcoked!");
+            }
+        }
 
         return a;
     }

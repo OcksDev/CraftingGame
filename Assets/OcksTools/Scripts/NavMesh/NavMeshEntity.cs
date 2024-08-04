@@ -25,6 +25,7 @@ public class NavMeshEntity : MonoBehaviour
     public float timer2 = 0f;
     public Vector3 spawn;
     public EnemyHitShit sex2;
+    public bool HasSpawned=  false;
     public event Gamer.JustFuckingRunTheMethods CLearShit;
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,6 @@ public class NavMeshEntity : MonoBehaviour
         transform.rotation = Quaternion.identity;
         beans.updateRotation= false;
         beans.updateUpAxis= false;
-        ReRollPos();
         WantASpriteCranberry.flipX = Random.Range(0, 2) == 1;
         WantASpriteCranberry.sprite = SpriteVarients[Random.Range(0, SpriteVarients.Count)];
         randommovetimer = 0;
@@ -51,9 +51,38 @@ public class NavMeshEntity : MonoBehaviour
                 break;
         }
         SightRange = 95f;
+        StartCoroutine(SpawningLol());
     }
+
+    public IEnumerator SpawningLol()
+    {
+        this.EntityOXS.AntiDieJuice = true;
+        sex.bodyType = RigidbodyType2D.Static;
+        var a = Instantiate(Gamer.Instance.SpawnFix, transform.position, transform.rotation, transform).GetComponent<SpriteRenderer>();
+        Instantiate(Gamer.Instance.ParticleSpawns[3], transform.position, transform.rotation, transform);
+        a.sprite = WantASpriteCranberry.sprite;
+        a.material = Gamer.Instance.sexex[1];
+        var c = (Color)new Color32(120, 0, 255, 0);
+        a.color = c;
+        WantASpriteCranberry.enabled = false;
+        for (int i = 0; i < 80; i++)
+        {
+            yield return new WaitForFixedUpdate();
+            c.a += 0.0125f;
+            a.color = c;
+        }
+        //yield return new WaitForSeconds(10f);
+        HasSpawned = true;
+        WantASpriteCranberry.enabled = true;
+        Destroy(a.gameObject);
+        sex.bodyType = RigidbodyType2D.Dynamic;
+        this.EntityOXS.AntiDieJuice = false;
+    }
+
+
     private void Update()
     {
+        if(!HasSpawned) return;
         switch (EnemyType)
         {
             case "Charger":
@@ -64,45 +93,13 @@ public class NavMeshEntity : MonoBehaviour
                 break;
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (timer <= 0.1f)
-        {
-            ReRollPos();
-        }
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (timer <= 0.1f)
-        {
-            ReRollPos();
-        }
-    }
-
-    public void ReRollPos()
-    {
-        var s = originroom.gm.transform;
-        var s1 = s.localScale / 2;
-        transform.position = s.position + new Vector3(Random.Range(-s1.x + 3f, s1.x - 3f), Random.Range(-s1.y + 3f, s1.y - 3f), 0);
-
-        var hits = Physics2D.RaycastAll(transform.position, transform.TransformDirection(Vector3.forward));
-        bool sex = false;
-        foreach(var e in hits)
-        {
-            var s2 = e.transform.GetComponent<SpriteRenderer>();
-            if (s2 != null && s2.sortingOrder == -9999)
-            {
-                sex = true; break;
-            }
-        }
-        if(!sex) ReRollPos();
-    }
     public bool existing = false;
     public float ddist;
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (timer > 0.1f && !existing)
+        if (!HasSpawned) return;
+        if (!existing)
         {
             existing = true;
             WantASpriteCranberry.enabled = true;
@@ -205,7 +202,7 @@ public class NavMeshEntity : MonoBehaviour
                     case "Spitter":
                         if (canseemysexybooty)
                         {
-                            var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized*-13f + target.transform.position;
+                            var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized*-7f + target.transform.position;
                             beans.SetDestination(e);
                         }
                         else

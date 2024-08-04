@@ -134,6 +134,7 @@ MonoBehaviour:
     rgba: 0
   sexy: {fileID: 0}
   healerstospawn: 1
+  AntiDieJuice: 0
 --- !u!58 &2284451541892325393
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -202,6 +203,7 @@ MonoBehaviour:
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
   sex2: {fileID: 4879188297316090174}
+  HasSpawned: 0
   existing: 0
   ddist: 0
   charging: 0
@@ -313,4 +315,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: rat
   Damage: 10
+  sexballs: {fileID: 2284451541892325392}
   balling: {fileID: 0}

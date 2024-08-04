@@ -10,8 +10,13 @@ public class CanvasAnchorBald : MonoBehaviour
     {
         z = transform.position.z;
         Gamer.Instance.RefreshUIPos += AHG;
+        StartCoroutine(Fuck());
     }
-
+    public IEnumerator Fuck()
+    {
+        yield return new WaitForSeconds(0.5f);
+        AHG();
+    }
 
     public void AHG()
     {

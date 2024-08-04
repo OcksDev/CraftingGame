@@ -36,6 +36,7 @@ public class Gamer : MonoBehaviour
     public GameObject ItemDisplay;
     public List<ItemDikpoop> ItemDikPoops = new List<ItemDikpoop>();
     public GameObject DoorFab;
+    public GameObject SpawnFix; 
 
     public List<GameObject> ParticleSpawns = new List<GameObject>();
 
@@ -51,7 +52,7 @@ public class Gamer : MonoBehaviour
 
     public delegate void JustFuckingRunTheMethods();
     public event JustFuckingRunTheMethods RefreshUIPos;
-
+    public static bool WithinAMenu = false;
     public void UpdateMenus()
     {
         Tags.refs["Inventory"].SetActive(checks[0]);
@@ -63,6 +64,17 @@ public class Gamer : MonoBehaviour
         Tags.refs["DedMenu"].SetActive(checks[6]);
         Tags.refs["TempMatMenu"].SetActive(checks[7]);
 
+        WithinAMenu = false;
+        InputManager.SetLockLevel("");
+        for(int i = 0; i < checks.Length; i++)
+        {
+            if (checks[i])
+            {
+                WithinAMenu = true;
+                InputManager.SetLockLevel("menu");
+                break;
+            }
+        }
 
         RefreshUIPos?.Invoke();
     }
@@ -356,7 +368,7 @@ public class Gamer : MonoBehaviour
         for(int i = 0; i < enemycount; i++)
         {
             var s = CurrentRoom.gm.transform;
-            var ss = Instantiate(GetEnemyForDiff(), s.position, PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
+            var ss = Instantiate(GetEnemyForDiff(), FindValidPos(CurrentRoom), PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
             var rs = ss.GetComponent<NavMeshEntity>();
             rs.originroom = CurrentRoom;
             EnemiesExisting.Add(rs);
@@ -366,6 +378,39 @@ public class Gamer : MonoBehaviour
         CurrentRoom = null;
         InRoom = false;
     }
+
+    public Vector3 FindValidPos(I_Room originroom)
+    {
+        var s = originroom.gm.transform;
+        var s1 = s.localScale / 2;
+        var x = s.position + new Vector3(Random.Range(-s1.x + 3f, s1.x - 3f), Random.Range(-s1.y + 3f, s1.y - 3f), 0);
+        bool failed = false;
+        if(RandomFunctions.Instance.Dist(x, PlayerController.Instance.transform.position) < 5)
+        {
+            failed = true;
+        }
+        else
+        {
+            var a = Physics2D.OverlapCircleAll((Vector2)x, 1);
+            foreach (var b in a)
+            {
+                var ob = GetObjectType(b.gameObject, false);
+                if (ob.BlocksSpawn)
+                {
+                    failed = true;
+                    break;
+                }
+            }
+        }
+
+        if (failed)
+        {
+            x = FindValidPos(originroom);
+        }
+        return x;
+    }
+
+
     public void BoomyRoomy()
     {
         var pp = new Vector2(CurrentRoom.transform.position.x,CurrentRoom.transform.position.y);
@@ -455,6 +500,7 @@ public class Gamer : MonoBehaviour
         if (shart.tag == "Sexy")
         {
             e.type = "Wall";
+            e.BlocksSpawn = true;
         }
         else if (shart.tag == "PlayerNerd")
         {
@@ -464,6 +510,7 @@ public class Gamer : MonoBehaviour
                 e.entityoxs = e.playerController.entit;
             }
             e.type = "Player";
+            e.BlocksSpawn = true;
         }
         else if (shart.tag == "Enemy")
         {
@@ -486,6 +533,7 @@ public class Gamer : MonoBehaviour
             if (!noget)
                 e.entityoxs = shart.GetComponent<EntityOXS>();
             e.type = "Hitable";
+            e.BlocksSpawn = true;
         }
         return e;
     }
@@ -609,6 +657,7 @@ public class ObjectType
     public NavMeshEntity entity = null;
     public EntityOXS entityoxs=null;
     public Furniture furniture = null;
+    public bool BlocksSpawn = false;
     public event Gamer.JustFuckingRunTheMethods DoOnTouch;
 
     public void FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork()

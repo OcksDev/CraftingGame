@@ -7,6 +7,7 @@ public class HealthBarSex : MonoBehaviour
 {
     public Transform orignalpos;
     public Transform mover;
+    public Image DashBarSex;
     public Image Healthbar;
     public Image HealthbarTrailer;
     public Image Healthbarsex;
@@ -15,7 +16,10 @@ public class HealthBarSex : MonoBehaviour
     {
         if(PlayerController.Instance != null)
         {
-            float x = (float)(PlayerController.Instance.entit.Health / PlayerController.Instance.entit.Max_Health);
+            var e = PlayerController.Instance;
+            float x = (float)(e.entit.Health / e.entit.Max_Health);
+            float x_dos = (e.MaxDashCooldown - e.DashCoolDown) / e.MaxDashCooldown;
+            DashBarSex.fillAmount = x_dos;
             Healthbar.fillAmount = x;
             Healthbarsex.fillAmount = (float)(PlayerController.Instance.entit.Shield / PlayerController.Instance.entit.Max_Shield);
             HealthbarTrailer.fillAmount = Mathf.Lerp(HealthbarTrailer.fillAmount, x - 0.01f, 0.06f);

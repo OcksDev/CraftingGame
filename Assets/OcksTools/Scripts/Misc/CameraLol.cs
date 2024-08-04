@@ -49,6 +49,8 @@ public class CameraLol : MonoBehaviour
         return x;
     }
 
+
+    Vector3 oldp = Vector3.zero;
     private void LateUpdate()
     {
         /* some an example for what hurting a player could be like
@@ -65,10 +67,18 @@ public class CameraLol : MonoBehaviour
         if (Gamer.GameState != "Main Menu")
         {
             //handles getting the mouse position and making the camera adjust to move to it
-            Vector3 p = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            p -= transform.position;
-            p /= 5;
-
+            Vector3 p = Vector3.zero;
+            if (Gamer.WithinAMenu)
+            {
+                p = oldp;
+            }
+            else
+            {
+                p = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                p -= transform.position;
+                p /= 5;
+                oldp = p;
+            }
             // "pos" is the location the camera tries to get to
             p += targetpos;
             p.z = -10;
