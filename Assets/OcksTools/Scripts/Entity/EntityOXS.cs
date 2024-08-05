@@ -42,9 +42,9 @@ public class EntityOXS : MonoBehaviour
         switch (EnemyType)
         {
             case "Enemy":
-                //Debug.Log("Sexy" + hit.attacker.name);
                 if(sexy != null)
                 {
+                    SoundSystem.Instance.PlaySound(0, true, 0.5f, 0.4f);
                     sexy.target = hit.attacker;
                     sexy.MyAssChecker();
                 }
@@ -107,6 +107,15 @@ public class EntityOXS : MonoBehaviour
                     }
 
                 }
+                if (block)
+                {
+                    SoundSystem.Instance.PlaySound(6, true, 0.5f, 0.75f);
+                }
+                else
+                {
+                    SoundSystem.Instance.PlaySound(4, true, 0.7f, 1f);
+                }
+
                 break;
             default:
                 PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown/10f;
@@ -148,6 +157,7 @@ public class EntityOXS : MonoBehaviour
         switch (EnemyType)
         {
             case "Enemy":
+                SoundSystem.Instance.PlaySound(1, true, 0.7f, 1f);
                 List<GameObject> others = new List<GameObject>();
                 for(int i = 0; i < healerstospawn; i++)
                 {

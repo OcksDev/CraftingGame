@@ -36,10 +36,11 @@ public class SoundSystem : MonoBehaviour
     {
         int k = 0;
         pvolume = 1;
+        ppitch = 1;
         int the_sound = sound;
         switch (sound)
         {
-            case 0:
+            default:
                 pvolume = SFXVolume;
                 /*
                 k = Random.Range(0, 2);
@@ -59,9 +60,7 @@ public class SoundSystem : MonoBehaviour
                 break;
             case 3:
                 pvolume = SFXVolume * 1.2f;
-                break;
-            case 4:
-                pvolume = SFXVolume * 1.5f;
+                ppitch = Random.Range(0.9f, 1.1f);
                 break;
         }
 
@@ -98,7 +97,7 @@ public class SoundSystem : MonoBehaviour
 
     private AudioSource psource;
     private float pvolume;
-
+    private float ppitch;
     public void PlaySound(int sound, bool randompitch = false, float volumes = 1f, float pitchmod = 1f)
     {
         ModSound(sound);
@@ -106,6 +105,7 @@ public class SoundSystem : MonoBehaviour
         var p = psource;
         p.pitch = 1f;
         p.pitch *= pitchmod;
+        p.pitch *= ppitch;
         if (randompitch)
         {
             p.pitch *= Random.Range(.7f, 1.3f);

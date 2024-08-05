@@ -279,19 +279,6 @@ public class InputManager : MonoBehaviour
 
         //add code to change boolean to true if the input is denied
 
-        if (b2 != locklevel && locklevel != "")
-        {
-            if (b2 != "")
-            {
-                Debug.Log("Cockblocked!");
-                a=true;
-            }
-            else
-            {
-                Debug.Log("FakeBlcoked!");
-            }
-        }
-
         return a;
     }
 

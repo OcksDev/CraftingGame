@@ -443,6 +443,8 @@ public class PlayerController : MonoBehaviour
     }
     public void StartDash(Vector3 dir)
     {
+        SoundSystem.Instance.PlaySound(3, false, 0.3f, 1f);
+        SoundSystem.Instance.PlaySound(2, true, 0.4f, 1f);
         IsDashing = true;
         DashCoolDown -= MaxDashCooldown;
         Instantiate(Gamer.Instance.ParticleSpawns[4], transform.position, transform.rotation, transform);
