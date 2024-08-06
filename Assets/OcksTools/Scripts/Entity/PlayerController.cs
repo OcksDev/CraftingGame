@@ -272,6 +272,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"], "Dash", "player", 0.1f, true);
+        InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 1/AttacksPerSecond, false);
     }
 
     private void LateUpdate()
@@ -323,9 +324,9 @@ public class PlayerController : MonoBehaviour
                 {
                     if (f2 <= 0 && f >= 1)
                     {
-                        if (InputManager.IsKey(InputManager.gamekeys["shoot"], "player")) bowsextimer += Time.deltaTime * BowChargeSpeed;
+                        if (InputBuffer.Instance.GetBuffer("Attack")) bowsextimer += Time.deltaTime * BowChargeSpeed;
                         if (bowsextimer > MaxBowMult) bowsextimer = MaxBowMult;
-                        if (bowsextimer > 0 && !InputManager.IsKey(InputManager.gamekeys["shoot"], "player"))
+                        if (bowsextimer > 0 && !InputBuffer.Instance.GetBuffer("Attack"))
                         {
                             //Debug.Log(bowsextimer + ", " + Damage);
                             StartAttack(Damage * (1 + bowsextimer));
@@ -337,7 +338,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
-                    if (InputManager.IsKey(InputManager.gamekeys["shoot"], "player") && f2 <= 0 && f >= 1) StartAttack();
+                    if (InputBuffer.Instance.GetBuffer("Attack") && f2 <= 0 && f >= 1) StartAttack();
                 }
             }
             Vector3 bgalls = move * Time.deltaTime * move_speed * 20;
@@ -448,6 +449,8 @@ public class PlayerController : MonoBehaviour
         IsDashing = true;
         DashCoolDown -= MaxDashCooldown;
         Instantiate(Gamer.Instance.ParticleSpawns[4], transform.position, transform.rotation, transform);
+        var c = Tags.refs["DashHolder"].transform;
+        Instantiate(Gamer.Instance.ParticleSpawns[5], c.position, c.rotation, c);
         StartCoroutine(Dash(dir));
     }
 
@@ -463,6 +466,7 @@ public class PlayerController : MonoBehaviour
     }
     public void StartAttack(double d = -1)
     {
+        InputBuffer.Instance.RemoveBuffer("Attack");
         if (d == -1) d = Damage;
         if (mainweapon.ItemIndex == 0) return;
         sexed = false;
