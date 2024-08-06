@@ -65,7 +65,7 @@ public class HealerFollower : MonoBehaviour
             {
                 SexChaser.entit.Shield += overheal;
             }
-            SoundSystem.Instance.PlaySound(5, true, 0.7f);
+            SoundSystem.Instance.PlaySound(5, true, 0.3f);
         }
         sexer = 0f;
         hadsexualencounterwithplayerandwasrapedfrombehindthensenttocounselingfortraumaandlackofballs = true;
