@@ -9,10 +9,14 @@ public class SaveSystem : MonoBehaviour
 {
     private static SaveSystem instance;
     public bool UseFileSystem = true;
-    public int SaveFile = 0;
     //idk how needed this is tbh
     private string UniqueGamePrefix = "oxt";
     public int test = 0;
+
+
+    public delegate void JustFuckingRunTheMethods();
+    public static event JustFuckingRunTheMethods SaveAllData;
+    public static event JustFuckingRunTheMethods LoadAllData;
 
     public Dictionary<string, Dictionary<string, string>> HoldingData = new Dictionary<string, Dictionary<string, string>>();
 
@@ -34,57 +38,32 @@ public class SaveSystem : MonoBehaviour
     }
     [HideInInspector]
     public bool LoadedData = false;
-    public void ChangeFile(int i = 0)
+    public void LoadGame(string dict = "def")
     {
-        SaveFile = i;
-        LoadGame(i);
-    }
-    public void LoadGame(int i  = -1)
-    {
-        /* Input Modes:
-         * -1 = Load whatever was the last used file (if being used for the first time it defaults to 0)
-         * Any Other Value = Load the data of a specific file
-         */
-
         LoadedData = true;
+
 
         InputManager.AssembleTheCodes();
         List<string> list = new List<string>();
 
 
 
-        if (i == -1)
-        {
-            var xx = PlayerPrefs.GetInt("SaveFile", -1);
-            if (xx != -1)
-            {
-                SaveFile = xx;
-            }
-            else
-            {
-                SaveFile = 0;
-            }
-        }
-        else
-        {
-            SaveFile = i;
-        }
         var s = SoundSystem.Instance;
 
         int x = 0;
 
 
-        GetDataFromFile();
+        GetDataFromFile(dict);
 
-        var ghghgg = PlayerPrefs.GetString("keybinds", "fuck");
-        list = StringToList(ghghgg);
+        var ghghgg = GetString("keybinds", "fuck", dict);
+        list = Converter.StringToList(ghghgg);
         if (ghghgg != "fuck")
         {
             foreach (var a in list)
             {
                 try
                 {
-                    var sseexx = StringToList(a, "<K>");
+                    var sseexx = Converter.StringToList(a, "<K>");
                     InputManager.gamekeys[sseexx[0]] = InputManager.namekeys[sseexx[1]];
                     x++;
                 }
@@ -95,37 +74,26 @@ public class SaveSystem : MonoBehaviour
         }
         x = 0;
 
-        if(s != null)
+        if (s != null)
         {
-            s.MasterVolume = PlayerPrefs.GetFloat("snd_mas", 1);
-            s.SFXVolume = PlayerPrefs.GetFloat("snd_sfx", 1);
-            s.MusicVolume = PlayerPrefs.GetFloat("snd_mus", 1);
+            s.MasterVolume = float.Parse(GetString("snd_mas", "1", dict));
+            s.SFXVolume = float.Parse(GetString("snd_sfx", "1", dict));
+            s.MusicVolume = float.Parse(GetString("snd_mus", "1", dict));
         }
 
-        test = int.Parse(GetString("test_num", "0"));
+        test = int.Parse(GetString("test_num", "0", dict));
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
 
-
-        SaveFile = i;
+        LoadAllData?.Invoke();
     }
-    public void SaveGame(int i = -1)
+    public void SaveGame(string dict = "def")
     {
         /* Input Modes:
          * -1 = Save whatever is the currently selected file (by default is 0)
          * Any Other Value = Save curent data to a specfic file
          */
 
-
         List<string> list = new List<string>();
-        if (i == -1)
-        {
-            PlayerPrefs.SetInt("SaveFile", SaveFile);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("SaveFile", i);
-            SaveFile = i;
-        }
         var s = SoundSystem.Instance;
 
         list.Clear();
@@ -133,20 +101,34 @@ public class SaveSystem : MonoBehaviour
         {
             list.Add(a.Key + "<K>" + InputManager.keynames[a.Value]);
         }
-        PlayerPrefs.SetString("keybinds", ListToString(list));
+        SetString("keybinds", Converter.ListToString(list), dict);
         //PlayerPrefs.SetInt("UnitySelectMonitor", index); // sets the monitor that unity uses
 
         if (s != null)
         {
-            PlayerPrefs.SetFloat("snd_mas", s.MasterVolume);
-            PlayerPrefs.SetFloat("snd_sfx", s.SFXVolume);
-            PlayerPrefs.SetFloat("snd_mus", s.MusicVolume);
+            SetString("snd_mas", s.MasterVolume.ToString(), dict);
+            SetString("snd_sfx", s.SFXVolume.ToString(), dict);
+            SetString("snd_mus", s.MusicVolume.ToString(), dict);
         }
 
-        SetString("test_num", test.ToString());
-        GISLol.Instance.SaveAll();
-        SaveDataToFile();
+        SetString("test_num", test.ToString(), dict);
+
+        SaveAllData?.Invoke();
+
+        SaveDataToFile(dict);
     }
+
+    public string DictNameToFilePath(string e)
+    {
+        var f = FileSystem.Instance;
+        switch (e)
+        {
+            case "def": return $"{f.GameDirectory}\\Game_Data.txt";
+            case "ox_profile": return $"{f.UniversalDirectory}\\Player_Data.txt";
+            default: return $"{f.GameDirectory}\\Data_{e}.txt";
+        }
+    }
+
 
     public Dictionary<string, string> GetDict(string name = "def")
     {
@@ -187,19 +169,19 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
-    public void SaveDataToFile(int path = 1, string dict = "def")
+    public void SaveDataToFile(string dict = "def")
     {
         var f = FileSystem.Instance;
         f.AssembleFilePaths();
-        f.WriteFile(f.FileLocations[path], DictionaryToString(GetDict(dict), Environment.NewLine, ": "), true);
+        f.WriteFile(DictNameToFilePath(dict), Converter.DictionaryToString(GetDict(dict), Environment.NewLine, ": "), true);
     }
 
 
-    public void GetDataFromFile(int path = 1, string dict = "def")
+    public void GetDataFromFile(string dict = "def")
     {
         var f = FileSystem.Instance;
         f.AssembleFilePaths();
-        var fp = f.FileLocations[path];
+        var fp = DictNameToFilePath(dict);
         var des = GetDict(dict);
         des.Clear();
         if (!File.Exists(fp))
@@ -207,7 +189,7 @@ public class SaveSystem : MonoBehaviour
             f.WriteFile(fp, "", false);
             return;
         }
-        var s = StringToList(f.ReadFile(fp), Environment.NewLine);
+        var s = Converter.StringToList(f.ReadFile(fp), Environment.NewLine);
         foreach (var d in s)
         {
             if (d.IndexOf(": ") > -1)
@@ -220,67 +202,8 @@ public class SaveSystem : MonoBehaviour
 
     public string Prefix(int file)
     {
-        if (file == -1) file = SaveFile;
-        return UniqueGamePrefix + "#" + file + "_";
+        return UniqueGamePrefix + "_";
     }
 
-
-    public int BoolToInt(bool a)
-    {
-        return a ? 1 : 0;
-    }
-    public bool IntToBool(int a)
-    {
-        return a == 1;
-    }
-
-    public string ListToString(List<string> eee, string split = ", ")
-    {
-        return String.Join(split, eee);
-    }
-
-    public List<string> StringToList(string eee, string split = ", ")
-    {
-        return eee.Split(split).ToList();
-    }
-
-    public string DictionaryToString(Dictionary<string, string> dic, string splitter = ", ", string splitter2 = "<K>")
-    {
-        List<string> list = new List<string>();
-        foreach (var a in dic)
-        {
-            list.Add(a.Key + splitter2 + a.Value);
-        }
-        return ListToString(list, splitter);
-    }
-    public Dictionary<string, string> StringToDictionary(string e, string splitter = ", ", string splitter2 = "<K>")
-    {
-        var dic = new Dictionary<string, string>();
-        var list = StringToList(e, splitter);
-        foreach (var a in list)
-        {
-            try
-            {
-                int i = a.IndexOf(splitter2);
-                List<string> sseexx = new List<string>()
-                {
-                    a.Substring(0, i),
-                    a.Substring(i + splitter2.Length),
-                };
-                if (dic.ContainsKey(sseexx[0]))
-                {
-                    dic[sseexx[0]] = dic[sseexx[1]];
-                }
-                else
-                {
-                    dic.Add(sseexx[0], sseexx[1]);
-                }
-            }
-            catch
-            {
-            }
-        }
-        return dic;
-    }
 
 }

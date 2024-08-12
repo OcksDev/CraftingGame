@@ -41,7 +41,7 @@ public class SoundSystem : MonoBehaviour
         switch (sound)
         {
             default:
-                pvolume = SFXVolume;
+                pvolume = SFXVolume * 1.4f;
                 /*
                 k = Random.Range(0, 2);
                 switch (k)
@@ -59,7 +59,7 @@ public class SoundSystem : MonoBehaviour
                 }*/
                 break;
             case 3:
-                pvolume = SFXVolume * 1.2f;
+                pvolume = SFXVolume * 1.6f;
                 ppitch = Random.Range(0.9f, 1.1f);
                 break;
         }

@@ -13,11 +13,19 @@ public class WeaponDisplay : MonoBehaviour
         {
             //var WeaponItem = GISLol.Instance.All_Containers["Equips"].slots[controller.selecteditem].Held_Item;
             var WeaponItem = controller.mainweapon;
+            var c = new Color32(255, 255, 255, 255);
+            displays[0].color = c;
+            displays[1].color = c;
+            displays[2].color = c;
             if (WeaponItem != null && WeaponItem.ItemIndex != 0)
             {
-                displays[0].sprite = GISDisplay.GetSprite(WeaponItem, 0);
-                displays[1].sprite = GISDisplay.GetSprite(WeaponItem, 1);
-                displays[2].sprite = GISDisplay.GetSprite(WeaponItem, 2);
+                var d = GISDisplay.GetSprites(WeaponItem);
+                displays[0].sprite = d.sprites[0];
+                displays[1].sprite = d.sprites[1];
+                displays[2].sprite = d.sprites[2];
+                displays[0].color = d.colormods[0];
+                displays[1].color = d.colormods[1];
+                displays[2].color = d.colormods[2];
             }
             else
             {

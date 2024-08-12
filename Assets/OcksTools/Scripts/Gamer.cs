@@ -220,7 +220,7 @@ public class Gamer : MonoBehaviour
             e.Start();
             e.LoadContents();
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForFixedUpdate();
         StartCoroutine(instancecoolmenus());
     }
 
@@ -243,16 +243,6 @@ public class Gamer : MonoBehaviour
             checks[2] = !checks[2];
             checks[1] = false;
             UpdateMenus();
-        }
-        if (InputManager.IsKeyDown(KeyCode.P))
-        {
-            PlayerController.Instance.AddItem("peed", 1);
-            PlayerController.Instance.SetData();
-        }
-        if (InputManager.IsKeyDown(KeyCode.L))
-        {
-            PlayerController.Instance.AddItem("critglass", 1);
-            PlayerController.Instance.SetData();
         }
 
     }

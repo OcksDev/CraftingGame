@@ -204,9 +204,10 @@ public class PlayerController : MonoBehaviour
         Damage = 7;
         AttacksPerSecond = 3;
         Spread = 15f;
+        MaxDashCooldown = BaseDashCooldown;
+        //deprecated
         MaxBowMult = 1.5f;
         BowChargeSpeed = 1.5f;
-        MaxDashCooldown = BaseDashCooldown;
         if(mainweapon != null)
         {
             switch (mainweapon.ItemIndex)
@@ -263,6 +264,22 @@ public class PlayerController : MonoBehaviour
                 {
                     default:
                         Damage *= 1.15f;
+                        break;
+                }
+                break;
+            case 2:
+                switch (mainweapon.ItemIndex)
+                {
+                    default:
+                        working_move_speed *= 1.1f;
+                        break;
+                }
+                break;
+            case 3:
+                switch (mainweapon.ItemIndex)
+                {
+                    default:
+                        CritChance += 0.15f;
                         break;
                 }
                 break;
@@ -351,7 +368,6 @@ public class PlayerController : MonoBehaviour
                 bool candash = DashCoolDown >= MaxDashCooldown && !IsDashing;
                 if (candash && InputBuffer.Instance.GetBuffer("Dash"))
                 {
-                    InputBuffer.Instance.RemoveBuffer("Dash");
                     StartDash(dir);
                 }
                 var c = IsDashing ? (Color)new Color32(15, 140, 0, 255) : oldsex;
@@ -444,6 +460,8 @@ public class PlayerController : MonoBehaviour
     }
     public void StartDash(Vector3 dir)
     {
+        if (dir.magnitude < 0.5f) return;
+        InputBuffer.Instance.RemoveBuffer("Dash");
         SoundSystem.Instance.PlaySound(3, false, 0.14f, 1f);
         SoundSystem.Instance.PlaySound(2, true, 0.2f, 1f);
         IsDashing = true;
@@ -551,9 +569,13 @@ public class PlayerController : MonoBehaviour
                 epe *= -0.5f;
                 HitCollider = null;
                 reverse *= -1;
-                s3.spriteballs[0].sprite = GISDisplay.GetSprite(mainweapon, 0);
-                s3.spriteballs[1].sprite = GISDisplay.GetSprite(mainweapon, 1);
-                s3.spriteballs[2].sprite = GISDisplay.GetSprite(mainweapon, 2);
+                var ra = GISDisplay.GetSprites(mainweapon);
+                s3.spriteballs[0].sprite = ra.sprites[0];
+                s3.spriteballs[0].color = ra.colormods[0];
+                s3.spriteballs[1].sprite = ra.sprites[1];
+                s3.spriteballs[1].color = ra.colormods[1];
+                s3.spriteballs[2].sprite = ra.sprites[2];
+                s3.spriteballs[2].color = ra.colormods[2];
                 break;
             default:
                 HitCollider = HitColliders[0];

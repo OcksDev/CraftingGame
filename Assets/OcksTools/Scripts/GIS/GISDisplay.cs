@@ -23,6 +23,10 @@ public class GISDisplay : MonoBehaviour
         var g = GISLol.Instance.Items[item.ItemIndex];
         amnt.text = item.Amount > 0 && g.MaxAmount != 1?"x" + item.Amount:"";
         var e = GISLol.Instance.Items[0].Sprite;
+        var c = new Color32(255, 255, 255, 255);
+        displays[0].color = c;
+        displays[1].color = c;
+        displays[2].color = c;
         if (item.ItemType == "Craftable")
         {
             displays[0].sprite = g.Sprite;
@@ -31,9 +35,13 @@ public class GISDisplay : MonoBehaviour
         }
         else if (item.ItemType == "Made")
         {
-            displays[0].sprite = GetSprite(item, 0);
-            displays[1].sprite = GetSprite(item, 1); 
-            displays[2].sprite = GetSprite(item, 2); 
+            var b = GetSprites(item);
+            displays[0].sprite = b.sprites[0];
+            displays[1].sprite = b.sprites[1];
+            displays[2].sprite = b.sprites[2];
+            displays[0].color = b.colormods[0];
+            displays[1].color = b.colormods[1];
+            displays[2].color = b.colormods[2];
         }
         else
         {
@@ -44,27 +52,86 @@ public class GISDisplay : MonoBehaviour
     }
 
 
-    public static Sprite GetSprite(GISItem ITEM, int index)
+    public static SpriteReturn GetSprites(GISItem ITEM)
     {
-        var e = GISLol.Instance.Materials[ITEM.Materials[index].index];
-        switch (ITEM.ItemIndex)
+        List<Sprite> boner = new List<Sprite>();
+        List<Color32> boner2 = new List<Color32>();
+        for (int index = 0; index < 3; index++)
         {
-            case 3:
-                return e.SwordParts[index];
-            case 4:
-                return e.BowParts[index];
-            case 5:
-                return e.SpearParts[index];
-            case 6:
-                return e.CrossbowParts[index];
-            case 7:
-                return e.DaggerParts[index];
-            case 8:
-                return e.SawbladeParts[index];
+            var e = GISLol.Instance.Materials[ITEM.Materials[index].index];
+            Sprite baller = null;
+            Color32 beans = e.ColorMod;
+            switch (ITEM.ItemIndex)
+            {
+                case 3:
+                    if(index >= e.SwordParts.Length || e.SwordParts[index] == null)
+                    {
+                        baller = GISLol.Instance.Materials[0].SwordParts[index];
+                    }
+                    else
+                    {
+                        baller = e.SwordParts[index];
+                    }
+                    break;
+                case 4:
+                    if (index >= e.BowParts.Length || e.BowParts[index] == null)
+                    {
+                        baller = GISLol.Instance.Materials[0].BowParts[index];
+                    }
+                    else
+                    {
+                        baller = e.BowParts[index];
+                    }
+                    break;
+                case 5:
+                    if (index >= e.SpearParts.Length || e.SpearParts[index] == null)
+                    {
+                        baller = GISLol.Instance.Materials[0].SpearParts[index];
+                    }
+                    else
+                    {
+                        baller = e.SpearParts[index];
+                    }
+                    break;
+                case 6:
+                    if (index >= e.CrossbowParts.Length || e.CrossbowParts[index] == null)
+                    {
+                        baller = GISLol.Instance.Materials[0].CrossbowParts[index];
+                    }
+                    else
+                    {
+                        baller = e.CrossbowParts[index];
+                    }
+                    break;
+                case 7:
+                    if (index >= e.DaggerParts.Length || e.DaggerParts[index] == null)
+                    {
+                        baller = GISLol.Instance.Materials[0].DaggerParts[index];
+                    }
+                    else
+                    {
+                        baller = e.DaggerParts[index];
+                    }
+                    break;
+                case 8:
+                    if (index >= e.SawbladeParts.Length || e.SawbladeParts[index] == null)
+                    {
+                        baller = GISLol.Instance.Materials[0].SawbladeParts[index];
+                    }
+                    else
+                    {
+                        baller = e.SawbladeParts[index];
+                    }
+                    break;
+            }
+            boner.Add(baller);
+            boner2.Add(beans);
         }
 
-
-        return GISLol.Instance.Materials[ITEM.Materials[0].index].SwordParts[0];
+        var a = new SpriteReturn();
+        a.sprites = boner;
+        a.colormods = boner2;
+        return a;
     }
 
     public static Sprite[] GetBaseSprites(int itemindex)
@@ -87,4 +154,10 @@ public class GISDisplay : MonoBehaviour
         }
     }
 
+}
+
+public class SpriteReturn
+{
+    public List<Sprite> sprites = new List<Sprite>();
+    public List<Color32> colormods = new List<Color32>();
 }

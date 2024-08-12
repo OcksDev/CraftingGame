@@ -34,6 +34,7 @@ public class GISLol : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) instance = this;
+        SaveSystem.SaveAllData += SaveAll;
         Mouse_Held_Item = new GISItem();
     }
 
@@ -94,6 +95,20 @@ public class GISLol : MonoBehaviour
             Mouse_Held_Item = new GISItem(2);
             Mouse_Held_Item.ItemType = "Craftable";
             Mouse_Held_Item.Materials.Add(new GISMaterial(1));
+            Mouse_Held_Item.Amount = 1;
+        }
+        if (InputManager.IsKeyDown(KeyCode.V))
+        {
+            Mouse_Held_Item = new GISItem(9);
+            Mouse_Held_Item.ItemType = "Craftable";
+            Mouse_Held_Item.Materials.Add(new GISMaterial(2));
+            Mouse_Held_Item.Amount = 1;
+        }
+        if (InputManager.IsKeyDown(KeyCode.B))
+        {
+            Mouse_Held_Item = new GISItem(10);
+            Mouse_Held_Item.ItemType = "Craftable";
+            Mouse_Held_Item.Materials.Add(new GISMaterial(3));
             Mouse_Held_Item.Amount = 1;
         }
     }
@@ -290,14 +305,11 @@ public class GISMaterial_Data
 {
     //this is what holds all of the base data for a general material
     public string Name = "Null";
+    public Color32 ColorMod = new Color32(255,255,255,255);
     public Sprite[] SwordParts;
     public Sprite[] BowParts;
     public Sprite[] SpearParts;
     public Sprite[] CrossbowParts;
     public Sprite[] DaggerParts;
     public Sprite[] SawbladeParts;
-    public double DamageChange = 0;
-    public float AttackSpeedChange = 0;
-    public double HealthChange = 0;
-    public double MovementSpeedChange = 0;
 }

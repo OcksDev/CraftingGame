@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class GISSlot : MonoBehaviour
     public GISContainer Conte;
     public string InteractFilter ="";
     private float DoubleClickTimer = -69f;
+    private RectTransform balls;
 
     public GISSlot(GISContainer cum)
     {
@@ -23,9 +25,11 @@ public class GISSlot : MonoBehaviour
         {
             Held_Item= new GISItem();
         }
+        balls = GetComponent<RectTransform>();
     }
     public bool FailToClick()
     {
+        return false;
         var pp = GISLol.Instance.Mouse_Held_Item;
         if (pp.ItemIndex == 0) return false;
         switch (InteractFilter)
@@ -47,18 +51,29 @@ public class GISSlot : MonoBehaviour
     {
         if(Conte.Name == "Equips")
         {
+            if (PlayerController.Instance != null)
             PlayerController.Instance.SetData();
         }
     }
-
-    private void OnMouseOver()
+    float size = 1f;
+    private void Update()
     {
         if (FailToClick()) return;
-
-
+        if (balls == null) return;
         bool shift = InputManager.IsKey(InputManager.gamekeys["item_alt"]);
-        bool left = InputManager.IsKeyDown(InputManager.gamekeys["item_select"]);
+        bool left = Input.GetKeyDown(InputManager.gamekeys["item_select"]);
         bool right = InputManager.IsKeyDown(InputManager.gamekeys["item_half"]);
+        if (!(right || left)) return;
+        bool canfart = false;
+        var m = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var pos = balls.position;
+        size = 1.15f;
+        if (pos.x - size < m.x && pos.x + size > m.x && pos.y - size < m.y && pos.y + size > m.y)
+        {
+            canfart = true;
+        }
+        if (!canfart) return;
+        //Debug.Log(balls.position.ToString() + ",    " + m.ToString());
         if (Conte.CanShiftClickItems && shift)
         {
             if (left||right)

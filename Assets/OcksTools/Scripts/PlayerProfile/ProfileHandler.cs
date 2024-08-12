@@ -14,7 +14,7 @@ public class ProfileHandler : MonoBehaviour
     {
         var s = SaveSystem.Instance;
         yield return new WaitUntil(() => { return s.LoadedData; });
-        s.GetDataFromFile(2, "profile");
+        s.GetDataFromFile("profile");
         if(s.GetString("Username", "", "profile") == "")
         {
             s.SetString("Username", $"Guest{RandomFunctions.Instance.CharPrepend(Random.Range(0,1000000).ToString(), 6, '0')}", "profile");
