@@ -304,8 +304,8 @@ public class GISMaterial
 public class GISMaterial_Data
 {
     //this is what holds all of the base data for a general material
-    public string Name = "Null";
     public Color32 ColorMod = new Color32(255,255,255,255);
+    public string Name = "Null";
     public Sprite[] SwordParts;
     public Sprite[] BowParts;
     public Sprite[] SpearParts;
