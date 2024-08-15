@@ -111,6 +111,27 @@ public class GISLol : MonoBehaviour
             Mouse_Held_Item.Materials.Add(new GISMaterial(3));
             Mouse_Held_Item.Amount = 1;
         }
+        if (InputManager.IsKeyDown(KeyCode.N))
+        {
+            Mouse_Held_Item = new GISItem(11);
+            Mouse_Held_Item.ItemType = "Craftable";
+            Mouse_Held_Item.Materials.Add(new GISMaterial(4));
+            Mouse_Held_Item.Amount = 1;
+        }
+        if (InputManager.IsKeyDown(KeyCode.M))
+        {
+            Mouse_Held_Item = new GISItem(12);
+            Mouse_Held_Item.ItemType = "Craftable";
+            Mouse_Held_Item.Materials.Add(new GISMaterial(5));
+            Mouse_Held_Item.Amount = 1;
+        }
+        if (InputManager.IsKeyDown(KeyCode.Comma))
+        {
+            Mouse_Held_Item = new GISItem(13);
+            Mouse_Held_Item.ItemType = "Craftable";
+            Mouse_Held_Item.Materials.Add(new GISMaterial(6));
+            Mouse_Held_Item.Amount = 1;
+        }
     }
     public void SaveAll()
     {
