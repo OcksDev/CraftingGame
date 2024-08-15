@@ -312,4 +312,5 @@ public class GISMaterial_Data
     public Sprite[] CrossbowParts;
     public Sprite[] DaggerParts;
     public Sprite[] SawbladeParts;
+    public int fallthroughmaterial = 0;
 }

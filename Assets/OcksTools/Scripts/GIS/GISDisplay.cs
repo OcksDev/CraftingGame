@@ -59,6 +59,7 @@ public class GISDisplay : MonoBehaviour
         for (int index = 0; index < 3; index++)
         {
             var e = GISLol.Instance.Materials[ITEM.Materials[index].index];
+            var fall = e.fallthroughmaterial;
             Sprite baller = null;
             Color32 beans = e.ColorMod;
             switch (ITEM.ItemIndex)
@@ -66,7 +67,7 @@ public class GISDisplay : MonoBehaviour
                 case 3:
                     if(index >= e.SwordParts.Length || e.SwordParts[index] == null)
                     {
-                        baller = GISLol.Instance.Materials[0].SwordParts[index];
+                        baller = GISLol.Instance.Materials[fall].SwordParts[index];
                     }
                     else
                     {
@@ -76,7 +77,7 @@ public class GISDisplay : MonoBehaviour
                 case 4:
                     if (index >= e.BowParts.Length || e.BowParts[index] == null)
                     {
-                        baller = GISLol.Instance.Materials[0].BowParts[index];
+                        baller = GISLol.Instance.Materials[fall].BowParts[index];
                     }
                     else
                     {
@@ -86,7 +87,7 @@ public class GISDisplay : MonoBehaviour
                 case 5:
                     if (index >= e.SpearParts.Length || e.SpearParts[index] == null)
                     {
-                        baller = GISLol.Instance.Materials[0].SpearParts[index];
+                        baller = GISLol.Instance.Materials[fall].SpearParts[index];
                     }
                     else
                     {
@@ -96,7 +97,7 @@ public class GISDisplay : MonoBehaviour
                 case 6:
                     if (index >= e.CrossbowParts.Length || e.CrossbowParts[index] == null)
                     {
-                        baller = GISLol.Instance.Materials[0].CrossbowParts[index];
+                        baller = GISLol.Instance.Materials[fall].CrossbowParts[index];
                     }
                     else
                     {
@@ -106,7 +107,7 @@ public class GISDisplay : MonoBehaviour
                 case 7:
                     if (index >= e.DaggerParts.Length || e.DaggerParts[index] == null)
                     {
-                        baller = GISLol.Instance.Materials[0].DaggerParts[index];
+                        baller = GISLol.Instance.Materials[fall].DaggerParts[index];
                     }
                     else
                     {
@@ -116,7 +117,7 @@ public class GISDisplay : MonoBehaviour
                 case 8:
                     if (index >= e.SawbladeParts.Length || e.SawbladeParts[index] == null)
                     {
-                        baller = GISLol.Instance.Materials[0].SawbladeParts[index];
+                        baller = GISLol.Instance.Materials[fall].SawbladeParts[index];
                     }
                     else
                     {
