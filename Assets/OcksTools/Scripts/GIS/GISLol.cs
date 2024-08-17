@@ -334,4 +334,5 @@ public class GISMaterial_Data
     public Sprite[] DaggerParts;
     public Sprite[] SawbladeParts;
     public int fallthroughmaterial = 0;
+    public bool ignorecolorforcumimg = true;
 }

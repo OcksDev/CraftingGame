@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 6:
                     AttacksPerSecond = 4f;
-                    Damage = 5;
+                    Damage = 4;
                     Spread = 15f;
                     break;
                 case 4:

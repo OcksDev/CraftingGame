@@ -1,7 +1,7 @@
 Matlist:
 X Rock: Slight increase to attack speed across
 X Gold: Slight increase to damage
-X Slime: Slower attack speed, increased damage
+O Slime: Slower attack speed, increased damage
 - Baller: +10% chance for any attack to deal damage a second time after 0.5s (cannot proc self) (yes this can go to 100%)
 - Spitter: Shoot +1 spitter ball on attack that deals 5 damage
 - Rat: +15% movement speed, -10 max health (max health min at 1), +10% total damage
@@ -14,12 +14,12 @@ X Slime: Slower attack speed, increased damage
 - Diamond: +35% damage, -20% (hyperbolic) attack speed
 - Red Stone: slight attack speed increase, +1 healing on hit, -5 max heath
 - Quartz: +10% chance to proc lightning on hit
-X Emerald: +3 damage
+O Emerald: +3 damage
 - Iron: 
 - Ruby: +50% shield gain, -10% move speed
 - Volcanic Rock: +20% chance on kill to create an explosion
-- Hellish Ingot: +20% damage, -20% movement speed;
-- Angelic Ingot: +10% movespeed, +10% damage, +10% attack speed, -10 health
+O Hellish Ingot: +20% damage, -20% movement speed;
+O Angelic Ingot: +10% movespeed, +10% damage, +10% attack speed, -10 health
 - Dildo: +1% chance to instantly kill any non-boss enemy on hit
 - Bat Talisman: +1% speed
 - Mithril
@@ -32,7 +32,7 @@ X Emerald: +3 damage
 - Steel
 - Carbon Fiber
 - Void (Solid black color)
-- Glass (Custom Image Required)
+O Glass (Custom Image Required)
 - GLITCH (Random color custom image)
 - CORRUPT (like glitch except only purple hues)
 - Literally Fire
@@ -44,3 +44,4 @@ X Emerald: +3 damage
 - Blue Grass
 - Purple Grass
 - Purple Gem (dark purple, darker than amethyststs)
+- Bone

@@ -56,75 +56,54 @@ public class GISDisplay : MonoBehaviour
     {
         List<Sprite> boner = new List<Sprite>();
         List<Color32> boner2 = new List<Color32>();
+        var ccc = new Color32(255,255, 255,255);
         for (int index = 0; index < 3; index++)
         {
             var e = GISLol.Instance.Materials[ITEM.Materials[index].index];
             var fall = e.fallthroughmaterial;
             Sprite baller = null;
             Color32 beans = e.ColorMod;
+            Sprite[] mysprites=null;
+            Sprite[] defaultsprites=null;
             switch (ITEM.ItemIndex)
             {
-                case 3:
-                    if(index >= e.SwordParts.Length || e.SwordParts[index] == null)
-                    {
-                        baller = GISLol.Instance.Materials[fall].SwordParts[index];
-                    }
-                    else
-                    {
-                        baller = e.SwordParts[index];
-                    }
+                default:
+                    mysprites = e.SwordParts;
+                    defaultsprites = GISLol.Instance.Materials[fall].SwordParts;
                     break;
                 case 4:
-                    if (index >= e.BowParts.Length || e.BowParts[index] == null)
-                    {
-                        baller = GISLol.Instance.Materials[fall].BowParts[index];
-                    }
-                    else
-                    {
-                        baller = e.BowParts[index];
-                    }
+                    mysprites = e.BowParts;
+                    defaultsprites = GISLol.Instance.Materials[fall].BowParts;
                     break;
                 case 5:
-                    if (index >= e.SpearParts.Length || e.SpearParts[index] == null)
-                    {
-                        baller = GISLol.Instance.Materials[fall].SpearParts[index];
-                    }
-                    else
-                    {
-                        baller = e.SpearParts[index];
-                    }
+                    mysprites = e.SpearParts;
+                    defaultsprites = GISLol.Instance.Materials[fall].SpearParts;
                     break;
                 case 6:
-                    if (index >= e.CrossbowParts.Length || e.CrossbowParts[index] == null)
-                    {
-                        baller = GISLol.Instance.Materials[fall].CrossbowParts[index];
-                    }
-                    else
-                    {
-                        baller = e.CrossbowParts[index];
-                    }
+                    mysprites = e.CrossbowParts;
+                    defaultsprites = GISLol.Instance.Materials[fall].CrossbowParts;
                     break;
                 case 7:
-                    if (index >= e.DaggerParts.Length || e.DaggerParts[index] == null)
-                    {
-                        baller = GISLol.Instance.Materials[fall].DaggerParts[index];
-                    }
-                    else
-                    {
-                        baller = e.DaggerParts[index];
-                    }
+                    mysprites = e.DaggerParts;
+                    defaultsprites = GISLol.Instance.Materials[fall].DaggerParts;
                     break;
                 case 8:
-                    if (index >= e.SawbladeParts.Length || e.SawbladeParts[index] == null)
-                    {
-                        baller = GISLol.Instance.Materials[fall].SawbladeParts[index];
-                    }
-                    else
-                    {
-                        baller = e.SawbladeParts[index];
-                    }
+                    mysprites = e.SawbladeParts;
+                    defaultsprites = GISLol.Instance.Materials[fall].SawbladeParts;
                     break;
             }
+
+
+            if (index >= mysprites.Length || mysprites[index] == null)
+            {
+                baller = defaultsprites[index];
+            }
+            else
+            {
+                if (e.ignorecolorforcumimg) beans = ccc;
+                baller = mysprites[index];
+            }
+
             boner.Add(baller);
             boner2.Add(beans);
         }
