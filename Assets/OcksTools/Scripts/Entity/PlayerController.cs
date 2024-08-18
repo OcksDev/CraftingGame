@@ -230,6 +230,10 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond = 1.5f;
                     Damage = 6f;
                     break;
+                case 8:
+                    AttacksPerSecond = 1.5f;
+                    Damage = 6f;
+                    break;
             }
             foreach(var m in mainweapon.Materials)
             {
@@ -413,6 +417,9 @@ public class PlayerController : MonoBehaviour
                 case 7:
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
                     break;
+                case 8:
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
+                    break;
                 case 6:
                     SwordFart.rotation = transform.rotation;
                     break;
@@ -439,6 +446,7 @@ public class PlayerController : MonoBehaviour
                 {
                     case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
                     case 7: SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
+                    case 8: SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
                     default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
                 }
             }
@@ -553,12 +561,12 @@ public class PlayerController : MonoBehaviour
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
             case 7:
-                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position,-90,0));
+                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0));
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
 
                 var x = RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition)), RandomFunctions.Instance.NoZ(MyAssHurts.position));
-                if(x < 10)
+                if (x < 10)
                 {
                     x /= 10;
                     s.GetComponent<Projectile>().speed *= x;
@@ -576,6 +584,28 @@ public class PlayerController : MonoBehaviour
                 s3.spriteballs[1].color = ra.colormods[1];
                 s3.spriteballs[2].sprite = ra.sprites[2];
                 s3.spriteballs[2].color = ra.colormods[2];
+                break;
+            case 8:
+                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0));
+                s3 = s.GetComponent<HitBalls>();
+                s3.playerController = this;
+
+                var x2 = RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition)), RandomFunctions.Instance.NoZ(MyAssHurts.position));
+
+                s.GetComponent<Projectile>().Banan = "Boomerang";
+                s3.attackProfile = Shart;
+                s3.hsh *= -reverse;
+                s3.type = "Boomerang";
+                epe *= -0.5f;
+                HitCollider = null;
+                reverse *= -1;
+                var ra2 = GISDisplay.GetSprites(mainweapon);
+                s3.spriteballs[0].sprite = ra2.sprites[0];
+                s3.spriteballs[0].color = ra2.colormods[0];
+                s3.spriteballs[1].sprite = ra2.sprites[1];
+                s3.spriteballs[1].color = ra2.colormods[1];
+                s3.spriteballs[2].sprite = ra2.sprites[2];
+                s3.spriteballs[2].color = ra2.colormods[2];
                 break;
             default:
                 HitCollider = HitColliders[0];

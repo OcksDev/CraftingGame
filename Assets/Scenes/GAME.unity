@@ -6705,7 +6705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1720e8556ea79147bf17f1378f9f11b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemIndexes: 03000000050000000600000007000000
+  ItemIndexes: 0300000005000000060000000700000008000000
   gm: []
   prefabsex: {fileID: 5477924335044611516, guid: ad7ec3b547e1ae24cb00c99c99b7a912, type: 3}
 --- !u!114 &1043070067
@@ -12223,6 +12223,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[0].SawbladeParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SpearParts.Array.data[0]
       value: 
       objectReference: {fileID: 21300000, guid: ab5f2da1cfb2e194fa42b53536ba24e1, type: 3}
@@ -12390,6 +12394,18 @@ PrefabInstance:
       propertyPath: Materials.Array.data[0].CrossbowParts.Array.data[2]
       value: 
       objectReference: {fileID: 21300000, guid: fb80818edaaac3142ba72c015360bffb, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 10035c4f1098054498099ab001db4a21, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 85723baf3a25a534aa78fc87435dd36b, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 85723baf3a25a534aa78fc87435dd36b, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].CrossbowParts.Array.data[0]
       value: 

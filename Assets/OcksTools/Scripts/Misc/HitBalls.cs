@@ -22,9 +22,9 @@ public class HitBalls : MonoBehaviour
         switch (type)
         {
             case "Shuriken":
-                specialsharts[0].transform.rotation *= Quaternion.Euler(0,0,hsh);
+                specialsharts[0].transform.rotation *= Quaternion.Euler(0, 0, hsh);
                 hsh *= 0.985f;
-                for(int i = 0; i < hitdict.Count; i++)
+                for (int i = 0; i < hitdict.Count; i++)
                 {
                     var x = hitdict.ElementAt(i);
                     hitdict[x.Key] = hitdict[x.Key] - 1;
@@ -34,6 +34,10 @@ public class HitBalls : MonoBehaviour
                         i--;
                     }
                 }
+                break;
+            case "Boomerang":
+                specialsharts[0].transform.rotation *= Quaternion.Euler(0, 0, hsh);
+                hsh *= 0.99f;
                 break;
         }
     }
@@ -108,15 +112,33 @@ public class HitBalls : MonoBehaviour
                     dam.WasCrit = attackProfile.WasCrit;
                     dam.Knockback = 1f;
                     dam.attacker = playerController.gameObject;
-                    if (type == "Arrow" || type == "Shuriken")
+                    if (type == "Arrow" || type == "Shuriken" || type == "Boomerang")
                     {
                         dam.SpecificLocation = true;
                         dam.AttackerPos = transform.position;
+                    }
+                    if (type == "Boomerang")
+                    {
+                        GetComponent<Projectile>().life -= 0.05f;
+                        List<NavMeshEntity> myass = new List<NavMeshEntity>();
+                        List<NavMeshEntity> myasssorted = new List<NavMeshEntity>();
+                        foreach (var cum in Gamer.Instance.EnemiesExisting)
+                        {
+                            if (hitlist.Contains(cum.gameObject)) continue;
+                            myass.Add(cum);
+                        }
+                        foreach (var cum in myass)
+                        {
+
+                        }
                     }
                     playerController.HitEnemy(e, dam);
                     switch (type)
                     {
                         case "Arrow":
+                            hitlist.Add(collision.gameObject);
+                            break;
+                        case "Boomerang":
                             hitlist.Add(collision.gameObject);
                             break;
                         case "Shuriken":
@@ -148,11 +170,27 @@ public class HitBalls : MonoBehaviour
         var f = GetComponent<SpriteRenderer>();
         for (int i = 0; i < 50; i++)
         {
-            if (f != null)
+            switch (type)
             {
-                var c = f.color;
-                c.a -= 0.02f;
-                f.color = c;
+                case "Boomerang":
+                    var c2 = spriteballs[0].color;
+                    c2.a -= 0.02f;
+                    spriteballs[0].color = c2;
+                    c2 = spriteballs[1].color;
+                    c2.a -= 0.02f;
+                    spriteballs[1].color = c2;
+                    c2 = spriteballs[2].color;
+                    c2.a -= 0.02f;
+                    spriteballs[2].color = c2;
+                    break;
+                default:
+                    if (f != null)
+                    {
+                        var c = f.color;
+                        c.a -= 0.02f;
+                        f.color = c;
+                    }
+                    break;
             }
             if (i > 40 && type != "Shuriken") NO = true;
             if (e != null)
