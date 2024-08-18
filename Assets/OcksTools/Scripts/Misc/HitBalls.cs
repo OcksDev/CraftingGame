@@ -117,21 +117,6 @@ public class HitBalls : MonoBehaviour
                         dam.SpecificLocation = true;
                         dam.AttackerPos = transform.position;
                     }
-                    if (type == "Boomerang")
-                    {
-                        GetComponent<Projectile>().life -= 0.05f;
-                        List<NavMeshEntity> myass = new List<NavMeshEntity>();
-                        List<NavMeshEntity> myasssorted = new List<NavMeshEntity>();
-                        foreach (var cum in Gamer.Instance.EnemiesExisting)
-                        {
-                            if (hitlist.Contains(cum.gameObject)) continue;
-                            myass.Add(cum);
-                        }
-                        foreach (var cum in myass)
-                        {
-
-                        }
-                    }
                     playerController.HitEnemy(e, dam);
                     switch (type)
                     {
@@ -140,6 +125,32 @@ public class HitBalls : MonoBehaviour
                             break;
                         case "Boomerang":
                             hitlist.Add(collision.gameObject);
+                            GetComponent<Projectile>().life -= 0.075f;
+                            List<NavMeshEntity> myass = new List<NavMeshEntity>();
+                            List<NavMeshEntity> myasssorted = new List<NavMeshEntity>();
+                            foreach (var cum in Gamer.Instance.EnemiesExisting)
+                            {
+                                if (hitlist.Contains(cum.gameObject) || cum.gameObject==collision.gameObject) continue;
+                                myass.Add(cum);
+                            }
+                            float disty = 6969;
+                            NavMeshEntity nearestbitch = null;
+                            foreach (var cum in myass)
+                            {
+                                var x = RandomFunctions.Instance.Dist(transform.position, cum.transform.position);
+                                //Debug.Log($"Baller: {x}, {cum.transform.position}, {cum.name}");
+                                if (x < disty)
+                                {
+                                    disty = x;
+                                    nearestbitch = cum;
+                                }
+                            }
+                            if (nearestbitch != null)
+                            {
+                                Debug.Log($"thing: {disty}, {nearestbitch.transform.position}, {nearestbitch.name}");
+                                //transform.rotation = RotateTowards(nearestbitch.transform.position, 1000);
+                                transform.rotation = RotateTowards(nearestbitch.transform.position,45);
+                            }
                             break;
                         case "Shuriken":
                             hitdict.Add(collision.gameObject, 20);
@@ -224,4 +235,24 @@ public class HitBalls : MonoBehaviour
         if (f != null) f.enabled = false;
         Destroy(gameObject);
     }
+
+    private Quaternion RotateTowards(Vector3 target, float max_angle_change)
+    {
+        var x1 = transform.position;
+        return Quaternion.RotateTowards(transform.rotation, PointAtPoint2D(target,-90), max_angle_change);
+    }
+
+    private Quaternion PointAtPoint2D(Vector3 location, float offset)
+    {
+        // a different version of PointAtPoint with some extra shtuff
+        //returns the rotation the gameobject requires to point at a specific location
+
+        //Debug.Log(offset);
+        Vector3 difference = location - transform.position;
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);
+        return sex;
+    }
+
 }

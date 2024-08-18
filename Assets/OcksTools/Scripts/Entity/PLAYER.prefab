@@ -419,6 +419,7 @@ MonoBehaviour:
     ObjectID: 
   Underlay: {fileID: 401543440080684480}
   hasaids: 0
+  IsDashing: 0
 --- !u!114 &6584350868192443160
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
         switch (Banan)
         {
             case "Boomerang":
-                targetlife = 0.3f;
+                targetlife = 0.25f;
                 break;
             default:
                 targetlife = 0.2f;

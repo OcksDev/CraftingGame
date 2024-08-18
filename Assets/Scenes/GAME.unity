@@ -785,7 +785,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57389988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.9279313, y: 2.4989607, z: -23.655258}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12311,6 +12311,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[4].SawbladeParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[4].SpearParts.Array.data[0]
       value: 
       objectReference: {fileID: 21300000, guid: 49cddbe7006e74b40b3a56033375ae60, type: 3}
@@ -12397,15 +12401,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 10035c4f1098054498099ab001db4a21, type: 3}
+      objectReference: {fileID: 21300000, guid: 1c01c0ca3ffb8994b9a735b1d24128ea, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 85723baf3a25a534aa78fc87435dd36b, type: 3}
+      objectReference: {fileID: 21300000, guid: a65bd9e22c0a39249b21b5067e0d905c, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 85723baf3a25a534aa78fc87435dd36b, type: 3}
+      objectReference: {fileID: 21300000, guid: 2ad16cee8140ce948be10eb87af906da, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].CrossbowParts.Array.data[0]
       value: 
@@ -12442,6 +12446,18 @@ PrefabInstance:
       propertyPath: Materials.Array.data[4].CrossbowParts.Array.data[2]
       value: 
       objectReference: {fileID: 21300000, guid: 0aca904300a469447ac5ee20138d7678, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[4].SawbladeParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: fe31dcfbba3ece34e879856dd264efea, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[4].SawbladeParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: a870453ce43c40146bc042cce5bb173c, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[4].SawbladeParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e4a12bfbdab99443a4376b17824ff59, type: 3}
     - target: {fileID: 7616261651428151893, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: m_RootOrder
       value: 0

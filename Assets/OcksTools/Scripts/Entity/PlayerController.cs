@@ -408,7 +408,7 @@ public class PlayerController : MonoBehaviour
         if (mainweapon != null)
         {
             SwordFart.localPosition = new Vector3(0, 0, 0);
-            
+            MyAssHurts.rotation = SwordFart.rotation;
             switch (mainweapon.ItemIndex)
             {
                 case 3:
@@ -419,6 +419,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 8:
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
+                    MyAssHurts.rotation = SwordFart.rotation*Quaternion.Euler(0,0,70*-reverse);
                     break;
                 case 6:
                     SwordFart.rotation = transform.rotation;
@@ -446,7 +447,7 @@ public class PlayerController : MonoBehaviour
                 {
                     case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
                     case 7: SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
-                    case 8: SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
+                    case 8: SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
                     default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
                 }
             }
@@ -591,8 +592,8 @@ public class PlayerController : MonoBehaviour
                 s3.playerController = this;
 
                 var x2 = RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition)), RandomFunctions.Instance.NoZ(MyAssHurts.position));
-
-                s.GetComponent<Projectile>().Banan = "Boomerang";
+                var sss = s.GetComponent<Projectile>();
+                sss.Banan = "Boomerang";
                 s3.attackProfile = Shart;
                 s3.hsh *= -reverse;
                 s3.type = "Boomerang";
