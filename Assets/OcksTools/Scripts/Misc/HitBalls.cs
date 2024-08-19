@@ -15,8 +15,22 @@ public class HitBalls : MonoBehaviour
     public List<GameObject> hitlist = new List<GameObject>();
     public List<SpriteRenderer> spriteballs = new List<SpriteRenderer>();
     public List<GameObject> specialsharts = new List<GameObject>();
+    public ParticleSystem trail;
     public float hsh = 26.3f;
     private Dictionary<GameObject, int> hitdict = new Dictionary<GameObject, int>();
+
+
+    private void Start()
+    {
+        switch (type)
+        {
+            case "Boomerang":
+                var f = 0.236f;
+                trail.transform.localPosition = new Vector3(f,f,0);
+                break;
+        }
+    }
+
     private void FixedUpdate()
     {
         switch (type)
@@ -203,7 +217,11 @@ public class HitBalls : MonoBehaviour
                     }
                     break;
             }
-            if (i > 40 && type != "Shuriken") NO = true;
+            if (i > 5 && type != "Shuriken")
+            {
+                NO = true;
+                if(trail != null) trail.Stop();
+            }
             if (e != null)
             {
                 if (type == "Shuriken")
