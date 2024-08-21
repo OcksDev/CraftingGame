@@ -13,7 +13,8 @@ public class Gamer : MonoBehaviour
     public Material[] sexex = new Material[2];
     public Image fader;
     public List<GISContainer> ballers = new List<GISContainer>();
-    public List<GameObject> Enemies = new List<GameObject>();
+    public List<EnemyHolder> EnemiesDos = new List<EnemyHolder>();
+    //public List<EnemyHolder> Enemies = new List<EnemyHolder>();
     public List<PlayerController> Players = new List<PlayerController>();
     public List<NavMeshEntity> EnemiesExisting = new List<NavMeshEntity>();
     public List<GameObject> Chests = new List<GameObject>();
@@ -93,6 +94,7 @@ public class Gamer : MonoBehaviour
     {
         Tags.refs["BGblack"].SetActive(true);
         MainMenu();
+        CurrentFloor = 0;
         StartCoroutine(FUCK());
     }
     public static List<List<string>> Backup = new List<List<string>>();
@@ -272,12 +274,13 @@ public class Gamer : MonoBehaviour
             Destroy(p.GetComponent<NetworkObject>());
         }
     }
+    public static int CurrentFloor = 0;
     public IEnumerator NextFloor()
     {
         Seed = Random.Range(-999999999, 999999999);
         GlobalRand = new System.Random(Seed);
         GameState = "Game";
-
+        CurrentFloor++;
         Tags.refs["Lobby"].SetActive(false);
         Tags.refs["BlackBG"].SetActive(true);
         ClearMap();
@@ -349,28 +352,63 @@ public class Gamer : MonoBehaviour
         }
         completetetge = true;
     }
-
+    long creditcount = 0;
     public IEnumerator StartRoom()
     {
         BoomyRoomy();
         yield return new WaitForSeconds(1.5f);
         var w = CurrentRoom.room.RoomSize;
-        int enemycount = 5* (int)(w.x*w.y);
-        for(int i = 0; i < enemycount; i++)
+        int waves = Random.Range(3,6);
+        for(int i = 0; i < waves; i++)
         {
             if (GameState != "Game") break;
-            var s = CurrentRoom.gm.transform;
-            var ss = Instantiate(GetEnemyForDiff(), FindValidPos(CurrentRoom), PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
-            var rs = ss.GetComponent<NavMeshEntity>();
-            rs.originroom = CurrentRoom;
-            EnemiesExisting.Add(rs);
-            yield return new WaitForSeconds(0.7f);
+            creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y))*CurrentFloor;
+            SpawnEnemyWave();
+            yield return new WaitForSeconds(1.4f);
         }
         yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
         CurrentRoom = null;
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         InRoom = false;
     }
+
+
+    public void SpawnEnemyWave()
+    {
+        int x = 0;
+        while(creditcount > 0)
+        {
+            var ss = Instantiate(GetEnemyForDiff().EnemyObject, FindValidPos(CurrentRoom), PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
+            var rs = ss.GetComponent<NavMeshEntity>();
+            rs.originroom = CurrentRoom;
+            EnemiesExisting.Add(rs);
+            x++;
+            if (x >= 4) break;
+        }
+    }
+
+    public EnemyHolder GetEnemyForDiff()
+    {
+        EnemyHolder eh = null; 
+        for(int i = 0; i < EnemiesDos.Count; i++)
+        {
+            int j = (EnemiesDos.Count- 1)-i;
+            var e = EnemiesDos[j];
+            if(CurrentFloor >= e.MinFloor && (e.MaxFloor <= 0 || CurrentFloor <= e.MaxFloor))
+            {
+                if (Random.Range(0f, 1f) <= e.PickChance)
+                {
+                    eh = e;
+                    creditcount -= e.CreditCost;
+                    break;
+                }
+            }
+        }
+        return eh;
+        //return Enemies[0];
+    }
+
+
 
     public Vector3 FindValidPos(I_Room originroom)
     {
@@ -443,11 +481,6 @@ public class Gamer : MonoBehaviour
         }
     }
 
-    public GameObject GetEnemyForDiff()
-    {
-        return Enemies[GlobalRand.Next(0, Enemies.Count)];
-        //return Enemies[0];
-    }
 
     public float ShartPoop = 0f;
     private void FixedUpdate()
@@ -657,5 +690,16 @@ public class ObjectType
     {
         DoOnTouch?.Invoke();
     }
+
+}
+
+[System.Serializable]
+public class EnemyHolder
+{
+    public GameObject EnemyObject;
+    public long CreditCost = 1;
+    public float PickChance = 1;
+    public int MinFloor = 0;
+    public int MaxFloor = 0;
 
 }

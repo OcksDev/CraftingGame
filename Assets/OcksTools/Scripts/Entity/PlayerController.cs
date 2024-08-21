@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"], "Dash", "player", 0.1f, true);
-        InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 1/AttacksPerSecond, false);
+        InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 0.1f, false);
     }
 
     private void LateUpdate()
