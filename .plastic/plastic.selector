@@ -1,4 +1,0 @@
-repository "Crafting Game Thing@GamerClub@cloud"
-  path "/"
-    br "/main"
-    co "/main"

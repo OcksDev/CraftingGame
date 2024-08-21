@@ -152,7 +152,6 @@ public class HitBalls : MonoBehaviour
                             foreach (var cum in myass)
                             {
                                 var x = RandomFunctions.Instance.Dist(transform.position, cum.transform.position);
-                                //Debug.Log($"Baller: {x}, {cum.transform.position}, {cum.name}");
                                 if (x < disty)
                                 {
                                     disty = x;
@@ -161,7 +160,6 @@ public class HitBalls : MonoBehaviour
                             }
                             if (nearestbitch != null)
                             {
-                                Debug.Log($"thing: {disty}, {nearestbitch.transform.position}, {nearestbitch.name}");
                                 //transform.rotation = RotateTowards(nearestbitch.transform.position, 1000);
                                 transform.rotation = RotateTowards(nearestbitch.transform.position,45);
                             }
