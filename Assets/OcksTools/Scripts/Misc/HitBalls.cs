@@ -165,7 +165,7 @@ public class HitBalls : MonoBehaviour
                             }
                             break;
                         case "Shuriken":
-                            hitdict.Add(collision.gameObject, 20);
+                            hitdict.Add(collision.gameObject, 35);
                             break;
                         default:
                             break;
