@@ -17,7 +17,7 @@ public class WeaponDisplay : MonoBehaviour
             displays[0].color = c;
             displays[1].color = c;
             displays[2].color = c;
-            if (WeaponItem != null && WeaponItem.ItemIndex != 0)
+            if (WeaponItem != null && WeaponItem.ItemIndex != "Empty")
             {
                 var d = GISDisplay.GetSprites(WeaponItem);
                 displays[0].sprite = d.sprites[0];

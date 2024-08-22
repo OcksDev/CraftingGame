@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Selector : MonoBehaviour
 {
-    public List<int> ItemIndexes = new List<int>();
+    public List<string> ItemIndexes = new List<string>();
     public List<GameObject> gm = new List<GameObject>();
     public GameObject prefabsex;
    
@@ -21,7 +21,11 @@ public class Selector : MonoBehaviour
             };
         for(int i = 0; i < ItemIndexes.Count; i++)
         {
-            var pp = GISDisplay.GetBaseSprites(ItemIndexes[i]);
+            var e = new GISItem(ItemIndexes[i]);
+            e.Materials.Add(new GISMaterial("Rock"));
+            e.Materials.Add(new GISMaterial("Rock"));
+            e.Materials.Add(new GISMaterial("Rock"));
+            var pp = GISDisplay.GetSprites(e).sprites;
             var rs = Instantiate(prefabsex, transform.position, transform.rotation, transform).GetComponent<ItemHolder>();
             rs.one.sprite = pp[0];
             rs.two.sprite = pp[1];

@@ -14,7 +14,6 @@ public class Gamer : MonoBehaviour
     public Image fader;
     public List<GISContainer> ballers = new List<GISContainer>();
     public List<EnemyHolder> EnemiesDos = new List<EnemyHolder>();
-    //public List<EnemyHolder> Enemies = new List<EnemyHolder>();
     public List<PlayerController> Players = new List<PlayerController>();
     public List<NavMeshEntity> EnemiesExisting = new List<NavMeshEntity>();
     public List<GameObject> Chests = new List<GameObject>();
@@ -22,7 +21,7 @@ public class Gamer : MonoBehaviour
     public NavMeshRefresher nmr;
     public static bool IsMultiplayer = false;
     public GameObject GroundItemShit;
-    public int CraftSex = 3;
+    public string CraftSex = "Sword";
     public Selector cuumer;
     public GameObject PlayerPrefab;
     public List<GameObject> healers = new List<GameObject>();
@@ -200,7 +199,7 @@ public class Gamer : MonoBehaviour
         ClearMap();
         Tags.refs["BlackBG"].SetActive(false);
         checks[3] = true;
-        CraftSex = 3;
+        CraftSex = "Sword";
         Players.Clear();
         GameState = "Main Menu";
         if (PlayerController.Instance != null) Destroy(PlayerController.Instance.gameObject);
@@ -329,9 +328,9 @@ public class Gamer : MonoBehaviour
         {
             var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
             e.isused = true;
-            var f = new GISItem(1);
+            var f = new GISItem("Rock");
             f.ItemType = "Craftable";
-            f.Materials.Add(new GISMaterial(0));
+            f.Materials.Add(new GISMaterial("Rock"));
             f.Amount = 1;
             c.cuum = f;
             spawnedchests.Add(c);

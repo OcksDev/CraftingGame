@@ -29,19 +29,18 @@ public class GISSlot : MonoBehaviour
     }
     public bool FailToClick()
     {
-        return false;
         var pp = GISLol.Instance.Mouse_Held_Item;
-        if (pp.ItemIndex == 0) return false;
+        if (pp.ItemIndex == "Empty") return false;
         switch (InteractFilter)
         {
             case "Craftable":
                 if (pp.ItemType != "Craftable") return true;
                 break;
             case "Empty":
-                if (pp.ItemIndex != 0) return true;
+                if (pp.ItemIndex != "Empty") return true;
                 break;
             case "Weapon":
-                if(pp.ItemIndex < 3 || pp.ItemIndex > 8) return true;
+                if(pp.ItemType != "Made") return true;
                 break;
         }
         return false;
@@ -89,7 +88,7 @@ public class GISSlot : MonoBehaviour
                     var x = Conte.slots[i].Held_Item;
                     if (x.Compare(a))
                     {
-                        int max = GISLol.Instance.Items[a.ItemIndex].MaxAmount;
+                        int max = GISLol.Instance.ItemsDict[a.ItemIndex].MaxAmount;
                         int t = x.Amount + a.Amount;
                         if(max <= 0)
                         {
@@ -109,7 +108,7 @@ public class GISSlot : MonoBehaviour
                             }
                         }
                     }
-                    else if (x.ItemIndex == 0)
+                    else if (x.ItemIndex == "Empty")
                     {
                         break;
                     }
@@ -136,11 +135,11 @@ public class GISSlot : MonoBehaviour
 
                     if (Held_Item.Compare(a))
                     {
-                        int d = Held_Item.ItemIndex;
+                        var d = Held_Item.ItemIndex;
                         int b = a.Amount;
                         int c = Held_Item.Amount + b;
                         Held_Item.Amount = c;
-                        int K = GISLol.Instance.Items[d].MaxAmount;
+                        int K = GISLol.Instance.ItemsDict[d].MaxAmount;
                         if (K != 0)
                         {
                             if (c > K)
@@ -169,7 +168,7 @@ public class GISSlot : MonoBehaviour
                     {
                         GISLol.Instance.Mouse_Held_Item = Held_Item;
                         GISLol.Instance.Mouse_Held_Item.AddConnection(Conte);
-                        if (GISLol.Instance.Mouse_Held_Item.ItemIndex == 0)
+                        if (GISLol.Instance.Mouse_Held_Item.ItemIndex == "Empty")
                         {
                             GISLol.Instance.Mouse_Held_Item.SetContainer(null);
                         }
@@ -189,7 +188,7 @@ public class GISSlot : MonoBehaviour
                     {
                         if (slot != this && slot.Held_Item.Compare(GISLol.Instance.Mouse_Held_Item))
                         {
-                            int x = GISLol.Instance.Items[GISLol.Instance.Mouse_Held_Item.ItemIndex].MaxAmount;
+                            int x = GISLol.Instance.ItemsDict[GISLol.Instance.Mouse_Held_Item.ItemIndex].MaxAmount;
                             if (x != 0 && GISLol.Instance.Mouse_Held_Item.Amount + slot.Held_Item.Amount > x)
                             {
                                 slot.Held_Item.Amount = slot.Held_Item.Amount - (x - GISLol.Instance.Mouse_Held_Item.Amount);
@@ -222,7 +221,7 @@ public class GISSlot : MonoBehaviour
                 SaveItemContainerData();
                 var a = GISLol.Instance.Mouse_Held_Item;
 
-                if (Held_Item.ItemIndex == 0)
+                if (Held_Item.ItemIndex == "Empty")
                 {
                     if (a.Amount > 0)
                     {
@@ -240,7 +239,7 @@ public class GISSlot : MonoBehaviour
                 }
                 else
                 {
-                    if (a.ItemIndex == 0)
+                    if (a.ItemIndex == "Empty")
                     {
                         float b = (float)Held_Item.Amount / 2;
                         GISLol.Instance.Mouse_Held_Item = new GISItem(Held_Item);
@@ -254,7 +253,7 @@ public class GISSlot : MonoBehaviour
                     }
                     else if (Held_Item.Compare(a))
                     {
-                        int max = GISLol.Instance.Items[Held_Item.ItemIndex].MaxAmount;
+                        int max = GISLol.Instance.ItemsDict[Held_Item.ItemIndex].MaxAmount;
                         if(max == 0 || Held_Item.Amount < max)
                         {
                             Held_Item.Amount++;

@@ -10,7 +10,7 @@ public class GroundItem : MonoBehaviour
     void Start()
     {
         if (sexyballer != null) 
-        sexylady.sprite = GISLol.Instance.Items[sexyballer.ItemIndex].Sprite;
+        sexylady.sprite = GISLol.Instance.ItemsDict[sexyballer.ItemIndex].Sprite;
     }
     float life = 0;
     // Update is called once per frame

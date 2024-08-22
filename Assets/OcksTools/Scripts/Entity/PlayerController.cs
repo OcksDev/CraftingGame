@@ -212,25 +212,25 @@ public class PlayerController : MonoBehaviour
         {
             switch (mainweapon.ItemIndex)
             {
-                case 5:
+                case "Spear":
                     AttacksPerSecond = 1.5f;
                     Damage = 12;
                     break;
-                case 6:
+                case "Crossbow":
                     AttacksPerSecond = 4f;
                     Damage = 4;
                     Spread = 15f;
                     break;
-                case 4:
+                case "Bow":
                     AttacksPerSecond = 1.5f;
                     Spread = 5f;
                     Damage = 1000f;
                     break;
-                case 7:
+                case "Shuriken":
                     AttacksPerSecond = 1.5f;
                     Damage = 6f;
                     break;
-                case 8:
+                case "Boomerang":
                     AttacksPerSecond = 1.5f;
                     Damage = 6f;
                     break;
@@ -250,40 +250,16 @@ public class PlayerController : MonoBehaviour
         entit.Max_Shield = helth/2;
         SetMoveSpeed();
     }
-    public void ParseMaterial(int mat)
+    public void ParseMaterial(string mat)
     {
-        var m = GISLol.Instance.Materials[mat];
+        var m = GISLol.Instance.MaterialsDict[mat];
         switch (mat)
         {
-            case 0:
+            case "Rock":
                 switch (mainweapon.ItemIndex)
                 {
                     default:
                         AttacksPerSecond *= 1.15f;
-                        break;
-                }
-                break;
-            case 1:
-                switch (mainweapon.ItemIndex)
-                {
-                    default:
-                        Damage *= 1.15f;
-                        break;
-                }
-                break;
-            case 2:
-                switch (mainweapon.ItemIndex)
-                {
-                    default:
-                        working_move_speed *= 1.1f;
-                        break;
-                }
-                break;
-            case 3:
-                switch (mainweapon.ItemIndex)
-                {
-                    default:
-                        CritChance += 0.15f;
                         break;
                 }
                 break;
@@ -341,7 +317,7 @@ public class PlayerController : MonoBehaviour
 
             if (mainweapon != null && isrealowner)
             {
-                if (mainweapon.ItemIndex == 4)
+                if (mainweapon.ItemIndex == "Bow")
                 {
                     if (f2 <= 0 && f >= 1)
                     {
@@ -411,24 +387,24 @@ public class PlayerController : MonoBehaviour
             MyAssHurts.rotation = SwordFart.rotation;
             switch (mainweapon.ItemIndex)
             {
-                case 3:
+                case "Sword":
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, g) * reverse)) * transform.rotation;
                     break;
-                case 7:
+                case "Shuriken":
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
                     break;
-                case 8:
+                case "Boomerang":
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
                     MyAssHurts.rotation = SwordFart.rotation*Quaternion.Euler(0,0,70*-reverse);
                     break;
-                case 6:
+                case "Crossbow":
                     SwordFart.rotation = transform.rotation;
                     break;
-                case 4:
+                case "Bow":
                     SwordFart.localPosition = new Vector3(0, -1f, 0);
                     SwordFart.rotation = transform.rotation;
                     break;
-                case 5:
+                case "Spear":
                     if (!sexed && g <= 0.5f)
                     {
                         reverse *= -1;
@@ -445,9 +421,9 @@ public class PlayerController : MonoBehaviour
                 int reverse2 = (transform.position - MyAssHurts.transform.position).x < 0 ? 1 : -1;
                 switch (mainweapon.ItemIndex)
                 {
-                    case 6: SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
-                    case 7: SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
-                    case 8: SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
+                    case "Crossbow": SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
+                    case "Shuriken": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
+                    case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
                     default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
                 }
             }
@@ -459,7 +435,7 @@ public class PlayerController : MonoBehaviour
         move_speed = working_move_speed;
         switch (mainweapon.ItemIndex)
         {
-            case 6:
+            case "Crossbow":
                 if (f < 1f || f2 > 0 || bowsextimer > 0) move_speed *= 0.35f;
                 break;
             default:
@@ -495,7 +471,7 @@ public class PlayerController : MonoBehaviour
     {
         InputBuffer.Instance.RemoveBuffer("Attack");
         if (d == -1) d = Damage;
-        if (mainweapon.ItemIndex == 0) return;
+        if (mainweapon.ItemIndex == "Empty") return;
         sexed = false;
         f = 0;
         f2 = (0.2f * 3) / AttacksPerSecond;
@@ -519,7 +495,7 @@ public class PlayerController : MonoBehaviour
 
         switch (mainweapon.ItemIndex)
         {
-            case 3:
+            case "Sword":
                 s = Instantiate(SlashEffect[0], transform.position + transform.up * 2.3f, transform.rotation);
                 s.GetComponent<SpriteRenderer>().flipX = reverse > 0;
                 s.GetComponent<Slasher>().wait = (0.1f * 3) / AttacksPerSecond;
@@ -527,7 +503,7 @@ public class PlayerController : MonoBehaviour
                 HitCollider = HitColliders[0];
                 Shart.PreCritted = -1;
                 break;
-            case 5:
+            case "Spear":
                 s = Instantiate(SlashEffect[1], transform.position + transform.up * 2.3f, transform.rotation);
                 s.GetComponent<SpriteRenderer>().flipX = reverse > 0;
                 s2 = s.GetComponent<Slasher>();
@@ -536,7 +512,7 @@ public class PlayerController : MonoBehaviour
                 HitCollider = HitColliders[1];
                 Shart.PreCritted = -1;
                 break;
-            case 6:
+            case "Crossbow":
                 s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
@@ -546,9 +522,7 @@ public class PlayerController : MonoBehaviour
                 f = 1;
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
-            case 4:
-
-
+            case "Bow":
                 for(int i = 0; i < 1; i++)
                 {
                     s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, (Random.Range(Spread / 2, -Spread / 2)) + (15*i))));
@@ -561,7 +535,7 @@ public class PlayerController : MonoBehaviour
                 f = 1;
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
-            case 7:
+            case "Shuriken":
                 s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0));
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
@@ -586,7 +560,7 @@ public class PlayerController : MonoBehaviour
                 s3.spriteballs[2].sprite = ra.sprites[2];
                 s3.spriteballs[2].color = ra.colormods[2];
                 break;
-            case 8:
+            case "Boomerang":
                 s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0));
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;

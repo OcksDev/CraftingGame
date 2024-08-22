@@ -13,6 +13,8 @@ public class GISLol : MonoBehaviour
     private static GISLol instance;
     public List<GISItem_Data> Items = new List<GISItem_Data>();
     public List<GISMaterial_Data> Materials = new List<GISMaterial_Data>();
+    public Dictionary<string, GISItem_Data> ItemsDict = new Dictionary<string, GISItem_Data>();
+    public Dictionary<string, GISMaterial_Data> MaterialsDict = new Dictionary<string, GISMaterial_Data>();
 
 
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
@@ -33,6 +35,17 @@ public class GISLol : MonoBehaviour
 
     private void Awake()
     {
+        foreach (var a in Items)
+        {
+            ItemsDict.Add(a.Name, a);
+        }
+
+        foreach (var a in Materials)
+        {
+            MaterialsDict.Add(a.Name, a);
+        }
+
+
         if (Instance == null) instance = this;
         SaveSystem.SaveAllData += SaveAll;
         Mouse_Held_Item = new GISItem();
@@ -85,58 +98,58 @@ public class GISLol : MonoBehaviour
 
         if (InputManager.IsKeyDown(KeyCode.X))
         {
-            Mouse_Held_Item = new GISItem(1);
+            Mouse_Held_Item = new GISItem("Rock");
             Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial(0));
+            Mouse_Held_Item.Materials.Add(new GISMaterial("Rock"));
             Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.C))
         {
-            Mouse_Held_Item = new GISItem(2);
+            Mouse_Held_Item = new GISItem("Gold");
             Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial(1));
+            Mouse_Held_Item.Materials.Add(new GISMaterial("Gold"));
             Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.V))
         {
-            Mouse_Held_Item = new GISItem(9);
+            Mouse_Held_Item = new GISItem("Emerald");
             Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial(2));
+            Mouse_Held_Item.Materials.Add(new GISMaterial("Emerald"));
             Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.B))
         {
-            Mouse_Held_Item = new GISItem(10);
+            Mouse_Held_Item = new GISItem("Slime");
             Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial(3));
+            Mouse_Held_Item.Materials.Add(new GISMaterial("Slime"));
             Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.N))
         {
-            Mouse_Held_Item = new GISItem(11);
+            Mouse_Held_Item = new GISItem("Glass");
             Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial(4));
+            Mouse_Held_Item.Materials.Add(new GISMaterial("Glass"));
             Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.M))
         {
-            Mouse_Held_Item = new GISItem(12);
+            Mouse_Held_Item = new GISItem("Angelic Ingot");
             Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial(5));
+            Mouse_Held_Item.Materials.Add(new GISMaterial("Angelic Ingot"));
             Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.Comma))
         {
-            Mouse_Held_Item = new GISItem(13);
+            Mouse_Held_Item = new GISItem("Demonic Ingot");
             Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial(6));
+            Mouse_Held_Item.Materials.Add(new GISMaterial("Demonic Ingot"));
             Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.Period))
         {
-            Mouse_Held_Item = new GISItem(14);
+            Mouse_Held_Item = new GISItem("Amethyst");
             Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial(7));
+            Mouse_Held_Item.Materials.Add(new GISMaterial("Amethyst"));
             Mouse_Held_Item.Amount = 1;
         }
     }
@@ -174,7 +187,7 @@ public class GISItem
      * GISContainer.LoadContents()
      */
 
-    public int ItemIndex;
+    public string ItemIndex;
     public string ItemType = "";
     public int Amount;
     public GISContainer Container;
@@ -185,7 +198,7 @@ public class GISItem
     {
         setdefaultvals();
     }
-    public GISItem(int base_type)
+    public GISItem(string base_type)
     {
         setdefaultvals();
         ItemIndex = base_type;
@@ -201,8 +214,9 @@ public class GISItem
     }
     private void setdefaultvals()
     {
+        Data = GetDefaultData();
         Amount = 0;
-        ItemIndex = 0;
+        ItemIndex = "Empty";
         Container = null;
         ItemType = "";
     }
@@ -258,38 +272,99 @@ public class GISItem
         //if(!gis.CanRetainItems) Tainted = true;
     }
 
+    public Dictionary<string,string> Data = new Dictionary<string,string>();
+
+    public Dictionary<string, string> GetDefaultData()
+    {
+        var e = new Dictionary<string, string>()
+        {
+            { "Index", "Empty" },
+            { "Count", "0" },
+            { "Name", "" },
+            { "Type", "" },
+            { "Mats", "" },
+        };
+        return e;
+    }
+
+
     public string ItemToString()
     {
         string e = "";
-        var s = "~|~";
-        e += ItemIndex + s + Amount + s + ItemType + s;
-        int i = 0;
+        var def = GetDefaultData();
+
+        Data["Index"] = ItemIndex.ToString();
+        Data["Count"] = Amount.ToString();
+        //Data["Name"] = Amount.ToString();
+        Data["Type"] = ItemType;
+
+
+        List<string> mats = new List<string>();
         foreach (var mat in Materials)
         {
-            if (i > 0) e += "(q]";
-            i++;
-            e += mat.index;
+            mats.Add(mat.index);
         }
+        if(mats.Count > 0)
+        Data["Mats"] = Converter.ListToString(mats, "(q]");
+
+
+
+        Dictionary<string, string> bb = new Dictionary<string, string>();
+        foreach(var dat in Data)
+        {
+            if(!def.ContainsKey(dat.Key) || dat.Value != def[dat.Key])
+            {
+                bb.Add(dat.Key, dat.Value);
+            }
+        }
+        if (bb.ContainsKey("Count") && bb["Count"] == "1") bb.Remove("Count");
+
+        e = Converter.DictionaryToString(bb, "~|~", "~o~");
 
         return e;
     }
     public void StringToItem(string e)
     {
-        var s = RandomFunctions.Instance.StringToList(e, "~|~");
-        ItemIndex = int.Parse(s[0]);
-        Amount = int.Parse(s[1]);
-        ItemType = s[2];
-        var sex = RandomFunctions.Instance.StringToList(s[3], "(q]");
+        Data = GetDefaultData();
+
+        var wanker = Converter.StringToDictionary(e, "~|~", "~o~");
+        foreach(var ae in wanker)
+        {
+            if (Data.ContainsKey(ae.Key))
+            {
+                Data[ae.Key] = ae.Value;
+            }
+            else
+            {
+                Data.Add(ae.Key, ae.Value);
+            }
+        }
+
+        ItemIndex = Data["Index"];
+        if (wanker.ContainsKey("Count"))
+        {
+            Amount = int.Parse(Data["Count"]);
+        }
+        else
+        {
+            Amount = ItemIndex != "Empty" ? 1 : 0;
+        }
+
+        ItemType = Data["Type"];
+
+
+
+        var sex = Converter.StringToList(Data["Mats"], "(q]");
         Materials.Clear();
         foreach(var pp in sex)
         {
-            if(pp != "") Materials.Add(new GISMaterial(int.Parse(pp)));
+            if(pp != "") Materials.Add(new GISMaterial(pp));
         }
 
     }
     public bool CanCraft()
     {
-        bool t = ItemIndex != 0;
+        bool t = ItemIndex != "Empty";
         if (ItemType != "Craftable") t = false;
         return t;
     }
@@ -300,8 +375,8 @@ public class GISItem_Data
 {
     //this is what holds all of the base data for a general item of it's type.
     //EX: All "coal" items refer back to this for things like icon and name
-    public Sprite Sprite;
     public string Name;
+    public Sprite Sprite;
     public string Description;
     public int MaxAmount;
     public GISItem_Data()
@@ -322,8 +397,8 @@ public class GISItem_Data
 [Serializable]
 public class GISMaterial
 {
-    public int index;
-    public GISMaterial(int index)
+    public string index;
+    public GISMaterial(string index)
     {
         this.index = index;
     }
@@ -332,14 +407,14 @@ public class GISMaterial
 public class GISMaterial_Data
 {
     //this is what holds all of the base data for a general material
-    public Color32 ColorMod = new Color32(255,255,255,255);
     public string Name = "Null";
+    public Color32 ColorMod = new Color32(255,255,255,255);
     public Sprite[] SwordParts;
     public Sprite[] BowParts;
     public Sprite[] SpearParts;
     public Sprite[] CrossbowParts;
     public Sprite[] DaggerParts;
     public Sprite[] SawbladeParts;
-    public int fallthroughmaterial = 0;
+    public string fallthroughmaterial = "Rock";
     public bool ignorecolorforcumimg = true;
 }

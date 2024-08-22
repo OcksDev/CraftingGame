@@ -20,7 +20,7 @@ public class GISDisplay : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        var g = GISLol.Instance.Items[item.ItemIndex];
+        var g = GISLol.Instance.ItemsDict[item.ItemIndex];
         amnt.text = item.Amount > 0 && g.MaxAmount != 1?"x" + item.Amount:"";
         var e = GISLol.Instance.Items[0].Sprite;
         var c = new Color32(255, 255, 255, 255);
@@ -59,7 +59,7 @@ public class GISDisplay : MonoBehaviour
         var ccc = new Color32(255,255, 255,255);
         for (int index = 0; index < 3; index++)
         {
-            var e = GISLol.Instance.Materials[ITEM.Materials[index].index];
+            var e = GISLol.Instance.MaterialsDict[ITEM.Materials[index].index];
             var fall = e.fallthroughmaterial;
             Sprite baller = null;
             Color32 beans = e.ColorMod;
@@ -69,27 +69,27 @@ public class GISDisplay : MonoBehaviour
             {
                 default:
                     mysprites = e.SwordParts;
-                    defaultsprites = GISLol.Instance.Materials[fall].SwordParts;
+                    defaultsprites = GISLol.Instance.MaterialsDict[fall].SwordParts;
                     break;
-                case 4:
+                case "Bow":
                     mysprites = e.BowParts;
-                    defaultsprites = GISLol.Instance.Materials[fall].BowParts;
+                    defaultsprites = GISLol.Instance.MaterialsDict[fall].BowParts;
                     break;
-                case 5:
+                case "Spear":
                     mysprites = e.SpearParts;
-                    defaultsprites = GISLol.Instance.Materials[fall].SpearParts;
+                    defaultsprites = GISLol.Instance.MaterialsDict[fall].SpearParts;
                     break;
-                case 6:
+                case "Crossbow":
                     mysprites = e.CrossbowParts;
-                    defaultsprites = GISLol.Instance.Materials[fall].CrossbowParts;
+                    defaultsprites = GISLol.Instance.MaterialsDict[fall].CrossbowParts;
                     break;
-                case 7:
+                case "Shuriken":
                     mysprites = e.DaggerParts;
-                    defaultsprites = GISLol.Instance.Materials[fall].DaggerParts;
+                    defaultsprites = GISLol.Instance.MaterialsDict[fall].DaggerParts;
                     break;
-                case 8:
+                case "Boomerang":
                     mysprites = e.SawbladeParts;
-                    defaultsprites = GISLol.Instance.Materials[fall].SawbladeParts;
+                    defaultsprites = GISLol.Instance.MaterialsDict[fall].SawbladeParts;
                     break;
             }
 
@@ -114,25 +114,6 @@ public class GISDisplay : MonoBehaviour
         return a;
     }
 
-    public static Sprite[] GetBaseSprites(int itemindex)
-    {
-        var e = GISLol.Instance.Materials[0];
-        switch (itemindex)
-        {
-            default:
-                return e.SwordParts;
-            case 4:
-                return e.BowParts;
-            case 5:
-                return e.SpearParts;
-            case 6:
-                return e.CrossbowParts;
-            case 7:
-                return e.DaggerParts;
-            case 8:
-                return e.SawbladeParts;
-        }
-    }
 
 }
 
