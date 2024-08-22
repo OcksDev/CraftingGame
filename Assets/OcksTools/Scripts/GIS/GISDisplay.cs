@@ -27,13 +27,13 @@ public class GISDisplay : MonoBehaviour
         displays[0].color = c;
         displays[1].color = c;
         displays[2].color = c;
-        if (item.ItemType == "Craftable")
+        if (g.IsCraftable)
         {
             displays[0].sprite = g.Sprite;
             displays[1].sprite = e;
             displays[2].sprite = e;
         }
-        else if (item.ItemType == "Made")
+        else if (g.IsWeapon)
         {
             var b = GetSprites(item);
             displays[0].sprite = b.sprites[0];

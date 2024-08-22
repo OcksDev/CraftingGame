@@ -34,13 +34,13 @@ public class GISSlot : MonoBehaviour
         switch (InteractFilter)
         {
             case "Craftable":
-                if (pp.ItemType != "Craftable") return true;
+                if (!GISLol.Instance.AllCraftables.Contains(pp.ItemIndex)) return true;
                 break;
             case "Empty":
                 if (pp.ItemIndex != "Empty") return true;
                 break;
             case "Weapon":
-                if(pp.ItemType != "Made") return true;
+                if(!GISLol.Instance.AllWeaponNames.Contains(pp.ItemIndex)) return true;
                 break;
         }
         return false;

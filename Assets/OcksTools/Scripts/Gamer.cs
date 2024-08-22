@@ -317,9 +317,6 @@ public class Gamer : MonoBehaviour
             var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
             e.isused = true;
             var f = new GISItem("Rock");
-            f.ItemType = "Craftable";
-            f.Materials.Add(new GISMaterial("Rock"));
-            f.Amount = 1;
             c.cuum = f;
             spawnedchests.Add(c);
         }
@@ -635,7 +632,6 @@ public class Gamer : MonoBehaviour
             {
                 e.Materials.Add(ep);
             }
-            e.ItemType = "Made";
             con.slots[0].Held_Item = new GISItem();
             con.slots[1].Held_Item = new GISItem();
             con.slots[2].Held_Item = new GISItem();

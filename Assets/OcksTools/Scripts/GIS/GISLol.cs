@@ -15,6 +15,8 @@ public class GISLol : MonoBehaviour
     public List<GISMaterial_Data> Materials = new List<GISMaterial_Data>();
     public Dictionary<string, GISItem_Data> ItemsDict = new Dictionary<string, GISItem_Data>();
     public Dictionary<string, GISMaterial_Data> MaterialsDict = new Dictionary<string, GISMaterial_Data>();
+    public List<string> AllWeaponNames = new List<string>();
+    public List<string> AllCraftables = new List<string>();
 
 
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
@@ -38,6 +40,8 @@ public class GISLol : MonoBehaviour
         foreach (var a in Items)
         {
             ItemsDict.Add(a.Name, a);
+            if(a.IsWeapon) AllWeaponNames.Add(a.Name);
+            if(a.IsCraftable) AllCraftables.Add(a.Name);
         }
 
         foreach (var a in Materials)
@@ -99,58 +103,34 @@ public class GISLol : MonoBehaviour
         if (InputManager.IsKeyDown(KeyCode.X))
         {
             Mouse_Held_Item = new GISItem("Rock");
-            Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial("Rock"));
-            Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.C))
         {
             Mouse_Held_Item = new GISItem("Gold");
-            Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial("Gold"));
-            Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.V))
         {
             Mouse_Held_Item = new GISItem("Emerald");
-            Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial("Emerald"));
-            Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.B))
         {
             Mouse_Held_Item = new GISItem("Slime");
-            Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial("Slime"));
-            Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.N))
         {
             Mouse_Held_Item = new GISItem("Glass");
-            Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial("Glass"));
-            Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.M))
         {
             Mouse_Held_Item = new GISItem("Angelic Ingot");
-            Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial("Angelic Ingot"));
-            Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.Comma))
         {
             Mouse_Held_Item = new GISItem("Demonic Ingot");
-            Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial("Demonic Ingot"));
-            Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.Period))
         {
             Mouse_Held_Item = new GISItem("Amethyst");
-            Mouse_Held_Item.ItemType = "Craftable";
-            Mouse_Held_Item.Materials.Add(new GISMaterial("Amethyst"));
-            Mouse_Held_Item.Amount = 1;
         }
         if (InputManager.IsKeyDown(KeyCode.P))
         {
@@ -194,7 +174,6 @@ public class GISItem
      */
 
     public string ItemIndex;
-    public string ItemType = "";
     public int Amount;
     public GISContainer Container;
     public List<GISMaterial> Materials = new List<GISMaterial>();
@@ -208,7 +187,21 @@ public class GISItem
     {
         setdefaultvals();
         ItemIndex = base_type;
+        SetDefaultsBasedOnIndex();
     }
+    public void SetDefaultsBasedOnIndex()
+    {
+        if (GISLol.Instance.MaterialsDict.ContainsKey(ItemIndex))
+        {
+            Materials.Add(new GISMaterial(ItemIndex));
+            Amount = 1;
+        }
+        else if (GISLol.Instance.AllWeaponNames.Contains(ItemIndex))
+        {
+            Amount = 1;
+        }
+    }
+
     public GISItem(GISItem sexnut)
     {
         setdefaultvals();
@@ -216,7 +209,6 @@ public class GISItem
         ItemIndex = sexnut.ItemIndex;
         Container = sexnut.Container;
         Materials = new List<GISMaterial>(sexnut.Materials);
-        ItemType = sexnut.ItemType;
     }
     private void setdefaultvals()
     {
@@ -224,7 +216,6 @@ public class GISItem
         Amount = 0;
         ItemIndex = "Empty";
         Container = null;
-        ItemType = "";
     }
     public void Solidify()
     {
@@ -242,7 +233,6 @@ public class GISItem
          * true - are the same
          */
         bool comp = ItemIndex == sexnut.ItemIndex;
-        if (ItemType != sexnut.ItemType) comp = false;
         if( Materials.Count != sexnut.Materials.Count)
         {
             comp = false;
@@ -287,7 +277,6 @@ public class GISItem
             { "Index", "Empty" },
             { "Count", "0" },
             { "Name", "" },
-            { "Type", "" },
             { "Mats", "" },
         };
         return e;
@@ -302,7 +291,6 @@ public class GISItem
         Data["Index"] = ItemIndex.ToString();
         Data["Count"] = Amount.ToString();
         //Data["Name"] = Amount.ToString();
-        Data["Type"] = ItemType;
 
 
         List<string> mats = new List<string>();
@@ -327,6 +315,13 @@ public class GISItem
             }
         }
         if (bb.ContainsKey("Count") && bb["Count"] == "1") bb.Remove("Count");
+        if (bb.ContainsKey("Index"))
+        {
+            if (bb.ContainsKey("Mats") && mats[0] == bb["Index"])
+            {
+                bb.Remove("Mats");
+            }
+        }
 
         e = Converter.DictionaryToString(bb, "~|~", "~o~");
 
@@ -334,7 +329,7 @@ public class GISItem
     }
     public void StringToItem(string e)
     {
-        Data = GetDefaultData();
+        setdefaultvals();
 
         var wanker = Converter.StringToDictionary(e, "~|~", "~o~");
         foreach(var ae in wanker)
@@ -350,6 +345,7 @@ public class GISItem
         }
 
         ItemIndex = Data["Index"];
+        SetDefaultsBasedOnIndex();
         if (wanker.ContainsKey("Count"))
         {
             Amount = int.Parse(Data["Count"]);
@@ -358,8 +354,6 @@ public class GISItem
         {
             Amount = ItemIndex != "Empty" ? 1 : 0;
         }
-
-        ItemType = Data["Type"];
 
 
 
@@ -374,7 +368,6 @@ public class GISItem
     public bool CanCraft()
     {
         bool t = ItemIndex != "Empty";
-        if (ItemType != "Craftable") t = false;
         return t;
     }
 }
@@ -388,6 +381,8 @@ public class GISItem_Data
     public Sprite Sprite;
     public string Description;
     public int MaxAmount;
+    public bool IsWeapon = false;
+    public bool IsCraftable = false;
     public GISItem_Data()
     {
         Sprite = null;
