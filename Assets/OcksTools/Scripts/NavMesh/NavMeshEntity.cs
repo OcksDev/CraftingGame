@@ -8,6 +8,7 @@ public class NavMeshEntity : MonoBehaviour
 {
     public string EnemyType = "Rat";
     public string AttackType = "Melee";
+    public int ImagePixelSize = 18;
     public float movespeed = 5f;
     public float SightRange = 15f;
     public float AttackCooldown = 1.5f;
@@ -26,11 +27,13 @@ public class NavMeshEntity : MonoBehaviour
     public Vector3 spawn;
     public EnemyHitShit sex2;
     public bool HasSpawned=  false;
+    public string EliteType = "";
     public event Gamer.JustFuckingRunTheMethods CLearShit;
     // Start is called before the first frame update
     void Start()
     {
         if(AttackType == "Melee")sex2.Damage = Damage;
+        EliteType = "Balls";
         beans = GetComponent<NavMeshAgent>();
         sex = GetComponent<Rigidbody2D>();
         EntityOXS = GetComponent<EntityOXS>();

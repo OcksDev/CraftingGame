@@ -190,18 +190,37 @@ public class EntityOXS : MonoBehaviour
             case "Player":
                 Gamer.Instance.ClearMap();
                 Gamer.Instance.checks[6] = true;
-                Gamer.Instance.UpdateMenus();
+                //this also runs updatemenus()
+                Gamer.Instance.SetPauseMenu(false);
                 return;
         }
         Destroy(gameObject);
     }
+    bool oldstatus = false;
+    bool curstatus = false;
     private void Update()
     {
         if (AntiDieJuice) return;
         if (ren != null)
         {
-            ren.material = Gamer.Instance.sexex[DamageTimer >= 0 ? 1 : 0];
-            ren.color = DamageTimer >= 0 ? new Color32(255, 255, 255, 255) : col;
+            curstatus = DamageTimer >= 0;
+            if(curstatus != oldstatus)
+            {
+                if (sexy != null && sexy.EliteType != "")
+                {
+                    ren.material = Gamer.Instance.sexex[DamageTimer >= 0 ? 3 : 2];
+                    var c = Random.ColorHSV();
+                    c.a = 1;
+                    ren.material.color = c;
+                    ren.material.SetFloat("_OutlineThickness", 1f / sexy.ImagePixelSize);
+                }
+                else
+                {
+                    ren.material = Gamer.Instance.sexex[DamageTimer >= 0 ? 1 : 0];
+                }
+                ren.color = DamageTimer >= 0 ? new Color32(255, 255, 255, 255) : col;
+                oldstatus = curstatus;
+            }
         }
         DamageTimer -= Time.deltaTime;
         Health = System.Math.Clamp(Health, 0, Max_Health);

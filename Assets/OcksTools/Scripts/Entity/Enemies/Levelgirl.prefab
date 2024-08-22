@@ -133,6 +133,7 @@ MonoBehaviour:
     rgba: 0
   sexy: {fileID: 0}
   healerstospawn: 1
+  AntiDieJuice: 0
 --- !u!58 &2284451541892325393
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -185,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyType: Spitter
   AttackType: Ranged
+  ImagePixelSize: 24
   movespeed: 3
   SightRange: 15
   AttackCooldown: 1.5
@@ -200,6 +202,8 @@ MonoBehaviour:
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
   sex2: {fileID: 0}
+  HasSpawned: 0
+  EliteType: 
   existing: 0
   ddist: 0
   charging: 0

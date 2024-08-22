@@ -226,9 +226,7 @@ public class Gamer : MonoBehaviour
     {
         if (InputManager.IsKeyDown(InputManager.gamekeys["close_menu"]))
         {
-            checks[4] = !checks[4];
-            if(!IsMultiplayer)Time.timeScale = checks[4]?0:1;
-            UpdateMenus();  
+            SetPauseMenu(!checks[4]);
         }
         if (InputManager.IsKeyDown(InputManager.gamekeys["inven"]))
         {
@@ -246,7 +244,12 @@ public class Gamer : MonoBehaviour
 
     }
 
-
+    public void SetPauseMenu(bool a)
+    {
+        checks[4] = a;
+        if (!IsMultiplayer) Time.timeScale = checks[4] ? 0 : 1;
+        UpdateMenus();
+    }
 
     public void StartLobby()
     {
