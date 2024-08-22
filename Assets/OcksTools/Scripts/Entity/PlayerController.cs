@@ -474,9 +474,9 @@ public class PlayerController : MonoBehaviour
         HitBalls s3;
         Projectile s4;
 
-        AttackProfile Shart = new AttackProfile();
-        Shart.Damage = Damage;
+        DamageProfile Shart = new DamageProfile("PlayerAttack", Damage);
         Shart.CritChance = CritChance;
+        Shart.controller = this;
         var ff = Random.Range(0f, 1f);
         int tt = Mathf.FloorToInt(CritChance);
         Shart.PreCritted = tt + (ff<(CritChance%1)?2:1);
@@ -631,57 +631,3 @@ public class PlayerController : MonoBehaviour
 
 }
 
-
-
-
-public class AttackProfile
-{
-    public string NerdType = "Player";
-    public PlayerController controller = null;
-    public NavMeshEntity entity = null;
-    public DamageProfile damprof;
-    public double Damage = 0;
-    public double CritChance = 0;
-    public int PreCritted = -1;
-    public int WasCrit = -1;
-
-    public AttackProfile()
-    {
-    }
-    public AttackProfile(DamageProfile sex)
-    {
-        damprof = sex;
-        Damage = sex.Damage;
-    }
-
-
-
-    public double CalcDamage()
-    {
-        var x = Damage;
-        WasCrit = -1;
-        if(PreCritted > -1)
-        {
-            x *= PreCritted;
-            if(PreCritted > 1)
-            {
-                WasCrit = PreCritted-2;
-            }
-        }
-        else
-        {
-            var ff = Random.Range(0f, 1f);
-            int tt = (int)System.Math.Floor(CritChance);
-            var shex = tt + (ff < (CritChance % 1) ? 2 : 1);
-            if(shex > 1)
-            {
-                WasCrit = shex - 2;
-            }
-            x *= shex;
-
-        }
-
-
-        return x;
-    }
-}

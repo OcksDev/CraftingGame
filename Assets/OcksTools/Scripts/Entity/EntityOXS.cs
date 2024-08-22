@@ -296,12 +296,16 @@ public class DamageProfile
     public string Name = "";
     public double Damage;
     public List<EffectProfile> Effects = new List<EffectProfile>();
-    public PlayerController PlayerController;
     public List<string> Procs = new List<string>();
     public bool SpecificLocation = false;
     public Vector3 AttackerPos = Vector3.zero;
     public float Knockback = 0f;
     public GameObject attacker = null;
+    public string NerdType = "Player";
+    public PlayerController controller = null;
+    public NavMeshEntity entity = null;
+    public double CritChance = 0;
+    public int PreCritted = -1;
     public int WasCrit = -1;
     public DamageProfile(string name, double damage)
     {
@@ -325,8 +329,44 @@ public class DamageProfile
         Knockback = pp.Knockback;
         attacker = pp.attacker;
         WasCrit = pp.WasCrit;
+        PreCritted = pp.PreCritted;
+        CritChance = pp.CritChance;
+        entity = pp.entity;
+        controller = pp.controller;
+        NerdType = pp.NerdType;
     }
 
+
+
+
+    public double CalcDamage()
+    {
+        var x = Damage;
+        WasCrit = -1;
+        if (PreCritted > -1)
+        {
+            x *= PreCritted;
+            if (PreCritted > 1)
+            {
+                WasCrit = PreCritted - 2;
+            }
+        }
+        else
+        {
+            var ff = Random.Range(0f, 1f);
+            int tt = (int)System.Math.Floor(CritChance);
+            var shex = tt + (ff < (CritChance % 1) ? 2 : 1);
+            if (shex > 1)
+            {
+                WasCrit = shex - 2;
+            }
+            x *= shex;
+
+        }
+
+
+        return x;
+    }
 }
 
 public class EffectProfile

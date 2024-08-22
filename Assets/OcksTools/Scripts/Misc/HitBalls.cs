@@ -8,7 +8,7 @@ public class HitBalls : MonoBehaviour
 {
     public bool t = false;
     public PlayerController playerController;
-    public AttackProfile attackProfile;
+    public DamageProfile attackProfile;
     public string type = "HitBox";
     public bool OnlyHitOne = false;
     private bool hite = false;
