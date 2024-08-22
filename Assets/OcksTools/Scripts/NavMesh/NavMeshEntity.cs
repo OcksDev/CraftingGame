@@ -33,7 +33,6 @@ public class NavMeshEntity : MonoBehaviour
     void Start()
     {
         if(AttackType == "Melee")sex2.Damage = Damage;
-        EliteType = "Balls";
         beans = GetComponent<NavMeshAgent>();
         sex = GetComponent<Rigidbody2D>();
         EntityOXS = GetComponent<EntityOXS>();

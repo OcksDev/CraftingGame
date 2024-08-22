@@ -18,6 +18,7 @@ public class Gamer : MonoBehaviour
     public List<PlayerController> Players = new List<PlayerController>();
     public List<NavMeshEntity> EnemiesExisting = new List<NavMeshEntity>();
     public List<GameObject> Chests = new List<GameObject>();
+    public List<EliteTypeHolder> EliteTypes = new List<EliteTypeHolder>();
     public GameObject HealerGFooFO;
     public NavMeshRefresher nmr;
     public static bool IsMultiplayer = false;
@@ -35,6 +36,7 @@ public class Gamer : MonoBehaviour
     public GameObject ItemDisplay;
     public GameObject DoorFab;
     public GameObject SpawnFix;
+    public Dictionary<string, EliteTypeHolder> EliteTypesDict = new Dictionary<string, EliteTypeHolder>();
 
     public List<GameObject> ParticleSpawns = new List<GameObject>();
 
@@ -81,6 +83,10 @@ public class Gamer : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
+        foreach(var a in EliteTypes)
+        {
+            EliteTypesDict.Add(a.Name, a);
+        }
     }
     private void Start()
     {
@@ -344,12 +350,10 @@ public class Gamer : MonoBehaviour
     {
         BoomyRoomy();
         yield return new WaitForSeconds(1.5f);
-        var w = CurrentRoom.room.RoomSize;
         int waves = Random.Range(3,6);
         for(int i = 0; i < waves; i++)
         {
             if (GameState != "Game") break;
-            creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y))*CurrentFloor;
             SpawnEnemyWave();
             yield return new WaitForSeconds(1.4f);
         }
@@ -360,21 +364,34 @@ public class Gamer : MonoBehaviour
     }
 
 
-    public void SpawnEnemyWave()
+    public List<GameObject> SpawnEnemyWave()
     {
+        List<GameObject> suck = new List<GameObject>();
+        var w = CurrentRoom.room.RoomSize;
+        creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
         int x = 0;
         while(creditcount > 0)
         {
-            var ss = Instantiate(GetEnemyForDiff().EnemyObject, FindValidPos(CurrentRoom), PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
+            var wank = GetEnemyForDiff(false);
+            var ss = Instantiate(wank.EnemyObject, FindValidPos(CurrentRoom), PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
+            suck.Add(ss);
             var rs = ss.GetComponent<NavMeshEntity>();
             rs.originroom = CurrentRoom;
+            var e = wank.CreditCost;
+            if (Random.Range(0,1f) < 0.2f * (CurrentFloor-wank.MinFloor))
+            {
+                rs.EliteType = EliteTypes[Random.Range(0, EliteTypes.Count)].Name;
+                e = (e * (long)(100 * EliteTypesDict[rs.EliteType].CostMod)) / 100;
+            }
+            creditcount -= e;
             EnemiesExisting.Add(rs);
             x++;
             if (x >= 4) break;
         }
+        return suck;
     }
 
-    public EnemyHolder GetEnemyForDiff()
+    public EnemyHolder GetEnemyForDiff(bool spend = true)
     {
         EnemyHolder eh = null; 
         for(int i = 0; i < EnemiesDos.Count; i++)
@@ -386,7 +403,7 @@ public class Gamer : MonoBehaviour
                 if (Random.Range(0f, 1f) <= e.PickChance)
                 {
                     eh = e;
-                    creditcount -= e.CreditCost;
+                    if(spend)creditcount -= e.CreditCost;
                     break;
                 }
             }
@@ -670,4 +687,12 @@ public class EnemyHolder
     public int MinFloor = 0;
     public int MaxFloor = 0;
 
+}
+
+[System.Serializable]
+public class EliteTypeHolder
+{
+    public string Name = "Balls";
+    public Color32 color;
+    public float CostMod = 1;
 }

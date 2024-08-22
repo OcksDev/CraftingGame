@@ -209,9 +209,7 @@ public class EntityOXS : MonoBehaviour
                 if (sexy != null && sexy.EliteType != "")
                 {
                     ren.material = Gamer.Instance.sexex[DamageTimer >= 0 ? 3 : 2];
-                    var c = Random.ColorHSV();
-                    c.a = 1;
-                    ren.material.color = c;
+                    ren.material.color = Gamer.Instance.EliteTypesDict[sexy.EliteType].color;
                     ren.material.SetFloat("_OutlineThickness", 1f / sexy.ImagePixelSize);
                 }
                 else
