@@ -152,6 +152,12 @@ public class GISLol : MonoBehaviour
             Mouse_Held_Item.Materials.Add(new GISMaterial("Amethyst"));
             Mouse_Held_Item.Amount = 1;
         }
+        if (InputManager.IsKeyDown(KeyCode.P))
+        {
+            var e = new GISMaterial();
+            e.itemindex = "Rock";
+            PlayerController.Instance.mainweapon.Materials.Add(e);
+        }
     }
     public void SaveAll()
     {
@@ -300,9 +306,12 @@ public class GISItem
 
 
         List<string> mats = new List<string>();
+        int x = 0;
         foreach (var mat in Materials)
         {
             mats.Add(mat.index);
+            x++;
+            if (x >= 3) break;
         }
         if(mats.Count > 0)
         Data["Mats"] = Converter.ListToString(mats, "(q]");
@@ -398,9 +407,13 @@ public class GISItem_Data
 public class GISMaterial
 {
     public string index;
+    public string itemindex;
     public GISMaterial(string index)
     {
         this.index = index;
+    }
+    public GISMaterial()
+    {
     }
 }
 [Serializable]

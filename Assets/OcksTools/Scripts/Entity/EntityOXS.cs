@@ -75,7 +75,7 @@ public class EntityOXS : MonoBehaviour
             case "Player":
                 s2 = GetComponent<PlayerController>();
                 if (!s2.isrealowner) break;
-                hit.Damage -= s2.GetItem("repulse");
+                //hit.Damage -= s2.GetItem("repulse");
                 if (hit.Damage < 1) hit.Damage = 1;
 
                 if (s2.IsDashing)
@@ -84,7 +84,8 @@ public class EntityOXS : MonoBehaviour
                 }
                 else
                 {
-                    var y = s2.GetItem("blocker");
+                    //var y = s2.GetItem("blocker");
+                    var y = 0;
                     float x = ((float)y) / (19f + y);
                     //Debug.Log("shar: " + x);
                     if (Random.Range(0f, 1f) > x)
@@ -295,6 +296,7 @@ public class DamageProfile
     public string Name = "";
     public double Damage;
     public List<EffectProfile> Effects = new List<EffectProfile>();
+    public PlayerController PlayerController;
     public List<string> Procs = new List<string>();
     public bool SpecificLocation = false;
     public Vector3 AttackerPos = Vector3.zero;

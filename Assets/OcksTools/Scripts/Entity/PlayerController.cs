@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
     public bool isrealowner;
     public float DashCoolDown = 0f;
     public OcksNetworkVar network_helditem = new OcksNetworkVar();
-    public Dictionary<string, int> Items = new Dictionary<string, int>();
     private bool HasLoadedWeapon = false;
     public static float BaseDashCooldown = 5f;
     public SpriteRenderer Underlay;
@@ -88,6 +87,8 @@ public class PlayerController : MonoBehaviour
         SetData();
         DashCoolDown = MaxDashCooldown * 3;
         //SetData();
+
+
     }
     public bool hasaids = false;
     public void Aids()
@@ -95,29 +96,6 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(AidsFix());
     }
 
-    public void AddItem(string item, int amount)
-    {
-        if (Items.ContainsKey(item))
-        {
-            Items[item] += amount;
-        }
-        else
-        {
-            Items.Add(item, amount);
-        }
-    }
-
-    public int GetItem(string item)
-    {
-        if (Items.ContainsKey(item))
-        {
-            return Items[item];
-        }
-        else
-        {
-            return 0;
-        }
-    }
 
     public IEnumerator AidsFix()
     {
@@ -237,23 +215,34 @@ public class PlayerController : MonoBehaviour
             }
             foreach(var m in mainweapon.Materials)
             {
-                ParseMaterial(m.index);
+                ParseMaterial(m);
             }
         }
+        /*
         helth += GetItem("steak") * 10;
         Damage += GetItem("what") * 10;
         working_move_speed *= 1 + (GetItem("peed")*0.1f);
         Damage *= 1 + (GetItem("damag")*0.1f);
         AttacksPerSecond *= 1 + (GetItem("atkpeed")*0.1f);
-        CritChance += (GetItem("critglass")*0.1f);
+        CritChance += (GetItem("critglass")*0.1f);*/
         entit.Max_Health = helth;
         entit.Max_Shield = helth/2;
         SetMoveSpeed();
     }
-    public void ParseMaterial(string mat)
+    public void ParseMaterial(GISMaterial matty)
     {
-        var m = GISLol.Instance.MaterialsDict[mat];
-        switch (mat)
+        switch (matty.index)
+        {
+            case "Rock":
+                switch (mainweapon.ItemIndex)
+                {
+                    default:
+                        AttacksPerSecond *= 1.15f;
+                        break;
+                }
+                break;
+        }
+        switch (matty.itemindex)
         {
             case "Rock":
                 switch (mainweapon.ItemIndex)

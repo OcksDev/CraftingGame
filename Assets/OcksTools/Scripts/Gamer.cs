@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
 using Unity.Netcode.Components;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,13 +31,10 @@ public class Gamer : MonoBehaviour
     public static System.Random GlobalRand = new System.Random();
     public Transform balls;
     public List<INteractable> spawnedchests = new List<INteractable>();
-    public List<OcksItem> ItemShites = new List<OcksItem>();
-    public Dictionary<string, OcksItem> ItemShitDick = new Dictionary<string, OcksItem>();
     public Transform ItemDisplayParent;
     public GameObject ItemDisplay;
-    public List<ItemDikpoop> ItemDikPoops = new List<ItemDikpoop>();
     public GameObject DoorFab;
-    public GameObject SpawnFix; 
+    public GameObject SpawnFix;
 
     public List<GameObject> ParticleSpawns = new List<GameObject>();
 
@@ -83,11 +81,6 @@ public class Gamer : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        foreach(var a in ItemShites)
-        {
-            ItemShitDick.Add(a.Name, a);
-        }
-        StartCoroutine(InitItemDisplayers());
     }
     private void Start()
     {
@@ -162,6 +155,9 @@ public class Gamer : MonoBehaviour
         UpdateMenus();
     }
 
+
+
+
     public IEnumerator WaitForSexyGamer()
     {
         yield return new WaitUntil(() => { return ServerGamer.Instance != null; });
@@ -195,6 +191,7 @@ public class Gamer : MonoBehaviour
         {
             checks[i] = false;
         }
+        Time.timeScale = 1;
         ShartPoop = 0f;
         ClearMap();
         Tags.refs["BlackBG"].SetActive(false);
@@ -230,6 +227,7 @@ public class Gamer : MonoBehaviour
         if (InputManager.IsKeyDown(InputManager.gamekeys["close_menu"]))
         {
             checks[4] = !checks[4];
+            if(!IsMultiplayer)Time.timeScale = checks[4]?0:1;
             UpdateMenus();  
         }
         if (InputManager.IsKeyDown(InputManager.gamekeys["inven"]))
@@ -248,16 +246,6 @@ public class Gamer : MonoBehaviour
 
     }
 
-    public IEnumerator InitItemDisplayers()
-    {
-        foreach(var item in ItemShites)
-        {
-            var w= Instantiate(ItemDisplay, ItemDisplayParent).GetComponent<ItemDikpoop>();
-            ItemDikPoops.Add(w);
-            w.Name = item.Name;
-            yield return new WaitForFixedUpdate();
-        }
-    }
 
 
     public void StartLobby()
@@ -566,13 +554,6 @@ public class Gamer : MonoBehaviour
     public void ToggleTabMenu()
     {
         checks[5] = !checks[5];
-        if (checks[5])
-        {
-            foreach(var a in ItemDikPoops)
-            {
-                a.UpdateDisplay();
-            }
-        }
         UpdateMenus();
     }
 
@@ -662,17 +643,6 @@ public class Gamer : MonoBehaviour
         }
     }
 }
-
-
-[System.Serializable]
-public class OcksItem
-{
-    public string Name = "";
-    public string DisplayName = "";
-    public Sprite Image;
-    public int rarity = 0;
-}
-
 
 public class ObjectType
 {
