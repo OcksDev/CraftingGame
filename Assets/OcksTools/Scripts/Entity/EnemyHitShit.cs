@@ -34,7 +34,8 @@ public class EnemyHitShit : MonoBehaviour
         if (isdea) return;
         if (sexballs != null && sexballs.EntityOXS.AntiDieJuice) return;
         var e = Gamer.Instance.GetObjectType(collision.gameObject);
-
+        if(sexballs != null)
+        Damage = sexballs.Damage;
         var pp = e.playerController;
         if (e.type == "Player" && !hits.Contains(pp))
         {

@@ -53,6 +53,27 @@ public class NavMeshEntity : MonoBehaviour
                 break;
         }
         SightRange = 95f;
+
+        switch (EliteType)
+        {
+            case "Hasty":
+                AttackCooldown /= 1.5f;
+                movespeed *= 1.5f;
+                break;
+            case "Resilient":
+                EntityOXS.Max_Health *= 2f;
+                EntityOXS.Health = EntityOXS.Max_Health;
+                break;
+            case "Perfected":
+                EntityOXS.Max_Health *= 5f;
+                EntityOXS.Health = EntityOXS.Max_Health;
+                Damage *= 3f;
+                break;
+            case "Powerful":
+                Damage *= 2f;
+                break;
+        }
+
         StartCoroutine(SpawningLol());
     }
 

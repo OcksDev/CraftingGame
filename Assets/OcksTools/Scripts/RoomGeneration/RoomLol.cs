@@ -321,7 +321,7 @@ public class RoomLol : MonoBehaviour
         }
         cr.comlpetedRooms.Clear();
     }
-    public void PlaceFromCoolRoom(CoolRoom cr, GameObject parent, int fard = 0)
+    public void PlaceFromCoolRoom(CoolRoom cr, GameObject parent, int fard = 0, CoolRoom parenroom = null)
     {
         fard++;
         float z = 0;
@@ -331,12 +331,21 @@ public class RoomLol : MonoBehaviour
         var s = gm.GetComponent<I_Room>();
         s.gm = gm;
         s.room = cr.room;
+        if(parenroom != null)
+        {
+            s.parent_room = parenroom.room;
+        }
+        else
+        {
+            s.parent_room = null;
+        }
         s.level = fard;
         SpawnedRooms.Add(gm);
         SpawnedRoomsDos.Add(s);
+        parenroom = cr;
         foreach (var c in cr.comlpetedRooms)
         {
-            PlaceFromCoolRoom(c, parent, fard);
+            PlaceFromCoolRoom(c, parent, fard, parenroom);
         }
     }
 }

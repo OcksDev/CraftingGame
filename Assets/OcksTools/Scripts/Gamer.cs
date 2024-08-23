@@ -40,6 +40,7 @@ public class Gamer : MonoBehaviour
 
     public List<GameObject> ParticleSpawns = new List<GameObject>();
 
+    public bool NextFloorButtonSexFuck = false;
 
     public List<Image> HitSexers = new List<Image>();
 
@@ -210,6 +211,12 @@ public class Gamer : MonoBehaviour
         var e2 = CameraLol.Instance.transform.position;
         e2.x = 0;
         e2.y = 0;
+
+        foreach(var a in EliteTypes)
+        {
+            a.Enabled = true;
+        }
+
         CameraLol.Instance.transform.position = e2;
         CameraLol.Instance.ppos = e2;
         CameraLol.Instance.targetpos = e2;
@@ -309,11 +316,21 @@ public class Gamer : MonoBehaviour
         PlayerController.Instance.transform.position = rm.transform.position;
         enders.Remove(rm);
         endos.Remove(rm);
-        rm = endos[r.Next(0,endos.Count)];
-        rm.isused = true;
-        Tags.refs["NextFloor"].transform.position = rm.transform.position;
-        enders.Remove(rm);
-        endos.Remove(rm);
+        var enbackup = new List<I_Room>(endos);
+        for(int i = 0; i < endos.Count; i++)
+        {
+            if (endos[i].parent_room == rm.parent_room)
+            {
+                endos.RemoveAt(i);
+                i--;
+            }
+        }
+        if (endos.Count == 0) endos = enbackup;
+        var rm2 = endos[r.Next(0,endos.Count)];
+        rm2.isused = true;
+        Tags.refs["NextFloor"].transform.position = rm2.transform.position;
+        enders.Remove(rm2);
+        endos.Remove(rm2);
         var e2 = CameraLol.Instance.transform.position;
         e2.x = PlayerController.Instance.transform.position.x;
         e2.y = PlayerController.Instance.transform.position.y;
@@ -367,6 +384,19 @@ public class Gamer : MonoBehaviour
     public List<GameObject> SpawnEnemyWave()
     {
         List<GameObject> suck = new List<GameObject>();
+        List<string> elitetypes = new List<string>();
+
+        EliteTypesDict["Corrupted"].Enabled = false;
+        EliteTypesDict["Lunar"].Enabled = false;
+        EliteTypesDict["Unstable"].Enabled = CurrentFloor >= 6;
+        EliteTypesDict["Splitting"].Enabled = CurrentFloor >= 6;
+
+
+        foreach(var a in EliteTypes)
+        {
+            if (a.Enabled)
+                elitetypes.Add(a.Name);
+        }
         var w = CurrentRoom.room.RoomSize;
         creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
         int x = 0;
@@ -378,9 +408,19 @@ public class Gamer : MonoBehaviour
             var rs = ss.GetComponent<NavMeshEntity>();
             rs.originroom = CurrentRoom;
             var e = wank.CreditCost;
-            if (Random.Range(0,1f) < 0.2f * (CurrentFloor-wank.MinFloor))
+            var dif = CurrentFloor - wank.MinFloor;
+            if (Random.Range(0,1f) < 0.15f * dif)
             {
-                rs.EliteType = EliteTypes[Random.Range(0, EliteTypes.Count)].Name;
+                if (dif < 10)
+                {
+                    var el = new List<string>(elitetypes);
+                    if (dif <= 5) el.Remove("Perfected");
+                    rs.EliteType = el[Random.Range(0, el.Count)];
+                }
+                else
+                {
+                    rs.EliteType = "Perfected";
+                }
                 e = (e * (long)(100 * EliteTypesDict[rs.EliteType].CostMod)) / 100;
             }
             creditcount -= e;
@@ -491,6 +531,11 @@ public class Gamer : MonoBehaviour
     {
         if (GameState == "Game" || GameState == "Lobby")
         {
+            if (NextFloorButtonSexFuck)
+            {
+                NextFloorButtonSexFuck = false;
+                StartCoroutine(StartFade("NextFloor"));
+            }
             if (checks[5])
             {
                 if (!InputManager.IsKey(KeyCode.Tab))
@@ -695,4 +740,6 @@ public class EliteTypeHolder
     public string Name = "Balls";
     public Color32 color;
     public float CostMod = 1;
+    [HideInInspector]
+    public bool Enabled = false;
 }
