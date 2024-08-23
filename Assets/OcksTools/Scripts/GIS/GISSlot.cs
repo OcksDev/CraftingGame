@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class GISSlot : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class GISSlot : MonoBehaviour
             Held_Item= new GISItem();
         }
         balls = GetComponent<RectTransform>();
+        //GISLol.checkforhover += HoverCheckerData;
     }
     public bool FailToClick()
     {
@@ -55,6 +57,27 @@ public class GISSlot : MonoBehaviour
         }
     }
     float size = 1f;
+    public bool IsHovering()
+    {
+        var m = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var pos = balls.position;
+        size = 1.15f;
+        if (pos.x - size < m.x && pos.x + size > m.x && pos.y - size < m.y && pos.y + size > m.y)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void HoverCheckerData()
+    {
+        if (!gameObject.activeInHierarchy) return;
+        if (IsHovering())
+        {
+            GISLol.Instance.hoverballer = Held_Item;
+        }
+    }
+
     private void Update()
     {
         if (FailToClick()) return;
@@ -63,15 +86,7 @@ public class GISSlot : MonoBehaviour
         bool left = Input.GetKeyDown(InputManager.gamekeys["item_select"]);
         bool right = InputManager.IsKeyDown(InputManager.gamekeys["item_half"]);
         if (!(right || left)) return;
-        bool canfart = false;
-        var m = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var pos = balls.position;
-        size = 1.15f;
-        if (pos.x - size < m.x && pos.x + size > m.x && pos.y - size < m.y && pos.y + size > m.y)
-        {
-            canfart = true;
-        }
-        if (!canfart) return;
+        if (!IsHovering()) return;
         //Debug.Log(balls.position.ToString() + ",    " + m.ToString());
         if (Conte.CanShiftClickItems && shift)
         {

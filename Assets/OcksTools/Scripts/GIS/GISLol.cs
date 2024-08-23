@@ -10,6 +10,8 @@ public class GISLol : MonoBehaviour
     public GISItem Mouse_Held_Item;
     public GISDisplay Mouse_Displayer;
     public GameObject MouseFollower;
+    public RectTransform BallFondler;
+    public RectTransform NormalRender;
     private static GISLol instance;
     public List<GISItem_Data> Items = new List<GISItem_Data>();
     public List<GISMaterial_Data> Materials = new List<GISMaterial_Data>();
@@ -17,7 +19,8 @@ public class GISLol : MonoBehaviour
     public Dictionary<string, GISMaterial_Data> MaterialsDict = new Dictionary<string, GISMaterial_Data>();
     public List<string> AllWeaponNames = new List<string>();
     public List<string> AllCraftables = new List<string>();
-
+    private RectTransform ballingsexnut;
+    private HoverRefHolder hovercummer;
 
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
 
@@ -58,7 +61,8 @@ public class GISLol : MonoBehaviour
     private void Start()
     {
         MouseFollower.SetActive(true);
-
+        ballingsexnut = MouseFollower.GetComponent<RectTransform>();
+        hovercummer = BallFondler.GetComponent<HoverRefHolder>();
         if (UseLanguageFile)
         {
             
@@ -92,14 +96,58 @@ public class GISLol : MonoBehaviour
             
         }
     }
-
+    //public static event Gamer.JustFuckingRunTheMethods checkforhover;
+    public GISItem hoverballer;
     private void Update()
     {
         Mouse_Displayer.item = Mouse_Held_Item;
         var za = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         za.z = 0;
         MouseFollower.transform.position = za;
+        hoverballer = null;
 
+        foreach(var boner in All_Containers)
+        {
+            if (boner.Value.gameObject.activeInHierarchy)
+            {
+                foreach(var bone in boner.Value.slots)
+                {
+                    bone.HoverCheckerData();
+                }
+            }
+            if (hoverballer != null) break;
+        }
+
+        //event call?
+
+        var a = hoverballer != null;
+        if (a)
+        {
+            hovercummer.ItemName.text = hoverballer.ItemIndex;
+            var wank = ballingsexnut.anchoredPosition;
+            float xoffset = 50;
+            float yoffset = 25;
+            var halfsize = BallFondler.sizeDelta / 2;
+            var halfnormalsize = NormalRender.sizeDelta / 2;
+            wank.x += xoffset + halfsize.x;
+            wank.y += yoffset - halfsize.y;
+            var yfloor = wank.y - halfsize.y;
+            var yceil = wank.y + halfsize.y;
+            var xceil = wank.x + halfsize.x;
+            if (yfloor <= -halfnormalsize.y)
+            {
+                wank.y = halfsize.y-halfnormalsize.y;
+            }
+            else if (yceil >= halfnormalsize.y)
+            {
+                wank.y = halfnormalsize.y - halfsize.y;
+            }
+            if (xceil >= halfnormalsize.x)
+            {
+                wank.x -= (xoffset + halfsize.x)*2;
+            }
+            BallFondler.anchoredPosition = wank;
+        }
         if (InputManager.IsKeyDown(KeyCode.X))
         {
             Mouse_Held_Item = new GISItem("Rock");
