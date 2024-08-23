@@ -6259,6 +6259,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8931459416830690337, guid: 24d2cb9d0ea3ded489fe1b2b3ccb31bf, type: 3}
+      propertyPath: m_text
+      value: Item Name Boner
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d2cb9d0ea3ded489fe1b2b3ccb31bf, type: 3}
 --- !u!1 &931607332
