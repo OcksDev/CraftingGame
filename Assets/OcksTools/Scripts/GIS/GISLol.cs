@@ -120,12 +120,13 @@ public class GISLol : MonoBehaviour
 
         //event call?
 
-        var a = hoverballer != null;
+        var a = hoverballer != null && hoverballer.ItemIndex != "Empty";
+        hovercummer.gameObject.SetActive(a);
         if (a)
         {
-            hovercummer.ItemName.text = hoverballer.ItemIndex;
+            hovercummer.SetMostData(hoverballer);
             var wank = ballingsexnut.anchoredPosition;
-            float xoffset = 50;
+            float xoffset = 35;
             float yoffset = 25;
             var halfsize = BallFondler.sizeDelta / 2;
             var halfnormalsize = NormalRender.sizeDelta / 2;
@@ -186,6 +187,24 @@ public class GISLol : MonoBehaviour
             e.itemindex = "Rock";
             PlayerController.Instance.mainweapon.Materials.Add(e);
         }
+        if (InputManager.IsKeyDown(KeyCode.L))
+        {
+            Debug.LogError("Fuck you, pause the game");
+        }
+    }
+    public string GetDescription(GISItem baller)
+    {
+        var wank = ItemsDict[baller.ItemIndex];
+        string e = wank.Description;
+        if (wank.IsWeapon)
+        {
+            e = $"{MaterialsDict[baller.Materials[0].index].Description}<br>{MaterialsDict[baller.Materials[1].index].Description}<br>{MaterialsDict[baller.Materials[2].index].Description}";
+        }
+        if (wank.IsCraftable)
+        {
+            e += $"<br><br>{MaterialsDict[baller.Materials[0].index].Description}";
+        }
+        return e;
     }
     public void SaveAll()
     {
@@ -403,13 +422,14 @@ public class GISItem
             Amount = ItemIndex != "Empty" ? 1 : 0;
         }
 
-
-
-        var sex = Converter.StringToList(Data["Mats"], "(q]");
-        Materials.Clear();
-        foreach(var pp in sex)
+        if (wanker.ContainsKey("Mats"))
         {
-            if(pp != "") Materials.Add(new GISMaterial(pp));
+            var sex = Converter.StringToList(Data["Mats"], "(q]");
+            Materials.Clear();
+            foreach (var pp in sex)
+            {
+                if (pp != "") Materials.Add(new GISMaterial(pp));
+            }
         }
 
     }
@@ -464,6 +484,7 @@ public class GISMaterial_Data
 {
     //this is what holds all of the base data for a general material
     public string Name = "Null";
+    public string Description;
     public Color32 ColorMod = new Color32(255,255,255,255);
     public Sprite[] SwordParts;
     public Sprite[] BowParts;
