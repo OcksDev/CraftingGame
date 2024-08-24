@@ -127,11 +127,14 @@ public class GISLol : MonoBehaviour
             hovercummer.SetMostData(hoverballer);
             var wank = ballingsexnut.anchoredPosition;
             float xoffset = 35;
-            float yoffset = 25;
+            float yoffset = 35;
             var halfsize = BallFondler.sizeDelta / 2;
             var halfnormalsize = NormalRender.sizeDelta / 2;
             wank.x += xoffset + halfsize.x;
-            wank.y += yoffset - halfsize.y;
+            if(halfsize.y > yoffset)
+            {
+                wank.y += yoffset - halfsize.y;
+            }
             var yfloor = wank.y - halfsize.y;
             var yceil = wank.y + halfsize.y;
             var xceil = wank.x + halfsize.x;

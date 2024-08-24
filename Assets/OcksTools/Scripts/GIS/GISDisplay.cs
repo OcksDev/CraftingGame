@@ -10,7 +10,7 @@ public class GISDisplay : MonoBehaviour
     public GISItem item;
     public Image[] displays;
     public TextMeshProUGUI amnt;
-
+    public bool AutoUpdate = true;
     private void Awake()
     {
         if (item == null) item = new GISItem();
@@ -20,8 +20,13 @@ public class GISDisplay : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (AutoUpdate) UpdateDisplay();
+    }
+
+    public void UpdateDisplay()
+    {
         var g = GISLol.Instance.ItemsDict[item.ItemIndex];
-        amnt.text = item.Amount > 0 && g.MaxAmount != 1?"x" + item.Amount:"";
+        amnt.text = item.Amount > 0 && g.MaxAmount != 1 ? "x" + item.Amount : "";
         var e = GISLol.Instance.Items[0].Sprite;
         var c = new Color32(255, 255, 255, 255);
         displays[0].color = c;
@@ -50,8 +55,6 @@ public class GISDisplay : MonoBehaviour
             displays[2].sprite = e;
         }
     }
-
-
     public static SpriteReturn GetSprites(GISItem ITEM)
     {
         List<Sprite> boner = new List<Sprite>();
