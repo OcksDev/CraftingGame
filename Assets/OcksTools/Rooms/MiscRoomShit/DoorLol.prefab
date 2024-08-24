@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4395061876087967896}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.989, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -317,5 +317,4 @@ MonoBehaviour:
   teleboxcol: {fileID: 888699658224509223}
   visual: {fileID: 2930398028152981523}
   visual2electricsex: {fileID: 4946020246177621660}
-  visual3b: {fileID: 0}
   IsGood: 1

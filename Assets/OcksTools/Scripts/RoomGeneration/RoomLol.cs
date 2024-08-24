@@ -52,7 +52,7 @@ public class RoomLol : MonoBehaviour
         ClearRooms();
         PopulateRooms();
         int sz = RoomColliders.GetLength(0)/2;
-        var crs = GenerateFromRooms(RoomDensity, RoomColliders, -1, new Vector2(sz,sz));
+        var crs = GenerateFromRooms(Gamer.CurrentFloor==1?(RoomDensity-2):RoomDensity, RoomColliders, -1, new Vector2(sz,sz));
         PlaceFromCoolRoom(crs, Parente);
 
         Debug.Log($"Build Stats: [{runs}], [{cycles}]" );
