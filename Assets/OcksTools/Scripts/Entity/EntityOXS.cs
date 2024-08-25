@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -153,6 +154,27 @@ public class EntityOXS : MonoBehaviour
             }
         }
     }
+
+    public void Heal(double amount)
+    {
+        var oldh = Health;
+        Health = System.Math.Clamp(Health + amount, 0, Max_Health);
+        if(Health != oldh)
+        {
+            var xx = (transform.localScale.x / 2) - 0.25f;
+            var yy = (transform.localScale.y / 2) - 0.25f;
+            GameObject e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], transform.position + new Vector3(Random.Range(-xx, xx), Random.Range(-yy, yy), 0), Quaternion.identity);
+            if (e != null)
+            {
+                var fard = e.GetComponent<DamIndi>();
+                fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(Health-oldh)).ToString());
+                fard.critlevel = -1;
+                fard.NoCLor = true;
+                fard.sex.color = new Color32(26, 217, 61, 255);
+            }
+        }
+    }
+
     public void Kill()
     {
         switch (EnemyType)
@@ -179,6 +201,19 @@ public class EntityOXS : MonoBehaviour
                         break;
                     default:
                         effect = 0;
+                        break;
+                }
+                switch (aa.EliteType)
+                {
+                    case "Splitting":
+                        var w1 = new EnemyHolder( aa.EnemyHolder);
+                        w1.InstantSpawn = true;
+                        w1.CanBeElite = false;
+                        var w2 = new EnemyHolder(w1);
+                        w1.SpawnPos = transform.position + new Vector3(0.5f, 0, 0);
+                        w2.SpawnPos = transform.position - new Vector3(0.5f, 0, 0);
+                        Gamer.Instance.SpawnEnemy(w1);
+                        Gamer.Instance.SpawnEnemy(w2);
                         break;
                 }
                 if (Gamer.Instance.EnemiesExisting.Contains(aa)) Gamer.Instance.EnemiesExisting.Remove(aa);

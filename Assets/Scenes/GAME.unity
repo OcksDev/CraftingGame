@@ -11827,6 +11827,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8140139016934470287, guid: b3e37f8218ad6384aa52e95ae9fd6a03, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: HealBeam
+      value: 
+      objectReference: {fileID: 1753367827399034600, guid: 1c5b7a9d9f456354989cfd56c12e6abc, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: SpawnFix
       value: 
       objectReference: {fileID: 7305013743447329538, guid: 74ece83d9e99797418948f4fa2978e44, type: 3}
@@ -11846,6 +11850,10 @@ PrefabInstance:
       propertyPath: GroundItemShit
       value: 
       objectReference: {fileID: 9155232902226076759, guid: f3d8bfae903ae0f4a80d2ff1f26706d7, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: UnstableBullet
+      value: 
+      objectReference: {fileID: 1894346058258269852, guid: b56ff9df5b642aa4288c0f29066b7914, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: sexex.Array.size
       value: 4
@@ -12187,6 +12195,10 @@ PrefabInstance:
       value: 4294921265
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[0].CanBeElite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[0].CreditCost
       value: 5
       objectReference: {fileID: 0}
@@ -12195,12 +12207,20 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[1].CanBeElite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[1].CreditCost
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[1].PickChance
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[2].CanBeElite
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[2].CreditCost

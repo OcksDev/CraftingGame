@@ -6,6 +6,7 @@ public class EnemyHitShit : MonoBehaviour
 {
     public string type = "rat";
     public double Damage = 10;
+    public double overridedamage = -1;
     float time = 10f;
     public NavMeshEntity sexballs;
     List<PlayerController> hits = new List<PlayerController>(); 
@@ -36,6 +37,7 @@ public class EnemyHitShit : MonoBehaviour
         var e = Gamer.Instance.GetObjectType(collision.gameObject);
         if(sexballs != null)
         Damage = sexballs.Damage;
+        if (overridedamage > 0) Damage = overridedamage;
         var pp = e.playerController;
         if (e.type == "Player" && !hits.Contains(pp))
         {

@@ -1,8 +1,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
+using static Unity.Collections.AllocatorManager;
 
 public class NavMeshEntity : MonoBehaviour
 {
@@ -28,6 +30,7 @@ public class NavMeshEntity : MonoBehaviour
     public EnemyHitShit sex2;
     public bool HasSpawned=  false;
     public string EliteType = "";
+    public EnemyHolder EnemyHolder;
     public event Gamer.JustFuckingRunTheMethods CLearShit;
     // Start is called before the first frame update
     void Start()
@@ -53,12 +56,17 @@ public class NavMeshEntity : MonoBehaviour
                 break;
         }
         SightRange = 95f;
-
+        if(EliteType != "")
+        {
+            EntityOXS.Max_Health *= 1.2f;
+            EntityOXS.Health = EntityOXS.Max_Health;
+        }
         switch (EliteType)
         {
             case "Hasty":
                 AttackCooldown /= 1.5f;
                 movespeed *= 1.5f;
+                alt_speed *= 1.5f;
                 break;
             case "Resilient":
                 EntityOXS.Max_Health *= 2f;
@@ -72,6 +80,12 @@ public class NavMeshEntity : MonoBehaviour
             case "Powerful":
                 Damage *= 2f;
                 break;
+            case "Unstable":
+                StartCoroutine(UnstableBalling());
+                break;
+            case "Mending":
+                StartCoroutine(MendingBalling());
+                break;
         }
 
         StartCoroutine(SpawningLol());
@@ -79,6 +93,7 @@ public class NavMeshEntity : MonoBehaviour
 
     public IEnumerator SpawningLol()
     {
+        if (EnemyHolder != null && EnemyHolder.InstantSpawn) goto balls;
         this.EntityOXS.AntiDieJuice = true;
         sex.bodyType = RigidbodyType2D.Static;
         var a = Instantiate(Gamer.Instance.SpawnFix, transform.position, transform.rotation, transform).GetComponent<SpriteRenderer>();
@@ -96,13 +111,56 @@ public class NavMeshEntity : MonoBehaviour
             a.color = c;
         }
         //yield return new WaitForSeconds(10f);
+        Destroy(a.gameObject);
+        balls:
         HasSpawned = true;
         WantASpriteCranberry.enabled = true;
-        Destroy(a.gameObject);
         sex.bodyType = RigidbodyType2D.Dynamic;
         this.EntityOXS.AntiDieJuice = false;
     }
-
+    public IEnumerator UnstableBalling()
+    {
+        yield return new WaitUntil(() => { return HasSpawned; });
+        yield return new WaitUntil(() => { return target != null; });
+        while (true)
+        {
+            yield return new WaitForSeconds(0.4f);
+            var w = Instantiate(Gamer.Instance.UnstableBullet, transform.position, PointAtPoint2D(target.transform.position, 45), Gamer.Instance.balls);
+            var e = w.GetComponent<EnemyHitShit>();
+            e.balling = transform;
+            e.sexballs = this;
+            e.overridedamage = Damage / 2;
+        }
+    }
+    public IEnumerator MendingBalling()
+    {
+        yield return new WaitUntil(() => { return HasSpawned; });
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            List<NavMeshEntity> nearbois = new List<NavMeshEntity>();
+            foreach(var e in Gamer.Instance.EnemiesExisting)
+            {
+                if (e == this || e.EliteType == "Mending") continue;
+                if(RandomFunctions.Instance.Dist(transform.position, e.transform.position) <= 8)
+                {
+                    nearbois.Add(e);
+                }
+            }
+            foreach(var e2 in nearbois)
+            {
+                var h = e2.EntityOXS.Health;
+                e2.EntityOXS.Heal(e2.EntityOXS.Max_Health / 10);
+                if(h != e2.EntityOXS.Health)
+                {
+                    var wankjob = Instantiate(Gamer.Instance.HealBeam);
+                    var esus = wankjob.GetComponent<LineKiller>();
+                    esus.coolpos = transform;
+                    esus.coolerpos = e2.transform;
+                }
+            }
+        }
+    }
 
     private void Update()
     {
@@ -203,6 +261,7 @@ public class NavMeshEntity : MonoBehaviour
                                 var e = wenis.GetComponent<EnemyHitShit>();
                                 e.Damage = Damage;
                                 e.balling = transform;
+                                e.sexballs = this;
                                 break;
                         }
 

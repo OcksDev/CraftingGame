@@ -384,52 +384,61 @@ public class Gamer : MonoBehaviour
     public List<GameObject> SpawnEnemyWave()
     {
         List<GameObject> suck = new List<GameObject>();
-        List<string> elitetypes = new List<string>();
-
-        EliteTypesDict["Corrupted"].Enabled = false;
-        EliteTypesDict["Lunar"].Enabled = false;
-        EliteTypesDict["Unstable"].Enabled = CurrentFloor >= 6;
-        EliteTypesDict["Splitting"].Enabled = CurrentFloor >= 6;
-
-
-        foreach(var a in EliteTypes)
-        {
-            if (a.Enabled)
-                elitetypes.Add(a.Name);
-        }
         var w = CurrentRoom.room.RoomSize;
         creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
         int x = 0;
         while(creditcount > 0)
         {
             var wank = GetEnemyForDiff(false);
-            var ss = Instantiate(wank.EnemyObject, FindValidPos(CurrentRoom), PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
-            suck.Add(ss);
-            var rs = ss.GetComponent<NavMeshEntity>();
-            rs.originroom = CurrentRoom;
-            var e = wank.CreditCost;
-            var dif = CurrentFloor - wank.MinFloor;
-            if (Random.Range(0,1f) < 0.15f * dif)
-            {
-                if (dif < 10)
-                {
-                    var el = new List<string>(elitetypes);
-                    if (dif <= 5) el.Remove("Perfected");
-                    rs.EliteType = el[Random.Range(0, el.Count)];
-                }
-                else
-                {
-                    rs.EliteType = "Perfected";
-                }
-                e = (e * (long)(100 * EliteTypesDict[rs.EliteType].CostMod)) / 100;
-            }
-            creditcount -= e;
-            EnemiesExisting.Add(rs);
+            suck.Add(SpawnEnemy(wank));
             x++;
             if (x >= 4) break;
         }
         return suck;
     }
+    public GameObject UnstableBullet;
+    public GameObject HealBeam;
+    public GameObject SpawnEnemy(EnemyHolder wank)
+    {
+        List<string> elitetypes = new List<string>();
+        EliteTypesDict["Corrupted"].Enabled = false;
+        EliteTypesDict["Lunar"].Enabled = false;
+        EliteTypesDict["Unstable"].Enabled = CurrentFloor >= 6;
+        EliteTypesDict["Splitting"].Enabled = CurrentFloor >= 6;
+        foreach (var a in EliteTypes)
+        {
+            if (a.Enabled)
+                elitetypes.Add(a.Name);
+        }
+
+        var ppos = wank.SpawnPos;
+        if (ppos == Vector3.zero) ppos = FindValidPos(CurrentRoom);
+
+        var ss = Instantiate(wank.EnemyObject, ppos, PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
+        var rs = ss.GetComponent<NavMeshEntity>();
+        rs.originroom = CurrentRoom;
+        rs.EnemyHolder = wank;
+        var e = wank.CreditCost;
+        var dif = CurrentFloor - wank.MinFloor;
+        if (wank.CanBeElite && Random.Range(0, 1f) < 0.15f * dif)
+        {
+            if (dif < 10)
+            {
+                var el = new List<string>(elitetypes);
+                if (dif <= 5) el.Remove("Perfected");
+                rs.EliteType = el[Random.Range(0, el.Count)];
+            }
+            else
+            {
+                rs.EliteType = "Perfected";
+            }
+            e = (e * (long)(100 * EliteTypesDict[rs.EliteType].CostMod)) / 100;
+        }
+        creditcount -= e;
+        EnemiesExisting.Add(rs);
+        return ss;
+    }
+
 
     public EnemyHolder GetEnemyForDiff(bool spend = true)
     {
@@ -731,7 +740,25 @@ public class EnemyHolder
     public float PickChance = 1;
     public int MinFloor = 0;
     public int MaxFloor = 0;
+    public bool CanBeElite = true;
+    public bool InstantSpawn = false;
+    [HideInInspector]
+    public Vector3 SpawnPos = Vector3.zero;
+    public EnemyHolder()
+    {
 
+    }
+    public EnemyHolder(EnemyHolder sex)
+    {
+        EnemyObject = sex.EnemyObject;
+        CreditCost = sex.CreditCost;
+        PickChance = sex.PickChance;
+        MinFloor = sex.MinFloor;
+        MaxFloor = sex.MaxFloor;
+        CanBeElite = sex.CanBeElite;
+        SpawnPos= sex.SpawnPos;
+        InstantSpawn = sex.InstantSpawn;
+    }
 }
 
 [System.Serializable]
