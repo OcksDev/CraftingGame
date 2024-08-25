@@ -190,6 +190,8 @@ public class EntityOXS : MonoBehaviour
             case "Player":
                 Gamer.Instance.ClearMap();
                 Gamer.Instance.checks[6] = true;
+                Gamer.GameState = "Dead";
+                Time.timeScale = 1;
                 //this also runs updatemenus()
                 Gamer.Instance.SetPauseMenu(false);
                 return;
