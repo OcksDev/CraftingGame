@@ -385,7 +385,7 @@ public class Gamer : MonoBehaviour
     {
         List<NavMeshEntity> suck = new List<NavMeshEntity>();
         var w = CurrentRoom.room.RoomSize;
-        creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
+        creditcount = (long)(15 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
         int x = 0;
         while(creditcount > 0)
         {
