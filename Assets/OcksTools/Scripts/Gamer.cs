@@ -381,24 +381,51 @@ public class Gamer : MonoBehaviour
     }
 
 
-    public List<GameObject> SpawnEnemyWave()
+    public List<NavMeshEntity> SpawnEnemyWave()
     {
-        List<GameObject> suck = new List<GameObject>();
+        List<NavMeshEntity> suck = new List<NavMeshEntity>();
         var w = CurrentRoom.room.RoomSize;
         creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
         int x = 0;
         while(creditcount > 0)
         {
-            var wank = GetEnemyForDiff(false);
-            suck.Add(SpawnEnemy(wank));
-            x++;
-            if (x >= 4) break;
+            if (x >= 4)
+            {
+                var lowest = suck[0];
+                foreach (var enemy in suck)
+                {
+                    if (enemy.creditsspent < lowest.creditsspent)
+                    {
+                        lowest = enemy;
+                    }
+                }
+                var wank = GetEnemyForDiff(false);
+                if(wank.CreditCost > lowest.creditsspent)
+                {
+                    EnemiesExisting.Remove(lowest);
+                    suck.Remove(lowest);
+                    Destroy(lowest.gameObject);
+                    suck.Add(SpawnEnemy(wank));
+                    x++;
+                }
+                else
+                {
+                    creditcount -= 15;
+                    x++;
+                }
+            }
+            else
+            {
+                var wank = GetEnemyForDiff(false);
+                suck.Add(SpawnEnemy(wank));
+                x++;
+            }
         }
         return suck;
     }
     public GameObject UnstableBullet;
     public GameObject HealBeam;
-    public GameObject SpawnEnemy(EnemyHolder wank)
+    public NavMeshEntity SpawnEnemy(EnemyHolder wank)
     {
         List<string> elitetypes = new List<string>();
         EliteTypesDict["Corrupted"].Enabled = false;
@@ -420,7 +447,7 @@ public class Gamer : MonoBehaviour
         rs.EnemyHolder = wank;
         var e = wank.CreditCost;
         var dif = CurrentFloor - wank.MinFloor;
-        if (wank.CanBeElite && Random.Range(0, 1f) < 0.15f * dif)
+        if (wank.CanBeElite && Random.Range(0, 1f) < 0.2f * dif)
         {
             if (dif < 10)
             {
@@ -435,8 +462,9 @@ public class Gamer : MonoBehaviour
             e = (e * (long)(100 * EliteTypesDict[rs.EliteType].CostMod)) / 100;
         }
         creditcount -= e;
+        rs.creditsspent = e;
         EnemiesExisting.Add(rs);
-        return ss;
+        return rs;
     }
 
 
@@ -538,7 +566,9 @@ public class Gamer : MonoBehaviour
     public float ShartPoop = 0f;
     private void FixedUpdate()
     {
-        if (GameState == "Game" || GameState == "Lobby")
+        bool a = GameState == "Game" || GameState == "Lobby";
+        bool b = a || GameState == "Dead";
+        if (a)
         {
             if (NextFloorButtonSexFuck)
             {
@@ -561,15 +591,18 @@ public class Gamer : MonoBehaviour
                     checks[5] = true;
                 }
             }
+
+        }
+        if (b)
+        {
             ShartPoop -= Time.deltaTime;
             ShartPoop = Mathf.Clamp01(ShartPoop);
             var c = HitSexers[0].color;
             c.a = ShartPoop;
-            foreach(var ca in HitSexers)
+            foreach (var ca in HitSexers)
             {
                 ca.color = c;
             }
-
         }
         else
         {

@@ -31,6 +31,7 @@ public class NavMeshEntity : MonoBehaviour
     public bool HasSpawned=  false;
     public string EliteType = "";
     public EnemyHolder EnemyHolder;
+    public long creditsspent = 0;
     public event Gamer.JustFuckingRunTheMethods CLearShit;
     // Start is called before the first frame update
     void Start()
