@@ -156,6 +156,7 @@ public class NavMeshEntity : MonoBehaviour
             }
             foreach(var e2 in nearbois)
             {
+                if (e2 == null || e2.EntityOXS == null) continue;
                 var h = e2.EntityOXS.Health;
                 e2.EntityOXS.Heal(e2.EntityOXS.Max_Health / 10);
                 if(h != e2.EntityOXS.Health)
