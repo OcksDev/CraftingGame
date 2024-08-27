@@ -93,7 +93,6 @@ public class Gamer : MonoBehaviour
     {
         Tags.refs["BGblack"].SetActive(true);
         MainMenu();
-        CurrentFloor = 0;
         StartCoroutine(FUCK());
     }
     public static List<List<string>> Backup = new List<List<string>>();
@@ -192,6 +191,7 @@ public class Gamer : MonoBehaviour
     }
     public void MainMenu()
     {
+        CurrentFloor = 0;
         if (IsMultiplayer) NetworkManager.Singleton.Shutdown();
         IsMultiplayer = false;
         for (int i = 0;i < checks.Length;i++)
@@ -385,7 +385,7 @@ public class Gamer : MonoBehaviour
     {
         List<NavMeshEntity> suck = new List<NavMeshEntity>();
         var w = CurrentRoom.room.RoomSize;
-        creditcount = (long)(15 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
+        creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
         int x = 0;
         while(creditcount > 0)
         {
@@ -567,7 +567,6 @@ public class Gamer : MonoBehaviour
     private void FixedUpdate()
     {
         bool a = GameState == "Game" || GameState == "Lobby";
-        bool b = a || GameState == "Dead";
         if (a)
         {
             if (NextFloorButtonSexFuck)
@@ -593,20 +592,17 @@ public class Gamer : MonoBehaviour
             }
 
         }
-        if (b)
-        {
-            ShartPoop -= Time.deltaTime;
-            ShartPoop = Mathf.Clamp01(ShartPoop);
-            var c = HitSexers[0].color;
-            c.a = ShartPoop;
-            foreach (var ca in HitSexers)
-            {
-                ca.color = c;
-            }
-        }
         else
         {
             checks[5] = false;
+        }
+        ShartPoop -= Time.deltaTime;
+        ShartPoop = Mathf.Clamp01(ShartPoop);
+        var c = HitSexers[0].color;
+        c.a = ShartPoop;
+        foreach (var ca in HitSexers)
+        {
+            ca.color = c;
         }
     }
 

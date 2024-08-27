@@ -29,17 +29,49 @@ public class EnemyHitShit : MonoBehaviour
     {
         hits.Clear();
     }
-
+    public float nono = 0;
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (type)
+        {
+            case "orb":
+                if (nono <= 0)
+                {
+                    Tirggegg(collision, true);
+                }
+                break;
+            default:
+                Tirggegg(collision, false);
+                break;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        switch (type)
+        {
+            case "orb":
+                if (nono <= 0)
+                {
+                    Tirggegg(collision, true);
+                }
+                break;
+        }
+    }
+    private void FixedUpdate()
+    {
+        nono -= Time.deltaTime;
+    }
+
+    public void Tirggegg(Collider2D collision, bool ignorehits = false)
     {
         if (isdea) return;
         if (sexballs != null && sexballs.EntityOXS.AntiDieJuice) return;
         var e = Gamer.Instance.GetObjectType(collision.gameObject);
-        if(sexballs != null)
-        Damage = sexballs.Damage;
+        if (sexballs != null)
+            Damage = sexballs.Damage;
         if (overridedamage > 0) Damage = overridedamage;
         var pp = e.playerController;
-        if (e.type == "Player" && !hits.Contains(pp))
+        if (e.type == "Player" && (!hits.Contains(pp) || ignorehits))
         {
             if (balling == null) balling = transform.parent;
             var dam = new DamageProfile(type, Damage);
@@ -48,7 +80,13 @@ public class EnemyHitShit : MonoBehaviour
             dam.Knockback = 1f;
             pp.entit.Hit(dam);
             hits.Add(pp);
-            if(type=="spitter")Kill();
+            if (type == "spitter") Kill();
+            switch (type)
+            {
+                case "orb":
+                    nono = 0.20f;
+                    break;
+            }
         }
         else if (type == "spitter" && e.type == "Wall")
         {
@@ -56,6 +94,7 @@ public class EnemyHitShit : MonoBehaviour
         }
         e.FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork();
     }
+
     bool isdea = false;
     public IEnumerator sexdie()
     {

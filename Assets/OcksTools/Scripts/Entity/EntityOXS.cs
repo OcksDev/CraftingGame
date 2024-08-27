@@ -35,6 +35,7 @@ public class EntityOXS : MonoBehaviour
     public void Hit(DamageProfile hit)
     {
         if (AntiDieJuice) return;
+        if (Gamer.GameState == "Dead") return;
         if (rg != null && hit.SpecificLocation)
         {
             var ewanker = ((Vector2)transform.position - (Vector2)hit.AttackerPos).normalized * hit.Knockback * 2.5f;

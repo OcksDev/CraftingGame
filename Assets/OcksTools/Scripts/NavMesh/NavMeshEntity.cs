@@ -47,6 +47,7 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.flipX = Random.Range(0, 2) == 1;
         WantASpriteCranberry.sprite = SpriteVarients[Random.Range(0, SpriteVarients.Count)];
         randommovetimer = 0;
+        SightRange = 95f;
         switch (EnemyType)
         {
             case "Charger":
@@ -56,7 +57,6 @@ public class NavMeshEntity : MonoBehaviour
                 CLearShit += box.GetComponentInChildren<EnemyHitShit>().OnSpawn;
                 break;
         }
-        SightRange = 95f;
         if(EliteType != "")
         {
             EntityOXS.Max_Health *= 1.2f;
@@ -88,7 +88,13 @@ public class NavMeshEntity : MonoBehaviour
                 StartCoroutine(MendingBalling());
                 break;
         }
-
+        switch (EnemyType)
+        {
+            case "Orb":
+                SightRange = 20f;
+                timer2 = AttackCooldown / 2;
+                break;
+        }
         StartCoroutine(SpawningLol());
     }
 
@@ -178,6 +184,7 @@ public class NavMeshEntity : MonoBehaviour
     }
     public bool existing = false;
     public float ddist;
+    bool canrunattacktimer = true;
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -244,20 +251,28 @@ public class NavMeshEntity : MonoBehaviour
                     }
                     break;
                 case "Ranged":
-                    if (target != null && canseemysexybooty && !charging)
+                    if (target != null && canseemysexybooty && !charging && canrunattacktimer)
                     {
                         timer2 += Time.deltaTime;
                     }
                     if (timer2 > AttackCooldown)
                     {
-                        timer2 = 0;
+                        canrunattacktimer = true;
                         switch (EnemyType)
                         {
                             case "Charger":
+                                timer2 = 0;
                                 StartCoroutine(ChargeSex());
                                 break;
+                            case "Orb":
+                                if(ddist <= 20f)
+                                {
+                                    timer2 = 0;
+                                    StartCoroutine(OrbSex());
+                                }
+                                break;
                             default:
-
+                                timer2 = 0;
                                 var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
                                 var e = wenis.GetComponent<EnemyHitShit>();
                                 e.Damage = Damage;
@@ -347,6 +362,23 @@ public class NavMeshEntity : MonoBehaviour
         movespeed = premove;
         timer2 = Random.Range(-0.25f, 0.25f);
         box.SetActive(false);
+    }
+    public IEnumerator OrbSex()
+    {
+        var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
+        Instantiate(Gamer.Instance.ParticleSpawns[6], transform.position, Quaternion.identity, transform);
+
+        var e2 = wenis.GetComponent<DeathBeamScript>();
+        e2.Player = target.transform;
+        e2.SorceNerd = transform;
+        e2.UpdatePos();
+
+
+        var e = e2.fardd.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        yield return null;
     }
 
     public bool canseemysexybooty = false;
