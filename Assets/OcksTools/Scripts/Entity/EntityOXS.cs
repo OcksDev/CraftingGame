@@ -20,12 +20,22 @@ public class EntityOXS : MonoBehaviour
     private Rigidbody2D rg;
     public Color32 col;
     public NavMeshEntity sexy;
+    private PlayerController playerdaddy;
     public int healerstospawn = 1;
     public bool AntiDieJuice = false;
     private void Start()
     {
         ren = GetComponent<SpriteRenderer>();
-        sexy = GetComponent<NavMeshEntity>();
+        if(EnemyType == "Player")
+        {
+            DamageTimer = -1f;
+            playerdaddy = GetComponent<PlayerController>();
+            ren = playerdaddy.dicksplit.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            sexy = GetComponent<NavMeshEntity>();
+        }
         rg = GetComponent<Rigidbody2D>();
         if (ren != null)
         {

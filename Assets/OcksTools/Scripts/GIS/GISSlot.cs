@@ -8,6 +8,7 @@ using static UnityEditor.PlayerSettings;
 public class GISSlot : MonoBehaviour
 {
     public string Name = "";
+    public bool CanInteract = true;
     public GISItem Held_Item;
     public GISDisplay Displayer;
     public GISContainer Conte;
@@ -80,6 +81,7 @@ public class GISSlot : MonoBehaviour
 
     private void Update()
     {
+        if (!CanInteract) return;
         if (FailToClick()) return;
         if (balls == null) return;
         bool shift = InputManager.IsKey(InputManager.gamekeys["item_alt"]);

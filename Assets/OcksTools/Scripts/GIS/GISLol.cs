@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,8 @@ public class GISLol : MonoBehaviour
     public List<string> AllCraftables = new List<string>();
     private RectTransform ballingsexnut;
     private HoverRefHolder hovercummer;
+    public List<Color32> attributecolors = new List<Color32>();
+    public List<string> nonowords = new List<string>();
 
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
 
@@ -207,6 +210,14 @@ public class GISLol : MonoBehaviour
         {
             e += $"<br><br>{MaterialsDict[baller.Materials[0].index].Description}";
         }
+
+        e = e.Replace("<g>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[0])}>");
+        e = e.Replace("<b>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[1])}>");
+        e = e.Replace("<e>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[2])}>");
+        e = e.Replace("<o>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[3])}>");
+        e = e.Replace("</>", $"</color>");
+
+
         return e;
     }
     public void SaveAll()
@@ -230,7 +241,7 @@ public class GISLol : MonoBehaviour
 }
 
 
-
+[System.Serializable]
 public class GISItem
 {
     /*
@@ -245,6 +256,7 @@ public class GISItem
 
     public string ItemIndex;
     public int Amount;
+    public string CustomName;  
     public GISContainer Container;
     public List<GISMaterial> Materials = new List<GISMaterial>();
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
@@ -278,6 +290,7 @@ public class GISItem
         Amount = sexnut.Amount;
         ItemIndex = sexnut.ItemIndex;
         Container = sexnut.Container;
+        CustomName = sexnut.CustomName;
         Materials = new List<GISMaterial>(sexnut.Materials);
     }
     private void setdefaultvals()
@@ -286,6 +299,7 @@ public class GISItem
         Amount = 0;
         ItemIndex = "Empty";
         Container = null;
+        CustomName = "";
     }
     public void Solidify()
     {
@@ -360,7 +374,7 @@ public class GISItem
 
         Data["Index"] = ItemIndex.ToString();
         Data["Count"] = Amount.ToString();
-        //Data["Name"] = Amount.ToString();
+        Data["Name"] = CustomName;
 
 
         List<string> mats = new List<string>();
@@ -392,7 +406,12 @@ public class GISItem
                 bb.Remove("Mats");
             }
         }
-
+        var gs = GISLol.Instance.nonowords;
+        for(int i = 0; i < bb.Count; i++)
+        {
+            var sex = bb.ElementAt(i);
+            bb[sex.Key] = Converter.EscapeString(bb[sex.Key], gs);
+        }
         e = Converter.DictionaryToString(bb, "~|~", "~o~");
 
         return e;
@@ -400,17 +419,17 @@ public class GISItem
     public void StringToItem(string e)
     {
         setdefaultvals();
-
+        var gs = GISLol.Instance.nonowords;
         var wanker = Converter.StringToDictionary(e, "~|~", "~o~");
         foreach(var ae in wanker)
         {
             if (Data.ContainsKey(ae.Key))
             {
-                Data[ae.Key] = ae.Value;
+                Data[ae.Key] = Converter.UnescapeString(ae.Value, gs);
             }
             else
             {
-                Data.Add(ae.Key, ae.Value);
+                Data.Add(ae.Key, Converter.UnescapeString(ae.Value, gs));
             }
         }
 
@@ -424,7 +443,7 @@ public class GISItem
         {
             Amount = ItemIndex != "Empty" ? 1 : 0;
         }
-
+        CustomName = Data["Name"];
         if (wanker.ContainsKey("Mats"))
         {
             var sex = Converter.StringToList(Data["Mats"], "(q]");

@@ -137,10 +137,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
+  CanInteract: 1
   Displayer: {fileID: 6986252379372246307}
   Conte: {fileID: 0}
   InteractFilter: 
-  size: 0
 --- !u!61 &8114420558964774327
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -177,6 +177,8 @@ public class PlayerController : MonoBehaviour
                 network_helditem.SetValue("");
             }
         }
+        var OLDPERC = entit.Health / entit.Max_Health;
+        var OLDPERCDASH = DashCoolDown / MaxDashCooldown;
         CritChance = 0.01f;
         working_move_speed = 1.5f;
         Damage = 7;
@@ -226,25 +228,47 @@ public class PlayerController : MonoBehaviour
         AttacksPerSecond *= 1 + (GetItem("atkpeed")*0.1f);
         CritChance += (GetItem("critglass")*0.1f);*/
         entit.Max_Health = helth;
+        entit.Health = helth * OLDPERC;
         entit.Max_Shield = helth/2;
+        DashCoolDown = MaxDashCooldown * OLDPERCDASH;
         SetMoveSpeed();
+        if (CritChance < 0) CritChance = 0;
     }
     public void ParseMaterial(GISMaterial matty)
     {
         switch (matty.index)
         {
-            case "Rock":
-                switch (mainweapon.ItemIndex)
-                {
-                    default:
-                        AttacksPerSecond *= 1.15f;
-                        break;
-                }
+            case "Emerald":
+                AttacksPerSecond *= 1.15f;
+                break;
+            case "Gold":
+                Damage *= 1.2f;
+                AttacksPerSecond *= 0.95f;
+                break;
+            case "Glass":
+                Damage *= 1.3f;
+                helth *= 0.85f;
+                break;
+            case "Amethyst":
+                MaxDashCooldown *= 0.85f;
+                working_move_speed *= 0.90f;
+                break;
+            case "Slime":
+                Damage *= 1.2f;
+                working_move_speed *= 0.90f;
+                break;
+            case "Demonic Ingot":
+                CritChance += 0.20f;
+                Damage *= 0.90f;
+                break;
+            case "Angelic Ingot":
+                CritChance -= 0.15f;
+                Damage *= 1.15f;
                 break;
         }
         switch (matty.itemindex)
         {
-            case "Rock":
+            case "DieBitch":
                 switch (mainweapon.ItemIndex)
                 {
                     default:

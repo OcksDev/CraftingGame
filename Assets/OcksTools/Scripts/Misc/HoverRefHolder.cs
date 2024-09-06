@@ -27,11 +27,20 @@ public class HoverRefHolder : MonoBehaviour
         float edgespace = 16f;
         float halfedge = edgespace / 2;
         float xexpand = 0;
-        ItemName.text = hover.ItemIndex;
 
+
+        if(hover.CustomName != "")
+        {
+            ItemName.text = hover.CustomName;
+        }
+        else
+        {
+            ItemName.text = hover.ItemIndex;
+        }
         var itembase = GISLol.Instance.ItemsDict[hover.ItemIndex];
 
-        
+        ItemName.text += " - " + hover.ItemIndex;
+
         DescMesh.text = GISLol.Instance.GetDescription(hover);
         var layoutr = ItemName.GetComponent<ContentSizeFitter>();
         layoutr.SetLayoutHorizontal();
