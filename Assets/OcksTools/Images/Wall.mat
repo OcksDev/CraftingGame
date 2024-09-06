@@ -63,7 +63,7 @@ Material:
     - _ImageSize: 1
     - _ImageSizeSex: 0.125
     - _ImageSizesEX: 1
-    - _NoiseImpact: 0.51
+    - _NoiseImpact: 0
     - _NoiseMult: -1.68
     - _PixelSize: 16
     - _QueueControl: 0

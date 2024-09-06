@@ -39,7 +39,6 @@ public class HoverRefHolder : MonoBehaviour
         }
         var itembase = GISLol.Instance.ItemsDict[hover.ItemIndex];
 
-        ItemName.text += " - " + hover.ItemIndex;
 
         DescMesh.text = GISLol.Instance.GetDescription(hover);
         var layoutr = ItemName.GetComponent<ContentSizeFitter>();
