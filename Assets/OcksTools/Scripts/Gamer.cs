@@ -37,7 +37,7 @@ public class Gamer : MonoBehaviour
     public GameObject DoorFab;
     public GameObject SpawnFix;
     public Dictionary<string, EliteTypeHolder> EliteTypesDict = new Dictionary<string, EliteTypeHolder>();
-
+    public List<GameObject> StupidAssDoorDoohickies = new List<GameObject>();
     public List<GameObject> ParticleSpawns = new List<GameObject>();
 
     public bool NextFloorButtonSexFuck = false;
@@ -128,6 +128,11 @@ public class Gamer : MonoBehaviour
         foreach (var sex in balls.GetComponentsInChildren<EnemyHitShit>())
         {
             Destroy(sex.gameObject);
+        }
+        foreach (var sex in StupidAssDoorDoohickies)
+        {
+            if (sex == null) continue;
+            Destroy(sex);
         }
     }
     public bool IsHost;

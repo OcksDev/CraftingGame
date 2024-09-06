@@ -12,6 +12,7 @@ public class DoorFart : MonoBehaviour
     private void Start()
     {
         if (!IsGood) return;
+        Gamer.Instance.StupidAssDoorDoohickies.Add(gameObject);
         StartCoroutine(fartmyballs());
     }
 
@@ -46,6 +47,7 @@ public class DoorFart : MonoBehaviour
             visual.color = c;
             yield return new WaitForFixedUpdate();
         }
+        Gamer.Instance.StupidAssDoorDoohickies.Remove(gameObject);
         Destroy(gameObject);
     }
 }
