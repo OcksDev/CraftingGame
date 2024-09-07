@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using System.Threading.Tasks;
+
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -201,6 +203,7 @@ namespace UnityEngine.AI
                 if (isActiveAndEnabled)
                     AddData();
             }
+            return;
         }
 
         // Source: https://github.com/Unity-Technologies/NavMeshComponents/issues/97#issuecomment-528692289

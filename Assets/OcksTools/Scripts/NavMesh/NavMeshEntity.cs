@@ -15,7 +15,8 @@ public class NavMeshEntity : MonoBehaviour
     public float SightRange = 15f;
     public float AttackCooldown = 1.5f;
     public float randommovetimer = 0f;
-    private NavMeshAgent beans;
+    [HideInInspector]
+    public NavMeshAgent beans;
     public GameObject target;
     public I_Room originroom;
     public double Damage;

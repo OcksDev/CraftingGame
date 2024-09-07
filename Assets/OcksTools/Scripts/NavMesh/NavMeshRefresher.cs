@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Threading;
 
 public class NavMeshRefresher : MonoBehaviour
 {
@@ -30,9 +31,17 @@ public class NavMeshRefresher : MonoBehaviour
             }
         }
     }
-    public void BuildNavMesh()
+    public void BuildNavMesh(bool doodoo = true)
     {
-        m_Surface.BuildNavMesh();
+        Debug.Log($"Building Navmesh! wastasync={doodoo}");
+        if (doodoo)
+        {
+            m_Surface.BuildNavMeshAsync();
+        }
+        else
+        {
+            m_Surface.BuildNavMesh();
+        }
     }
 
 }

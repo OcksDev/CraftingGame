@@ -20,7 +20,20 @@ public class Turrugugug : MonoBehaviour
         var e = Gamer.Instance.GetObjectType(a);
         if (e.type == "Player" || e.type == "Enemy")
         {
-            e.gm.transform.position += transform.rotation * new Vector3(0, 2.5f, 0);
+            var wank = e.gm.transform.position;
+            var offsex = transform.rotation * new Vector3(0, 2.5f, 0);
+            offsex.y *= -1;
+            offsex.z *= -1;
+            offsex.x *= -1;
+            if(e.type== "Enemy")
+            {
+                e.entity.beans.nextPosition = PlayerController.Instance.transform.position - new Vector3(0,10,10);
+            }
+            else
+            {
+                e.gm.transform.position = wank + offsex;
+            }
+            //e.entity.beans.destination = e.gm.transform.position;
         }
     }
 }

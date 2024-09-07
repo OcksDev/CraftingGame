@@ -21,6 +21,7 @@ public class Gamer : MonoBehaviour
     public List<EliteTypeHolder> EliteTypes = new List<EliteTypeHolder>();
     public GameObject HealerGFooFO;
     public NavMeshRefresher nmr;
+    public Transform DoorHolder;
     public static bool IsMultiplayer = false;
     public GameObject GroundItemShit;
     public string CraftSex = "Sword";
@@ -372,12 +373,26 @@ public class Gamer : MonoBehaviour
     {
         BoomyRoomy();
         yield return new WaitForSeconds(1.5f);
-        int waves = Random.Range(3,6);
+        float time = 1.5f;
+        int wavesex = 3;
+        if(CurrentFloor <= 3)
+        {
+            time = 2.5f;
+            wavesex = 2;
+        }
+        int waves = Random.Range(0,wavesex)+3;
+        creditcount = 0;
+        nmr.BuildNavMesh(true);
         for(int i = 0; i < waves; i++)
         {
             if (GameState != "Game") break;
-            SpawnEnemyWave();
-            yield return new WaitForSeconds(1.4f);
+            SpawnEnemyWave(creditcount);
+            if (creditcount > 0)
+            {
+                i--;
+            }
+            yield return new WaitUntil(() => { return EnemiesExisting.Count <= 10; });
+            yield return new WaitForSeconds(time);
         }
         yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
         CurrentRoom = null;
@@ -386,45 +401,22 @@ public class Gamer : MonoBehaviour
     }
 
 
-    public List<NavMeshEntity> SpawnEnemyWave()
+    public List<NavMeshEntity> SpawnEnemyWave(long creditoverflow = 0)
     {
         List<NavMeshEntity> suck = new List<NavMeshEntity>();
         var w = CurrentRoom.room.RoomSize;
-        creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y * CurrentFloor));
+        if(creditcount <= 0)
+        creditcount = (long)(25 * Mathf.Sqrt(w.x * w.y * ((1.5f*CurrentFloor)-0.5f))-1)+ CurrentFloor;
         int x = 0;
         while(creditcount > 0)
         {
             if (x >= 4)
             {
-                var lowest = suck[0];
-                foreach (var enemy in suck)
-                {
-                    if (enemy.creditsspent < lowest.creditsspent)
-                    {
-                        lowest = enemy;
-                    }
-                }
-                var wank = GetEnemyForDiff(false);
-                if(wank.CreditCost > lowest.creditsspent)
-                {
-                    EnemiesExisting.Remove(lowest);
-                    suck.Remove(lowest);
-                    Destroy(lowest.gameObject);
-                    suck.Add(SpawnEnemy(wank));
-                    x++;
-                }
-                else
-                {
-                    creditcount -= 15;
-                    x++;
-                }
+                break;
             }
-            else
-            {
-                var wank = GetEnemyForDiff(false);
-                suck.Add(SpawnEnemy(wank));
-                x++;
-            }
+            var wank = GetEnemyForDiff(false);
+            suck.Add(SpawnEnemy(wank));
+            x++;
         }
         return suck;
     }
@@ -537,7 +529,7 @@ public class Gamer : MonoBehaviour
             var pz = pp - ppshex;
             var ppos = CurrentRoom.room.TopDoor * 30f;
             ppos.x += 15f;
-            Instantiate(DoorFab, new Vector3(pz.x + ppos.x, pz.y, 0), Quaternion.identity, nmr.transform);
+            Instantiate(DoorFab, new Vector3(pz.x + ppos.x, pz.y, 0), Quaternion.identity,DoorHolder);
         }
         if (CurrentRoom.room.HasBottomDoor)
         {
@@ -546,7 +538,7 @@ public class Gamer : MonoBehaviour
             pz = pp - pz;
             var ppos = CurrentRoom.room.BottomDoor * 30f;
             ppos.x += 15f;
-            Instantiate(DoorFab, new Vector3(pz.x + ppos.x, pz.y, 0), Quaternion.Euler(0,0,180), nmr.transform);
+            Instantiate(DoorFab, new Vector3(pz.x + ppos.x, pz.y, 0), Quaternion.Euler(0,0,180),DoorHolder);
         }
         if (CurrentRoom.room.HasLeftDoor)
         {
@@ -555,7 +547,7 @@ public class Gamer : MonoBehaviour
             pz = pp - pz;
             var ppos = CurrentRoom.room.LeftDoor * 30f;
             ppos.y += 15f;
-            Instantiate(DoorFab, new Vector3(pz.x, pz.y - ppos.y, 0), Quaternion.Euler(0, 0, 270), nmr.transform);
+            Instantiate(DoorFab, new Vector3(pz.x, pz.y - ppos.y, 0), Quaternion.Euler(0, 0, 270),DoorHolder);
         }
         if (CurrentRoom.room.HasRightDoor)
         {
@@ -563,7 +555,7 @@ public class Gamer : MonoBehaviour
             pz = pp + pz;
             var ppos = CurrentRoom.room.RightDoor * 30f;
             ppos.y += 15f;
-            Instantiate(DoorFab, new Vector3(pz.x, pz.y - ppos.y, 0), Quaternion.Euler(0, 0, 90), nmr.transform);
+            Instantiate(DoorFab, new Vector3(pz.x, pz.y - ppos.y, 0), Quaternion.Euler(0, 0, 90),DoorHolder);
         }
     }
 
