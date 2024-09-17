@@ -101,4 +101,5 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: e030576446463ab48b8bd821a3ae9223, type: 3}
   - {fileID: 21300000, guid: 83bafc62ab897904ab34c2f3bf5e317c, type: 3}
+  - {fileID: 21300000, guid: 470e0b5faa095924891704d1846dfab2, type: 3}
   CanNotSpawn: 0
