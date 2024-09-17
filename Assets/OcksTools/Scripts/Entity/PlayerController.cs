@@ -293,6 +293,70 @@ public class PlayerController : MonoBehaviour
             if (InputManager.IsKeyDown(KeyCode.Alpha1, "player")) SwitchWeapon(0);
             else if (InputManager.IsKeyDown(KeyCode.Alpha2, "player")) SwitchWeapon(1);
         }
+
+        if (f < 1)
+        {
+            f += Time.deltaTime * AttacksPerSecond;
+        }
+        if (f >= 1)
+        {
+            f = 1;
+            if (f2 > 0)
+            {
+                f2 -= Time.deltaTime;
+            }
+        }
+
+
+        var g = 1 - f;
+        g = g * g * g * g;
+        if (mainweapon != null)
+        {
+            SwordFart.localPosition = new Vector3(0, 0, 0);
+            MyAssHurts.rotation = SwordFart.rotation;
+            switch (mainweapon.ItemIndex)
+            {
+                case "Sword":
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, g) * reverse)) * transform.rotation;
+                    break;
+                case "Shuriken":
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
+                    break;
+                case "Boomerang":
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
+                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, 70 * -reverse);
+                    break;
+                case "Crossbow":
+                    SwordFart.rotation = transform.rotation;
+                    break;
+                case "Bow":
+                    SwordFart.localPosition = new Vector3(0, -1f, 0);
+                    SwordFart.rotation = transform.rotation;
+                    break;
+                case "Spear":
+                    if (!sexed && g <= 0.5f)
+                    {
+                        reverse *= -1;
+                        sexed = true;
+                    }
+                    g = Mathf.Sin(g * Mathf.PI);
+                    g = 1 - g;
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 11 * reverse)) * transform.rotation;
+                    SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g) * -reverse, Mathf.Lerp(0.5f, -2.5f, g), 0);
+                    break;
+            }
+            if (!Gamer.WithinAMenu)
+            {
+                int reverse2 = (transform.position - MyAssHurts.transform.position).x < 0 ? 1 : -1;
+                switch (mainweapon.ItemIndex)
+                {
+                    case "Crossbow": SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
+                    case "Shuriken": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
+                    case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
+                    default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
+                }
+            }
+        }
     }
 
     public void SwitchWeapon(int s3x)
@@ -372,73 +436,12 @@ public class PlayerController : MonoBehaviour
                 CameraLol.Instance.targetpos = transform.position;
             }
         }
-        if (f < 1)
-        {
-            f += Time.deltaTime * AttacksPerSecond;
-        }
-        if (f >= 1)
-        {
-            f = 1;
-            if (f2 > 0)
-            {
-                f2 -= Time.deltaTime;
-            }
-        }
-        var g = 1 - f;
-        g = g * g * g * g;
         if (f >= 1)
         {
             if (isrealowner && !Gamer.WithinAMenu)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Point2D(-90, 0), 25f);
-                dicksplay.transform.localScale = new Vector3((transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x > 0?1:-1, 1,1);
-            }
-        }
-        if (mainweapon != null)
-        {
-            SwordFart.localPosition = new Vector3(0, 0, 0);
-            MyAssHurts.rotation = SwordFart.rotation;
-            switch (mainweapon.ItemIndex)
-            {
-                case "Sword":
-                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, g) * reverse)) * transform.rotation;
-                    break;
-                case "Shuriken":
-                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
-                    break;
-                case "Boomerang":
-                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
-                    MyAssHurts.rotation = SwordFart.rotation*Quaternion.Euler(0,0,70*-reverse);
-                    break;
-                case "Crossbow":
-                    SwordFart.rotation = transform.rotation;
-                    break;
-                case "Bow":
-                    SwordFart.localPosition = new Vector3(0, -1f, 0);
-                    SwordFart.rotation = transform.rotation;
-                    break;
-                case "Spear":
-                    if (!sexed && g <= 0.5f)
-                    {
-                        reverse *= -1;
-                        sexed = true;
-                    }
-                    g = Mathf.Sin(g * Mathf.PI);
-                    g = 1 - g;
-                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 11 * reverse)) * transform.rotation;
-                    SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g)*-reverse, Mathf.Lerp(0.5f, -2.5f, g), 0);
-                    break;
-            }
-            if (!Gamer.WithinAMenu)
-            {
-                int reverse2 = (transform.position - MyAssHurts.transform.position).x < 0 ? 1 : -1;
-                switch (mainweapon.ItemIndex)
-                {
-                    case "Crossbow": SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
-                    case "Shuriken": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
-                    case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
-                    default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
-                }
+                dicksplay.transform.localScale = new Vector3((transform.position - RandomFunctions.Instance.MousePositon(Camera.main)).x > 0 ? 1 : -1, 1, 1);
             }
         }
     }
