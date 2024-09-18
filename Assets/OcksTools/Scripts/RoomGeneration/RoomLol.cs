@@ -229,13 +229,25 @@ public class RoomLol : MonoBehaviour
                 bool good = true;
 
                 List<int> doors = new List<int>();
-                if (dir != -1)
+                int doorcount = 0;
+                if (rom.HasTopDoor) doorcount++;
+                if (rom.HasBottomDoor) doorcount++;
+                if (rom.HasLeftDoor) doorcount++;
+                if (rom.HasRightDoor) doorcount++;
+                if (dir != 1 && rom.HasTopDoor) doors.Add(0);
+                if (dir != 0 && rom.HasBottomDoor) doors.Add(1);
+                if (dir != 3 && rom.HasLeftDoor) doors.Add(2);
+                if (dir != 2 && rom.HasRightDoor) doors.Add(3);
+                if (doorcount > 1)
                 {
-                    if (dir != 1 && rom.HasTopDoor) doors.Add(0);
-                    if (dir != 0 && rom.HasBottomDoor) doors.Add(1);
-                    if (dir != 3 && rom.HasLeftDoor) doors.Add(2);
-                    if (dir != 2 && rom.HasRightDoor) doors.Add(3);
-                    if (doors.Count > 0) doors.RemoveAt(r.Next(0, doors.Count));
+                    while (doorcount - doors.Count < 2)
+                    {
+                        doors.RemoveAt(r.Next(0, doors.Count));
+                    }
+                }
+                else
+                {
+                    doors.Clear();
                 }
                 var x = lvl - 1;
                 if (good && dir != 1 && rom.HasTopDoor)

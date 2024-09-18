@@ -13093,6 +13093,10 @@ PrefabInstance:
       value: Rock
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[4].AxeParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[4].fallthroughmaterial
       value: Rock
       objectReference: {fileID: 0}
@@ -13171,15 +13175,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].AxeParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
+      objectReference: {fileID: 21300000, guid: 1c01c0ca3ffb8994b9a735b1d24128ea, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].AxeParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
+      objectReference: {fileID: 21300000, guid: a65bd9e22c0a39249b21b5067e0d905c, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].AxeParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
+      objectReference: {fileID: 21300000, guid: 2ad16cee8140ce948be10eb87af906da, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].BowParts.Array.data[0]
       value: 
@@ -13228,6 +13232,18 @@ PrefabInstance:
       propertyPath: Materials.Array.data[2].DaggerParts.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[4].AxeParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: fe31dcfbba3ece34e879856dd264efea, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[4].AxeParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: a870453ce43c40146bc042cce5bb173c, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[4].AxeParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e4a12bfbdab99443a4376b17824ff59, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[4].DaggerParts.Array.size
       value: 3
@@ -13415,15 +13431,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 1c01c0ca3ffb8994b9a735b1d24128ea, type: 3}
+      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: a65bd9e22c0a39249b21b5067e0d905c, type: 3}
+      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 2ad16cee8140ce948be10eb87af906da, type: 3}
+      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].CrossbowParts.Array.data[0]
       value: 

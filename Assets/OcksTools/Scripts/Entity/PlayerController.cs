@@ -215,8 +215,8 @@ public class PlayerController : MonoBehaviour
                     Damage = 6f;
                     break;
                 case "Axe":
-                    AttacksPerSecond = 1.1f;
-                    Damage = 9f;
+                    AttacksPerSecond = 1.5f;
+                    Damage = 7f;
                     break;
             }
             foreach(var m in mainweapon.Materials)
@@ -328,12 +328,21 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Boomerang":
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
-                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, 70 * -reverse);
+                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, 0);
                     break;
                 case "Axe":
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, f) * reverse)) * transform.rotation;
-                    SwordFart.localPosition = new Vector3(0, Mathf.Sin(f*Mathf.PI)*3.5f, 0);
-                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (f*360*2));
+                    SwordFart.localPosition = new Vector3(Mathf.Sin(f * Mathf.PI*2) * -0.5f*reverse, Mathf.Sin(f*Mathf.PI)*4f, 0);
+                    var fff = Mathf.Cos(f * Mathf.PI);
+                    fff *= fff;
+                    if(f >= 0.5f)
+                    {
+                        MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (f * 360 * 2) + Mathf.Lerp(0, (70 * -reverse), fff));
+                    }
+                    else
+                    {
+                        MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (f * 360 * 2) + Mathf.Lerp(0, (70 * reverse), fff));
+                    }
                     break;
                 case "Crossbow":
                     SwordFart.rotation = transform.rotation;
