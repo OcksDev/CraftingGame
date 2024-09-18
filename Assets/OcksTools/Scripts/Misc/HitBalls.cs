@@ -11,6 +11,7 @@ public class HitBalls : MonoBehaviour
     public DamageProfile attackProfile;
     public string type = "HitBox";
     public bool OnlyHitOne = false;
+    public bool NoStay = false;
     private bool hite = false;
     public List<GameObject> hitlist = new List<GameObject>();
     public List<SpriteRenderer> spriteballs = new List<SpriteRenderer>();
@@ -70,6 +71,7 @@ public class HitBalls : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (NoStay) return;
         if (!hitdict.ContainsKey(collision.gameObject))
         {
             Collisonsns(collision);

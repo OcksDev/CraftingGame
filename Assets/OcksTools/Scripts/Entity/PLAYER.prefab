@@ -84,6 +84,77 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2052472435261323937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5998816342527110445}
+  - component: {fileID: 5647693049636943235}
+  - component: {fileID: 2048564359178978501}
+  m_Layer: 7
+  m_Name: ButtSex (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5998816342527110445
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052472435261323937}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1066387814657488983}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5647693049636943235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052472435261323937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025378506e3c82841b848089224f82b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: 0
+  playerController: {fileID: 3786093809242686097}
+  type: HitBox
+  OnlyHitOne: 0
+  NoStay: 1
+  hitlist: []
+  spriteballs: []
+  specialsharts: []
+  trail: {fileID: 0}
+  hsh: 26.3
+--- !u!58 &2048564359178978501
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052472435261323937}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.3
 --- !u!1 &2394360478278811968
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +478,14 @@ MonoBehaviour:
   HitColliders:
   - {fileID: 8591088333642842602}
   - {fileID: 5069659872662987114}
+  - {fileID: 2052472435261323937}
+  mainweapon:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    Interacted_Containers: []
   entit: {fileID: 0}
   sexer: {fileID: 0}
   selecteditem: 0
@@ -566,6 +645,7 @@ Transform:
   - {fileID: 5023221071441337562}
   - {fileID: 6194560343390447911}
   - {fileID: 4742373065510669267}
+  - {fileID: 5998816342527110445}
   m_Father: {fileID: 4699981174079926565}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -706,9 +786,11 @@ MonoBehaviour:
   playerController: {fileID: 3786093809242686097}
   type: HitBox
   OnlyHitOne: 0
+  NoStay: 0
   hitlist: []
   spriteballs: []
   specialsharts: []
+  trail: {fileID: 0}
   hsh: 26.3
 --- !u!1 &7836254537959484780
 GameObject:
@@ -932,9 +1014,11 @@ MonoBehaviour:
   playerController: {fileID: 3786093809242686097}
   type: HitBox
   OnlyHitOne: 0
+  NoStay: 0
   hitlist: []
   spriteballs: []
   specialsharts: []
+  trail: {fileID: 0}
   hsh: 26.3
 --- !u!1 &9067443756659564030
 GameObject:

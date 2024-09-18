@@ -214,6 +214,10 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond = 1.5f;
                     Damage = 6f;
                     break;
+                case "Axe":
+                    AttacksPerSecond = 1.1f;
+                    Damage = 9f;
+                    break;
             }
             foreach(var m in mainweapon.Materials)
             {
@@ -326,6 +330,11 @@ public class PlayerController : MonoBehaviour
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
                     MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, 70 * -reverse);
                     break;
+                case "Axe":
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, f) * reverse)) * transform.rotation;
+                    SwordFart.localPosition = new Vector3(0, Mathf.Sin(f*Mathf.PI)*3.5f, 0);
+                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (f*360*2));
+                    break;
                 case "Crossbow":
                     SwordFart.rotation = transform.rotation;
                     break;
@@ -362,6 +371,7 @@ public class PlayerController : MonoBehaviour
     public void SwitchWeapon(int s3x)
     {
         selecteditem = s3x;
+        if(HitCollider!=null)HitCollider.SetActive(false);
         SetData();
     }
     Color oldsex;
@@ -376,7 +386,21 @@ public class PlayerController : MonoBehaviour
             SetData();
         }
         if (entit.Shield > 0) entit.Shield -= 0.1;
-        if (HitCollider != null) HitCollider.SetActive(false);
+        if (HitCollider != null)
+        {
+            switch (mainweapon.ItemIndex)
+            {
+                case "Axe":
+                    if(f >= 1)
+                    {
+                        HitCollider.SetActive(false);
+                    }
+                    break;
+                default:
+                    HitCollider.SetActive(false);
+                    break;
+            }
+        }
         if (isrealowner)
         {
             SetMoveSpeed();
@@ -518,6 +542,13 @@ public class PlayerController : MonoBehaviour
                 reverse *= -1;
                 HitCollider = HitColliders[0];
                 Shart.PreCritted = -1;
+                break;
+            case "Axe":
+                reverse *= -1;
+                HitCollider = HitColliders[2];
+                Shart.PreCritted = -1;
+                epe *= -0.5f;
+                f2 = (0.2f) / AttacksPerSecond;
                 break;
             case "Spear":
                 s = Instantiate(SlashEffect[1], transform.position + transform.up * 2.3f, transform.rotation);

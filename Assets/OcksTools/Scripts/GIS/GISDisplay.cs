@@ -94,6 +94,10 @@ public class GISDisplay : MonoBehaviour
                     mysprites = e.SawbladeParts;
                     defaultsprites = GISLol.Instance.MaterialsDict[fall].SawbladeParts;
                     break;
+                case "Axe":
+                    mysprites = e.AxeParts;
+                    defaultsprites = GISLol.Instance.MaterialsDict[fall].AxeParts;
+                    break;
             }
 
 
