@@ -22,9 +22,6 @@ public class Turrugugug : MonoBehaviour
         {
             var wank = e.gm.transform.position;
             var offsex = transform.rotation * new Vector3(0, 2.5f, 0);
-            offsex.y *= -1;
-            offsex.z *= -1;
-            offsex.x *= -1;
             if(e.type== "Enemy")
             {
                 e.entity.beans.nextPosition = PlayerController.Instance.transform.position - new Vector3(0,10,10);
