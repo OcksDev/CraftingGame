@@ -52,6 +52,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   type: Shuriken
   OnlyHitOne: 0
+  NoStay: 0
   hitlist: []
   spriteballs:
   - {fileID: 1381649783101737089}

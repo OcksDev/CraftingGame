@@ -13431,15 +13431,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
+      objectReference: {fileID: 21300000, guid: 858c87ff61c98374dbe30feebc93f603, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
+      objectReference: {fileID: 21300000, guid: c27db8e7d4621b2489006e471d679d53, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].SawbladeParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 709a70481d3cdf541b4222bbcd369def, type: 3}
+      objectReference: {fileID: 21300000, guid: 8f9cc9e4076b2b54b9152173b0ddec05, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].CrossbowParts.Array.data[0]
       value: 

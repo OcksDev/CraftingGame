@@ -26,7 +26,7 @@ public class HitBalls : MonoBehaviour
         switch (type)
         {
             case "Boomerang":
-                var f = 0.236f;
+                var f = 0.336f;
                 trail.transform.localPosition = new Vector3(f,f,0);
                 break;
         }
