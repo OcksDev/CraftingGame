@@ -332,7 +332,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Axe":
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, f) * reverse)) * transform.rotation;
-                    SwordFart.localPosition = new Vector3(Mathf.Sin(f * Mathf.PI*2) * -0.5f*reverse, Mathf.Sin(f*Mathf.PI)*4f, 0);
+                    SwordFart.localPosition = new Vector3(Mathf.Sin(f * Mathf.PI*2) * -0.5f*reverse, Mathf.Sin(f*Mathf.PI)*6f, 0);
                     var fff = Mathf.Cos(f * Mathf.PI);
                     fff *= fff;
                     if(f >= 0.5f)
