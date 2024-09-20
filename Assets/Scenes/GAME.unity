@@ -13479,15 +13479,15 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[4].SawbladeParts.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: fe31dcfbba3ece34e879856dd264efea, type: 3}
+      objectReference: {fileID: 21300000, guid: 6cb109f4bda9a3c46899a1466b025fb5, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[4].SawbladeParts.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: a870453ce43c40146bc042cce5bb173c, type: 3}
+      objectReference: {fileID: 21300000, guid: d69fd75d7120cea4ea87d270a50a9ac1, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[4].SawbladeParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 7e4a12bfbdab99443a4376b17824ff59, type: 3}
+      objectReference: {fileID: 21300000, guid: db8a84ca96b5daf4d8605bd974fdc005, type: 3}
     - target: {fileID: 7616261651428151893, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: m_RootOrder
       value: 0
