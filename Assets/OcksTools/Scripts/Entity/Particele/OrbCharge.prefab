@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca84d6a2cce39f649b1984f136c84458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: Spawner
+  type: ORB
   lifetime: 2
   spspsp: {fileID: 0}
   Particicic: {fileID: 3820898435352637873}

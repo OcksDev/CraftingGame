@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class partShitBall : MonoBehaviour
 {
-    public string type = "Blood";
+    public string type = "Null";
     public float lifetime = 3f;
 
     public SpriteRenderer spspsp;

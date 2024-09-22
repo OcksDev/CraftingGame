@@ -22,6 +22,8 @@ public class NavMeshEntity : MonoBehaviour
     public double Damage;
     public SpriteRenderer WantASpriteCranberry;
     public List<Sprite> SpriteVarients = new List<Sprite> ();
+    public List<Sprite> SpriteMiscRefs = new List<Sprite> ();
+    public List<GameObject> EnableOnTrueSpawn = new List<GameObject> ();
     private Rigidbody2D sex;
     public GameObject box;
     public EntityOXS EntityOXS;
@@ -51,6 +53,7 @@ public class NavMeshEntity : MonoBehaviour
         SightRange = 95f;
         switch (EnemyType)
         {
+            case "Slimer":
             case "Charger":
                 CLearShit += box.GetComponent<EnemyHitShit>().OnSpawn;
                 break;
@@ -125,6 +128,16 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.enabled = true;
         sex.bodyType = RigidbodyType2D.Dynamic;
         this.EntityOXS.AntiDieJuice = false;
+        foreach(var aww in EnableOnTrueSpawn)
+        {
+            aww.SetActive(true);
+        }
+        switch (EnemyType)
+        {
+            case "Slimer":
+                //EnableOnTrueSpawn[0].GetComponent<ParticleSystem>().Play();
+                break;
+        }
     }
     public IEnumerator UnstableBalling()
     {
@@ -182,6 +195,9 @@ public class NavMeshEntity : MonoBehaviour
                     transform.position += chargedir * alt_speed * Time.deltaTime;
                 }
                 break;
+            case "Slimer":
+                transform.position += chargedir * alt_speed * Time.deltaTime;
+                break;
         }
     }
     public bool existing = false;
@@ -224,6 +240,16 @@ public class NavMeshEntity : MonoBehaviour
             }
             switch (EnemyType)
             {
+                case "Slimer":
+                    if (!charging2)
+                    {
+                        chargedir *= 0.9f;
+                    }
+                    else
+                    {
+                        chargedir = (chargedir + (NoZ(target.transform.position) - NoZ(transform.position)).normalized*0.08f).normalized;
+                    }
+                    break;
                 case "Charger":
                     if (!charging2)
                     {
@@ -252,6 +278,23 @@ public class NavMeshEntity : MonoBehaviour
                         box.SetActive(true);
                     }
                     break;
+                case "Forever":
+                    if (target != null && !charging && canrunattacktimer)
+                    {
+                        timer2 += Time.deltaTime;
+                    }
+                    if (timer2 > AttackCooldown)
+                    {
+                        canrunattacktimer = true;
+                        switch (EnemyType)
+                        {
+                            case "Slimer":
+                                timer2 = 0;
+                                StartCoroutine(SlimerSex());
+                                break;
+                        }
+                    }
+                    break;
                 case "Ranged":
                     if (target != null && canseemysexybooty && !charging && canrunattacktimer)
                     {
@@ -272,6 +315,10 @@ public class NavMeshEntity : MonoBehaviour
                                     timer2 = 0;
                                     StartCoroutine(OrbSex());
                                 }
+                                break;
+                            case "Spitter":
+                                timer2 = 0;
+                                StartCoroutine(SpiterSex());
                                 break;
                             default:
                                 timer2 = 0;
@@ -364,6 +411,34 @@ public class NavMeshEntity : MonoBehaviour
         movespeed = premove;
         timer2 = Random.Range(-0.25f, 0.25f);
         box.SetActive(false);
+    }
+    public IEnumerator SlimerSex()
+    {
+        charging = true;
+        chargedir = Quaternion.Euler(0,0,Random.Range(-15f,15f)) * (NoZ(target.transform.position) - NoZ(transform.position)).normalized;
+        charging2 = true;
+        CLearShit?.Invoke();
+        box.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        charging = false;
+        charging2 = false;
+        timer2 = Random.Range(-0.25f, 0.25f);
+        box.SetActive(false);
+    }
+
+    public IEnumerator SpiterSex()
+    {
+        WantASpriteCranberry.sprite = SpriteMiscRefs[0];
+        yield return new WaitForSeconds(0.3f);
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        WantASpriteCranberry.sprite = SpriteVarients[0];
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
     }
     public IEnumerator OrbSex()
     {

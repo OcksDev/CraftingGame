@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
         CritChance = 0.01f;
         working_move_speed = 1.5f;
         Damage = 7;
-        AttacksPerSecond = 3;
+        AttacksPerSecond = 3.5f;
         Spread = 15f;
         MaxDashCooldown = BaseDashCooldown;
         //deprecated
@@ -215,8 +215,8 @@ public class PlayerController : MonoBehaviour
                     Damage = 6f;
                     break;
                 case "Axe":
-                    AttacksPerSecond = 1.5f;
-                    Damage = 7f;
+                    AttacksPerSecond = 1.3f;
+                    Damage = 5f;
                     break;
             }
             foreach(var m in mainweapon.Materials)

@@ -210,6 +210,13 @@ public class EntityOXS : MonoBehaviour
                     case "Charger":
                         effect = 1;
                         break;
+                    case "Slimer":
+                        aa.EnableOnTrueSpawn[0].transform.parent = Tags.refs["ParticleHolder"].transform;
+                        aa.EnableOnTrueSpawn[0].GetComponent<ParticleSystem>().Stop();
+                        var ww = aa.EnableOnTrueSpawn[0].AddComponent<partShitBall>();
+                        ww.lifetime = 1f;
+                        effect = 7;
+                        break;
                     default:
                         effect = 0;
                         break;
