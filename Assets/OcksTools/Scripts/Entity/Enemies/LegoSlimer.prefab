@@ -5008,7 +5008,7 @@ MonoBehaviour:
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 10
+  Damage: 8
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: 21300000, guid: a25cb7539e5af494891551e3f7f2e2d9, type: 3}
@@ -5036,7 +5036,7 @@ MonoBehaviour:
   ddist: 0
   charging: 0
   charging2: 0
-  alt_speed: 11
+  alt_speed: 10
   canseemysexybooty: 0
 --- !u!1 &3733955901167671266
 GameObject:

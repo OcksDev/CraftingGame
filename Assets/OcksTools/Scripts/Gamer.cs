@@ -375,12 +375,17 @@ public class Gamer : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         float time = 1.5f;
         int wavesex = 3;
+        int adder = 4;
         if(CurrentFloor <= 3)
         {
             time = 2.5f;
             wavesex = 2;
         }
-        int waves = Random.Range(0,wavesex)+3;
+        if(CurrentFloor <= 1)
+        {
+            adder = 3;
+        }
+        int waves = Random.Range(0,wavesex)+adder;
         creditcount = 0;
         nmr.BuildNavMesh(true);
         for(int i = 0; i < waves; i++)
@@ -391,7 +396,7 @@ public class Gamer : MonoBehaviour
             {
                 i--;
             }
-            yield return new WaitUntil(() => { return EnemiesExisting.Count <= 10; });
+            yield return new WaitUntil(() => { return EnemiesExisting.Count <= 14; });
             yield return new WaitForSeconds(time);
         }
         yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });

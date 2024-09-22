@@ -12299,11 +12299,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[1].CreditCost
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[1].PickChance
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[2].CanBeElite
