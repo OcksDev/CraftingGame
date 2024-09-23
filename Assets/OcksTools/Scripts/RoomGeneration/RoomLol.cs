@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomLol : MonoBehaviour
@@ -343,9 +344,13 @@ public class RoomLol : MonoBehaviour
         var s = gm.GetComponent<I_Room>();
         s.gm = gm;
         s.room = cr.room;
+        s.isused = "";
+        cr.i_Room = s;
         if(parenroom != null)
         {
             s.parent_room = parenroom.room;
+            parenroom.i_Room.RelatedRooms.Add(s);
+            s.RelatedRooms.Add(parenroom.i_Room);
         }
         else
         {
@@ -526,6 +531,7 @@ public class Room
 public class CoolRoom
 {
     public bool WasChill;
+    public I_Room i_Room;
     public Room room;
     public Vector2 pos;
     public List<CoolRoom> comlpetedRooms = new List<CoolRoom>();

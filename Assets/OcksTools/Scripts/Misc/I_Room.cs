@@ -6,9 +6,10 @@ public class I_Room : MonoBehaviour
 {
     public Room room;
     public Room parent_room;
+    public List<I_Room> RelatedRooms = new List<I_Room>();
     public GameObject gm;
     public float dist = 94385740398;
-    public bool isused = false;
+    public string isused = "";
     public int level = 0;
     public bool hasbeensexed = false;
     public void Start()
@@ -23,7 +24,7 @@ public class I_Room : MonoBehaviour
         var x = (room.RoomSize)*30f;
         x -= new Vector2(2, 2);
         var x2 = x / 2;
-        if (!isused && !hasbeensexed && !Gamer.Instance.InRoom)
+        if ((isused=="") && !hasbeensexed && !Gamer.Instance.InRoom)
         {
             //Debug.Log("Running check " + name);
             if (pos.y > (mypos.y - x2.y) && pos.y < (mypos.y + x2.y) && pos.x > (mypos.x - x2.x) && pos.x < (mypos.x + x2.x))

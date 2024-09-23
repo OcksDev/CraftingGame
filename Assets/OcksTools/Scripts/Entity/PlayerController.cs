@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public Transform SwordFart;
     public Transform dicksplit;
     public Transform MyAssHurts;
+    public Transform ArrowInMyperkyAss;
+    public SpriteRenderer ArrowInThyAss;
     public Transform[] cummers = new Transform[2];
     public GameObject[] SlashEffect;
     public GameObject HitCollider;
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private bool HasLoadedWeapon = false;
     public static float BaseDashCooldown = 5f;
     public SpriteRenderer Underlay;
+    public WeaponDisplay weewee;
     private void Awake()
     {
         Gamer.Instance.Players.Add(this);
@@ -77,7 +80,11 @@ public class PlayerController : MonoBehaviour
             isrealowner = true;
             spawnData.FardStart();
         }
-        if (isrealowner) Instance = this;
+        if (isrealowner)
+        {
+            Instance = this;
+            StartCoroutine(ArrowSex());
+        }
         selecteditem = 0;
         rigid= GetComponent<Rigidbody2D>();
         entit = GetComponent<EntityOXS>();
@@ -142,7 +149,67 @@ public class PlayerController : MonoBehaviour
         }
     }
     */
-
+    private Vector3 wankpos;
+    private Vector3 targetpos;
+    public IEnumerator ArrowSex()
+    {
+        ArrowInMyperkyAss.gameObject.SetActive(false);
+        var c = ArrowInThyAss.color;
+        c.a = 0;
+        ArrowInThyAss.color = c;
+        var ga = Gamer.Instance;
+    boner:
+        yield return new WaitUntil(() => { return !ga.InRoom && Gamer.CurrentFloor >= 1; });
+        yield return new WaitForSeconds(0.5f);
+        wankpos = transform.position;
+        ArrowInMyperkyAss.gameObject.SetActive(true);
+        bool wanker = !ga.InRoom && Gamer.CurrentFloor >= 1;
+        while (wanker)
+        {
+            c = ArrowInThyAss.color;
+            float max = 0.5f;
+            if(targetpos != null)
+            {
+                var d = (RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(transform.position), RandomFunctions.Instance.NoZ(targetpos)) - 8)/8;
+                max = Mathf.Min(max, d);
+            }
+            c.a = Mathf.Clamp(c.a + (1 * Time.deltaTime), 0, max);
+            ArrowInThyAss.color = c;
+            wankpos = Vector3.Lerp(wankpos, transform.position, Time.deltaTime*15);
+            ArrowInMyperkyAss.position = wankpos;
+            var room = ga.OldCurrentRoom != null ? ga.OldCurrentRoom : ga.LevelProgression[0];
+            int index = ga.LevelProgression.IndexOf(room);
+            if (index + 1 < ga.LevelProgression.Count)
+            {
+                var rm = ga.LevelProgression[index + 1];
+                targetpos = rm.transform.position;
+                ArrowInMyperkyAss.rotation = Point2DMod2(targetpos, -90, 0);
+                if (max <= 0 && rm.isused == "End")
+                {
+                    goto shank;
+                }
+            }
+            yield return null;
+            wanker = !ga.InRoom && Gamer.CurrentFloor >= 1;
+        }
+        while(c.a > 0)
+        {
+            wankpos = Vector3.Lerp(wankpos, transform.position, Time.deltaTime * 15);
+            ArrowInMyperkyAss.position = wankpos;
+            ArrowInMyperkyAss.rotation = Point2DMod2(targetpos, -90, 0);
+            c = ArrowInThyAss.color;
+            c.a -= 2 * Time.deltaTime;
+            ArrowInThyAss.color = c;
+            yield return null;
+        }
+        ArrowInMyperkyAss.gameObject.SetActive(false);
+        goto boner;
+    shank:
+        ArrowInMyperkyAss.gameObject.SetActive(false);
+        int curfloor = Gamer.CurrentFloor;
+        yield return new WaitUntil(() => { return curfloor != Gamer.CurrentFloor; });
+        goto boner;
+    }
     public void SetData()
     {
         helth = 100.0;
@@ -288,7 +355,7 @@ public class PlayerController : MonoBehaviour
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"], "Dash", "player", 0.1f, true);
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 0.1f, false);
     }
-
+    float scrollcool;
     private void LateUpdate()
     {
         dicksplit.rotation = Quaternion.identity;
@@ -296,6 +363,12 @@ public class PlayerController : MonoBehaviour
         {
             if (InputManager.IsKeyDown(KeyCode.Alpha1, "player")) SwitchWeapon(0);
             else if (InputManager.IsKeyDown(KeyCode.Alpha2, "player")) SwitchWeapon(1);
+            scrollcool -= Time.deltaTime;
+            if(Input.mouseScrollDelta.y != 0 && scrollcool <= 0)
+            {
+                scrollcool = 0.075f;
+                SwitchWeapon(selecteditem + (int)Input.mouseScrollDelta.y);
+            }
         }
 
         if (f < 1)
@@ -310,6 +383,7 @@ public class PlayerController : MonoBehaviour
                 f2 -= Time.deltaTime;
             }
         }
+
 
 
         var g = 1 - f;
@@ -379,9 +453,11 @@ public class PlayerController : MonoBehaviour
 
     public void SwitchWeapon(int s3x)
     {
+        s3x = RandomFunctions.Instance.Mod(s3x, 2);
         selecteditem = s3x;
         if(HitCollider!=null)HitCollider.SetActive(false);
         SetData();
+        weewee.UpdateDisplay();
     }
     Color oldsex;
     [HideInInspector]
@@ -686,6 +762,21 @@ public class PlayerController : MonoBehaviour
         var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);
         return sex;
     }
+
+    private Quaternion Point2DMod2(Vector3 pos, float offset2, float spread)
+    {
+        //returns the rotation required to make the current gameobject point at the mouse, untested in 3D.
+        var offset = UnityEngine.Random.Range(-spread, spread);
+        offset += offset2;
+        //Debug.Log(offset);
+        Vector3 difference = pos - transform.position;
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);
+        return sex;
+    }
+
+
     public void HitEnemy(EntityOXS enem, DamageProfile dam)
     {
         if (!dam.SpecificLocation)

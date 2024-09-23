@@ -38,6 +38,7 @@ public class Gamer : MonoBehaviour
     public Dictionary<string, EliteTypeHolder> EliteTypesDict = new Dictionary<string, EliteTypeHolder>();
     public List<GameObject> StupidAssDoorDoohickies = new List<GameObject>();
     public List<GameObject> ParticleSpawns = new List<GameObject>();
+    public List<I_Room> LevelProgression = new List<I_Room>();  
 
     public bool NextFloorButtonSexFuck = false;
 
@@ -138,6 +139,9 @@ public class Gamer : MonoBehaviour
     public void LoadLobbyScene()
     {
         GameState = "Lobby";
+        InRoom = false;
+        CurrentRoom = null;
+        OldCurrentRoom = null;
         Tags.refs["NextFloor"].transform.position = new Vector3(11.51f, 0, 0);
         Tags.refs["Lobby"].SetActive(true);
         Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
@@ -241,16 +245,20 @@ public class Gamer : MonoBehaviour
 
     public void Update()
     {
-        if (InputManager.IsKeyDown(InputManager.gamekeys["close_menu"]))
+        if (!IsFading && InputManager.IsKeyDown(InputManager.gamekeys["close_menu"]))
         {
-            SetPauseMenu(!checks[4]);
+            if (checks[0])
+            {
+                ToggleInventory();
+            }
+            else
+            {
+                SetPauseMenu(!checks[4]);
+            }
         }
         if (InputManager.IsKeyDown(InputManager.gamekeys["inven"]))
         {
-            checks[0] = !checks[0];
-            checks[1] = false;
-            checks[2] = false;
-            UpdateMenus();
+            ToggleInventory();
         }
         if (checks[0] && InputManager.IsKeyDown(KeyCode.I))
         {
@@ -259,6 +267,14 @@ public class Gamer : MonoBehaviour
             UpdateMenus();
         }
 
+    }
+
+    public void ToggleInventory()
+    {
+        checks[0] = !checks[0];
+        checks[1] = false;
+        checks[2] = false;
+        UpdateMenus();
     }
 
     public void SetPauseMenu(bool a)
@@ -284,6 +300,7 @@ public class Gamer : MonoBehaviour
     public static int CurrentFloor = 0;
     public IEnumerator NextFloor()
     {
+        OldCurrentRoom = null;
         Seed = Random.Range(-999999999, 999999999);
         GlobalRand = new System.Random(Seed);
         GameState = "Game";
@@ -294,7 +311,6 @@ public class Gamer : MonoBehaviour
         RoomLol.Instance.GenerateRandomLayout();
         
         List<I_Room> enders = new List<I_Room>();
-        List<I_Room> availablerooms = new List<I_Room>();
         foreach (var e in RoomLol.Instance.SpawnedRoomsDos)
         {
             if (e.room.IsEndpoint)
@@ -316,7 +332,7 @@ public class Gamer : MonoBehaviour
         }
         var rm = endos[r.Next(0, endos.Count)];
         Debug.Log("Endo Count: "+ endos.Count);
-        rm.isused = true;
+        rm.isused = "Start";
         PlayerController.Instance.transform.position = rm.transform.position;
         enders.Remove(rm);
         endos.Remove(rm);
@@ -331,7 +347,7 @@ public class Gamer : MonoBehaviour
         }
         if (endos.Count == 0) endos = enbackup;
         var rm2 = endos[r.Next(0,endos.Count)];
-        rm2.isused = true;
+        rm2.isused = "End";
         Tags.refs["NextFloor"].transform.position = rm2.transform.position;
         enders.Remove(rm2);
         endos.Remove(rm2);
@@ -345,7 +361,7 @@ public class Gamer : MonoBehaviour
         foreach (var e in enders)
         {
             var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
-            e.isused = true;
+            e.isused = "Chest";
             var f = new GISItem("Rock");
             c.cuum = f;
             spawnedchests.Add(c);
@@ -353,19 +369,34 @@ public class Gamer : MonoBehaviour
 
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
 
+        LevelProgression.Clear();
+        CompileEndList(rm);
         yield return new WaitForFixedUpdate();
 
         nmr.BuildNavMesh();
 
-        foreach (var e in RoomLol.Instance.SpawnedRoomsDos)
+        completetetge = true;
+
+        //compile end list
+
+    }
+
+    public void CompileEndList(I_Room start)
+    {
+        LevelProgression.Add(start);
+        foreach(var a in start.RelatedRooms)
         {
-            if (!e.isused)
+            if(a.isused == "" || a.isused == "End")
             {
-                availablerooms.Add(e);
+                if (!LevelProgression.Contains(a))
+                {
+                    CompileEndList(a);
+                }
             }
         }
-        completetetge = true;
     }
+
+
     long creditcount = 0;
     public IEnumerator StartRoom()
     {
@@ -394,7 +425,7 @@ public class Gamer : MonoBehaviour
             {
                 i--;
             }
-            yield return new WaitUntil(() => { return EnemiesExisting.Count <= 14; });
+            yield return new WaitUntil(() => { return EnemiesExisting.Count <= 10; });
             yield return new WaitForSeconds(time);
         }
         yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
@@ -521,10 +552,11 @@ public class Gamer : MonoBehaviour
         }
         return x;
     }
-
-
+    [HideInInspector]
+    public I_Room OldCurrentRoom;
     public void BoomyRoomy()
     {
+        OldCurrentRoom = CurrentRoom;
         var pp = new Vector2(CurrentRoom.transform.position.x,CurrentRoom.transform.position.y);
         var ppshex = CurrentRoom.room.RoomSize * 15f;
         if (CurrentRoom.room.HasTopDoor)
