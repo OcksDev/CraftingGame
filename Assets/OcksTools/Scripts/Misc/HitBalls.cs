@@ -123,6 +123,7 @@ public class HitBalls : MonoBehaviour
                     if (OnlyHitOne)
                     {
                         hite = true;
+                        StartCoroutine(WaitForDIe(true));
                     }
                     var dam = new DamageProfile(type, attackProfile.CalcDamage());
                     dam.WasCrit = attackProfile.WasCrit;

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public float BowChargeSpeed = 1f;
     public float CritChance = 0.01f;
     public float MaxDashCooldown = 3f;
+    public bool RotationOverride = false;
     private Vector3 move = new Vector3(0, 0, 0);
     public Transform SwordFart;
     public Transform dicksplit;
@@ -255,6 +256,7 @@ public class PlayerController : MonoBehaviour
         AttacksPerSecond = 3.5f;
         Spread = 15f;
         MaxDashCooldown = BaseDashCooldown;
+        RotationOverride = false;
         //deprecated
         MaxBowMult = 1.5f;
         BowChargeSpeed = 1.5f;
@@ -289,8 +291,10 @@ public class PlayerController : MonoBehaviour
                     Damage = 5f;
                     break;
                 case "Blowdart":
-                    AttacksPerSecond = 1f;
+                    AttacksPerSecond = 1.5f;
                     Damage = 15f;
+                    Spread = 0f;
+                    RotationOverride = true;
                     break;
             }
             foreach(var m in mainweapon.Materials)
@@ -397,8 +401,6 @@ public class PlayerController : MonoBehaviour
         g = g * g * g * g;
         if (mainweapon != null)
         {
-            SwordFart.localPosition = new Vector3(0, 0, 0);
-            MyAssHurts.rotation = SwordFart.rotation;
             switch (mainweapon.ItemIndex)
             {
                 case "Sword":
@@ -434,7 +436,13 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Blowdart":
                     //SwordFart.localPosition = new Vector3(0, -1f, 0);
-                    SwordFart.rotation = transform.rotation;
+                    var wankf = Mathf.Sin(f * Mathf.PI);
+                    if (f >= 0.5f)
+                    {
+                        wankf *= wankf;
+                    }
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 100 * wankf * reverse)) * transform.rotation;
+                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (Mathf.Sin(f*Mathf.PI/2) * 360*2));
                     break;
                 case "Spear":
                     if (!sexed && g <= 0.5f)
@@ -447,6 +455,10 @@ public class PlayerController : MonoBehaviour
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 11 * reverse)) * transform.rotation;
                     SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g) * -reverse, Mathf.Lerp(0.5f, -2.5f, g), 0);
                     break;
+                default:
+                    SwordFart.localPosition = new Vector3(0, 0, 0);
+                    MyAssHurts.rotation = SwordFart.rotation;
+                    break;
             }
             if (!Gamer.WithinAMenu)
             {
@@ -456,6 +468,8 @@ public class PlayerController : MonoBehaviour
                     case "Crossbow": SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
                     case "Shuriken": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
                     case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
+                    case "Axe":break;
+                    case "Blowdart":break;
                     default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
                 }
             }
@@ -556,7 +570,7 @@ public class PlayerController : MonoBehaviour
                 CameraLol.Instance.targetpos = transform.position;
             }
         }
-        if (f >= 1)
+        if (f >= 1 || RotationOverride)
         {
             if (isrealowner && !Gamer.WithinAMenu)
             {
@@ -666,16 +680,19 @@ public class PlayerController : MonoBehaviour
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
             case "Blowdart":
+                reverse *= -1;
                 s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
                 var rahh = s.GetComponent<Projectile>();
                 rahh.spinglerenderer.sprite = rahh.Springles[0];
                 s3 = s.GetComponent<HitBalls>();
+                s3.OnlyHitOne = true;
                 s3.playerController = this;
                 s3.attackProfile = Shart;
                 epe *= -0.5f;
                 HitCollider = null;
-                f = 1;
-                f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
+                f2 = 0;
+                //f = 1;
+                //f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
             case "Bow":
                 for(int i = 0; i < 1; i++)
