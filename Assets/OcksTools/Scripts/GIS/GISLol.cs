@@ -193,11 +193,11 @@ public class GISLol : MonoBehaviour
             e.itemindex = "Rock";
             PlayerController.Instance.mainweapon.Materials.Add(e);
         }
-        /*
+        
         if (InputManager.IsKeyDown(KeyCode.L))
         {
             Debug.LogError("Fuck you, pause the game");
-        }*/
+        }
     }
     public string GetDescription(GISItem baller)
     {

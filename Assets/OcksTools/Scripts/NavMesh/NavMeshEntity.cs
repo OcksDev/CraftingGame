@@ -35,11 +35,14 @@ public class NavMeshEntity : MonoBehaviour
     public string EliteType = "";
     public EnemyHolder EnemyHolder;
     public long creditsspent = 0;
+    int curcycycle = 0;
     public event Gamer.JustFuckingRunTheMethods CLearShit;
     // Start is called before the first frame update
     void Start()
     {
-        if(AttackType == "Melee")sex2.Damage = Damage;
+        curcycycle = Gamer.EnemyCheckoffset;
+        Gamer.EnemyCheckoffset = RandomFunctions.Instance.Mod(Gamer.EnemyCheckoffset,8);
+        if (AttackType == "Melee")sex2.Damage = Damage;
         beans = GetComponent<NavMeshAgent>();
         sex = GetComponent<Rigidbody2D>();
         EntityOXS = GetComponent<EntityOXS>();
@@ -74,7 +77,7 @@ public class NavMeshEntity : MonoBehaviour
                 alt_speed *= 1.5f;
                 break;
             case "Resilient":
-                EntityOXS.Max_Health *= 2f;
+                EntityOXS.Max_Health *= 1.5f;
                 EntityOXS.Health = EntityOXS.Max_Health;
                 break;
             case "Perfected":
@@ -206,6 +209,7 @@ public class NavMeshEntity : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        curcycycle = (curcycycle + 1) % 8;
         if (!HasSpawned) return;
         if (!existing)
         {
@@ -234,7 +238,7 @@ public class NavMeshEntity : MonoBehaviour
         if(nearestnerd != null && dist <= 100)
         {
 
-            if (dist <= SightRange)
+            if (dist <= SightRange && curcycycle == 1)
             {
                 CheckCanSee(true, PlayerController.Instance.gameObject);
             }
@@ -469,7 +473,7 @@ public class NavMeshEntity : MonoBehaviour
     public void CheckCanSee(bool range, GameObject shart)
     {
         var p = shart;                                                                                                                                              
-        var hit = Physics2D.RaycastAll(transform.position, p.transform.position - transform.position, SightRange);
+        var hit = Physics2D.RaycastAll(transform.position, p.transform.position - transform.position, RandomFunctions.Instance.Dist(p.transform.position, transform.position));
         // Does the ray intersect any objects excluding the player layer
         bool sex = false;
         float dist = 69;
@@ -501,7 +505,7 @@ public class NavMeshEntity : MonoBehaviour
             if (sexp.GetComponent<PlayerController>() != null)
             {
                 canseemysexybooty = true;
-                fuckyouunity = 4;
+                fuckyouunity = 3;
                 //Debug.Log("Sexyboooty");
                 if (target == null) target = p.gameObject;
             }
@@ -528,6 +532,7 @@ public class NavMeshEntity : MonoBehaviour
 
     public void MyAssChecker()
     {
+        return;
         for (int i = 0; i < Gamer.Instance.EnemiesExisting.Count; i++)
         {
             var pp = Gamer.Instance.EnemiesExisting[i];

@@ -267,8 +267,9 @@ public class Gamer : MonoBehaviour
             UpdateMenus();
         }
 
-    }
 
+    }
+    public static int EnemyCheckoffset = 0;
     public void ToggleInventory()
     {
         checks[0] = !checks[0];
@@ -425,7 +426,7 @@ public class Gamer : MonoBehaviour
             {
                 i--;
             }
-            yield return new WaitUntil(() => { return EnemiesExisting.Count <= 10; });
+            yield return new WaitUntil(() => { return EnemiesExisting.Count <= 14; });
             yield return new WaitForSeconds(time);
         }
         yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });

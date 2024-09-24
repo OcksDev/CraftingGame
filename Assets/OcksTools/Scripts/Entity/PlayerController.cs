@@ -161,11 +161,13 @@ public class PlayerController : MonoBehaviour
     boner:
         yield return new WaitUntil(() => { return !ga.InRoom && Gamer.CurrentFloor >= 1; });
         yield return new WaitForSeconds(0.5f);
+        if (entit.Health <= 0) yield break;
         wankpos = transform.position;
         ArrowInMyperkyAss.gameObject.SetActive(true);
         bool wanker = !ga.InRoom && Gamer.CurrentFloor >= 1;
         while (wanker)
         {
+            if (entit.Health <= 0) yield break;
             c = ArrowInThyAss.color;
             float max = 0.5f;
             if(targetpos != null)
@@ -194,6 +196,7 @@ public class PlayerController : MonoBehaviour
         }
         while(c.a > 0)
         {
+            if (entit.Health <= 0) yield break;
             wankpos = Vector3.Lerp(wankpos, transform.position, Time.deltaTime * 15);
             ArrowInMyperkyAss.position = wankpos;
             ArrowInMyperkyAss.rotation = Point2DMod2(targetpos, -90, 0);
@@ -279,7 +282,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Boomerang":
                     AttacksPerSecond = 1.5f;
-                    Damage = 6f;
+                    Damage = 5f;
                     break;
                 case "Axe":
                     AttacksPerSecond = 1.3f;
