@@ -288,6 +288,10 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond = 1.3f;
                     Damage = 5f;
                     break;
+                case "Blowdart":
+                    AttacksPerSecond = 1f;
+                    Damage = 15f;
+                    break;
             }
             foreach(var m in mainweapon.Materials)
             {
@@ -426,6 +430,10 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Bow":
                     SwordFart.localPosition = new Vector3(0, -1f, 0);
+                    SwordFart.rotation = transform.rotation;
+                    break;
+                case "Blowdart":
+                    //SwordFart.localPosition = new Vector3(0, -1f, 0);
                     SwordFart.rotation = transform.rotation;
                     break;
                 case "Spear":
@@ -649,6 +657,18 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Crossbow":
                 s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
+                s3 = s.GetComponent<HitBalls>();
+                s3.playerController = this;
+                s3.attackProfile = Shart;
+                epe *= -0.5f;
+                HitCollider = null;
+                f = 1;
+                f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
+                break;
+            case "Blowdart":
+                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
+                var rahh = s.GetComponent<Projectile>();
+                rahh.spinglerenderer.sprite = rahh.Springles[0];
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
                 s3.attackProfile = Shart;

@@ -98,6 +98,10 @@ public class GISDisplay : MonoBehaviour
                     mysprites = e.AxeParts;
                     defaultsprites = GISLol.Instance.MaterialsDict[fall].AxeParts;
                     break;
+                case "Blowdart":
+                    mysprites = e.BlowParts;
+                    defaultsprites = GISLol.Instance.MaterialsDict[fall].BlowParts;
+                    break;
             }
 
 

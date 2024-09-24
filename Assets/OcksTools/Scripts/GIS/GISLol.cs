@@ -516,6 +516,7 @@ public class GISMaterial_Data
     public Sprite[] DaggerParts;
     public Sprite[] SawbladeParts;
     public Sprite[] AxeParts;
+    public Sprite[] BlowParts;
     public string fallthroughmaterial = "Rock";
     public bool ignorecolorforcumimg = true;
 }
