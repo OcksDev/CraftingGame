@@ -374,8 +374,8 @@ public class PlayerController : MonoBehaviour
         {
             if (InputManager.IsKeyDown(KeyCode.Alpha1, "player")) SwitchWeapon(0);
             else if (InputManager.IsKeyDown(KeyCode.Alpha2, "player")) SwitchWeapon(1);
-            scrollcool -= Time.deltaTime;
-            if(Input.mouseScrollDelta.y != 0 && scrollcool <= 0)
+            //scrollcool -= Time.deltaTime;
+            if(Input.mouseScrollDelta.y != 0)
             {
                 scrollcool = 0.075f;
                 SwitchWeapon(selecteditem + (int)Input.mouseScrollDelta.y);
@@ -401,6 +401,8 @@ public class PlayerController : MonoBehaviour
         g = g * g * g * g;
         if (mainweapon != null)
         {
+            SwordFart.localPosition = new Vector3(0, 0, 0);
+            MyAssHurts.rotation = SwordFart.rotation;
             switch (mainweapon.ItemIndex)
             {
                 case "Sword":
@@ -454,10 +456,6 @@ public class PlayerController : MonoBehaviour
                     g = 1 - g;
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 11 * reverse)) * transform.rotation;
                     SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g) * -reverse, Mathf.Lerp(0.5f, -2.5f, g), 0);
-                    break;
-                default:
-                    SwordFart.localPosition = new Vector3(0, 0, 0);
-                    MyAssHurts.rotation = SwordFart.rotation;
                     break;
             }
             if (!Gamer.WithinAMenu)
