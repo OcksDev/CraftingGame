@@ -265,7 +265,7 @@ public class PlayerController : MonoBehaviour
             switch (mainweapon.ItemIndex)
             {
                 case "Spear":
-                    AttacksPerSecond = 1.5f;
+                    AttacksPerSecond = 2f;
                     Damage = 12;
                     break;
                 case "Crossbow":
@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
                     Damage = 5f;
                     break;
                 case "Blowdart":
-                    AttacksPerSecond = 1.5f;
+                    AttacksPerSecond = 1.3f;
                     Damage = 15f;
                     Spread = 0f;
                     RotationOverride = true;
