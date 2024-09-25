@@ -260,6 +260,10 @@ public class Gamer : MonoBehaviour
         {
             ToggleInventory();
         }
+        if (InputManager.IsKeyDown(KeyCode.Space))
+        {
+            SpawnEnemy(EnemiesDos[5]);
+        }
         if (checks[0] && InputManager.IsKeyDown(KeyCode.I))
         {
             checks[2] = !checks[2];

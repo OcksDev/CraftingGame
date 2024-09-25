@@ -11988,7 +11988,7 @@ PrefabInstance:
       objectReference: {fileID: 2284451541892325387, guid: 3bbaf0e94e998e44aaf73a02a41c7943, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.size
@@ -12247,6 +12247,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[5].MinFloor
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EliteTypes.Array.data[0].color.rgba
       value: 4278190335
       objectReference: {fileID: 0}
@@ -12343,6 +12347,18 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[5].CanBeElite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[5].CreditCost
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[5].PickChance
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[0].EnemyObject
       value: 
       objectReference: {fileID: 2284451541892325387, guid: ad3bd507c00d33c488482881cb6fddf3, type: 3}
@@ -12362,6 +12378,10 @@ PrefabInstance:
       propertyPath: EnemiesDos.Array.data[4].EnemyObject
       value: 
       objectReference: {fileID: 2284451541892325387, guid: e284356f37dcf2943b16247ce5c6dbe2, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[5].EnemyObject
+      value: 
+      objectReference: {fileID: 2284451541892325387, guid: 35219f19e9ba415428e00aaa5a006e2b, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].DisplayName
       value: Speed Boots

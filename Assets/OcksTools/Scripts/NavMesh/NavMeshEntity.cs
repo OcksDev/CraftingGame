@@ -112,7 +112,8 @@ public class NavMeshEntity : MonoBehaviour
         sex.bodyType = RigidbodyType2D.Static;
         var a = Instantiate(Gamer.Instance.SpawnFix, transform.position, transform.rotation, transform).GetComponent<SpriteRenderer>();
         var esex = Instantiate(Gamer.Instance.ParticleSpawns[3], transform.position, transform.rotation, transform).GetComponent<partShitBall>();
-        esex.Particicic.localScale = new Vector3(beans.radius, beans.radius, beans.radius);
+        var www = Mathf.Clamp(beans.radius, 0, 1.25f);
+        esex.Particicic.localScale = new Vector3(www, www, www);
         a.sprite = WantASpriteCranberry.sprite;
         a.material = Gamer.Instance.sexex[1];
         var c = (Color)new Color32(120, 0, 255, 0);
@@ -324,6 +325,10 @@ public class NavMeshEntity : MonoBehaviour
                                 timer2 = 0;
                                 StartCoroutine(SpiterSex());
                                 break;
+                            case "Cloak":
+                                timer2 = 0;
+                                StartCoroutine(CloakSex());
+                                break;
                             default:
                                 timer2 = 0;
                                 var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
@@ -443,6 +448,68 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteVarients[0];
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
+    }
+    public IEnumerator CloakSex()
+    {
+        canrunattacktimer = false;
+        WantASpriteCranberry.sprite = SpriteMiscRefs[0];
+        yield return new WaitForSeconds(0.15f);
+        WantASpriteCranberry.sprite = SpriteMiscRefs[1];
+        yield return new WaitForSeconds(0.15f);
+        WantASpriteCranberry.sprite = SpriteMiscRefs[2];
+        yield return new WaitForSeconds(0.15f);
+        int i = Random.Range(0,2);
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        Vector3 pos = transform.position + new Vector3(0, 1.15f,0);
+        var wenis = Instantiate(box, pos, wank, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
+        switch (i)
+        {
+            case 1:
+                wenis = Instantiate(box, pos, wank * Quaternion.Euler(0, 0, 45), Gamer.Instance.balls);
+                e = wenis.GetComponent<EnemyHitShit>();
+                e.Damage = Damage;
+                e.balling = transform;
+                e.sexballs = this;
+                wenis = Instantiate(box, pos, wank * Quaternion.Euler(0, 0, -45), Gamer.Instance.balls);
+                e = wenis.GetComponent<EnemyHitShit>();
+                e.Damage = Damage;
+                e.balling = transform;
+                e.sexballs = this;
+                break;
+            default:
+                yield return new WaitForSeconds(0.3f);
+                pos = transform.position + new Vector3(0, 1.15f, 0);
+                wenis = Instantiate(box, pos, wank, Gamer.Instance.balls);
+                e = wenis.GetComponent<EnemyHitShit>();
+                e.Damage = Damage;
+                e.balling = transform;
+                e.sexballs = this;
+                w2 = wank * new Vector3(-5, 0, 0);
+                sex.velocity += (Vector2)w2;
+                yield return new WaitForSeconds(0.3f);
+                pos = transform.position + new Vector3(0, 1.15f, 0);
+                wenis = Instantiate(box, pos, wank, Gamer.Instance.balls);
+                e = wenis.GetComponent<EnemyHitShit>();
+                e.Damage = Damage;
+                e.balling = transform;
+                e.sexballs = this;
+                w2 = wank * new Vector3(-5, 0, 0);
+                sex.velocity += (Vector2)w2;
+                break;
+        }
+        yield return new WaitForSeconds(0.15f);
+        WantASpriteCranberry.sprite = SpriteMiscRefs[1];
+        yield return new WaitForSeconds(0.15f);
+        WantASpriteCranberry.sprite = SpriteMiscRefs[0];
+        yield return new WaitForSeconds(0.15f);
+        WantASpriteCranberry.sprite = SpriteVarients[0];
+        canrunattacktimer = true;
     }
     public IEnumerator OrbSex()
     {
