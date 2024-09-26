@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2d2ecf164b9d42848a24a19fc5cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Boner Person
   EnemyType: Charger
   AttackType: Ranged
   ImagePixelSize: 96
@@ -193,12 +194,15 @@ MonoBehaviour:
   SightRange: 15
   AttackCooldown: 1.2
   randommovetimer: 0
+  beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
   Damage: 10
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: 1598183410, guid: 5c37c6038fcfd744c86960d7f6eb7190, type: 3}
+  SpriteMiscRefs: []
+  EnableOnTrueSpawn: []
   box: {fileID: 8995759446059404531}
   EntityOXS: {fileID: 0}
   timer2: 0
@@ -206,6 +210,16 @@ MonoBehaviour:
   sex2: {fileID: 4879188297316090174}
   HasSpawned: 0
   EliteType: 
+  EnemyHolder:
+    EnemyObject: {fileID: 0}
+    CreditCost: 1
+    PickChance: 1
+    MinFloor: 0
+    MaxFloor: 0
+    CanBeElite: 1
+    InstantSpawn: 0
+    SpawnPos: {x: 0, y: 0, z: 0}
+  creditsspent: 0
   existing: 0
   ddist: 0
   charging: 0
@@ -295,5 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: charger
   Damage: 10
+  overridedamage: -1
   sexballs: {fileID: 2284451541892325392}
   balling: {fileID: 0}
+  nono: 0

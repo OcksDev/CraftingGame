@@ -56,7 +56,7 @@ public class EntityOXS : MonoBehaviour
             case "Enemy":
                 if(sexy != null)
                 {
-                    SoundSystem.Instance.PlaySound(0, true, 0.5f, 0.4f);
+                    SoundSystem.Instance.PlaySound(1, true, 0.2f, 3f);
                     sexy.target = hit.attacker;
                     sexy.MyAssChecker();
                 }
@@ -67,16 +67,17 @@ public class EntityOXS : MonoBehaviour
             AddEffect(effect);
         }
         PlayerController s2 = null;
+        PlayerController s = null;
+        if (hit.attacker != null)
+        {
+            s = hit.attacker.GetComponent<PlayerController>();
+        }
         switch (EnemyType)
         {
             default:
+                Gamer.Instance.LastHitEnemy = sexy;
                 if (Gamer.IsMultiplayer)
                 {
-                    PlayerController s = null;
-                    if (hit.attacker != null)
-                    {
-                        s = hit.attacker.GetComponent<PlayerController>();
-                    }
                     if (s != null && !s.isrealowner) { return; }
                 }
                 break;

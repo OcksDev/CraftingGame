@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
 using Unity.Netcode.Components;
@@ -38,7 +39,12 @@ public class Gamer : MonoBehaviour
     public Dictionary<string, EliteTypeHolder> EliteTypesDict = new Dictionary<string, EliteTypeHolder>();
     public List<GameObject> StupidAssDoorDoohickies = new List<GameObject>();
     public List<GameObject> ParticleSpawns = new List<GameObject>();
-    public List<I_Room> LevelProgression = new List<I_Room>();  
+    public List<I_Room> LevelProgression = new List<I_Room>();
+    public TextMeshProUGUI FloorHeader;
+    public Transform InitFloorHeadPos;
+    public NavMeshEntity LastHitEnemy;
+    public EnemyBarOfAids enemybar;
+    public TMP_InputField ItemNameInput;
 
     public bool NextFloorButtonSexFuck = false;
 
@@ -64,6 +70,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["ItemMenu"].SetActive(checks[5]);
         Tags.refs["DedMenu"].SetActive(checks[6]);
         Tags.refs["TempMatMenu"].SetActive(checks[7]);
+        Tags.refs["SettingsMenu"].SetActive(checks[8]);
 
         WithinAMenu = false;
         InputManager.SetLockLevel("");
@@ -153,7 +160,6 @@ public class Gamer : MonoBehaviour
 
 
     }
-
     public IEnumerator instancecoolmenus() // this is the most retarded fix for a thing I have made in a while
     {
         checks[0] = true;
@@ -200,6 +206,11 @@ public class Gamer : MonoBehaviour
     public void MainMenu()
     {
         CurrentFloor = 0;
+        LastHitEnemy = null;
+        enemybar.gameObject.SetActive(false);
+        enemybar.BarParentSize.gameObject.SetActive(false);
+        if (NextFloorBall != null) StopCoroutine(NextFloorBall);
+        FloorHeader.transform.position = InitFloorHeadPos.position;
         if (IsMultiplayer) NetworkManager.Singleton.Shutdown();
         IsMultiplayer = false;
         for (int i = 0;i < checks.Length;i++)
@@ -251,6 +262,10 @@ public class Gamer : MonoBehaviour
             {
                 ToggleInventory();
             }
+            else if (checks[8])
+            {
+                ToggleSettings();
+            }
             else
             {
                 SetPauseMenu(!checks[4]);
@@ -279,6 +294,11 @@ public class Gamer : MonoBehaviour
         checks[0] = !checks[0];
         checks[1] = false;
         checks[2] = false;
+        UpdateMenus();
+    }
+    public void ToggleSettings()
+    {
+        checks[8] = !checks[8];
         UpdateMenus();
     }
 
@@ -383,7 +403,27 @@ public class Gamer : MonoBehaviour
         completetetge = true;
 
         //compile end list
-
+        yield return new WaitForSeconds(0.7f);
+        float x = 0;
+        var floopis = FloorHeader.GetComponent<CanvasGroup>();
+        FloorHeader.text = $"Floor {CurrentFloor}";
+        while(x < 1)
+        {
+            x = Mathf.Clamp01(x+Time.deltaTime);
+            var g = Mathf.Sin(Mathf.PI * x / 2);
+            floopis.alpha = g;
+            FloorHeader.transform.position = InitFloorHeadPos.position + new Vector3(0,-2,0);
+            yield return null;
+        }
+        yield return new WaitForSeconds(1);
+        while (x <= 2)
+        {
+            x += Time.deltaTime;
+            var g = Mathf.Sin(Mathf.PI * x / 2);
+            floopis.alpha = g;
+            FloorHeader.transform.position = InitFloorHeadPos.position + new Vector3(0, -g * 2, 0);
+            yield return null;
+        }
     }
 
     public void CompileEndList(I_Room start)
@@ -627,7 +667,14 @@ public class Gamer : MonoBehaviour
                     checks[5] = true;
                 }
             }
-
+            enemybar.gameObject.SetActive(LastHitEnemy != null);
+            enemybar.BarParentSize.gameObject.SetActive(LastHitEnemy != null);
+            if(LastHitEnemy != null)
+            {
+                enemybar.title.text = NavMeshEntity.GetName(LastHitEnemy);
+                enemybar.BarParentSize.localScale = new Vector3((float)System.Math.Clamp(System.Math.Sqrt(LastHitEnemy.EntityOXS.Max_Health), 3, 15),1,1);
+                enemybar.BarItself.localScale = new Vector3((float)System.Math.Clamp(LastHitEnemy.EntityOXS.Health/LastHitEnemy.EntityOXS.Max_Health,0,1), 1, 1);
+            }
         }
         else
         {
@@ -694,7 +741,7 @@ public class Gamer : MonoBehaviour
         UpdateMenus();
     }
 
-
+    private Coroutine NextFloorBall;
     public bool IsFading = false;
     public IEnumerator StartFade(string type)
     {
@@ -716,7 +763,7 @@ public class Gamer : MonoBehaviour
         {
             case "NextFloor":
                 completetetge = false;
-                StartCoroutine(NextFloor());
+                NextFloorBall = StartCoroutine(NextFloor());
                 yield return new WaitUntil(() => { return completetetge; });
                 break;
         }
@@ -755,11 +802,13 @@ public class Gamer : MonoBehaviour
     public void AttemptCraft()
     {
         var con = GISLol.Instance.All_Containers["Crafting"];
-        if (con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft())
+        if (ItemNameInput.text != "" && con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft())
         {
             var e = new GISItem();
             e.ItemIndex = CraftSex;
             e.Amount = 1;
+            e.CustomName = ItemNameInput.text;
+            ItemNameInput.text = "";
             foreach (var ep in con.slots[0].Held_Item.Materials)
             {
                 e.Materials.Add(ep);

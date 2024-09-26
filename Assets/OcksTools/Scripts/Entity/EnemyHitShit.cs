@@ -80,7 +80,7 @@ public class EnemyHitShit : MonoBehaviour
             dam.Knockback = 1f;
             pp.entit.Hit(dam);
             hits.Add(pp);
-            if (type == "spitter") Kill();
+            if (type == "spitter"|| type == "cloak") Kill();
             switch (type)
             {
                 case "orb":
@@ -88,7 +88,7 @@ public class EnemyHitShit : MonoBehaviour
                     break;
             }
         }
-        else if (type == "spitter" && e.type == "Wall")
+        else if ((type == "spitter"||type == "cloak") && e.type == "Wall")
         {
             Kill();
         }
@@ -98,11 +98,16 @@ public class EnemyHitShit : MonoBehaviour
     bool isdea = false;
     public IEnumerator sexdie()
     {
-        if(type == "spitter")
+        if(type == "spitter"|| type == "cloak")
         {
             GetComponentInChildren<SpriteRenderer>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<MoverSexBalls>().enabled = false;
+            var g = Gamer.Instance;
+            if(type=="cloak")
+                Instantiate(g.ParticleSpawns[8], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+            else
+                Instantiate(g.ParticleSpawns[9], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
             yield return new WaitForSeconds(3);
         }
         Destroy(gameObject);

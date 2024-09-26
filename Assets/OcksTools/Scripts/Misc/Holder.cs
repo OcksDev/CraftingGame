@@ -1,16 +1,17 @@
 
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class RoomLol : MonoBehaviour
+public class HOLDER : MonoBehaviour
 {
     public int RoomDensity = 6;
     public float DistanceScaler = 1f;
     public Vector3 CenterSpawn = new Vector3(0, 0, 0);
-    public Room[] RoomNerds;
     public List<GameObject> SpawnedRooms = new List<GameObject>();
     public List<I_Room> SpawnedRoomsDos = new List<I_Room>();
+    public Room[] RoomNerds;
     public int[,] RoomColliders = new int[200, 200];
     private List<Room> AllRooms = new List<Room>();
     private List<Room> LeftRooms = new List<Room>();
@@ -22,12 +23,15 @@ public class RoomLol : MonoBehaviour
     private List<Room> EndUpRooms = new List<Room>();
     private List<Room> EndDownRooms = new List<Room>();
     private List<Room> ValidStartRooms = new List<Room>();
-    public static RoomLol Instance;
     public GameObject Parente;
+
+    public static HOLDER Instance;
     private void Awake()
     {
         Instance = this;
     }
+
+    private int wseed = 0;
     public void ClearRooms()
     {
         RoomColliders = new int[200, 200];
@@ -39,11 +43,12 @@ public class RoomLol : MonoBehaviour
         SpawnedRoomsDos.Clear();
     }
 
-    private int wseed = 0;
+
     public int runs = 0;
     public int cycles = 0;
     public void GenerateRandomLayout()
     {
+        wseed = Gamer.Seed;
         runs = 0;
         cycles = 0;
         ClearRooms();
@@ -94,7 +99,6 @@ public class RoomLol : MonoBehaviour
     public CoolRoom GenerateFromRooms(int lvl, int[,] roomcol, int dir, Vector2 pos)
     {
         CoolRoom ret = new CoolRoom();
-
         var r = new System.Random(wseed);
         wseed += 169;
         runs++;
@@ -129,16 +133,16 @@ public class RoomLol : MonoBehaviour
                 }
                 break;
             case 0:
-                available_rooms = new List<Room>(lvl == 1 ? EndDownRooms : DownRooms);
+                available_rooms = new List<Room>(lvl <= 1 ? EndDownRooms : DownRooms);
                 break;
             case 1:
-                available_rooms = new List<Room>(lvl == 1 ? EndUpRooms : UpRooms);
+                available_rooms = new List<Room>(lvl <= 1 ? EndUpRooms : UpRooms);
                 break;
             case 2:
-                available_rooms = new List<Room>(lvl == 1 ? EndRightRooms : RightRooms);
+                available_rooms = new List<Room>(lvl <= 1 ? EndRightRooms : RightRooms);
                 break;
             case 3:
-                available_rooms = new List<Room>(lvl == 1 ? EndLeftRooms : LeftRooms);
+                available_rooms = new List<Room>(lvl <= 1 ? EndLeftRooms : LeftRooms);
                 break;
         }
         bool found_place = false;
@@ -147,7 +151,7 @@ public class RoomLol : MonoBehaviour
         while (available_rooms.Count > 0)
         {
             cycles++;
-            int index = UnityEngine.Random.Range(0, available_rooms.Count);
+            int index = r.Next(0, available_rooms.Count);
             Room rom = available_rooms[index];
             bool keepgoing = true;
             ret.room = rom;
@@ -217,7 +221,6 @@ public class RoomLol : MonoBehaviour
                     }
                 }
                 bool good = true;
-
 
                 List<int> doors = new List<int>();
                 int doorcount = 0;
@@ -326,9 +329,10 @@ public class RoomLol : MonoBehaviour
     }
     public void PlaceFromCoolRoom(CoolRoom cr, GameObject parent, int fard = 0, CoolRoom parenroom = null)
     {
-        fard++;
-        float z = 0;
+        fard++; float z = 0;
         int sz = RoomColliders.GetLength(0) / 2;
+        Debug.Log($"Room Exists = {cr.room != null}");
+        Debug.Log($"RoomObject Exists = {cr.room.RoomObject != null}");
         var sp = cr.room.RoomObject;
         var aaaaaaaaa = ((new Vector3(cr.pos.x, cr.pos.y, z) - new Vector3(sz, sz, 0)) * DistanceScaler);
         aaaaaaaaa.y *= -1;
@@ -357,153 +361,4 @@ public class RoomLol : MonoBehaviour
             PlaceFromCoolRoom(c, parent, fard, parenroom);
         }
     }
-}
-
-
-[Serializable]
-public class Room
-{
-    public GameObject RoomObject;
-    public Vector2 RoomSize = new Vector2(1, 1);
-    public Vector2 LeftDoor = new Vector2(-6969, -6969);
-    public Vector2 RightDoor = new Vector2(-6969, -6969);
-    public Vector2 TopDoor = new Vector2(-6969, -6969);
-    public Vector2 BottomDoor = new Vector2(-6969, -6969);
-    public bool IsEndpoint = false;
-    [HideInInspector]
-    public bool HasLeftDoor = false;
-    [HideInInspector]
-    public bool HasRightDoor = false;
-    [HideInInspector]
-    public bool HasTopDoor = false;
-    [HideInInspector]
-    public bool HasBottomDoor = false;
-    [HideInInspector]
-    public int RoomID = -1;
-
-    public void SetData(int index)
-    {
-        RoomID = index;
-        HasLeftDoor = LeftDoor != new Vector2(-6969, -6969);
-        HasRightDoor = RightDoor != new Vector2(-6969, -6969);
-        HasTopDoor = TopDoor != new Vector2(-6969, -6969);
-        HasBottomDoor = BottomDoor != new Vector2(-6969, -6969);
-    }
-    public Room()
-    {
-        LeftDoor = new Vector2(-6969, -6969);
-        RightDoor = new Vector2(-6969, -6969);
-        TopDoor = new Vector2(-6969, -6969);
-        BottomDoor = new Vector2(-6969, -6969);
-    }
-
-    /*
-    public Room(int roomid)
-    {
-        RoomID = roomid;
-        switch (roomid)
-        {
-            case 0:
-                RoomSize = new Vector2(2, 1);
-                HasLeftDoor = true;
-                HasRightDoor = true;
-                LeftDoor = new Vector2(0, 0);
-                RightDoor = new Vector2(1, 0);
-                break;
-            case 1:
-                RoomSize = new Vector2(1, 2);
-                HasTopDoor = true;
-                HasBottomDoor = true;
-                TopDoor = new Vector2(0, 0);
-                BottomDoor = new Vector2(0, 1);
-                break;
-            case 2:
-                RoomSize = new Vector2(1, 1);
-                HasBottomDoor = true;
-                HasTopDoor = true;
-                HasLeftDoor = true;
-                HasRightDoor = true;
-                LeftDoor = new Vector2(0, 0);
-                RightDoor = new Vector2(0, 0);
-                TopDoor = new Vector2(0, 0);
-                BottomDoor = new Vector2(0, 0);
-                break;
-            case 3:
-                RoomSize = new Vector2(1, 1);
-                //HasBottomDoor = true;
-                HasTopDoor = true;
-                HasLeftDoor = true;
-                //HasRightDoor = true;
-                LeftDoor = new Vector2(0, 0);
-                //RightDoor = new Vector2(0, 0);
-                TopDoor = new Vector2(0, 0);
-                //BottomDoor = new Vector2(0, 0);
-                break;
-            case 4:
-                RoomSize = new Vector2(1, 1);
-                //HasBottomDoor = true;
-                HasTopDoor = true;
-                //HasLeftDoor = true;
-                HasRightDoor = true;
-                //LeftDoor = new Vector2(0, 0);
-                RightDoor = new Vector2(0, 0);
-                TopDoor = new Vector2(0, 0);
-                //BottomDoor = new Vector2(0, 0);
-                break;
-            case 5:
-                RoomSize = new Vector2(1, 1);
-                HasBottomDoor = true;
-                //HasTopDoor = true;
-                //HasLeftDoor = true;
-                HasRightDoor = true;
-                //LeftDoor = new Vector2(0, 0);
-                RightDoor = new Vector2(0, 0);
-                //TopDoor = new Vector2(0, 0);
-                BottomDoor = new Vector2(0, 0);
-                break;
-            case 6:
-                RoomSize = new Vector2(1, 1);
-                HasBottomDoor = true;
-                //HasTopDoor = true;
-                HasLeftDoor = true;
-                //HasRightDoor = true;
-                LeftDoor = new Vector2(0, 0);
-                //RightDoor = new Vector2(0, 0);
-                //TopDoor = new Vector2(0, 0);
-                BottomDoor = new Vector2(0, 0);
-                break;
-            case 7:
-                RoomSize = new Vector2(1, 1);
-                HasBottomDoor = true;
-                HasTopDoor = true;
-                HasLeftDoor = true;
-                HasRightDoor = true;
-                LeftDoor = new Vector2(0, 0);
-                RightDoor = new Vector2(0, 0);
-                TopDoor = new Vector2(0, 0);
-                BottomDoor = new Vector2(0, 0);
-                IsEndpoint = true;
-                break;
-            default:
-                RoomSize = new Vector2(1, 1);
-                HasBottomDoor = true;
-                HasTopDoor = true;
-                HasLeftDoor = true;
-                HasRightDoor = true;
-                IsEndpoint = true;
-                LeftDoor = new Vector2(0,0);
-                RightDoor = new Vector2(0,0);
-                TopDoor = new Vector2(0,0);
-                BottomDoor = new Vector2(0,0);
-                break;
-        }
-    }*/
-}
-public class CoolRoom
-{
-    public bool WasChill;
-    public I_Room i_Room;
-    public Room room;
-    public Vector2 pos;
-    public List<CoolRoom> comlpetedRooms = new List<CoolRoom>();
 }

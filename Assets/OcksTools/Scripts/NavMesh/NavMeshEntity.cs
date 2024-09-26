@@ -8,6 +8,7 @@ using static Unity.Collections.AllocatorManager;
 
 public class NavMeshEntity : MonoBehaviour
 {
+    public string Name = "Booty";
     public string EnemyType = "Rat";
     public string AttackType = "Melee";
     public int ImagePixelSize = 18;
@@ -188,6 +189,15 @@ public class NavMeshEntity : MonoBehaviour
         }
     }
 
+    public static string GetName(NavMeshEntity boner)
+    {
+        string ba = boner.Name;
+        if(boner.EliteType != "")
+        {
+            ba = $"{boner.EliteType} {ba}";
+        }
+        return ba;
+    }
     private void Update()
     {
         if(!HasSpawned) return;

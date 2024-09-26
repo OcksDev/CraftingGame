@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2d2ecf164b9d42848a24a19fc5cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Meatball
   EnemyType: Spitter
   AttackType: Ranged
   ImagePixelSize: 24
@@ -200,6 +201,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d4563c59e9177e142abe7626f0a30b0a, type: 3}
   SpriteMiscRefs:
   - {fileID: 21300000, guid: c20016abd02afc74cba29a4a690d2682, type: 3}
+  EnableOnTrueSpawn: []
   box: {fileID: 1894346058258269852, guid: 9498607ce0dfa6344bbd253f28008e8b, type: 3}
   EntityOXS: {fileID: 0}
   timer2: 0

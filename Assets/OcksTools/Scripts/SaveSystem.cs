@@ -13,6 +13,7 @@ public class SaveSystem : MonoBehaviour
     private string UniqueGamePrefix = "oxt";
     public int test = 0;
 
+    public bool NoScroll = false;
 
     public delegate void JustFuckingRunTheMethods();
     public static event JustFuckingRunTheMethods SaveAllData;
@@ -80,7 +81,7 @@ public class SaveSystem : MonoBehaviour
             s.SFXVolume = float.Parse(GetString("snd_sfx", "1", dict));
             s.MusicVolume = float.Parse(GetString("snd_mus", "1", dict));
         }
-
+        NoScroll = bool.Parse(GetString("noscroll", "False", dict));
         test = int.Parse(GetString("test_num", "0", dict));
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
 
@@ -112,6 +113,8 @@ public class SaveSystem : MonoBehaviour
         }
 
         SetString("test_num", test.ToString(), dict);
+
+        SetString("noscroll", NoScroll.ToString(), dict);
 
         SaveAllData?.Invoke();
 

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db827c8bd003e974fbabd1313a7b55d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: spitter
+  type: cloak
   Damage: 20
   overridedamage: -5
   sexballs: {fileID: 0}

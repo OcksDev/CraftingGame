@@ -185,12 +185,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2d2ecf164b9d42848a24a19fc5cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Rat
   EnemyType: Rat
   AttackType: Melee
+  ImagePixelSize: 18
   movespeed: 8
   SightRange: 15
   AttackCooldown: 1.5
   randommovetimer: 0
+  beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
   Damage: 10
@@ -198,12 +201,25 @@ MonoBehaviour:
   SpriteVarients:
   - {fileID: 21300000, guid: a8564f70c4fa6fd408c6a1fd7f3eca45, type: 3}
   - {fileID: 21300000, guid: c32c126e2344b9d4b9cd4889f2f15348, type: 3}
+  SpriteMiscRefs: []
+  EnableOnTrueSpawn: []
   box: {fileID: 8352162098967844404}
   EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
   sex2: {fileID: 4879188297316090174}
   HasSpawned: 0
+  EliteType: 
+  EnemyHolder:
+    EnemyObject: {fileID: 0}
+    CreditCost: 1
+    PickChance: 1
+    MinFloor: 0
+    MaxFloor: 0
+    CanBeElite: 1
+    InstantSpawn: 0
+    SpawnPos: {x: 0, y: 0, z: 0}
+  creditsspent: 0
   existing: 0
   ddist: 0
   charging: 0
@@ -315,5 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: rat
   Damage: 10
+  overridedamage: -1
   sexballs: {fileID: 2284451541892325392}
   balling: {fileID: 0}
+  nono: 0
