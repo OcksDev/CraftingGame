@@ -1319,6 +1319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 9063481460969481341, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf41a64e3ae834e4c9c3abff32889d84, type: 3}
 --- !u!1 &57389988

@@ -604,19 +604,19 @@ public class Gamer : MonoBehaviour
         OldCurrentRoom = CurrentRoom;
         var pp = new Vector2(CurrentRoom.transform.position.x,CurrentRoom.transform.position.y);
         var ppshex = CurrentRoom.room.RoomSize * 15f;
-        if (CurrentRoom.room.HasTopDoor)
+        if (CurrentRoom.room.HasBottomDoor)
         {
             var pz = pp - ppshex;
-            var ppos = CurrentRoom.room.TopDoor * 30f;
+            var ppos = CurrentRoom.room.BottomDoor * 30f;
             ppos.x += 15f;
             Instantiate(DoorFab, new Vector3(pz.x + ppos.x, pz.y, 0), Quaternion.identity,DoorHolder);
         }
-        if (CurrentRoom.room.HasBottomDoor)
+        if (CurrentRoom.room.HasTopDoor)
         {
             var pz = ppshex;
             pz.y *= -1;
             pz = pp - pz;
-            var ppos = CurrentRoom.room.BottomDoor * 30f;
+            var ppos = CurrentRoom.room.TopDoor * 30f;
             ppos.x += 15f;
             Instantiate(DoorFab, new Vector3(pz.x + ppos.x, pz.y, 0), Quaternion.Euler(0,0,180),DoorHolder);
         }
@@ -675,13 +675,14 @@ public class Gamer : MonoBehaviour
                 enemybar.BarParentSize.localScale = new Vector3((float)System.Math.Clamp(System.Math.Sqrt(LastHitEnemy.EntityOXS.Max_Health), 3, 15),1,1);
                 enemybar.BarItself.localScale = new Vector3((float)System.Math.Clamp(LastHitEnemy.EntityOXS.Health/LastHitEnemy.EntityOXS.Max_Health,0,1), 1, 1);
             }
+            ShartPoop -= Time.deltaTime;
+            ShartPoop = (float)System.Math.Max(Mathf.Clamp01(ShartPoop), 2 * (0.35f - (PlayerController.Instance.entit.Health / PlayerController.Instance.entit.Max_Health)));
         }
         else
         {
+            ShartPoop = 0;
             checks[5] = false;
         }
-        ShartPoop -= Time.deltaTime;
-        ShartPoop = Mathf.Clamp01(ShartPoop);
         var c = HitSexers[0].color;
         c.a = ShartPoop;
         foreach (var ca in HitSexers)

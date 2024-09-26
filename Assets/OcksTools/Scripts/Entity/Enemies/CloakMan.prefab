@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2284451541892325393}
   - component: {fileID: 2284451541892325395}
   - component: {fileID: 2284451541892325392}
+  - component: {fileID: 7797299474952852015}
   m_Layer: 0
   m_Name: CloakMan
   m_TagString: Enemy
@@ -141,7 +142,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2284451541892325387}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -227,3 +228,29 @@ MonoBehaviour:
   charging2: 0
   alt_speed: 10
   canseemysexybooty: 0
+--- !u!61 &7797299474952852015
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284451541892325387}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 1.5, y: 1.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.84, y: 3.76}
+  m_EdgeRadius: 0

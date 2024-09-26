@@ -461,6 +461,8 @@ public class NavMeshEntity : MonoBehaviour
     }
     public IEnumerator CloakSex()
     {
+        float f = movespeed;
+        movespeed = 0;
         canrunattacktimer = false;
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.15f);
@@ -519,6 +521,7 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.15f);
         WantASpriteCranberry.sprite = SpriteVarients[0];
+        movespeed = f;
         canrunattacktimer = true;
     }
     public IEnumerator OrbSex()
