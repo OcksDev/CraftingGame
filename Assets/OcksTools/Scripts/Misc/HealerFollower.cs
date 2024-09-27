@@ -59,12 +59,7 @@ public class HealerFollower : MonoBehaviour
     {
         if (SexChaser != null)
         {
-            SexChaser.entit.Health += 5f;
-            var overheal = SexChaser.entit.Health - SexChaser.entit.Max_Health;
-            if (overheal > 0)
-            {
-                SexChaser.entit.Shield += overheal;
-            }
+            SexChaser.entit.Heal(5);
             SoundSystem.Instance.PlaySound(5, true, 0.3f);
         }
         sexer = 0f;

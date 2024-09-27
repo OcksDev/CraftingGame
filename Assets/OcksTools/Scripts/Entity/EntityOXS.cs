@@ -171,7 +171,11 @@ public class EntityOXS : MonoBehaviour
     {
         var oldh = Health;
         Health = System.Math.Clamp(Health + amount, 0, Max_Health);
-        if(Health != oldh)
+        var change = amount-( Health - oldh);
+        var olds = Shield;
+        Shield = System.Math.Clamp(Shield + change, 0, Max_Shield);
+        var change2 = change - (Shield - olds);
+        if (Health != oldh || Shield != olds)
         {
             var xx = (transform.localScale.x / 2) - 0.25f;
             var yy = (transform.localScale.y / 2) - 0.25f;
@@ -179,7 +183,7 @@ public class EntityOXS : MonoBehaviour
             if (e != null)
             {
                 var fard = e.GetComponent<DamIndi>();
-                fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(Health-oldh)).ToString());
+                fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(amount-change2)).ToString());
                 fard.critlevel = -1;
                 fard.NoCLor = true;
                 fard.sex.color = new Color32(26, 217, 61, 255);
