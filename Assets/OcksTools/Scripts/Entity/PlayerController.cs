@@ -466,8 +466,8 @@ public class PlayerController : MonoBehaviour
                     case "Crossbow": SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
                     case "Shuriken": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
                     case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
-                    case "Axe":break;
-                    case "Blowdart":break;
+                    case "Axe": SwordFart.localScale = new Vector3(1, 1, 1); break;
+                    case "Blowdart": SwordFart.localScale = new Vector3(1, 1, 1); break;
                     default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
                 }
             }

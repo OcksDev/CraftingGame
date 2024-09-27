@@ -364,6 +364,7 @@ public class Gamer : MonoBehaviour
         enders.Remove(rm);
         endos.Remove(rm);
         Sorters.Clear();
+        LevelProgression.Clear();
         var rm2 = FindEndRoom(rm);
         rm2.isused = "End";
         Tags.refs["NextFloor"].transform.position = rm2.transform.position;
@@ -387,8 +388,6 @@ public class Gamer : MonoBehaviour
 
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
 
-        LevelProgression.Clear();
-        CompileEndList(rm);
         yield return new WaitForFixedUpdate();
 
         nmr.BuildNavMesh();
@@ -419,29 +418,16 @@ public class Gamer : MonoBehaviour
         }
     }
 
-    public void CompileEndList(I_Room start)
-    {
-        LevelProgression.Add(start);
-        foreach(var a in start.RelatedRooms)
-        {
-            if(a.isused == "" || a.isused == "End")
-            {
-                if (!LevelProgression.Contains(a))
-                {
-                    CompileEndList(a);
-                }
-            }
-        }
-    }
     List<I_Room> Sorters = new List<I_Room>();
     public I_Room FindEndRoom(I_Room start)
     {
         Sorters.Add(start);
+        LevelProgression.Add(start);
         int hits = 0;
         foreach(var a in start.RelatedRooms)
         {
             if (Sorters.Contains(a)) continue;
-            if(a.isused == "")
+            if(!a.room.IsEndpoint)
             {
                 return FindEndRoom(a);
             }
@@ -454,7 +440,9 @@ public class Gamer : MonoBehaviour
         {
             var e = new List<I_Room>(start.RelatedRooms);
             e.Remove(start);
-            return e[Random.Range(0, e.Count)];
+            var wank = e[Random.Range(0, e.Count)];
+            LevelProgression.Add(wank);
+            return wank;
         }
         return start;
     }
