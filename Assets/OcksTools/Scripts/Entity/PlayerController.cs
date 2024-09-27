@@ -328,7 +328,7 @@ public class PlayerController : MonoBehaviour
                 AttacksPerSecond *= 0.95f;
                 break;
             case "Glass":
-                Damage *= 1.3f;
+                Damage *= 1.25f;
                 helth *= 0.85f;
                 break;
             case "Amethyst":
