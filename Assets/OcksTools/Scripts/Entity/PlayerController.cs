@@ -292,7 +292,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Blowdart":
                     AttacksPerSecond = 1.3f;
-                    Damage = 15f;
+                    Damage = 12f;
                     Spread = 0f;
                     RotationOverride = true;
                     break;
