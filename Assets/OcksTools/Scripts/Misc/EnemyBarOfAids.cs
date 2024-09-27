@@ -6,6 +6,6 @@ using UnityEngine;
 public class EnemyBarOfAids : MonoBehaviour
 {
     public TextMeshProUGUI title;
-    public Transform BarParentSize;
+    public RectTransform BarParentSize;
     public Transform BarItself;
 }

@@ -44,6 +44,7 @@ public class Gamer : MonoBehaviour
     public Transform InitFloorHeadPos;
     public NavMeshEntity LastHitEnemy;
     public EnemyBarOfAids enemybar;
+    public GameObject enemybaroutline;
     public TMP_InputField ItemNameInput;
 
     public bool NextFloorButtonSexFuck = false;
@@ -208,6 +209,7 @@ public class Gamer : MonoBehaviour
         CurrentFloor = 0;
         LastHitEnemy = null;
         enemybar.gameObject.SetActive(false);
+        enemybaroutline.gameObject.SetActive(false);
         enemybar.BarParentSize.gameObject.SetActive(false);
         if (NextFloorBall != null) StopCoroutine(NextFloorBall);
         FloorHeader.transform.position = InitFloorHeadPos.position;
@@ -348,7 +350,7 @@ public class Gamer : MonoBehaviour
         int level = -1;
         foreach (var psex in enders)
         {
-            Debug.Log("Level:" + psex.level);
+            //Debug.Log("Level:" + psex.level);
             if (psex.level > level) level = psex.level;
         }
         foreach (var psex in enders)
@@ -356,22 +358,13 @@ public class Gamer : MonoBehaviour
             if (psex.level == level) endos.Add(psex);
         }
         var rm = endos[r.Next(0, endos.Count)];
-        Debug.Log("Endo Count: "+ endos.Count);
+        //Debug.Log("Endo Count: "+ endos.Count);
         rm.isused = "Start";
         PlayerController.Instance.transform.position = rm.transform.position;
         enders.Remove(rm);
         endos.Remove(rm);
-        var enbackup = new List<I_Room>(endos);
-        for(int i = 0; i < endos.Count; i++)
-        {
-            if (endos[i].parent_room == rm.parent_room)
-            {
-                endos.RemoveAt(i);
-                i--;
-            }
-        }
-        if (endos.Count == 0) endos = enbackup;
-        var rm2 = endos[r.Next(0,endos.Count)];
+        Sorters.Clear();
+        var rm2 = FindEndRoom(rm);
         rm2.isused = "End";
         Tags.refs["NextFloor"].transform.position = rm2.transform.position;
         enders.Remove(rm2);
@@ -439,6 +432,31 @@ public class Gamer : MonoBehaviour
                 }
             }
         }
+    }
+    List<I_Room> Sorters = new List<I_Room>();
+    public I_Room FindEndRoom(I_Room start)
+    {
+        Sorters.Add(start);
+        int hits = 0;
+        foreach(var a in start.RelatedRooms)
+        {
+            if (Sorters.Contains(a)) continue;
+            if(a.isused == "")
+            {
+                return FindEndRoom(a);
+            }
+            else
+            {
+                hits++;
+            }
+        }
+        if(hits == start.RelatedRooms.Count-1)
+        {
+            var e = new List<I_Room>(start.RelatedRooms);
+            e.Remove(start);
+            return e[Random.Range(0, e.Count)];
+        }
+        return start;
     }
 
 
@@ -668,12 +686,15 @@ public class Gamer : MonoBehaviour
                 }
             }
             enemybar.gameObject.SetActive(LastHitEnemy != null);
+            enemybaroutline.SetActive(LastHitEnemy != null);
             enemybar.BarParentSize.gameObject.SetActive(LastHitEnemy != null);
             if(LastHitEnemy != null)
             {
                 enemybar.title.text = NavMeshEntity.GetName(LastHitEnemy);
-                enemybar.BarParentSize.localScale = new Vector3((float)System.Math.Clamp(System.Math.Sqrt(LastHitEnemy.EntityOXS.Max_Health), 3, 15),1,1);
-                enemybar.BarItself.localScale = new Vector3((float)System.Math.Clamp(LastHitEnemy.EntityOXS.Health/LastHitEnemy.EntityOXS.Max_Health,0,1), 1, 1);
+                enemybar.title.color = LastHitEnemy.EliteType != "" ? EliteTypesDict[LastHitEnemy.EliteType].color : new Color32(255,255,255,255);
+                var www = (float)System.Math.Clamp(System.Math.Sqrt(LastHitEnemy.EntityOXS.Max_Health), 3, 15);
+                enemybar.BarParentSize.sizeDelta = new Vector2(www*40f,7);
+                enemybar.BarItself.localScale = new Vector3((1-(float)System.Math.Clamp((LastHitEnemy.EntityOXS.Health)/LastHitEnemy.EntityOXS.Max_Health,0,1))*www, 1, 1);
             }
             ShartPoop -= Time.deltaTime;
             ShartPoop = (float)System.Math.Max(Mathf.Clamp01(ShartPoop), 2 * (0.35f - (PlayerController.Instance.entit.Health / PlayerController.Instance.entit.Max_Health)));
