@@ -103,6 +103,9 @@ public class NavMeshEntity : MonoBehaviour
                 SightRange = 20f;
                 timer2 = AttackCooldown / 2;
                 break;
+            case "Fwog":
+                timer2 = AttackCooldown / 2;
+                break;
         }
         StartCoroutine(SpawningLol());
     }
@@ -140,11 +143,14 @@ public class NavMeshEntity : MonoBehaviour
         }
         switch (EnemyType)
         {
-            case "Slimer":
+            case "Fwog":
                 //EnableOnTrueSpawn[0].GetComponent<ParticleSystem>().Play();
                 break;
         }
     }
+
+
+
     public IEnumerator UnstableBalling()
     {
         yield return new WaitUntil(() => { return HasSpawned; });
@@ -210,6 +216,7 @@ public class NavMeshEntity : MonoBehaviour
                     transform.position += chargedir * alt_speed * Time.deltaTime;
                 }
                 break;
+            case "Fwog":
             case "Slimer":
                 transform.position += chargedir * alt_speed * Time.deltaTime;
                 break;
@@ -266,6 +273,7 @@ public class NavMeshEntity : MonoBehaviour
                         chargedir = (chargedir + (NoZ(target.transform.position) - NoZ(transform.position)).normalized*0.08f).normalized;
                     }
                     break;
+                case "Fwog":
                 case "Charger":
                     if (!charging2)
                     {
@@ -326,10 +334,22 @@ public class NavMeshEntity : MonoBehaviour
                                 StartCoroutine(ChargeSex());
                                 break;
                             case "Orb":
-                                if(ddist <= 20f)
+                                if (ddist <= 20f)
                                 {
                                     timer2 = 0;
                                     StartCoroutine(OrbSex());
+                                }
+                                break;
+                            case "Fwog":
+                                if (ddist <= 16f)
+                                {
+                                    timer2 = 0;
+                                    StartCoroutine(FwogSex(false));
+                                }
+                                else
+                                {
+                                    timer2 = 0;
+                                    StartCoroutine(FwogSex(true));
                                 }
                                 break;
                             case "Spitter":
@@ -355,7 +375,7 @@ public class NavMeshEntity : MonoBehaviour
             }
             if (charging)
             {
-                WantASpriteCranberry.flipX = chargedir.x > 0;
+                WantASpriteCranberry.flipX = chargedir.x > 0 ^ FlipImage;
             }
             else
             {
@@ -541,6 +561,44 @@ public class NavMeshEntity : MonoBehaviour
         e.balling = transform;
         e.sexballs = this;
         yield return null;
+    }
+    public IEnumerator FwogSex(bool ump = false)
+    {
+        if (ump) goto wank;
+        canrunattacktimer = false;
+        WantASpriteCranberry.sprite = SpriteMiscRefs[0];
+        yield return new WaitForSeconds(0.2f);
+        var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
+
+        var e2 = wenis.GetComponent<DeathBeamScript>();
+        e2.Player = target.transform;
+        e2.SorceNerd = transform;
+        e2.offset = new Vector3(0.363000005f, 0.465999991f, 0);
+        if (WantASpriteCranberry.flipX) e2.offset.x *= -1;
+        e2.UpdatePos();
+
+
+        var e = e2.fardd.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        yield return new WaitForSeconds(1.2f);
+        WantASpriteCranberry.sprite = SpriteVarients[0];
+        yield return new WaitForSeconds(0.2f);
+
+        wank:
+
+        canrunattacktimer = true;
+        charging = true;
+        chargedir = (NoZ(target.transform.position) - NoZ(transform.position)).normalized;
+        movespeed = 0;
+        charging2 = true;
+        CLearShit?.Invoke();
+        yield return new WaitForSeconds(0.3f);
+        charging = false;
+        charging2 = false;
+        timer2 = Random.Range(-0.25f, 0.25f);
+
     }
 
     public bool canseemysexybooty = false;

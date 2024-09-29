@@ -4,25 +4,41 @@ using UnityEngine;
 
 public class DeathBeamScript : MonoBehaviour
 {
+    public bool IsFrog = false;
     public Transform Player;
     public Transform SorceNerd;
+    public Vector3 offset = Vector3.zero;
     public BoxCollider2D farddingle;
     public SpriteRenderer fardd;
     float timealive = 0;
     public Color32 sexl;
     public Transform yongle;
+    float maxlive = 3f;
+    private void Start()
+    {
+        if (IsFrog) maxlive = 1f;
+    }
+
     private void FixedUpdate()
     {
-        timealive += Time.deltaTime*1.3f;
+        timealive += Time.deltaTime*(IsFrog?2f: 1.3f);
         if(farddingle == null)
         {
             Destroy(gameObject);
             return;
         }
-        farddingle.enabled = timealive >= 1.2f;
-        fardd.color = timealive >= 1.2f?Color.white:sexl;
+        if (IsFrog)
+        {
+            farddingle.enabled = true;
+            fardd.color = sexl;
+        }
+        else
+        {
+            farddingle.enabled = timealive >= 1.2f;
+            fardd.color = timealive >= 1.2f ? Color.white : sexl;
+        }
         UpdatePos();
-        if(timealive >= 4)
+        if(timealive >= maxlive+1)
         {
             Destroy(gameObject);
         }
@@ -32,24 +48,24 @@ public class DeathBeamScript : MonoBehaviour
 
     public void UpdatePos()
     {
-        if(SorceNerd != null) sex = SorceNerd.position;
+        if(SorceNerd != null) sex = SorceNerd.position + offset;
         if (yongle == null) yongle = fardd.transform;
         float sz = 0.04f;
         float size = 0;
-        if(timealive <= 3f)
+        if(timealive <= maxlive)
         {
             size = Mathf.Sin(Mathf.Clamp01(timealive) * Mathf.PI / 2);
         }
         else
         {
-            size = Mathf.Sin(Mathf.Clamp01(1-(timealive-3)) * Mathf.PI / 2);
+            size = Mathf.Sin(Mathf.Clamp01(1-(timealive- maxlive)) * Mathf.PI / 2);
         }
-        transform.localScale = new Vector3(1, size, 1);
+        transform.localScale = new Vector3(IsFrog?size:1, size, 1);
         transform.position = sex;
-        if (timealive >= 1.2f)
+        if (timealive >= 1.2f || IsFrog)
         {
-            transform.rotation = RotateLock(transform.rotation, PointAtPoint2D(Player.position, 0), 0.3f);
-            transform.position += new Vector3(Random.Range(-sz, sz), Random.Range(-sz, sz), 0);
+            transform.rotation = RotateLock(transform.rotation, PointAtPoint2D(Player.position, 0), IsFrog? 1f: 0.3f);
+            if(!IsFrog)transform.position += new Vector3(Random.Range(-sz, sz), Random.Range(-sz, sz), 0);
         }
 
     }
