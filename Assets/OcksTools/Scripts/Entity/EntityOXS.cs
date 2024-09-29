@@ -74,9 +74,8 @@ public class EntityOXS : MonoBehaviour
         }
         switch (EnemyType)
         {
-            case "Player":break;
-            default:
-                Gamer.Instance.LastHitEnemy = sexy;
+            case "Enemy":
+                Gamer.Instance.SetLastEnemy(sexy);
                 if (Gamer.IsMultiplayer)
                 {
                     if (s != null && !s.isrealowner) { return; }

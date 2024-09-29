@@ -43,6 +43,7 @@ public class Gamer : MonoBehaviour
     public TextMeshProUGUI FloorHeader;
     public Transform InitFloorHeadPos;
     public NavMeshEntity LastHitEnemy;
+    private float LastHitEnemyTimer;
     public EnemyBarOfAids enemybar;
     public GameObject enemybaroutline;
     public TMP_InputField ItemNameInput;
@@ -644,11 +645,17 @@ public class Gamer : MonoBehaviour
             Instantiate(DoorFab, new Vector3(pz.x, pz.y - ppos.y, 0), Quaternion.Euler(0, 0, 90),DoorHolder);
         }
     }
-
-
+    public void SetLastEnemy(NavMeshEntity cum)
+    {
+        if(LastHitEnemyTimer <= 0)
+        {
+            LastHitEnemy = cum;
+        }
+    }
     public float ShartPoop = 0f;
     private void FixedUpdate()
     {
+        LastHitEnemyTimer -= Time.deltaTime;
         bool a = GameState == "Game" || GameState == "Lobby";
         if (a)
         {

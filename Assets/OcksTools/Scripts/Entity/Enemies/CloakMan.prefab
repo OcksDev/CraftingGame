@@ -189,6 +189,7 @@ MonoBehaviour:
   EnemyType: Cloak
   AttackType: Ranged
   ImagePixelSize: 64
+  FlipImage: 0
   movespeed: 3
   SightRange: 15
   AttackCooldown: 4
