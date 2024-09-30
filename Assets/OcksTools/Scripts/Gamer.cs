@@ -280,7 +280,7 @@ public class Gamer : MonoBehaviour
         }
         if (InputManager.IsKeyDown(KeyCode.Space))
         {
-            SpawnEnemy(EnemiesDos[6]);
+            SpawnEnemy(EnemiesDos[7]);
         }
         if (checks[0] && InputManager.IsKeyDown(KeyCode.I))
         {
@@ -441,6 +441,14 @@ public class Gamer : MonoBehaviour
         {
             var e = new List<I_Room>(start.RelatedRooms);
             e.Remove(start);
+            for(int i =0; i < e.Count; i++)
+            {
+                if (LevelProgression.Contains(e[i]))
+                {  
+                    e.RemoveAt(i);
+                    i--;
+                }
+            }
             var wank = e[Random.Range(0, e.Count)];
             LevelProgression.Add(wank);
             return wank;

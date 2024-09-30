@@ -360,6 +360,10 @@ public class NavMeshEntity : MonoBehaviour
                                 timer2 = 0;
                                 StartCoroutine(CloakSex());
                                 break;
+                            case "Rocky":
+                                timer2 = 0;
+                                StartCoroutine(RockySex());
+                                break;
                             default:
                                 timer2 = 0;
                                 var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
@@ -542,6 +546,24 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.15f);
         WantASpriteCranberry.sprite = SpriteVarients[0];
+        movespeed = f;
+        canrunattacktimer = true;
+    }
+    public IEnumerator RockySex()
+    {
+        float f = movespeed;
+        movespeed = 0;
+        canrunattacktimer = false;;
+        yield return new WaitForSeconds(0.3f);
+        int i = Random.Range(0,2);
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        Vector3 pos = transform.position + new Vector3(0, 1.15f,0);
+        var wenis = Instantiate(box, pos, wank, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        yield return new WaitForSeconds(0.30f);
         movespeed = f;
         canrunattacktimer = true;
     }

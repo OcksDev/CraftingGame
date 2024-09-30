@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2284451541892325392}
   - component: {fileID: 7797299474952852015}
   m_Layer: 0
-  m_Name: CloakMan
+  m_Name: RockHard
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e3f9fbe9c7e13f41be516f6ffefcdd8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3e7f319d6177b4446a33132d7bf7c857, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 5
   m_LinearDrag: 7
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -124,9 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 100
+  Health: 150
   Shield: 0
-  Max_Health: 100
+  Max_Health: 150
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2d2ecf164b9d42848a24a19fc5cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Cloaked Poopy
-  EnemyType: Cloak
+  Name: Rocky
+  EnemyType: Rocky
   AttackType: Ranged
   ImagePixelSize: 64
   FlipImage: 0
@@ -197,10 +197,10 @@ MonoBehaviour:
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 20
+  Damage: 25
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
-  - {fileID: 21300000, guid: 6e3f9fbe9c7e13f41be516f6ffefcdd8, type: 3}
+  - {fileID: 21300000, guid: 3e7f319d6177b4446a33132d7bf7c857, type: 3}
   SpriteMiscRefs:
   - {fileID: 21300000, guid: bcad636fdcbdd644ab363874948f2377, type: 3}
   - {fileID: 21300000, guid: a6ef2005fde0f1f418afea5cdf5b0213, type: 3}
@@ -253,5 +253,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.84, y: 3.76}
+  m_Size: {x: 2.4, y: 3.76}
   m_EdgeRadius: 0
