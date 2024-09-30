@@ -115,6 +115,7 @@ public class EnemyHitShit : MonoBehaviour
 
     public void Kill()
     {
+        if (isdea) return;
         isdea = true;
         StartCoroutine(sexdie());
     }

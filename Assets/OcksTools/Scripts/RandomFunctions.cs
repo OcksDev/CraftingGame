@@ -431,6 +431,12 @@ public class RandomFunctions : MonoBehaviour
     {
         return ((r % max) + max) % max;
     }
+
+    public static float EaseOut(float perc, int pow)
+    {
+        return 1 - Mathf.Pow(perc - 1, 2 * pow);
+    }
+
     private Quaternion PointAtPoint(Vector3 start_location, Vector3 location)
     {
         Quaternion _lookRotation =

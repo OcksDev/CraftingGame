@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3e7f319d6177b4446a33132d7bf7c857, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 13c30fd39588cf04eb2fc095e89c0a87, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -200,13 +200,10 @@ MonoBehaviour:
   Damage: 25
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
-  - {fileID: 21300000, guid: 3e7f319d6177b4446a33132d7bf7c857, type: 3}
-  SpriteMiscRefs:
-  - {fileID: 21300000, guid: bcad636fdcbdd644ab363874948f2377, type: 3}
-  - {fileID: 21300000, guid: a6ef2005fde0f1f418afea5cdf5b0213, type: 3}
-  - {fileID: 21300000, guid: c603c07ce5238f7418a297465fc0a936, type: 3}
+  - {fileID: 21300000, guid: 13c30fd39588cf04eb2fc095e89c0a87, type: 3}
+  SpriteMiscRefs: []
   EnableOnTrueSpawn: []
-  box: {fileID: 1894346058258269852, guid: cb63747947a190d4d944c14d3c9d09ba, type: 3}
+  box: {fileID: 8740368415315351521, guid: 477778f76893cd34cb094d4e7945433e, type: 3}
   EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}

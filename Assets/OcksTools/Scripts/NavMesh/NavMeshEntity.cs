@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 using static Unity.Collections.AllocatorManager;
 
 public class NavMeshEntity : MonoBehaviour
@@ -556,17 +557,63 @@ public class NavMeshEntity : MonoBehaviour
         canrunattacktimer = false;;
         yield return new WaitForSeconds(0.3f);
         int i = Random.Range(0,2);
-        var wank = PointAtPoint2D(target.transform.position, 0);
-        Vector3 pos = transform.position + new Vector3(0, 1.15f,0);
-        var wenis = Instantiate(box, pos, wank, Gamer.Instance.balls);
-        var e = wenis.GetComponent<EnemyHitShit>();
-        e.Damage = Damage;
-        e.balling = transform;
-        e.sexballs = this;
+        Vector3 dir;
+        Vector3 initpos;
+        switch (i)
+        {
+            default:
+                dir = (target.transform.position - transform.position).normalized;
+                var dir2 = Quaternion.Euler(0, 0, 25) * dir;
+                var dir3 = Quaternion.Euler(0, 0, -25) * dir;
+                var dir4 = Quaternion.Euler(0, 0, 50) * dir;
+                var dir5 = Quaternion.Euler(0, 0, -50) * dir;
+                initpos = transform.position;
+                for (int it = 2; it <= 7; it++)
+                {
+                    SpawnBox(initpos + (dir * (2.5f * it)));
+                    SpawnBox(initpos + (dir2 * (2.5f * it)));
+                    SpawnBox(initpos + (dir3 * (2.5f * it)));
+                    SpawnBox(initpos + (dir4 * (2.5f * it)));
+                    SpawnBox(initpos + (dir5 * (2.5f * it)));
+                    yield return new WaitForSeconds(0.05f);
+                }
+                break;
+            case 0:
+                initpos = target.transform.position;
+                int max = 8;
+                float dist = 3f;
+                SpawnBox(initpos);
+                for (int aw = 0; aw < 4; aw++)
+                {
+                    for (int it = 1; it <= max; it++)
+                    {
+                        float perc = it / (float)max;
+                        SpawnBox(initpos + (Quaternion.Euler(0, 0, perc * 360) * new Vector3(0, dist, 0)));
+                    }
+                    max += 0;
+                    dist += 3f;
+                    yield return new WaitForSeconds(0.1f);
+                }
+                break;
+        }
+
+
+
         yield return new WaitForSeconds(0.30f);
         movespeed = f;
         canrunattacktimer = true;
     }
+    private EnemyHitShit SpawnBox(Vector3 pos)
+    {
+        var wenis = Instantiate(box, pos, Quaternion.identity, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        return e;
+    }
+
+
     public IEnumerator OrbSex()
     {
         var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
