@@ -568,7 +568,7 @@ public class NavMeshEntity : MonoBehaviour
                 var dir4 = Quaternion.Euler(0, 0, 50) * dir;
                 var dir5 = Quaternion.Euler(0, 0, -50) * dir;
                 initpos = transform.position;
-                for (int it = 2; it <= 7; it++)
+                for (int it = 1; it <= 7; it++)
                 {
                     SpawnBox(initpos + (dir * (2.5f * it)));
                     SpawnBox(initpos + (dir2 * (2.5f * it)));
