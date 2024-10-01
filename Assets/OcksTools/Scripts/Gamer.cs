@@ -540,7 +540,7 @@ public class Gamer : MonoBehaviour
         var dif = CurrentFloor - wank.MinFloor;
         if (wank.CanBeElite && Random.Range(0, 1f) < 0.2f * dif)
         {
-            if (dif < 10)
+            if (dif < 8)
             {
                 var el = new List<string>(elitetypes);
                 if (dif <= 5) el.Remove("Perfected");
