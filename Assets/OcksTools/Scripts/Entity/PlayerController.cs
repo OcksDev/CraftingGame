@@ -1,8 +1,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,7 +55,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        
+        var c = GISLol.Instance.All_Containers["Equips"];
+        foreach(var wankwank in c.slots)
+        {
+            wankwank.Held_Item.Run_Materials.Clear();
+        }
         spawnData = GetComponent<SpawnData>(); 
         if (Gamer.IsMultiplayer)
         {
@@ -298,6 +300,10 @@ public class PlayerController : MonoBehaviour
                     break;
             }
             foreach(var m in mainweapon.Materials)
+            {
+                ParseMaterial(m);
+            }
+            foreach(var m in mainweapon.Run_Materials)
             {
                 ParseMaterial(m);
             }

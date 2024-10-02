@@ -180,6 +180,7 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    Run_Materials: []
     Interacted_Containers: []
 --- !u!114 &1518953
 MonoBehaviour:
@@ -15926,7 +15927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.size
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.data[0]
@@ -16008,6 +16009,14 @@ PrefabInstance:
       propertyPath: ItemShites.Array.data[0].Name
       value: peed
       objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[10]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: 4a7eff2d60ca8874e9a076b8b48d3e32, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[11]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: 4b0df1d8691a690448de63357150ee2e, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].Image
       value: 
@@ -17470,6 +17479,7 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    Run_Materials: []
     Interacted_Containers: []
 --- !u!114 &2101065592
 MonoBehaviour:

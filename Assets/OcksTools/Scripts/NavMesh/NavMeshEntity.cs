@@ -555,6 +555,7 @@ public class NavMeshEntity : MonoBehaviour
         float f = movespeed;
         movespeed = 0;
         canrunattacktimer = false;
+        Instantiate(Gamer.Instance.ParticleSpawns[11], transform.position, Quaternion.identity, transform);
         yield return new WaitForSeconds(0.30f);
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.3f);

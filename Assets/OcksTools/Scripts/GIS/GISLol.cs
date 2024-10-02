@@ -260,6 +260,7 @@ public class GISItem
     public string CustomName;  
     public GISContainer Container;
     public List<GISMaterial> Materials = new List<GISMaterial>();
+    public List<GISMaterial> Run_Materials = new List<GISMaterial>();
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
 
     public GISItem()
@@ -274,14 +275,17 @@ public class GISItem
     }
     public void SetDefaultsBasedOnIndex()
     {
-        if (GISLol.Instance.MaterialsDict.ContainsKey(ItemIndex))
+        if(GISLol.Instance.ItemsDict.TryGetValue(ItemIndex, out GISItem_Data doingus))
         {
-            Materials.Add(new GISMaterial(ItemIndex));
-            Amount = 1;
-        }
-        else if (GISLol.Instance.AllWeaponNames.Contains(ItemIndex))
-        {
-            Amount = 1;
+            if (GISLol.Instance.MaterialsDict.ContainsKey(ItemIndex))
+            {
+                Materials.Add(new GISMaterial(ItemIndex));
+                Amount = 1;
+            }
+            else if (doingus.IsWeapon)
+            {
+                Amount = 1;
+            }
         }
     }
 
@@ -293,6 +297,7 @@ public class GISItem
         Container = sexnut.Container;
         CustomName = sexnut.CustomName;
         Materials = new List<GISMaterial>(sexnut.Materials);
+        Run_Materials = new List<GISMaterial>(sexnut.Run_Materials);
     }
     private void setdefaultvals()
     {
@@ -301,6 +306,8 @@ public class GISItem
         ItemIndex = "Empty";
         Container = null;
         CustomName = "";
+        Materials = new List<GISMaterial>();
+        Run_Materials = new List<GISMaterial>();
     }
     public void Solidify()
     {
