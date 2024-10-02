@@ -554,7 +554,9 @@ public class NavMeshEntity : MonoBehaviour
     {
         float f = movespeed;
         movespeed = 0;
-        canrunattacktimer = false;;
+        canrunattacktimer = false;
+        yield return new WaitForSeconds(0.30f);
+        WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.3f);
         int i = Random.Range(0,2);
         Vector3 dir;
@@ -599,6 +601,8 @@ public class NavMeshEntity : MonoBehaviour
 
 
 
+        yield return new WaitForSeconds(0.30f);
+        WantASpriteCranberry.sprite = SpriteVarients[0];
         yield return new WaitForSeconds(0.30f);
         movespeed = f;
         canrunattacktimer = true;

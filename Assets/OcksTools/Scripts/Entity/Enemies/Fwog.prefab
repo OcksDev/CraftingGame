@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 4
   m_LinearDrag: 7
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 20
+  Damage: 15
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: 21300000, guid: 85c2586d1f4db1d4a9a1c67f2c5135f3, type: 3}
