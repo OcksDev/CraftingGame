@@ -36,7 +36,10 @@ public class INteractable : MonoBehaviour
                 g.UpdateMenus();
                 break;
             case "StartGame":
-                StartCoroutine(Gamer.Instance.StartFade("NextFloor"));
+                Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor"));
+                break;
+            case "NextShop":
+                Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextShop"));
                 break;
             case "Item":
                 GetComponent<GroundItem>().AttemptPickup();

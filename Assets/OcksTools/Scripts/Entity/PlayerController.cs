@@ -166,12 +166,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => { return !ga.InRoom && Gamer.CurrentFloor >= 1; });
         yield return new WaitForSeconds(0.5f);
         if (entit.Health <= 0) yield break;
+        if (Gamer.Instance.LevelProgression.Count <= 0) goto shank;
         wankpos = transform.position;
         ArrowInMyperkyAss.gameObject.SetActive(true);
         bool wanker = !ga.InRoom && Gamer.CurrentFloor >= 1;
         while (wanker)
         {
             if (entit.Health <= 0) yield break;
+            if (Gamer.Instance.LevelProgression.Count<=0) goto shank;
             c = ArrowInThyAss.color;
             float max = 0.5f;
             if(targetpos != null)
@@ -201,6 +203,7 @@ public class PlayerController : MonoBehaviour
         while(c.a > 0)
         {
             if (entit.Health <= 0) yield break;
+            if (Gamer.Instance.LevelProgression.Count <= 0) goto shank;
             wankpos = Vector3.Lerp(wankpos, transform.position, Time.deltaTime * 15);
             ArrowInMyperkyAss.position = wankpos;
             ArrowInMyperkyAss.rotation = Point2DMod2(targetpos, -90, 0);

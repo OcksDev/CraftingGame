@@ -471,8 +471,9 @@ public class Gamer : MonoBehaviour
         }
     }
     public static int CurrentFloor = 0;
-    public IEnumerator NextFloor()
+    public void GeneralFloorChange()
     {
+
         OldCurrentRoom = null;
         Seed = Random.Range(-999999999, 999999999);
         GlobalRand = new System.Random(Seed);
@@ -481,6 +482,21 @@ public class Gamer : MonoBehaviour
         Tags.refs["Lobby"].SetActive(false);
         Tags.refs["BlackBG"].SetActive(true);
         ClearMap();
+        Sorters.Clear();
+        LevelProgression.Clear();
+    }
+
+    public IEnumerator NextShopLevel()
+    {
+        GeneralFloorChange();
+        Tags.refs["Lobby"].SetActive(true);
+        yield return TitleText("Shop");
+    }
+
+
+    public IEnumerator NextFloor()
+    {
+        GeneralFloorChange();
         RoomLol.Instance.GenerateRandomLayout();
         
         List<I_Room> enders = new List<I_Room>();
@@ -509,11 +525,10 @@ public class Gamer : MonoBehaviour
         PlayerController.Instance.transform.position = rm.transform.position;
         enders.Remove(rm);
         endos.Remove(rm);
-        Sorters.Clear();
-        LevelProgression.Clear();
         var rm2 = FindEndRoom(rm);
         rm2.isused = "End";
         Tags.refs["NextFloor"].transform.position = rm2.transform.position;
+        Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "NextShop";
         enders.Remove(rm2);
         endos.Remove(rm2);
         var e2 = CameraLol.Instance.transform.position;
@@ -542,15 +557,23 @@ public class Gamer : MonoBehaviour
 
         //compile end list
         yield return new WaitForSeconds(0.7f);
+        yield return StartCoroutine(TitleText());
+    }
+    public IEnumerator TitleText(string ver = "")
+    {
         float x = 0;
         var floopis = FloorHeader.GetComponent<CanvasGroup>();
         FloorHeader.text = $"Floor {CurrentFloor}";
-        while(x < 1)
+        if (ver != "")
         {
-            x = Mathf.Clamp01(x+Time.deltaTime);
+            FloorHeader.text = ver;
+        }
+        while (x < 1)
+        {
+            x = Mathf.Clamp01(x + Time.deltaTime);
             var g = Mathf.Sin(Mathf.PI * x / 2);
             floopis.alpha = g;
-            FloorHeader.transform.position = InitFloorHeadPos.position + new Vector3(0,-2,0);
+            FloorHeader.transform.position = InitFloorHeadPos.position + new Vector3(0, -2, 0);
             yield return null;
         }
         yield return new WaitForSeconds(1);
@@ -918,6 +941,9 @@ public class Gamer : MonoBehaviour
                 completetetge = false;
                 NextFloorBall = StartCoroutine(NextFloor());
                 yield return new WaitUntil(() => { return completetetge; });
+                break;
+            case "NextShop":
+                NextFloorBall = StartCoroutine(NextShopLevel());
                 break;
             case "Death":
                 KillYourSelf();
