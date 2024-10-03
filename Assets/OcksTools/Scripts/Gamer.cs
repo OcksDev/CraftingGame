@@ -57,7 +57,7 @@ public class Gamer : MonoBehaviour
     [HideInInspector]
     public I_Room CurrentRoom;
 
-
+    public GISItem PickupItemCrossover;
 
     public delegate void JustFuckingRunTheMethods();
     public event JustFuckingRunTheMethods RefreshUIPos;
@@ -207,6 +207,7 @@ public class Gamer : MonoBehaviour
     }
     public void MainMenu()
     {
+        CameraLol.Instance.shakeo.Clear();
         CurrentFloor = 0;
         LastHitEnemy = null;
         enemybar.gameObject.SetActive(false);
@@ -269,6 +270,10 @@ public class Gamer : MonoBehaviour
             {
                 ToggleSettings();
             }
+            else if (checks[5])
+            {
+                ToggleItemPickup();
+            }
             else
             {
                 SetPauseMenu(!checks[4]);
@@ -310,6 +315,146 @@ public class Gamer : MonoBehaviour
         checks[4] = a;
         if (!IsMultiplayer) Time.timeScale = checks[4] ? 0 : 1;
         UpdateMenus();
+    }
+    public void ToggleItemPickup()
+    {
+        checks[5] = !checks[5];
+        if (checks[5])
+        {
+            var c = GISLol.Instance.All_Containers["Equips"];
+
+            var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
+            poopy.slots[0].Held_Item = PickupItemCrossover;
+            poopy.slots[0].Displayer.UpdateDisplay();
+
+            var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
+            leftnut.ClearSlots();
+            leftnut.slots.Clear();
+            leftnut.GenerateSlots(5);
+            var leftnutitem = Tags.refs["LeftItemNut"].GetComponent<GISDisplay>();
+            leftnutitem.item = c.slots[0].Held_Item;
+            leftnutitem.UpdateDisplay();
+            for (int i = 0; i < leftnutitem.item.Run_Materials.Count; i++)
+            {
+                var wank = leftnutitem.item.Run_Materials[i];
+                string name = wank.itemindex != "" ? wank.itemindex : wank.index;
+                if (name != "")
+                {
+                    leftnut.slots[i].Held_Item = new GISItem(name);
+                }
+                if (name != "" && name != "Empty")
+                {
+                    leftnut.slots[i].CanInteract = false;
+                }
+                else
+                {
+                    leftnut.slots[i].CanInteract = true;
+                }
+            }
+
+            leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
+            leftnut.ClearSlots();
+            leftnut.GenerateSlots(5);
+            leftnutitem = Tags.refs["RightItemNut"].GetComponent<GISDisplay>();
+            leftnutitem.item = c.slots[1].Held_Item;
+            leftnutitem.UpdateDisplay();
+            for (int i = 0; i < leftnutitem.item.Run_Materials.Count; i++)
+            {
+                var wank = leftnutitem.item.Run_Materials[i];
+                string name = wank.itemindex != "" ? wank.itemindex : wank.index;
+                if (name != "")
+                {
+                    leftnut.slots[i].Held_Item = new GISItem(name);
+                }
+                if (name != "" && name != "Empty")
+                {
+                    leftnut.slots[i].CanInteract = false;
+                }
+                else
+                {
+                    leftnut.slots[i].CanInteract = true;
+                }
+            }
+
+        }
+        UpdateMenus();
+    }
+
+    public void ConfirmSexMenuSex()
+    {
+        var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
+        if (poopy.slots[0].Held_Item.ItemIndex != "Empty") return;
+        if (GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return;
+
+
+        var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
+        var leftnutitem = Tags.refs["LeftItemNut"].GetComponent<GISDisplay>();
+        for (int i = 0; i < leftnut.slots.Count; i++)
+        {
+            var x = leftnut.slots[i].Held_Item;
+            if (leftnutitem.item.Run_Materials.Count <= i)
+            {
+                var w = new GISMaterial();
+                leftnutitem.item.Run_Materials.Add(w);
+            }
+            if (x.ItemIndex != "Empty" && leftnut.slots[i].CanInteract)
+            {
+                //leftnutitem.item.Run_Materials[i] = new GISMaterial();
+                if (GISLol.Instance.ItemsDict[x.ItemIndex].IsCraftable)
+                {
+                    leftnutitem.item.Run_Materials[i].index = x.ItemIndex;
+                }
+                else
+                {
+                    leftnutitem.item.Run_Materials[i].itemindex = x.ItemIndex;
+                }
+            }
+        }
+
+        leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
+        leftnutitem = Tags.refs["RightItemNut"].GetComponent<GISDisplay>();
+        for (int i = 0; i < leftnut.slots.Count; i++)
+        {
+            var x = leftnut.slots[i].Held_Item;
+            if (leftnutitem.item.Run_Materials.Count <= i)
+            {
+                var w = new GISMaterial();
+                leftnutitem.item.Run_Materials.Add(w);
+            }
+            if (x.ItemIndex != "Empty" && leftnut.slots[i].CanInteract)
+            {
+                //leftnutitem.item.Run_Materials[i] = new GISMaterial();
+                if (GISLol.Instance.ItemsDict[x.ItemIndex].IsCraftable)
+                {
+                    leftnutitem.item.Run_Materials[i].index = x.ItemIndex;
+                }
+                else
+                {
+                    leftnutitem.item.Run_Materials[i].itemindex = x.ItemIndex;
+                }
+            }
+        }
+        Destroy(itemshite);
+        checks[5] = false;
+        UpdateMenus();
+        PlayerController.Instance.SetData();
+    }
+    public GameObject itemshite;
+    
+    public IEnumerator DeathAnim()
+    {
+        CameraLol.Instance.Shake(0.5f, 1f);
+        PlayerController.Instance.DeathDisable = true;
+        StartCoroutine(StartFade("Death", 120));
+        yield return null;
+    }
+    public void KillYourSelf()
+    {
+        ClearMap();
+        checks[6] = true;
+        GameState = "Dead";
+        Time.timeScale = 1;
+        SetPauseMenu(false);
     }
 
     public void StartLobby()
@@ -672,22 +817,6 @@ public class Gamer : MonoBehaviour
                 NextFloorButtonSexFuck = false;
                 StartCoroutine(StartFade("NextFloor"));
             }
-            if (checks[5])
-            {
-                if (!InputManager.IsKey(KeyCode.Tab))
-                {
-                    ToggleTabMenu();
-                    checks[5] = false;
-                }
-            }
-            else
-            {
-                if (InputManager.IsKey(KeyCode.Tab))
-                {
-                    ToggleTabMenu();
-                    checks[5] = true;
-                }
-            }
             enemybar.gameObject.SetActive(LastHitEnemy != null);
             enemybaroutline.SetActive(LastHitEnemy != null);
             enemybar.BarParentSize.gameObject.SetActive(LastHitEnemy != null);
@@ -768,11 +897,10 @@ public class Gamer : MonoBehaviour
 
     private Coroutine NextFloorBall;
     public bool IsFading = false;
-    public IEnumerator StartFade(string type)
+    public IEnumerator StartFade(string type, int steps = 50)
     {
         IsFading = true;
         fader.raycastTarget = true;
-        int steps = 50;
         for(int i = 0; i < steps; i++)
         {
             yield return new WaitForFixedUpdate();
@@ -791,6 +919,9 @@ public class Gamer : MonoBehaviour
                 NextFloorBall = StartCoroutine(NextFloor());
                 yield return new WaitUntil(() => { return completetetge; });
                 break;
+            case "Death":
+                KillYourSelf();
+                goto wank;
         }
         for (int i = 0; i < steps; i++)
         {
@@ -799,6 +930,7 @@ public class Gamer : MonoBehaviour
             c.a = (float)(50- i) / steps;
             fader.color = c;
         }
+        wank:
         yield return new WaitForFixedUpdate();
         c2 = fader.color;
         c2.a = 0;

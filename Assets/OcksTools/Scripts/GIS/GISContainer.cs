@@ -14,6 +14,7 @@ public class GISContainer : MonoBehaviour
     public bool CanShiftClickItems = true;
     [Tooltip("Uses the GISItems however doesn't use slots")]
     public bool IsAbstract = false;
+    public bool StopChildLabor = false;
     public bool GenerateRandomItems = false;
     public bool GenerateSlotObjects = true;
     public int GenerateXSlots = 20;
@@ -47,7 +48,7 @@ public class GISContainer : MonoBehaviour
                     slots.Add(h2);
                 }
             }
-            else
+            else if (!StopChildLabor)
             {
                 foreach (var pp in myass)
                 {
@@ -245,6 +246,34 @@ public class GISContainer : MonoBehaviour
         }
 
         return amnt;
+    }
+
+    public void ClearSlots()
+    {
+        foreach (var ns in slots)
+        {
+            if (ns != null)
+            Destroy(ns.gameObject);
+        }
+
+        var myass = GetComponentsInChildren<GISSlot>();
+        foreach (var pp in myass)
+        {
+            Destroy(pp.gameObject);
+        }
+
+        slots.Clear();
+    }
+    public void GenerateSlots(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            var h = Instantiate(SlotPrefab, transform.position, transform.rotation, transform);
+            var h2 = h.GetComponent<GISSlot>();
+            h2.Conte = this;
+            h2.Held_Item = new GISItem();
+            slots.Add(h2);
+        }
     }
 
     public bool ReturnItem(GISItem Held_Item)

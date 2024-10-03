@@ -19,20 +19,12 @@ public class GroundItem : MonoBehaviour
         life += Time.deltaTime;
         sexylady.transform.localPosition = new Vector3(0, Mathf.Sin(life*2.5f)*0.1f, 0);
     }
-
+    
     public void AttemptPickup()
     {
-        var inv = GISLol.Instance.All_Containers["Inventory"];
-        var open = inv.FindEmptySlot();
-        if(open > -1)
-        {
-            inv.slots[open].Held_Item = sexyballer;
-
-            Destroy(gameObject);
-        }
-        else
-        {
-            Debug.Log("NO SPACE");
-        }
+        if (Gamer.Instance.checks[5]) return;
+        Gamer.Instance.PickupItemCrossover = sexyballer;
+        Gamer.Instance.itemshite = gameObject;
+        Gamer.Instance.ToggleItemPickup();
     }
 }

@@ -216,6 +216,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sexylady: {fileID: 4996861623385820937}
+  sexyballer:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    Run_Materials: []
+    Interacted_Containers: []
 --- !u!114 &2668563307501889145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,4 +237,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: Item
-  IneteractDistance: 3
+  IneteractDistance: 0.7
+  cuum:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    Run_Materials: []
+    Interacted_Containers: []

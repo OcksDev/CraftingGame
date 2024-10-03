@@ -249,12 +249,7 @@ public class EntityOXS : MonoBehaviour
 
                 break;
             case "Player":
-                Gamer.Instance.ClearMap();
-                Gamer.Instance.checks[6] = true;
-                Gamer.GameState = "Dead";
-                Time.timeScale = 1;
-                //this also runs updatemenus()
-                Gamer.Instance.SetPauseMenu(false);
+                if(!PlayerController.Instance.DeathDisable) Gamer.Instance.StartCoroutine(Gamer.Instance.DeathAnim());
                 return;
         }
         Destroy(gameObject);

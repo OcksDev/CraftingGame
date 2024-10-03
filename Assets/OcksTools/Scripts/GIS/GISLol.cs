@@ -108,13 +108,14 @@ public class GISLol : MonoBehaviour
         za.z = 0;
         MouseFollower.transform.position = za;
         hoverballer = null;
-
+        
         foreach(var boner in All_Containers)
         {
             if (boner.Value.gameObject.activeInHierarchy)
             {
                 foreach(var bone in boner.Value.slots)
                 {
+                    if(bone != null)
                     bone.HoverCheckerData();
                 }
             }
@@ -275,6 +276,7 @@ public class GISItem
     }
     public void SetDefaultsBasedOnIndex()
     {
+        Debug.Log($"Looking For Doingus: [{ItemIndex}]");
         if(GISLol.Instance.ItemsDict.TryGetValue(ItemIndex, out GISItem_Data doingus))
         {
             if (GISLol.Instance.MaterialsDict.ContainsKey(ItemIndex))
@@ -499,8 +501,8 @@ public class GISItem_Data
 [Serializable]
 public class GISMaterial
 {
-    public string index;
-    public string itemindex;
+    public string index = "";
+    public string itemindex = "";
     public GISMaterial(string index)
     {
         this.index = index;

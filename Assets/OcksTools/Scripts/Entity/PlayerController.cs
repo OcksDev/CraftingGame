@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     public static float BaseDashCooldown = 5f;
     public SpriteRenderer Underlay;
     public WeaponDisplay weewee;
+    public bool DeathDisable = false;
     private void Awake()
     {
         Gamer.Instance.Players.Add(this);
@@ -369,12 +370,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (DeathDisable) return;
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"], "Dash", "player", 0.1f, true);
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 0.1f, false);
     }
     float scrollcool;
     private void LateUpdate()
     {
+        if (DeathDisable) return;
         dicksplit.rotation = Quaternion.identity;
         if (isrealowner)
         {
@@ -494,6 +497,7 @@ public class PlayerController : MonoBehaviour
     private string oldval;
     void FixedUpdate()
     {
+        if (DeathDisable) return;
         if(!isrealowner && HasLoadedWeapon && network_helditem.GetValue() != oldval)
         {
             oldval = network_helditem.GetValue();
