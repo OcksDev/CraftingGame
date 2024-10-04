@@ -4,7 +4,9 @@ using TMPro;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
 using Unity.Netcode.Components;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class Gamer : MonoBehaviour
@@ -147,6 +149,7 @@ public class Gamer : MonoBehaviour
     public bool IsHost;
     public void LoadLobbyScene()
     {
+        GeneralFloorChange();
         GameState = "Lobby";
         InRoom = false;
         CurrentRoom = null;
@@ -478,8 +481,8 @@ public class Gamer : MonoBehaviour
         Seed = Random.Range(-999999999, 999999999);
         GlobalRand = new System.Random(Seed);
         GameState = "Game";
-        CurrentFloor++;
         Tags.refs["Lobby"].SetActive(false);
+        Tags.refs["ShopArea"].SetActive(false);
         Tags.refs["BlackBG"].SetActive(true);
         ClearMap();
         Sorters.Clear();
@@ -489,14 +492,28 @@ public class Gamer : MonoBehaviour
     public IEnumerator NextShopLevel()
     {
         GeneralFloorChange();
-        Tags.refs["Lobby"].SetActive(true);
-        yield return TitleText("Shop");
+        Tags.refs["ShopArea"].SetActive(true);
+
+        PlayerController.Instance.transform.position = new Vector3(0,0,0);
+        var e2 = CameraLol.Instance.transform.position;
+        e2.x = PlayerController.Instance.transform.position.x;
+        e2.y = PlayerController.Instance.transform.position.y;
+        CameraLol.Instance.transform.position = e2;
+        CameraLol.Instance.ppos = e2;
+        CameraLol.Instance.targetpos = e2;
+
+        Tags.refs["NextFloor"].transform.position = new Vector3(11.5100002f, 0, -4.4000001f);
+        Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "StartGame";
+        yield return new WaitForSeconds(0.5f);
+
+        StartCoroutine(TitleText("Shop"));
     }
 
 
     public IEnumerator NextFloor()
     {
         GeneralFloorChange();
+        CurrentFloor++;
         RoomLol.Instance.GenerateRandomLayout();
         
         List<I_Room> enders = new List<I_Room>();
