@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 6
+  m_Mass: 20
   m_LinearDrag: 7
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -125,9 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 150
+  Health: 225
   Shield: 0
-  Max_Health: 150
+  Max_Health: 225
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -191,7 +191,7 @@ MonoBehaviour:
   AttackType: Ranged
   ImagePixelSize: 100
   FlipImage: 0
-  movespeed: 3
+  movespeed: 1
   SightRange: 15
   AttackCooldown: 4
   randommovetimer: 0

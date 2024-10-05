@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
 using Unity.Netcode.Components;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -14,6 +15,7 @@ public class Gamer : MonoBehaviour
     public bool[] checks = new bool[20];
     public Material[] sexex = new Material[2];
     public Image fader;
+    public GameObject textShuingite;
     public List<GISContainer> ballers = new List<GISContainer>();
     public List<EnemyHolder> EnemiesDos = new List<EnemyHolder>();
     public List<PlayerController> Players = new List<PlayerController>();
@@ -34,6 +36,7 @@ public class Gamer : MonoBehaviour
     public static System.Random GlobalRand = new System.Random();
     public Transform balls;
     public List<INteractable> spawnedchests = new List<INteractable>();
+    public List<GroundItem> spawneditemsformymassivesexyballs = new List<GroundItem>();
     public Transform ItemDisplayParent;
     public GameObject ItemDisplay;
     public GameObject DoorFab;
@@ -49,8 +52,10 @@ public class Gamer : MonoBehaviour
     public EnemyBarOfAids enemybar;
     public GameObject enemybaroutline;
     public TMP_InputField ItemNameInput;
-
+    public List<string> ItemPool = new List<string>();
+    public bool CanInteractThisFrame;
     public bool NextFloorButtonSexFuck = false;
+    public bool NextShopButtonSexFuck = false;
 
     public List<Image> HitSexers = new List<Image>();
 
@@ -136,6 +141,12 @@ public class Gamer : MonoBehaviour
             Destroy(sex.gameObject);
         }
         spawnedchests.Clear();
+        foreach (var sex in spawneditemsformymassivesexyballs)
+        {
+            if (sex == null) continue;
+            Destroy(sex.gameObject);
+        }
+        spawneditemsformymassivesexyballs.Clear();
         foreach (var sex in balls.GetComponentsInChildren<EnemyHitShit>())
         {
             Destroy(sex.gameObject);
@@ -282,15 +293,15 @@ public class Gamer : MonoBehaviour
                 SetPauseMenu(!checks[4]);
             }
         }
-        if (InputManager.IsKeyDown(InputManager.gamekeys["inven"]))
+        if (InputManager.IsKeyDown(InputManager.gamekeys["inven"], "menu"))
         {
             ToggleInventory();
         }
-        if (InputManager.IsKeyDown(KeyCode.Space))
+        if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
-            SpawnEnemy(EnemiesDos[7]);
+            SpawnEnemy(EnemiesDos[8]);
         }
-        if (checks[0] && InputManager.IsKeyDown(KeyCode.I))
+        if (checks[0] && InputManager.IsKeyDown(KeyCode.I, "menu"))
         {
             checks[2] = !checks[2];
             checks[1] = false;
@@ -333,7 +344,7 @@ public class Gamer : MonoBehaviour
             var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
             leftnut.ClearSlots();
             leftnut.slots.Clear();
-            leftnut.GenerateSlots(5);
+            leftnut.GenerateSlots(System.Math.Clamp(CurrentFloor*2,2,32));
             var leftnutitem = Tags.refs["LeftItemNut"].GetComponent<GISDisplay>();
             leftnutitem.item = c.slots[0].Held_Item;
             leftnutitem.UpdateDisplay();
@@ -357,7 +368,7 @@ public class Gamer : MonoBehaviour
 
             leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
             leftnut.ClearSlots();
-            leftnut.GenerateSlots(5);
+            leftnut.GenerateSlots(System.Math.Clamp(CurrentFloor * 2, 2, 32));
             leftnutitem = Tags.refs["RightItemNut"].GetComponent<GISDisplay>();
             leftnutitem.item = c.slots[1].Held_Item;
             leftnutitem.UpdateDisplay();
@@ -443,7 +454,25 @@ public class Gamer : MonoBehaviour
         PlayerController.Instance.SetData();
     }
     public GameObject itemshite;
-    
+    string a = "wank";
+    public void TextModeEnter()
+    {
+        if("TextEntry" != InputManager.locklevel)
+        {
+            a = InputManager.locklevel;
+            InputManager.SetLockLevel("TextEntry");
+        }
+    }
+    public void TextModeExit()
+    {
+        if ("TextEntry" == InputManager.locklevel)
+        {
+            InputManager.SetLockLevel(a);
+        }
+    }
+
+
+
     public IEnumerator DeathAnim()
     {
         CameraLol.Instance.Shake(0.5f, 1f);
@@ -476,7 +505,6 @@ public class Gamer : MonoBehaviour
     public static int CurrentFloor = 0;
     public void GeneralFloorChange()
     {
-
         OldCurrentRoom = null;
         Seed = Random.Range(-999999999, 999999999);
         GlobalRand = new System.Random(Seed);
@@ -493,7 +521,7 @@ public class Gamer : MonoBehaviour
     {
         GeneralFloorChange();
         Tags.refs["ShopArea"].SetActive(true);
-
+        AssembleItemPool();
         PlayerController.Instance.transform.position = new Vector3(0,0,0);
         var e2 = CameraLol.Instance.transform.position;
         e2.x = PlayerController.Instance.transform.position.x;
@@ -502,11 +530,41 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.ppos = e2;
         CameraLol.Instance.targetpos = e2;
 
+        for(int i = 0; i < 3; i++)
+        {
+            var c = Instantiate(GetChest(), new Vector3(-6, 7, 0) + (new Vector3(6, 0, 0) * i), Quaternion.identity, Tags.refs["ShopArea"].transform).GetComponent<INteractable>();
+            var f = new GISItem(ItemPool[Random.Range(0, ItemPool.Count)]);
+            c.cuum = f;
+            spawnedchests.Add(c);
+        }
+
+
+
+
         Tags.refs["NextFloor"].transform.position = new Vector3(11.5100002f, 0, -4.4000001f);
         Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "StartGame";
         yield return new WaitForSeconds(0.5f);
 
         StartCoroutine(TitleText("Shop"));
+    }
+
+    public void AssembleItemPool()
+    {
+        ItemPool.Clear();
+        foreach(var a in GISLol.Instance.Items)
+        {
+            if (a.IsCraftable)
+            {
+                ItemPool.Add(a.Name);
+                continue;
+            }
+            if (a.IsRune)
+            {
+                ItemPool.Add(a.Name);
+                continue;
+            }
+        }
+        ItemPool.Remove("Rock");
     }
 
 
@@ -856,6 +914,11 @@ public class Gamer : MonoBehaviour
             {
                 NextFloorButtonSexFuck = false;
                 StartCoroutine(StartFade("NextFloor"));
+            }
+            if (NextShopButtonSexFuck)
+            {
+                NextShopButtonSexFuck = false;
+                StartCoroutine(StartFade("NextShop"));
             }
             enemybar.gameObject.SetActive(LastHitEnemy != null);
             enemybaroutline.SetActive(LastHitEnemy != null);

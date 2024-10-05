@@ -129,6 +129,9 @@ MonoBehaviour:
   col:
     serializedVersion: 2
     rgba: 0
+  sexy: {fileID: 0}
+  healerstospawn: 1
+  AntiDieJuice: 0
 --- !u!58 &3287988989635287287
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +141,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 3287988989635287288}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 371532b358c01d84bb143411b033cc4e, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

@@ -192,7 +192,7 @@ MonoBehaviour:
   FlipImage: 1
   movespeed: 0
   SightRange: 15
-  AttackCooldown: 2
+  AttackCooldown: 1.5
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}

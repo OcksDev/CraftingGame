@@ -156,46 +156,50 @@ public class GISLol : MonoBehaviour
             }
             BallFondler.anchoredPosition = wank;
         }
-        if (InputManager.IsKeyDown(KeyCode.X))
+        if (InputManager.IsKeyDown(KeyCode.X, "menu"))
         {
             Mouse_Held_Item = new GISItem("Rock");
         }
-        if (InputManager.IsKeyDown(KeyCode.C))
+        if (InputManager.IsKeyDown(KeyCode.C, "menu"))
         {
             Mouse_Held_Item = new GISItem("Gold");
         }
-        if (InputManager.IsKeyDown(KeyCode.V))
+        if (InputManager.IsKeyDown(KeyCode.V, "menu"))
         {
             Mouse_Held_Item = new GISItem("Emerald");
         }
-        if (InputManager.IsKeyDown(KeyCode.B))
+        if (InputManager.IsKeyDown(KeyCode.B, "menu"))
         {
             Mouse_Held_Item = new GISItem("Slime");
         }
-        if (InputManager.IsKeyDown(KeyCode.N))
+        if (InputManager.IsKeyDown(KeyCode.N, "menu"))
         {
             Mouse_Held_Item = new GISItem("Glass");
         }
-        if (InputManager.IsKeyDown(KeyCode.M))
+        if (InputManager.IsKeyDown(KeyCode.M, "menu"))
         {
             Mouse_Held_Item = new GISItem("Angelic Ingot");
         }
-        if (InputManager.IsKeyDown(KeyCode.Comma))
+        if (InputManager.IsKeyDown(KeyCode.Comma, "menu"))
         {
             Mouse_Held_Item = new GISItem("Demonic Ingot");
         }
-        if (InputManager.IsKeyDown(KeyCode.Period))
+        if (InputManager.IsKeyDown(KeyCode.Period, "menu"))
         {
             Mouse_Held_Item = new GISItem("Amethyst");
         }
-        if (InputManager.IsKeyDown(KeyCode.P))
+        if (InputManager.IsKeyDown(KeyCode.Backslash, "menu"))
+        {
+            Mouse_Held_Item = new GISItem("Rune Of Self");
+        }
+        if (InputManager.IsKeyDown(KeyCode.P, "menu"))
         {
             var e = new GISMaterial();
             e.itemindex = "Rock";
             PlayerController.Instance.mainweapon.Materials.Add(e);
         }
         
-        if (InputManager.IsKeyDown(KeyCode.L))
+        if (InputManager.IsKeyDown(KeyCode.L, "menu"))
         {
             Debug.LogError("Fuck you, pause the game");
         }
@@ -483,6 +487,7 @@ public class GISItem_Data
     public int MaxAmount;
     public bool IsWeapon = false;
     public bool IsCraftable = false;
+    public bool IsRune = false;
     public GISItem_Data()
     {
         Sprite = null;

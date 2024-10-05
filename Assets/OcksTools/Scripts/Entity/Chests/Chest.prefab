@@ -46,7 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: Chest
-  IneteractDistance: 3
+  IneteractDistance: 1.5
+  TextOffsetDist: 2.2
+  DisplaySegsmcnugget: {fileID: 0}
+  cuum:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    Run_Materials: []
+    Interacted_Containers: []
 --- !u!1 &4198573441813068895
 GameObject:
   m_ObjectHideFlags: 0

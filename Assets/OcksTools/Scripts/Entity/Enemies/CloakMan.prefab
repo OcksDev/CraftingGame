@@ -124,9 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 100
+  Health: 75
   Shield: 0
-  Max_Health: 100
+  Max_Health: 75
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -192,7 +192,7 @@ MonoBehaviour:
   FlipImage: 0
   movespeed: 3
   SightRange: 15
-  AttackCooldown: 4
+  AttackCooldown: 3
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}

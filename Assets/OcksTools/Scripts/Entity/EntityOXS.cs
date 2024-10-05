@@ -290,7 +290,7 @@ public class EntityOXS : MonoBehaviour
                 i--;
             }
         }
-        if (Health <= 0)
+        if (EnemyType == "Player"? Health <= 0 : Health <= 0.5f)
         {
             Kill();
         }

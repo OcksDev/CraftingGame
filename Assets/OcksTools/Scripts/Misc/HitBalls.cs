@@ -132,7 +132,7 @@ public class HitBalls : MonoBehaviour
                     if (type == "Arrow" || type == "Shuriken" || type == "Boomerang")
                     {
                         dam.SpecificLocation = true;
-                        dam.AttackerPos = transform.position;
+                        dam.AttackerPos = type == "Arrow"?(transform.position + transform.rotation*Vector3.up*-1) : transform.position;
                     }
                     playerController.HitEnemy(e, dam);
                     switch (type)

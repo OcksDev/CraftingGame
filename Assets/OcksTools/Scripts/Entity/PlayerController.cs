@@ -189,12 +189,19 @@ public class PlayerController : MonoBehaviour
             int index = ga.LevelProgression.IndexOf(room);
             if (index + 1 < ga.LevelProgression.Count)
             {
-                var rm = ga.LevelProgression[index + 1];
-                targetpos = rm.transform.position;
-                ArrowInMyperkyAss.rotation = Point2DMod2(targetpos, -90, 0);
-                if (max <= 0 && rm.isused == "End")
+                try
                 {
-                    goto shank;
+                    var rm = ga.LevelProgression[index + 1];
+                    targetpos = rm.transform.position;
+                    ArrowInMyperkyAss.rotation = Point2DMod2(targetpos, -90, 0);
+                    if (max <= 0 && rm.isused == "End")
+                    {
+                        goto shank;
+                    }
+                }
+                catch
+                {
+
                 }
             }
             yield return null;
@@ -392,6 +399,7 @@ public class PlayerController : MonoBehaviour
                 scrollcool = 0.075f;
                 SwitchWeapon(selecteditem + (int)Input.mouseScrollDelta.y);
             }
+            Gamer.Instance.CanInteractThisFrame = true;
         }
 
         if (f < 1)
