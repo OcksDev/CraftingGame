@@ -19,6 +19,7 @@ public class HoverRefHolder : MonoBehaviour
     public RectTransform[] MaterialDisplays;
     public RectTransform[] MaterialDisplayBackgrounds;
     GISItem oldsex = null;
+
     public void SetMostData(GISItem hover)
     {
         if (oldsex == hover) return;

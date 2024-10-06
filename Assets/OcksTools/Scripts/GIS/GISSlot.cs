@@ -27,6 +27,18 @@ public class GISSlot : MonoBehaviour
         balls = GetComponent<RectTransform>();
         //GISLol.checkforhover += HoverCheckerData;
     }
+    private void Start()
+    {
+        switch (InteractFilter)
+        {
+            case "RockGive":
+                Held_Item = new GISItem("Rock");
+                break;
+            case "Trash":
+                Held_Item = new GISItem("Trash");
+                break;
+        }
+    }
     public bool FailToClick()
     {
         var pp = GISLol.Instance.Mouse_Held_Item;
@@ -36,8 +48,12 @@ public class GISSlot : MonoBehaviour
             case "Craftable":
                 if (!GISLol.Instance.AllCraftables.Contains(pp.ItemIndex)) return true;
                 break;
+            case "RockGive":
             case "Empty":
                 if (pp.ItemIndex != "Empty") return true;
+                break;
+            case "Trash":
+                if (pp.ItemIndex == "Empty") return true;
                 break;
             case "Weapon":
                 if(!GISLol.Instance.AllWeaponNames.Contains(pp.ItemIndex)) return true;
@@ -86,6 +102,15 @@ public class GISSlot : MonoBehaviour
         bool right = InputManager.IsKeyDown(InputManager.gamekeys["item_half"]);
         if (!(right || left)) return;
         if (!IsHovering()) return;
+        switch (InteractFilter)
+        {
+            case "RockGive":
+                GISLol.Instance.Mouse_Held_Item = new GISItem(Held_Item);
+                return;
+            case "Trash":
+                GISLol.Instance.Mouse_Held_Item = new GISItem();
+                return;
+        }
         //Debug.Log(balls.position.ToString() + ",    " + m.ToString());
         if (Conte.CanShiftClickItems && shift)
         {

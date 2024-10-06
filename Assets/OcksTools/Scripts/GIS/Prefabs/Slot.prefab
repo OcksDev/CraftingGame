@@ -138,6 +138,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   CanInteract: 1
+  Held_Item:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    Run_Materials: []
+    Interacted_Containers: []
   Displayer: {fileID: 6986252379372246307}
   Conte: {fileID: 0}
   InteractFilter: 

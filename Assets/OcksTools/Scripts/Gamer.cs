@@ -92,7 +92,14 @@ public class Gamer : MonoBehaviour
                 break;
             }
         }
-
+        if (checks[3])
+        {
+            InputManager.SetLockLevel("main_menu");
+        }
+        if (checks[5])
+        {
+            InputManager.SetLockLevel("item_menu");
+        }
         RefreshUIPos?.Invoke();
     }
 
@@ -160,7 +167,9 @@ public class Gamer : MonoBehaviour
     public bool IsHost;
     public void LoadLobbyScene()
     {
+        InputManager.SetLockLevel("");
         GeneralFloorChange();
+        Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "StartGame";
         GameState = "Lobby";
         InRoom = false;
         CurrentRoom = null;
@@ -248,7 +257,7 @@ public class Gamer : MonoBehaviour
         var e2 = CameraLol.Instance.transform.position;
         e2.x = 0;
         e2.y = 0;
-
+        InputManager.SetLockLevel("main_menu");
         foreach(var a in EliteTypes)
         {
             a.Enabled = true;

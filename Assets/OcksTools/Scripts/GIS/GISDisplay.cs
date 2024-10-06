@@ -116,7 +116,7 @@ public class GISDisplay : MonoBehaviour
         }
         else
         {
-            boner = new List<Sprite>() { d, d, d };
+            boner = new List<Sprite>() { w.Sprite, d, d };
             boner2 = new List<Color32>() { ccc, ccc, ccc };
         }
 
