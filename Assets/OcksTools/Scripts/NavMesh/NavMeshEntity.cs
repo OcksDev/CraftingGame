@@ -562,7 +562,12 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.3f);
         WantASpriteCranberry.sprite = SpriteMiscRefs[1];
+
         yield return new WaitForSeconds(0.3f);
+
+        var w = SpawnBox(transform.position + new Vector3(0,3.5f,0)).GetComponent<DangerCircleScrip>();
+        w.www = target.transform;
+        yield return new WaitForSeconds(2f);
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.30f);
         WantASpriteCranberry.sprite = SpriteVarients[0];

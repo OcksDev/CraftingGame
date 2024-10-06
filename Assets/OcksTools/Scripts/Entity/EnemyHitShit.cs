@@ -34,6 +34,7 @@ public class EnemyHitShit : MonoBehaviour
     {
         switch (type)
         {
+            case "ball":
             case "orb":
                 if (nono <= 0)
                 {
@@ -49,6 +50,7 @@ public class EnemyHitShit : MonoBehaviour
     {
         switch (type)
         {
+            case "ball":
             case "orb":
                 if (nono <= 0)
                 {
@@ -83,6 +85,7 @@ public class EnemyHitShit : MonoBehaviour
             if (type == "spitter"|| type == "cloak") Kill();
             switch (type)
             {
+                case "ball":
                 case "orb":
                     nono = 0.20f;
                     break;

@@ -193,6 +193,8 @@ public class HitBalls : MonoBehaviour
     {
         var e = GetComponent<Projectile>();
         if (fart && e != null) e.speed = 0;
+        var e2 = GetComponent<BallScrip>();
+        if (fart && e2 != null) e2.speed = 0;
         var f = GetComponent<SpriteRenderer>();
         for (int i = 0; i < 50; i++)
         {
@@ -209,6 +211,8 @@ public class HitBalls : MonoBehaviour
                     c2.a -= 0.02f;
                     spriteballs[2].color = c2;
                     break;
+                case "ball":
+                    goto end;
                 default:
                     if (f != null)
                     {
@@ -251,6 +255,7 @@ public class HitBalls : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
         }
+        end:
         if (f != null) f.enabled = false;
         Destroy(gameObject);
     }

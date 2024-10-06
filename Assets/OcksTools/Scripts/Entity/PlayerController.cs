@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rigid;
+    public Rigidbody2D rigid;
     private float move_speed = 2;
     private float working_move_speed = 2;
     private float decay = 0.8f;
