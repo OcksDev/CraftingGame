@@ -190,6 +190,7 @@ MonoBehaviour:
   AttackType: Ranged
   ImagePixelSize: 64
   FlipImage: 0
+  SpawnOverlapRadius: 2.5
   movespeed: 3
   SightRange: 15
   AttackCooldown: 3

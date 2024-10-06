@@ -16,7 +16,7 @@ public class EnemyHitShit : MonoBehaviour
         {
             return;
         }
-        if (type == "spitter")
+        if (type == "spitter" || type == "spik")
         {
             time -= Time.deltaTime;
             if (time <= 0) Kill();
@@ -82,7 +82,7 @@ public class EnemyHitShit : MonoBehaviour
             dam.Knockback = 1f;
             pp.entit.Hit(dam);
             hits.Add(pp);
-            if (type == "spitter"|| type == "cloak") Kill();
+            if (type == "spitter"|| type == "cloak" || type == "spik") Kill();
             switch (type)
             {
                 case "ball":
@@ -91,7 +91,7 @@ public class EnemyHitShit : MonoBehaviour
                     break;
             }
         }
-        else if ((type == "spitter"||type == "cloak") && e.type == "Wall")
+        else if ((type == "spitter"||type == "cloak" || type == "spik") && e.type == "Wall")
         {
             Kill();
         }
@@ -101,16 +101,25 @@ public class EnemyHitShit : MonoBehaviour
     bool isdea = false;
     public IEnumerator sexdie()
     {
-        if(type == "spitter"|| type == "cloak")
+        if(type == "spitter" || type == "cloak" || type == "spik")
         {
             GetComponentInChildren<SpriteRenderer>().enabled = false;
-            GetComponent<BoxCollider2D>().enabled = false;
+            if(TryGetComponent(out BoxCollider2D wank)) wank.enabled = false;
+            if(TryGetComponent(out CircleCollider2D wankw)) wankw.enabled = false;
             GetComponent<MoverSexBalls>().enabled = false;
             var g = Gamer.Instance;
-            if(type=="cloak")
-                Instantiate(g.ParticleSpawns[8], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
-            else
-                Instantiate(g.ParticleSpawns[9], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+            switch (type)
+            {
+                case "cloak":
+                    Instantiate(g.ParticleSpawns[8], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                    break;
+                case "spik":
+                    Instantiate(g.ParticleSpawns[12], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                    break;
+                default:
+                    Instantiate(g.ParticleSpawns[9], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                    break;
+            }
             yield return new WaitForSeconds(3);
         }
         Destroy(gameObject);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 569139315819550910}
   - component: {fileID: 219794239309678872}
   m_Layer: 0
-  m_Name: bALLING 1
+  m_Name: bALLING 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,8 +76,8 @@ Transform:
   m_GameObject: {fileID: 4222959527000364624}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 569139315819550910}
   m_RootOrder: 0
@@ -272,7 +272,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.90588236}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1412,8 +1412,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.15686275, g: 0.16470589, b: 0.6117647, a: 1}
-        key1: {r: 0.15686275, g: 0.16470589, b: 0.6117647, a: 0}
+        key0: {r: 0.99607843, g: 0.5882353, b: 0, a: 1}
+        key1: {r: 0.99607843, g: 0.5882353, b: 0, a: 0}
         key2: {r: 0.36364898, g: 0.22724593, b: 0.98910445, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

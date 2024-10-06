@@ -782,7 +782,7 @@ public class Gamer : MonoBehaviour
         }
 
         var ppos = wank.SpawnPos;
-        if (ppos == Vector3.zero) ppos = FindValidPos(CurrentRoom);
+        if (ppos == Vector3.zero) ppos = FindValidPos(CurrentRoom, wank.EnemyObject.GetComponent<NavMeshEntity>());
 
         var ss = Instantiate(wank.EnemyObject, ppos, PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
         var rs = ss.GetComponent<NavMeshEntity>();
@@ -834,7 +834,7 @@ public class Gamer : MonoBehaviour
 
 
 
-    public Vector3 FindValidPos(I_Room originroom)
+    public Vector3 FindValidPos(I_Room originroom, NavMeshEntity wankw)
     {
         var s = originroom.gm.transform;
         var s1 = s.localScale / 2;
@@ -846,7 +846,7 @@ public class Gamer : MonoBehaviour
         }
         else
         {
-            var a = Physics2D.OverlapCircleAll((Vector2)x, 1);
+            var a = Physics2D.OverlapCircleAll((Vector2)x, wankw.SpawnOverlapRadius);
             foreach (var b in a)
             {
                 var ob = GetObjectType(b.gameObject, false);
@@ -860,7 +860,7 @@ public class Gamer : MonoBehaviour
 
         if (failed)
         {
-            x = FindValidPos(originroom);
+            x = FindValidPos(originroom, wankw);
         }
         return x;
     }

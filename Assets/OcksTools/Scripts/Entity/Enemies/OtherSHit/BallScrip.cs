@@ -9,16 +9,27 @@ public class BallScrip : MonoBehaviour
     public float PullStrnehgth = 1;
     float life;
     public float ChargePOerc = 0f;
+    public GameObject WnakSpawn;
+    private EnemyHitShit ehs;
+
+    private void Start()
+    {
+        ehs = GetComponent<EnemyHitShit>();
+        Instantiate(Gamer.Instance.ParticleSpawns[13], transform.position, transform.rotation, transform);
+    }
     private void Update()
     {
         transform.position += directionsons * Time.deltaTime * speed;
-        if ((life += Time.deltaTime) > 12)
+        if ((life += Time.deltaTime) > 9)
         {
             var a = GetComponent<EnemyHitShit>();
-            a.Kill();
+            a.StartCoroutine(a.sexdie());
+            this.enabled = false;
             //speed = 0f;
         }
     }
+    float zonk;
+    float offs;
     private void FixedUpdate()
     {
         if (PlayerController.Instance != null)
@@ -27,6 +38,19 @@ public class BallScrip : MonoBehaviour
             float dist = RandomFunctions.Instance.Dist(transform.position, w);
             if(dist <= 13)
             PlayerController.Instance.rigid.velocity += (Vector2)(ChargePOerc * PullStrnehgth * (transform.position - w))/Mathf.Max(dist, 1f);
+        }
+        if(ChargePOerc >= 1 && (zonk -= Time.deltaTime) <= 0)
+        {
+            zonk = 0.2f;
+            for(int i = 0; i < 4; i++)
+            {
+                var w = Instantiate(WnakSpawn, transform.position, Quaternion.identity * Quaternion.Euler(0, 0, (90 * i)-offs), Gamer.Instance.balls);
+                var eh = w.GetComponent<EnemyHitShit>();
+                eh.overridedamage = ehs.overridedamage;
+                eh.Damage = ehs.Damage/2;
+                eh.sexballs = ehs.sexballs;
+            }
+            offs += 11.25f;
         }
     }
 

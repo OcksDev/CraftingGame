@@ -14,6 +14,7 @@ public class NavMeshEntity : MonoBehaviour
     public string AttackType = "Melee";
     public int ImagePixelSize = 18;
     public bool FlipImage= false;
+    public float SpawnOverlapRadius = 1;
     public float movespeed = 5f;
     public float SightRange = 15f;
     public float AttackCooldown = 1.5f;
