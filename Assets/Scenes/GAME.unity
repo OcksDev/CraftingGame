@@ -34228,7 +34228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.size
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.data[0]
@@ -34269,7 +34269,7 @@ PrefabInstance:
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.data[9]
       value: 
-      objectReference: {fileID: 3653482439093956654, guid: c0c291eb727362c4b8821c0ed7bd2e9b, type: 3}
+      objectReference: {fileID: 3653482439093956654, guid: 7ccf6685274b7cd46b280e08de322899, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EliteTypes.Array.data[0].Name
       value: Powerful
@@ -34318,6 +34318,18 @@ PrefabInstance:
       propertyPath: ParticleSpawns.Array.data[11]
       value: 
       objectReference: {fileID: 3653482439093956654, guid: 4b0df1d8691a690448de63357150ee2e, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[12]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: c0c291eb727362c4b8821c0ed7bd2e9b, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[13]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: 99c7b538e3d037f41b045fd55fe3d4d0, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[14]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: fccced929a73dc141ad4601ae8e33a16, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].Image
       value: 

@@ -48,7 +48,7 @@ public class DangerCircleScrip : MonoBehaviour
                     break;
             }
         }
-        if(Type == "fub")
+        if(Type == "fub" && gam.sexballs != null)
         {
             transform.position = gam.sexballs.transform.position + new Vector3(0, 3.5f, 0);
         }

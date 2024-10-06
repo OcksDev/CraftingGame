@@ -101,12 +101,13 @@ public class EnemyHitShit : MonoBehaviour
     bool isdea = false;
     public IEnumerator sexdie()
     {
-        if(type == "spitter" || type == "cloak" || type == "spik")
+        if(type == "spitter" || type == "cloak" || type == "spik" || type == "ball")
         {
-            GetComponentInChildren<SpriteRenderer>().enabled = false;
-            if(TryGetComponent(out BoxCollider2D wank)) wank.enabled = false;
-            if(TryGetComponent(out CircleCollider2D wankw)) wankw.enabled = false;
-            GetComponent<MoverSexBalls>().enabled = false;
+            var wanks = GetComponentInChildren<SpriteRenderer>();
+            if (wanks != null) wanks.enabled = false;
+            if (TryGetComponent(out BoxCollider2D wank)) wank.enabled = false;
+            if (TryGetComponent(out CircleCollider2D wankw)) wankw.enabled = false;
+            if (TryGetComponent(out MoverSexBalls wankww)) wankww.enabled = false;
             var g = Gamer.Instance;
             switch (type)
             {
@@ -115,6 +116,9 @@ public class EnemyHitShit : MonoBehaviour
                     break;
                 case "spik":
                     Instantiate(g.ParticleSpawns[12], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                    break;
+                case "ball":
+                    Instantiate(g.ParticleSpawns[14], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                     break;
                 default:
                     Instantiate(g.ParticleSpawns[9], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);

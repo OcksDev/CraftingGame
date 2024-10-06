@@ -22,8 +22,7 @@ public class BallScrip : MonoBehaviour
         transform.position += directionsons * Time.deltaTime * speed;
         if ((life += Time.deltaTime) > 9)
         {
-            var a = GetComponent<EnemyHitShit>();
-            a.StartCoroutine(a.sexdie());
+            ehs.StartCoroutine(ehs.sexdie());
             this.enabled = false;
             //speed = 0f;
         }
