@@ -56,6 +56,7 @@ public class Gamer : MonoBehaviour
     public bool CanInteractThisFrame;
     public bool NextFloorButtonSexFuck = false;
     public bool NextShopButtonSexFuck = false;
+    public GameObject ItemTranser;
 
     public List<Image> HitSexers = new List<Image>();
 
