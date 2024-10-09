@@ -81,6 +81,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["DedMenu"].SetActive(checks[6]);
         Tags.refs["TempMatMenu"].SetActive(checks[7]);
         Tags.refs["SettingsMenu"].SetActive(checks[8]);
+        Tags.refs["TransItems"].SetActive(checks[9]);
 
         WithinAMenu = false;
         InputManager.SetLockLevel("");
@@ -333,6 +334,42 @@ public class Gamer : MonoBehaviour
         checks[8] = !checks[8];
         UpdateMenus();
     }
+    List<GameObject> oldnerds = new List<GameObject>();
+    public void ToggleItemTrans()
+    {
+        checks[9] = !checks[9];
+        if (checks[9])
+        {
+            foreach (var a in oldnerds)
+            {
+                Destroy(a);
+            }
+            List<string> strings = new List<string>();
+            var c = GISLol.Instance.All_Containers["Equips"];
+            foreach (var a in c.slots[0].Held_Item.Run_Materials)
+            {
+                if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
+                {
+                    if (v.IsCraftable)
+                    {
+                        strings.Add(v.Name);
+                    }
+                }
+            }
+            foreach (var a in c.slots[1].Held_Item.Run_Materials)
+            {
+                if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
+                {
+                    if (v.IsCraftable)
+                    {
+                        strings.Add(v.Name);
+                    }
+                }
+            }
+        }
+        UpdateMenus();
+    }
+
 
     public void SetPauseMenu(bool a)
     {

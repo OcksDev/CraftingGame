@@ -7,10 +7,6 @@ public class MaterialTransfer : MonoBehaviour
     public GISDisplay dip;
     public string Type = "FromRun";
     public bool wasshun = false;
-    private void Start()
-    {
-        if(!wasshun)dip.item = new GISItem(GISLol.Instance.AllCraftables[Random.Range(0, GISLol.Instance.AllCraftables.Count)]);
-    }
 
     public void Clickity()
     {
