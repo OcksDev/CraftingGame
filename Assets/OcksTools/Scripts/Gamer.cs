@@ -308,6 +308,10 @@ public class Gamer : MonoBehaviour
         {
             ToggleInventory();
         }
+        if (InputManager.IsKeyDown(KeyCode.U, "menu"))
+        {
+            ToggleItemTrans();
+        }
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
             SpawnEnemy(EnemiesDos[8]);
@@ -366,10 +370,23 @@ public class Gamer : MonoBehaviour
                     }
                 }
             }
+            foreach(var a in strings)
+            {
+                SpawnItemTranser(new GISItem(a), "FromRun");
+            }
         }
         UpdateMenus();
     }
-
+    public void SpawnItemTranser(GISItem item, string side)
+    {
+        string weewee = "RightTrans";
+        if (side == "FromRun") weewee = "LeftTrans";
+        var transfer = Instantiate(ItemTranser, transform.position, transform.rotation, Tags.refs[weewee].transform).GetComponent<MaterialTransfer>();
+        oldnerds.Add(transfer.gameObject);
+        transfer.dip.item = item;
+        transfer.Type = side;
+        transfer.dip.UpdateDisplay();
+    }
 
     public void SetPauseMenu(bool a)
     {

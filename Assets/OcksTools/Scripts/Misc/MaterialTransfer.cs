@@ -10,21 +10,13 @@ public class MaterialTransfer : MonoBehaviour
 
     public void Clickity()
     {
-        MaterialTransfer transfer = null;
         switch (Type)
         {
             case "FromRun":
-                transfer = Instantiate(Gamer.Instance.ItemTranser, transform.position, transform.rotation, Tags.refs["RightTrans"].transform).GetComponent < MaterialTransfer>();
-                transfer.dip.item = dip.item;
-                transfer.Type = "FromRun2";
-                transfer.wasshun = true;
-                transfer.dip.UpdateDisplay();
+                Gamer.Instance.SpawnItemTranser(dip.item, "FromRun2");
                 break;
             case "FromRun2":
-                transfer = Instantiate(Gamer.Instance.ItemTranser, transform.position, transform.rotation, Tags.refs["LeftTrans"].transform).GetComponent < MaterialTransfer>();
-                transfer.dip.item = dip.item;
-                transfer.wasshun = true;
-                transfer.dip.UpdateDisplay();
+                Gamer.Instance.SpawnItemTranser(dip.item, "FromRun");
                 break;
         }
         Destroy(gameObject);
