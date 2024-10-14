@@ -285,6 +285,11 @@ public class Gamer : MonoBehaviour
         StartCoroutine(instancecoolmenus());
     }
 
+    public static bool GameInPlay()
+    {
+        return GameState == "Game" || GameState == "Lobby";
+    }
+
     public void Update()
     {
         if (!IsFading && InputManager.IsKeyDown(InputManager.gamekeys["close_menu"]))

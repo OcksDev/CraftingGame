@@ -80,7 +80,7 @@ public class HitBalls : MonoBehaviour
 
     public void Collisonsns(Collider2D collision)
     {
-
+        if (!Gamer.GameInPlay()) return;
         //Debug.Log("hit " + collision.gameObject.name);
         if (!hite && !NO)
         {

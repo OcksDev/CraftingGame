@@ -13,7 +13,7 @@ public class Paralaxis : MonoBehaviour
     {
         var ori = RandomFunctions.Instance.NoZ(transform.position);
         var mypos = RandomFunctions.Instance.NoZ(origin.transform.position);
-        off = (ori - mypos)/2;
+        off = (ori - mypos);
     }
     private void Update()
     {

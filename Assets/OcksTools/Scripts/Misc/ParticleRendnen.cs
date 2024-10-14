@@ -6,7 +6,7 @@ public class ParticleRendnen : MonoBehaviour
 {
     public float initTime;
     public ParticleSystem PE;
-    void Start()
+    private void OnEnable()
     {
         PE.Simulate(initTime);
         PE.Play();
