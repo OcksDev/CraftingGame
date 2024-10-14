@@ -76,6 +76,8 @@ public class Gamer : MonoBehaviour
         Tags.refs["Crafting"].SetActive(checks[1]);
         Tags.refs["Equips"].SetActive(checks[2]);
         Tags.refs["MainMenu"].SetActive(checks[3]);
+        Tags.refs["MainMenu1"].SetActive(checks[3]);
+        Tags.refs["MainMenu2"].SetActive(checks[3]);
         Tags.refs["PauseMenu"].SetActive(checks[4]);
         Tags.refs["ItemMenu"].SetActive(checks[5]);
         Tags.refs["DedMenu"].SetActive(checks[6]);
@@ -298,6 +300,9 @@ public class Gamer : MonoBehaviour
             else if (checks[5])
             {
                 ToggleItemPickup();
+            }
+            else if (checks[3])
+            {
             }
             else
             {
