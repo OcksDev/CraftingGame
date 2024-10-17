@@ -15,6 +15,7 @@ public class Gamer : MonoBehaviour
     public bool[] checks = new bool[20];
     public Material[] sexex = new Material[2];
     public Image fader;
+    public Camera mainnerddeingle;
     public GameObject textShuingite;
     public List<GISContainer> ballers = new List<GISContainer>();
     public List<EnemyHolder> EnemiesDos = new List<EnemyHolder>();
@@ -115,6 +116,10 @@ public class Gamer : MonoBehaviour
         {
             EliteTypesDict.Add(a.Name, a);
         }
+        var c2 = fader.color;
+        c2.a = 1;
+        fader.color = c2;
+        mainnerddeingle.Render();
     }
     private void Start()
     {
@@ -196,12 +201,17 @@ public class Gamer : MonoBehaviour
         checks[2] = true;
         checks[7] = true;
         UpdateMenus();
-        yield return new WaitForSeconds(0.2f);
+        yield return null;
         checks[0] = false;
         checks[1] = false;
         checks[2] = false;
         checks[7] = false;
         UpdateMenus();
+#if UNITY_EDITOR
+        StartCoroutine(StartFade("DingleBob", 5, true));
+#else
+        StartCoroutine(StartFade("DingleBob", 25, true));
+#endif
     }
 
 
@@ -281,7 +291,7 @@ public class Gamer : MonoBehaviour
             e.Start();
             e.LoadContents();
         }
-        yield return new WaitForFixedUpdate();
+        yield return null;
         StartCoroutine(instancecoolmenus());
     }
 
@@ -318,6 +328,8 @@ public class Gamer : MonoBehaviour
         {
             ToggleInventory();
         }
+
+#if UNITY_EDITOR
         if (InputManager.IsKeyDown(KeyCode.U, "menu"))
         {
             ToggleItemTrans();
@@ -326,6 +338,7 @@ public class Gamer : MonoBehaviour
         {
             SpawnEnemy(EnemiesDos[8]);
         }
+#endif
         if (checks[0] && InputManager.IsKeyDown(KeyCode.I, "menu"))
         {
             checks[2] = !checks[2];
@@ -1074,11 +1087,12 @@ public class Gamer : MonoBehaviour
 
     private Coroutine NextFloorBall;
     public bool IsFading = false;
-    public IEnumerator StartFade(string type, int steps = 50)
+    public IEnumerator StartFade(string type, int steps = 50, bool startfake = false)
     {
         IsFading = true;
         fader.raycastTarget = true;
-        for(int i = 0; i < steps; i++)
+        if (startfake) goto skipdingle;
+        for (int i = 0; i < steps; i++)
         {
             yield return new WaitForFixedUpdate();
             var c = fader.color;
@@ -1086,6 +1100,7 @@ public class Gamer : MonoBehaviour
             fader.color = c;
         }
         yield return new WaitForFixedUpdate();
+    skipdingle:
         var c2 = fader.color;
         c2.a = 1;
         fader.color = c2;
@@ -1107,7 +1122,7 @@ public class Gamer : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
             var c = fader.color;
-            c.a = (float)(50- i) / steps;
+            c.a = (float)(steps- i) / steps;
             fader.color = c;
         }
         wank:
@@ -1118,6 +1133,7 @@ public class Gamer : MonoBehaviour
 
         fader.raycastTarget = false;
         IsFading = false;
+        nono:
         yield return null;
     }
     public bool RandomChance(float percent01)

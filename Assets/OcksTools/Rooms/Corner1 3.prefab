@@ -210,6 +210,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ce50bd0da816a40b632c259f1b131d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  room:
+    RoomObject: {fileID: 0}
+    RoomSize: {x: 1, y: 1}
+    LeftDoor: {x: -6969, y: -6969}
+    RightDoor: {x: -6969, y: -6969}
+    TopDoor: {x: -6969, y: -6969}
+    BottomDoor: {x: -6969, y: -6969}
+    IsEndpoint: 0
+    HasLeftDoor: 0
+    HasRightDoor: 0
+    HasTopDoor: 0
+    HasBottomDoor: 0
+    RoomID: -1
+  parent_room:
+    RoomObject: {fileID: 0}
+    RoomSize: {x: 1, y: 1}
+    LeftDoor: {x: -6969, y: -6969}
+    RightDoor: {x: -6969, y: -6969}
+    TopDoor: {x: -6969, y: -6969}
+    BottomDoor: {x: -6969, y: -6969}
+    IsEndpoint: 0
+    HasLeftDoor: 0
+    HasRightDoor: 0
+    HasTopDoor: 0
+    HasBottomDoor: 0
+    RoomID: -1
+  RelatedRooms: []
   gm: {fileID: 0}
   dist: 9.438574e+10
   isused: 0

@@ -156,6 +156,7 @@ public class GISLol : MonoBehaviour
             }
             BallFondler.anchoredPosition = wank;
         }
+#if UNITY_EDITOR
         if (InputManager.IsKeyDown(KeyCode.X, "menu"))
         {
             Mouse_Held_Item = new GISItem("Rock");
@@ -203,6 +204,7 @@ public class GISLol : MonoBehaviour
         {
             Debug.LogError("Fuck you, pause the game");
         }
+#endif
     }
     public string GetDescription(GISItem baller)
     {

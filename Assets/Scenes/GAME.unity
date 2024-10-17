@@ -65104,6 +65104,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 241794498}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: mainnerddeingle
+      value: 
+      objectReference: {fileID: 547125997}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: InitFloorHeadPos
       value: 
       objectReference: {fileID: 180851116}
