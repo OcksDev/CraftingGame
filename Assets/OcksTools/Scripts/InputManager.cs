@@ -188,6 +188,8 @@ public class InputManager : MonoBehaviour
         gamekeynames.Add("dialog_skip_mouse", "Dialog Skip Mouse Edition");
         gamekeys.Add("inven", KeyCode.E);
         gamekeynames.Add("inven", "Fucks Yo Shit");
+        gamekeys.Add("equips", KeyCode.I);
+        gamekeynames.Add("equips", "Fucks Yo Shit again!");
         gamekeys.Add("interact", KeyCode.F);
         gamekeynames.Add("interact", "Interacts Wit Yo Shit");
         gamekeys.Add("craft", KeyCode.R);

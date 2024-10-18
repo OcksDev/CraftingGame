@@ -324,7 +324,7 @@ public class Gamer : MonoBehaviour
                 SetPauseMenu(!checks[4]);
             }
         }
-        if (InputManager.IsKeyDown(InputManager.gamekeys["inven"], "menu"))
+        if (InputManager.IsKeyDown(InputManager.gamekeys["inven"], "menu") && GameState == "Lobby")
         {
             ToggleInventory();
         }
@@ -339,21 +339,16 @@ public class Gamer : MonoBehaviour
             SpawnEnemy(EnemiesDos[8]);
         }
 #endif
-        if (checks[0] && InputManager.IsKeyDown(KeyCode.I, "menu"))
-        {
-            checks[2] = !checks[2];
-            checks[1] = false;
-            UpdateMenus();
-        }
-
 
     }
+
     public static int EnemyCheckoffset = 0;
     public void ToggleInventory()
     {
+        if (checks[0] && GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return;
         checks[0] = !checks[0];
         checks[1] = false;
-        checks[2] = false;
+        checks[2] = checks[0];
         UpdateMenus();
     }
     public void ToggleSettings()
@@ -600,8 +595,10 @@ public class Gamer : MonoBehaviour
         Tags.refs["ShopArea"].SetActive(false);
         Tags.refs["BlackBG"].SetActive(true);
         ClearMap();
+        checks[0] = false;
         Sorters.Clear();
         LevelProgression.Clear();
+        UpdateMenus();
     }
 
     public IEnumerator NextShopLevel()
