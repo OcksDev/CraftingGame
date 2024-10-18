@@ -58,7 +58,6 @@ public class Gamer : MonoBehaviour
     public bool NextFloorButtonSexFuck = false;
     public bool NextShopButtonSexFuck = false;
     public GameObject ItemTranser;
-
     public List<Image> HitSexers = new List<Image>();
 
     [HideInInspector]
@@ -201,7 +200,7 @@ public class Gamer : MonoBehaviour
         checks[2] = true;
         checks[7] = true;
         UpdateMenus();
-        yield return null;
+        yield return new WaitForFixedUpdate();
         checks[0] = false;
         checks[1] = false;
         checks[2] = false;

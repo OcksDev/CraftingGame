@@ -2642,7 +2642,7 @@ GameObject:
   - component: {fileID: 143059787}
   - component: {fileID: 143059786}
   m_Layer: 5
-  m_Name: Image
+  m_Name: eqronmp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38026,7 +38026,7 @@ GameObject:
   - component: {fileID: 965969871}
   - component: {fileID: 965969870}
   m_Layer: 5
-  m_Name: Image
+  m_Name: invin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65862,7 +65862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ballers.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: sexex.Array.data[0]
@@ -65916,6 +65916,10 @@ PrefabInstance:
       propertyPath: ballers.Array.data[0]
       value: 
       objectReference: {fileID: 143059786}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ballers.Array.data[1]
+      value: 
+      objectReference: {fileID: 965969871}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: HitSexers.Array.data[0]
       value: 
@@ -66461,6 +66465,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: DesciptionOverrides
+      value: 
+      objectReference: {fileID: 4900000, guid: 6f41149dbc07fee4c85d8be66353c238, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.size
       value: 8
       objectReference: {fileID: 0}
@@ -66946,31 +66954,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].Description
-      value: <g>+20%</> Damage<br><b>-5%</> Attack Speed
+      value: susy
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[2].Description
-      value: <g>+15%</> Attack Speed
+      value: ' '
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[3].Description
-      value: <g>+20%</> Damage<br><b>-10%</> Movement Speed
+      value: <g>x1.2</> Damage<br><b>x0.9</> Movement Speed
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[4].Description
-      value: <g>+25%</> Damage<br><b>-10%</> Max Health
+      value: <g>x1.25</> Damage<br><b>x0.9</> Max Health
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[5].Description
-      value: <g>+15%</> Damage<br><b>-15%</> Crit Chance
+      value: <g>x1.15</> Damage<br><b>-15%</> Crit Chance
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[6].Description
-      value: <g>+20%</> Crit Chance<br><b>-10%</> Damage
+      value: <g>+20%</> Crit Chance<br><b>x0.9</> Damage
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[7].Description
-      value: <g>-15%</> Dash Cooldown<br><b>-10%</> Movement Speed
+      value: <g>x0.85</> Skill Cooldown<br><b>x0.9</> Movement Speed
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[1].DamageChange

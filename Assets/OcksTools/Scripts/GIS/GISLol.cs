@@ -28,6 +28,7 @@ public class GISLol : MonoBehaviour
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
 
 
+    public TextAsset DesciptionOverrides;
     public static GISLol Instance
     {
         get { return instance; }
@@ -43,6 +44,7 @@ public class GISLol : MonoBehaviour
 
     private void Awake()
     {
+
         foreach (var a in Items)
         {
             ItemsDict.Add(a.Name, a);
@@ -55,6 +57,14 @@ public class GISLol : MonoBehaviour
             MaterialsDict.Add(a.Name, a);
         }
 
+        var e = Converter.StringToDictionary(DesciptionOverrides.text.Replace("\r", ""), "\n", ":: ");
+        foreach (var we in e)
+        {
+            if (MaterialsDict.ContainsKey(we.Key))
+            {
+                MaterialsDict[we.Key].Description = we.Value;
+            }
+        }
 
         if (Instance == null) instance = this;
         SaveSystem.SaveAllData += SaveAll;
@@ -219,11 +229,11 @@ public class GISLol : MonoBehaviour
             e += $"<br><br>{MaterialsDict[baller.Materials[0].index].Description}";
         }
 
-        e = e.Replace("<g>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[0])}>");
-        e = e.Replace("<b>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[1])}>");
-        e = e.Replace("<e>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[2])}>");
-        e = e.Replace("<o>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[3])}>");
-        e = e.Replace("</>", $"</color>");
+        e = e.Replace("<g>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[0])}>"); //good effect
+        e = e.Replace("<b>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[1])}>"); //bad effect
+        e = e.Replace("<e>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[2])}>"); //enemy
+        e = e.Replace("<o>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[3])}>"); //object/physical-thing/item
+        e = e.Replace("</>", $"</color>"); // end
 
 
         return e;
@@ -282,7 +292,6 @@ public class GISItem
     }
     public void SetDefaultsBasedOnIndex()
     {
-        Debug.Log($"Looking For Doingus: [{ItemIndex}]");
         if(GISLol.Instance.ItemsDict.TryGetValue(ItemIndex, out GISItem_Data doingus))
         {
             if (GISLol.Instance.MaterialsDict.ContainsKey(ItemIndex))
