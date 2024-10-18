@@ -241,7 +241,8 @@ public class Gamer : MonoBehaviour
             }
         }
     }
-    public void MainMenu()
+
+    public void ResetIntegreal()
     {
         CameraLol.Instance.shakeo.Clear();
         CurrentFloor = 0;
@@ -251,9 +252,7 @@ public class Gamer : MonoBehaviour
         enemybar.BarParentSize.gameObject.SetActive(false);
         if (NextFloorBall != null) StopCoroutine(NextFloorBall);
         FloorHeader.transform.position = InitFloorHeadPos.position;
-        if (IsMultiplayer) NetworkManager.Singleton.Shutdown();
-        IsMultiplayer = false;
-        for (int i = 0;i < checks.Length;i++)
+        for (int i = 0; i < checks.Length; i++)
         {
             checks[i] = false;
         }
@@ -261,17 +260,16 @@ public class Gamer : MonoBehaviour
         ShartPoop = 0f;
         ClearMap();
         Tags.refs["BlackBG"].SetActive(false);
-        checks[3] = true;
         CraftSex = "Sword";
-        Players.Clear();
         GameState = "Main Menu";
-        if (PlayerController.Instance != null) Destroy(PlayerController.Instance.gameObject);
+        Players.Clear();
+        if (PlayerController.Instance != null && !IsMultiplayer) Destroy(PlayerController.Instance.gameObject);
         UpdateMenus();
         var e2 = CameraLol.Instance.transform.position;
         e2.x = 0;
         e2.y = 0;
         InputManager.SetLockLevel("main_menu");
-        foreach(var a in EliteTypes)
+        foreach (var a in EliteTypes)
         {
             a.Enabled = true;
         }
@@ -279,6 +277,15 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.transform.position = e2;
         CameraLol.Instance.ppos = e2;
         CameraLol.Instance.targetpos = e2;
+    }
+
+    public void MainMenu()
+    {
+        if (IsMultiplayer) NetworkManager.Singleton.Shutdown();
+        IsMultiplayer = false;
+        ResetIntegreal();
+        checks[3] = true;
+        UpdateMenus();
     }
 
 
@@ -355,15 +362,16 @@ public class Gamer : MonoBehaviour
         checks[8] = !checks[8];
         UpdateMenus();
     }
-    List<GameObject> oldnerds = new List<GameObject>();
+    List<MaterialTransfer> oldnerds = new List<MaterialTransfer>();
     public void ToggleItemTrans()
     {
         checks[9] = !checks[9];
+        checks[6] = false;
         if (checks[9])
         {
             foreach (var a in oldnerds)
             {
-                Destroy(a);
+                Destroy(a.gameObject);
             }
             List<string> strings = new List<string>();
             var c = GISLol.Instance.All_Containers["Equips"];
@@ -399,7 +407,7 @@ public class Gamer : MonoBehaviour
         string weewee = "RightTrans";
         if (side == "FromRun") weewee = "LeftTrans";
         var transfer = Instantiate(ItemTranser, transform.position, transform.rotation, Tags.refs[weewee].transform).GetComponent<MaterialTransfer>();
-        oldnerds.Add(transfer.gameObject);
+        oldnerds.Add(transfer);
         transfer.dip.item = item;
         transfer.Type = side;
         transfer.dip.UpdateDisplay();
@@ -552,15 +560,50 @@ public class Gamer : MonoBehaviour
         }
     }
 
-
+    public void ConfirmItemTrans()
+    {
+        List<GISItem> wankers = new List<GISItem>();
+        foreach(var a in oldnerds)
+        {
+            if(a.Type == "FromRun2")
+            {
+                wankers.Add(a.dip.item);
+            }
+        }
+        foreach(var item in wankers)
+        {
+            Debug.Log("picked: " + item.ItemIndex);
+        }
+        FadeToLobby();
+    }
+    public void FadeToLobby()
+    {
+        StartCoroutine(StartFade("LobDingle", 25));
+    }
 
     public IEnumerator DeathAnim()
     {
         CameraLol.Instance.Shake(0.5f, 1f);
         PlayerController.Instance.DeathDisable = true;
-        StartCoroutine(StartFade("Death", 120));
+        StartCoroutine(DeathFlasher(40, 0.45f));
+        StartCoroutine(StartFade("Death", 80));
         yield return null;
     }
+    public Image Flasher;
+    public IEnumerator DeathFlasher(int ticks, float perc)
+    {
+        for(int i = 0; i < ticks; i++)
+        {
+            var e2 = Flasher.color;
+            e2.a = (perc)*((float)(ticks-i)/ticks);
+            Flasher.color = e2;
+            yield return new WaitForFixedUpdate();
+        }
+        var e = Flasher.color;
+        e.a = 0;
+        Flasher.color = e;
+    }
+
     public void KillYourSelf()
     {
         ClearMap();
@@ -1109,6 +1152,10 @@ public class Gamer : MonoBehaviour
                 break;
             case "NextShop":
                 NextFloorBall = StartCoroutine(NextShopLevel());
+                break;
+            case "LobDingle":
+                ResetIntegreal();
+                StartLobby();
                 break;
             case "Death":
                 KillYourSelf();
