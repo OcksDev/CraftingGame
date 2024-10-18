@@ -570,10 +570,13 @@ public class Gamer : MonoBehaviour
                 wankers.Add(a.dip.item);
             }
         }
-        foreach(var item in wankers)
+        var weewee = GISLol.Instance.All_Containers["Inventory"];
+        foreach (var item in wankers)
         {
-            Debug.Log("picked: " + item.ItemIndex);
+            var x = weewee.FindEmptySlot();
+            weewee.slots[x].Held_Item = item;
         }
+        weewee.SaveTempContents();
         FadeToLobby();
     }
     public void FadeToLobby()

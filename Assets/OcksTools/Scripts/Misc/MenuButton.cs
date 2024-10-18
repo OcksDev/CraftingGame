@@ -14,7 +14,7 @@ public class MenuButton : MonoBehaviour
                 Gamer.Instance.GetComponent<PickThingymabob>().MakeGame();
                 break;
             case "Single":
-                Gamer.Instance.StartLobby();
+                Gamer.Instance.FadeToLobby();
                 break;
             case "Join":
                 Gamer.Instance.GetComponent<PickThingymabob>().GoinGameE2(GetComponent<TMP_InputField>().text);
