@@ -29,7 +29,7 @@ public class EntityOXS : MonoBehaviour
         if(EnemyType == "Player")
         {
             DamageTimer = -1f;
-            playerdaddy = GetComponent<PlayerController>();
+            playerdaddy = OXComponent.GetComponent<PlayerController>(gameObject);
             ren = playerdaddy.dicksplit.GetComponent<SpriteRenderer>();
         }
         else
@@ -70,7 +70,7 @@ public class EntityOXS : MonoBehaviour
         PlayerController s = null;
         if (hit.attacker != null)
         {
-            s = hit.attacker.GetComponent<PlayerController>();
+            s = OXComponent.GetComponent<PlayerController>(hit.attacker);
         }
         switch (EnemyType)
         {
@@ -86,7 +86,7 @@ public class EntityOXS : MonoBehaviour
         switch (EnemyType)
         {
             case "Player":
-                s2 = GetComponent<PlayerController>();
+                s2 = OXComponent.GetComponent<PlayerController>(gameObject);
                 if (!s2.isrealowner) break;
                 //hit.Damage -= s2.GetItem("repulse");
                 if (hit.Damage < 1) hit.Damage = 1;
@@ -209,7 +209,7 @@ public class EntityOXS : MonoBehaviour
                     h.others = others;
                 }
                 int effect = -1;
-                var aa = GetComponent<NavMeshEntity>();
+                var aa = OXComponent.GetComponent<NavMeshEntity>(gameObject);
                 switch (aa.EnemyType)
                 {
                     case "Charger":

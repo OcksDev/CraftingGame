@@ -387,6 +387,7 @@ GameObject:
   - component: {fileID: 3786093809242686097}
   - component: {fileID: 6584350868192443160}
   - component: {fileID: 3786093809242686189}
+  - component: {fileID: 5948875234606571363}
   - component: {fileID: 4992820261010608327}
   - component: {fileID: 4682938189027455418}
   - component: {fileID: 3935274427218693252}
@@ -456,6 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5b3983c6649b34f8e29fcd0771279c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigid: {fileID: 0}
   Damage: 0
   AttacksPerSecond: 5
   Spread: 15
@@ -463,6 +465,7 @@ MonoBehaviour:
   BowChargeSpeed: 1
   CritChance: 0.01
   MaxDashCooldown: 3
+  RotationOverride: 0
   SwordFart: {fileID: 4699981174079926565}
   dicksplit: {fileID: 3033001111833298205}
   MyAssHurts: {fileID: 1066387814657488983}
@@ -488,6 +491,7 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    Run_Materials: []
     Interacted_Containers: []
   entit: {fileID: 0}
   sexer: {fileID: 0}
@@ -501,6 +505,7 @@ MonoBehaviour:
     ObjectID: 
   Underlay: {fileID: 401543440080684480}
   weewee: {fileID: 5711173659826320584}
+  DeathDisable: 0
   hasaids: 0
   IsDashing: 0
 --- !u!114 &6584350868192443160
@@ -540,6 +545,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &5948875234606571363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786093809242686102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80dd92a81b396d0448a19fdbda9e9cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Components:
+  - Player
+  - Entity
 --- !u!58 &4992820261010608327
 CircleCollider2D:
   m_ObjectHideFlags: 0

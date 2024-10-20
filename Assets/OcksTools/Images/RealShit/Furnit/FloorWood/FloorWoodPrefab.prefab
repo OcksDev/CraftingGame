@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5260182384836086568}
   - component: {fileID: 8838448548814820728}
   - component: {fileID: 5112165932013836978}
+  - component: {fileID: 2040447218282251500}
   m_Layer: 0
   m_Name: FloorWoodPrefab
   m_TagString: Furniture
@@ -103,3 +104,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 83bafc62ab897904ab34c2f3bf5e317c, type: 3}
   - {fileID: 21300000, guid: 470e0b5faa095924891704d1846dfab2, type: 3}
   CanNotSpawn: 0
+--- !u!114 &2040447218282251500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338418917981126028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80dd92a81b396d0448a19fdbda9e9cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Components:
+  - Furniture

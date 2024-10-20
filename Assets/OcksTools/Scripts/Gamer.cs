@@ -171,6 +171,7 @@ public class Gamer : MonoBehaviour
             if (sex == null) continue;
             Destroy(sex);
         }
+        OXComponent.CleanUp();
     }
     public bool IsHost;
     public void LoadLobbyScene()
@@ -1089,7 +1090,7 @@ public class Gamer : MonoBehaviour
         {
             if (!noget)
             {
-                e.playerController = shart.GetComponent<PlayerController>();
+                e.playerController = OXComponent.GetComponent<PlayerController>(shart);
                 e.entityoxs = e.playerController.entit;
             }
             e.type = "Player";
@@ -1099,7 +1100,7 @@ public class Gamer : MonoBehaviour
         {
             if (!noget)
             {
-                e.entity = shart.GetComponent<NavMeshEntity>();
+                e.entity = OXComponent.GetComponent<NavMeshEntity>(shart);
                 e.entityoxs = e.entity.EntityOXS;
             }
             e.type = "Enemy";
@@ -1107,7 +1108,7 @@ public class Gamer : MonoBehaviour
         else if (shart.tag == "Furniture")
         {
             if (!noget)
-                e.furniture = shart.GetComponent<Furniture>();
+                e.furniture = OXComponent.GetComponent<Furniture>(shart);
             e.type = "Furniture";
             e.DoOnTouch += e.furniture.OnTouch;
         }

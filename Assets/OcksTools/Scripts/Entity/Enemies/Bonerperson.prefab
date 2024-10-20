@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2284451541892325397}
+  - component: {fileID: -1650502587987379608}
   - component: {fileID: 2284451541892325386}
   - component: {fileID: 2284451541892325396}
   - component: {fileID: 2284451541892325398}
@@ -39,6 +40,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1650502587987379608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284451541892325387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80dd92a81b396d0448a19fdbda9e9cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Components:
+  - Entity
+  - NavMeshEntity
 --- !u!212 &2284451541892325386
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -191,6 +207,7 @@ MonoBehaviour:
   AttackType: Ranged
   ImagePixelSize: 96
   FlipImage: 0
+  SpawnOverlapRadius: 1
   movespeed: 3
   SightRange: 15
   AttackCooldown: 1.2
