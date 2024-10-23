@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GISLol : MonoBehaviour
@@ -109,6 +110,32 @@ public class GISLol : MonoBehaviour
             
         }
     }
+    public bool CanHover = false;
+    [HideInInspector]
+    public List<RaycastResult> rcl = new List<RaycastResult>();
+    public void HoverDataCooler()
+    {
+        if (!CanHover) return;
+        CanHover = false;
+        PointerEventData ped = new PointerEventData(EventSystem.current);
+        ped.position = Input.mousePosition;
+        rcl.Clear();
+        EventSystem.current.RaycastAll(ped, rcl);
+    }
+    public bool IsHoveringReal(GameObject banana)
+    {
+        GISLol.Instance.HoverDataCooler();
+        foreach (var ray in GISLol.Instance.rcl)
+        {
+            if (ray.gameObject == banana)
+            {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
     //public static event Gamer.JustFuckingRunTheMethods checkforhover;
     public GISItem hoverballer;
     private void Update()
@@ -118,8 +145,8 @@ public class GISLol : MonoBehaviour
         za.z = 0;
         MouseFollower.transform.position = za;
         hoverballer = null;
-        
-        foreach(var boner in All_Containers)
+        CanHover = true;
+        foreach (var boner in All_Containers)
         {
             if (boner.Value.gameObject.activeInHierarchy)
             {
@@ -133,39 +160,16 @@ public class GISLol : MonoBehaviour
         }
 
         //event call?
-
-        var a = hoverballer != null && hoverballer.ItemIndex != "Empty";
-        hovercummer.gameObject.SetActive(a);
-        if (a)
+        if (!founddaddy && hoverballer != null && hoverballer.ItemIndex != "Empty")
         {
-            hovercummer.SetMostData(hoverballer);
-            var wank = ballingsexnut.anchoredPosition;
-            float xoffset = 35;
-            float yoffset = 35;
-            var halfsize = BallFondler.sizeDelta / 2;
-            var halfnormalsize = NormalRender.sizeDelta / 2;
-            wank.x += xoffset + halfsize.x;
-            if(halfsize.y > yoffset)
-            {
-                wank.y += yoffset - halfsize.y;
-            }
-            var yfloor = wank.y - halfsize.y;
-            var yceil = wank.y + halfsize.y;
-            var xceil = wank.x + halfsize.x;
-            if (yfloor <= -halfnormalsize.y)
-            {
-                wank.y = halfsize.y-halfnormalsize.y;
-            }
-            else if (yceil >= halfnormalsize.y)
-            {
-                wank.y = halfnormalsize.y - halfsize.y;
-            }
-            if (xceil >= halfnormalsize.x)
-            {
-                wank.x -= (xoffset + halfsize.x)*2;
-            }
-            BallFondler.anchoredPosition = wank;
+            HoverDohicky(new HoverType(hoverballer));
         }
+        if (!founddaddy)
+        {
+            hovercummer.gameObject.SetActive(false);
+        }
+        founddaddy = false;
+
 #if UNITY_EDITOR
         if (InputManager.IsKeyDown(KeyCode.X, "menu"))
         {
@@ -216,6 +220,45 @@ public class GISLol : MonoBehaviour
         }
 #endif
     }
+    bool founddaddy = false;
+    public void HoverDohicky(HoverType hv)
+    {
+        if (founddaddy) return;
+        founddaddy = true;
+        var hoverballer = hv.item;
+        hovercummer.gameObject.SetActive(true);
+        if (true)
+        {
+            hovercummer.SetMostData(hv);
+            var wank = ballingsexnut.anchoredPosition;
+            float xoffset = 35;
+            float yoffset = 35;
+            var halfsize = BallFondler.sizeDelta / 2;
+            var halfnormalsize = NormalRender.sizeDelta / 2;
+            wank.x += xoffset + halfsize.x;
+            if (halfsize.y > yoffset)
+            {
+                wank.y += yoffset - halfsize.y;
+            }
+            var yfloor = wank.y - halfsize.y;
+            var yceil = wank.y + halfsize.y;
+            var xceil = wank.x + halfsize.x;
+            if (yfloor <= -halfnormalsize.y)
+            {
+                wank.y = halfsize.y - halfnormalsize.y;
+            }
+            else if (yceil >= halfnormalsize.y)
+            {
+                wank.y = halfnormalsize.y - halfsize.y;
+            }
+            if (xceil >= halfnormalsize.x)
+            {
+                wank.x -= (xoffset + halfsize.x) * 2;
+            }
+            BallFondler.anchoredPosition = wank;
+        }
+    }
+
     public string GetDescription(GISItem baller)
     {
         var wank = ItemsDict[baller.ItemIndex];
@@ -279,16 +322,56 @@ public class GISItem
     public List<GISMaterial> Materials = new List<GISMaterial>();
     public List<GISMaterial> Run_Materials = new List<GISMaterial>();
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
-
+    public Dictionary<string, int> AmountOfItems = new Dictionary<string, int>();
     public GISItem()
     {
         setdefaultvals();
+        CompileItems();
     }
     public GISItem(string base_type)
     {
         setdefaultvals();
         ItemIndex = base_type;
         SetDefaultsBasedOnIndex();
+        CompileItems();
+    }
+
+    public void CompileItems()
+    {
+        AmountOfItems.Clear();
+        foreach (var a in Materials)
+        {
+            if (AmountOfItems.ContainsKey(a.GetName()))
+            {
+                AmountOfItems[a.GetName()]++;
+            }
+            else
+            {
+                AmountOfItems.Add(a.GetName(), 1);
+            }
+        }
+        foreach (var a in Run_Materials)
+        {
+            if (AmountOfItems.ContainsKey(a.GetName()))
+            {
+                AmountOfItems[a.GetName()]++;
+            }
+            else
+            {
+                AmountOfItems.Add(a.GetName(), 1);
+            }
+        }
+    }
+    public int ReadItemAmount(string weenor)
+    {
+        if (AmountOfItems.ContainsKey(weenor))
+        {
+            return AmountOfItems[weenor];
+        }
+        else
+        {
+            return 0;
+        }
     }
     public void SetDefaultsBasedOnIndex()
     {
@@ -315,6 +398,7 @@ public class GISItem
         CustomName = sexnut.CustomName;
         Materials = new List<GISMaterial>(sexnut.Materials);
         Run_Materials = new List<GISMaterial>(sexnut.Run_Materials);
+        CompileItems();
     }
     private void setdefaultvals()
     {
@@ -479,6 +563,7 @@ public class GISItem
             }
         }
 
+        CompileItems();
     }
     public bool CanCraft()
     {
@@ -525,6 +610,11 @@ public class GISMaterial
     }
     public GISMaterial()
     {
+    }
+
+    public string GetName()
+    {
+        return index==""?itemindex:index;
     }
 }
 [Serializable]

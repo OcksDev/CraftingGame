@@ -62,6 +62,10 @@ public class GISSlot : MonoBehaviour
         return false;
     }
 
+    public bool IsHoveringReal()
+    {
+        return GISLol.Instance.IsHoveringReal(gameObject);
+    }
     public void OnInteract()
     {
         if(Conte.Name == "Equips")
@@ -86,7 +90,7 @@ public class GISSlot : MonoBehaviour
     public void HoverCheckerData()
     {
         if (!gameObject.activeInHierarchy) return;
-        if (IsHovering())
+        if (IsHoveringReal())
         {
             GISLol.Instance.hoverballer = Held_Item;
         }

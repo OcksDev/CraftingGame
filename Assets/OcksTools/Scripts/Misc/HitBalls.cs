@@ -125,7 +125,9 @@ public class HitBalls : MonoBehaviour
                         hite = true;
                         StartCoroutine(WaitForDIe(true));
                     }
-                    var dam = new DamageProfile(type, attackProfile.CalcDamage());
+                    var dam = new DamageProfile(attackProfile);
+                    dam.NerdType = type;
+                    dam.Damage = attackProfile.CalcDamage();
                     dam.WasCrit = attackProfile.WasCrit;
                     dam.Knockback = 1f;
                     dam.attacker = playerController.gameObject;

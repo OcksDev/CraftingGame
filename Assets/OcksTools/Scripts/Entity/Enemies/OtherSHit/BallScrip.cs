@@ -40,7 +40,7 @@ public class BallScrip : MonoBehaviour
         }
         if(ChargePOerc >= 1 && (zonk -= Time.deltaTime) <= 0)
         {
-            zonk = 0.2f;
+            zonk = 0.35f;
             for(int i = 0; i < 4; i++)
             {
                 var w = Instantiate(WnakSpawn, transform.position, Quaternion.identity * Quaternion.Euler(0, 0, (90 * i)-offs), Gamer.Instance.balls);
@@ -49,7 +49,7 @@ public class BallScrip : MonoBehaviour
                 eh.Damage = ehs.Damage/2;
                 eh.sexballs = ehs.sexballs;
             }
-            offs += 11.25f;
+            offs += 18f;
         }
     }
 

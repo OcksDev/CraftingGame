@@ -364,37 +364,30 @@ public class Gamer : MonoBehaviour
         UpdateMenus();
     }
     List<MaterialTransfer> oldnerds = new List<MaterialTransfer>();
+
+    public void ContinueFromDeathMenu()
+    {
+        var strings = GetRunItems();
+        if(strings.Count == 0)
+        {
+            FadeToLobby();
+        }
+        else
+        {
+            ToggleItemTrans();
+        }
+    }
+
     public void ToggleItemTrans()
     {
         checks[9] = !checks[9];
         checks[6] = false;
         if (checks[9])
         {
+            var strings = GetRunItems();
             foreach (var a in oldnerds)
             {
                 Destroy(a.gameObject);
-            }
-            List<string> strings = new List<string>();
-            var c = GISLol.Instance.All_Containers["Equips"];
-            foreach (var a in c.slots[0].Held_Item.Run_Materials)
-            {
-                if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
-                {
-                    if (v.IsCraftable)
-                    {
-                        strings.Add(v.Name);
-                    }
-                }
-            }
-            foreach (var a in c.slots[1].Held_Item.Run_Materials)
-            {
-                if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
-                {
-                    if (v.IsCraftable)
-                    {
-                        strings.Add(v.Name);
-                    }
-                }
             }
             foreach(var a in strings)
             {
@@ -403,6 +396,34 @@ public class Gamer : MonoBehaviour
         }
         UpdateMenus();
     }
+
+    public List<string> GetRunItems()
+    {
+        List<string> strings = new List<string>();
+        var c = GISLol.Instance.All_Containers["Equips"];
+        foreach (var a in c.slots[0].Held_Item.Run_Materials)
+        {
+            if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
+            {
+                if (v.IsCraftable)
+                {
+                    strings.Add(v.Name);
+                }
+            }
+        }
+        foreach (var a in c.slots[1].Held_Item.Run_Materials)
+        {
+            if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
+            {
+                if (v.IsCraftable)
+                {
+                    strings.Add(v.Name);
+                }
+            }
+        }
+        return strings;
+    }
+
     public void SpawnItemTranser(GISItem item, string side)
     {
         string weewee = "RightTrans";
@@ -514,6 +535,7 @@ public class Gamer : MonoBehaviour
                 }
             }
         }
+        leftnutitem.item.CompileItems();
 
         leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
         leftnutitem = Tags.refs["RightItemNut"].GetComponent<GISDisplay>();
@@ -538,6 +560,7 @@ public class Gamer : MonoBehaviour
                 }
             }
         }
+        leftnutitem.item.CompileItems();
         Destroy(itemshite);
         checks[5] = false;
         UpdateMenus();
@@ -564,7 +587,7 @@ public class Gamer : MonoBehaviour
     public void ConfirmItemTrans()
     {
         List<GISItem> wankers = new List<GISItem>();
-        foreach(var a in oldnerds)
+        foreach(var a in Tags.refs["RightTrans"].transform.GetComponents<MaterialTransfer>())
         {
             if(a.Type == "FromRun2")
             {

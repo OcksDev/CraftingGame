@@ -47,6 +47,9 @@ public class TextFromData : MonoBehaviour
             case "TestNumber4":
                 a = RandomFunctions.Instance.NumToRead("-10000.69", 0) + "<br>" + RandomFunctions.Instance.NumToRead("-10000.69", 1) + "<br>" + RandomFunctions.Instance.NumToRead("-10000.69", 2) + "<br>";
                 break;
+            case "CountMax":
+                a = $"{Tags.refs["RightTrans"].transform.childCount}/{Gamer.CurrentFloor}";
+                break;
         }
 
         jessie.text = a;

@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -132,7 +133,22 @@ public class EntityOXS : MonoBehaviour
 
                 break;
             default:
-                PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown/10f;
+                if (Gamer.Instance.GetObjectType(hit.attacker, false).type == "Player")
+                {
+                    PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown / 10f;
+                    Console.Log("Hit thingy");
+                    if (hit.WeaponOfAttack != null)
+                    {
+                        Console.Log("weapon thingy");
+                        var x = hit.WeaponOfAttack.ReadItemAmount("Rune Of Self");
+                        Console.Log("amount thingy: " + x);
+                        if (x > 0)
+                        {
+                            Console.Log("heal thingy");
+                            s.entit.Heal(x);
+                        }
+                    }
+                }
                 Shield -= hit.Damage;
                 if (Shield < 0)
                 {
@@ -382,6 +398,7 @@ public class DamageProfile
     public double CritChance = 0;
     public int PreCritted = -1;
     public int WasCrit = -1;
+    public GISItem WeaponOfAttack;
     public DamageProfile(string name, double damage)
     {
         Damage = damage;
@@ -409,6 +426,7 @@ public class DamageProfile
         entity = pp.entity;
         controller = pp.controller;
         NerdType = pp.NerdType;
+        WeaponOfAttack = new GISItem(pp.WeaponOfAttack);
     }
 
 
