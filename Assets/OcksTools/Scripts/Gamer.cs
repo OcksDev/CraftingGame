@@ -483,7 +483,7 @@ public class Gamer : MonoBehaviour
 
             leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
             leftnut.ClearSlots();
-            leftnut.GenerateSlots(System.Math.Clamp(CurrentFloor * 2, 2, 32));
+            leftnut.GenerateSlots(System.Math.Clamp(CurrentFloor *2, 2, 32));
             leftnutitem = Tags.refs["RightItemNut"].GetComponent<GISDisplay>();
             leftnutitem.item = c.slots[1].Held_Item;
             leftnutitem.UpdateDisplay();
@@ -494,14 +494,6 @@ public class Gamer : MonoBehaviour
                 if (name != "")
                 {
                     leftnut.slots[i].Held_Item = new GISItem(name);
-                }
-                if (name != "" && name != "Empty")
-                {
-                    leftnut.slots[i].CanInteract = false;
-                }
-                else
-                {
-                    leftnut.slots[i].CanInteract = true;
                 }
             }
 
@@ -518,6 +510,7 @@ public class Gamer : MonoBehaviour
 
         var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
         var leftnutitem = Tags.refs["LeftItemNut"].GetComponent<GISDisplay>();
+        leftnutitem.item.Run_Materials.Clear();
         for (int i = 0; i < leftnut.slots.Count; i++)
         {
             var x = leftnut.slots[i].Held_Item;
@@ -526,7 +519,7 @@ public class Gamer : MonoBehaviour
                 var w = new GISMaterial();
                 leftnutitem.item.Run_Materials.Add(w);
             }
-            if (x.ItemIndex != "Empty" && leftnut.slots[i].CanInteract)
+            if (x.ItemIndex != "Empty")
             {
                 //leftnutitem.item.Run_Materials[i] = new GISMaterial();
                 if (GISLol.Instance.ItemsDict[x.ItemIndex].IsCraftable)
@@ -543,6 +536,7 @@ public class Gamer : MonoBehaviour
 
         leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
         leftnutitem = Tags.refs["RightItemNut"].GetComponent<GISDisplay>();
+        leftnutitem.item.Run_Materials.Clear();
         for (int i = 0; i < leftnut.slots.Count; i++)
         {
             var x = leftnut.slots[i].Held_Item;
@@ -551,7 +545,7 @@ public class Gamer : MonoBehaviour
                 var w = new GISMaterial();
                 leftnutitem.item.Run_Materials.Add(w);
             }
-            if (x.ItemIndex != "Empty" && leftnut.slots[i].CanInteract)
+            if (x.ItemIndex != "Empty")
             {
                 //leftnutitem.item.Run_Materials[i] = new GISMaterial();
                 if (GISLol.Instance.ItemsDict[x.ItemIndex].IsCraftable)
@@ -591,12 +585,9 @@ public class Gamer : MonoBehaviour
     public void ConfirmItemTrans()
     {
         List<GISItem> wankers = new List<GISItem>();
-        foreach(var a in Tags.refs["RightTrans"].transform.GetComponents<MaterialTransfer>())
+        foreach(var a in Tags.refs["RightTrans"].transform.GetComponentsInChildren<MaterialTransfer>())
         {
-            if(a.Type == "FromRun2")
-            {
-                wankers.Add(a.dip.item);
-            }
+            wankers.Add(a.dip.item);
         }
         var weewee = GISLol.Instance.All_Containers["Inventory"];
         foreach (var item in wankers)

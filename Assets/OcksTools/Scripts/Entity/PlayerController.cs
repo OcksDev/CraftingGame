@@ -658,7 +658,6 @@ public class PlayerController : MonoBehaviour
         Shart.CritChance = CritChance;
         Shart.controller = this;
         Shart.WeaponOfAttack = new GISItem(mainweapon);
-        Console.Log("Assigned weapon" + (Shart.WeaponOfAttack != null));
         Shart.attacker = gameObject;
         var ff = Random.Range(0f, 1f);
         int tt = Mathf.FloorToInt(CritChance);
@@ -865,7 +864,6 @@ public class PlayerController : MonoBehaviour
             dam.SpecificLocation = true;
             dam.AttackerPos = transform.position;
         }
-        Console.Log("Ran through you, also " + (dam.WeaponOfAttack != null));
         enem.Hit(dam);
     }
 
