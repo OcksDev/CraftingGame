@@ -30,6 +30,7 @@ public class GISLol : MonoBehaviour
 
 
     public TextAsset DesciptionOverrides;
+    public TextAsset GeneralDesciptionOverrides;
     public static GISLol Instance
     {
         get { return instance; }
@@ -64,6 +65,14 @@ public class GISLol : MonoBehaviour
             if (MaterialsDict.ContainsKey(we.Key))
             {
                 MaterialsDict[we.Key].Description = we.Value;
+            }
+        }
+        e = Converter.StringToDictionary(GeneralDesciptionOverrides.text.Replace("\r", ""), "\n", ":: ");
+        foreach (var we in e)
+        {
+            if (ItemsDict.ContainsKey(we.Key))
+            {
+                ItemsDict[we.Key].Description = we.Value;
             }
         }
 
@@ -205,7 +214,14 @@ public class GISLol : MonoBehaviour
         }
         if (InputManager.IsKeyDown(KeyCode.Backslash, "menu"))
         {
-            Mouse_Held_Item = new GISItem("Rune Of Self");
+            if(Mouse_Held_Item.ItemIndex != "Empty")
+            {
+                Mouse_Held_Item = new GISItem(Items[Items.IndexOf(ItemsDict[Mouse_Held_Item.ItemIndex])+1].Name);
+            }
+            else
+            {
+                Mouse_Held_Item = new GISItem("Rune Of Self");
+            }
         }
         if (InputManager.IsKeyDown(KeyCode.P, "menu"))
         {
@@ -273,9 +289,9 @@ public class GISLol : MonoBehaviour
         }
 
         e = e.Replace("<g>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[0])}>"); //good effect
-        e = e.Replace("<b>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[1])}>"); //bad effect
+        e = e.Replace("<b>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[1])}>"); //bad effect / axel
         e = e.Replace("<e>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[2])}>"); //enemy
-        e = e.Replace("<o>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[3])}>"); //object/physical-thing/item
+        e = e.Replace("<o>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[3])}>"); //object/physical-thing/item/woman
         e = e.Replace("</>", $"</color>"); // end
 
 
