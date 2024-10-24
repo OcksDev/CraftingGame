@@ -162,7 +162,11 @@ public class Gamer : MonoBehaviour
             Destroy(sex.gameObject);
         }
         spawneditemsformymassivesexyballs.Clear();
-        foreach (var sex in balls.GetComponentsInChildren<EnemyHitShit>())
+        foreach (var sex in OXComponent.GetComponentsInChildren<EnemyHitShit>(balls.gameObject))
+        {
+            Destroy(sex.gameObject);
+        }
+        foreach (var sex in OXComponent.GetComponentsInChildren<HitBalls>(balls.gameObject))
         {
             Destroy(sex.gameObject);
         }

@@ -30,6 +30,7 @@ public class HitBalls : MonoBehaviour
                 trail.transform.localPosition = new Vector3(f,f,0);
                 break;
         }
+        OXComponent.StoreComponent(this);
     }
 
     private void FixedUpdate()

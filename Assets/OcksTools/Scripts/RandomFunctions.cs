@@ -32,6 +32,15 @@ public class RandomFunctions : MonoBehaviour
         ClientID = GenerateID();
         if (Instance == null) Instance = this;
     }
+    public static List<T> CombineLists<T>(List<T> ti, List<T> tee)
+    {
+        var tea = new List<T>(ti);
+        foreach (T t in tee)
+        {
+            tea.Add(t);
+        }
+        return tea;
+    }
 
     private void OnApplicationQuit()
     {

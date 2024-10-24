@@ -24,7 +24,10 @@ public class EnemyHitShit : MonoBehaviour
     }
 
     public Transform balling = null;
-
+    private void Awake()
+    {
+        OXComponent.StoreComponent(this);
+    }
     public void OnSpawn()
     {
         hits.Clear();

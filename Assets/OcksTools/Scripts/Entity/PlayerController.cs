@@ -692,7 +692,7 @@ public class PlayerController : MonoBehaviour
                 Shart.PreCritted = -1;
                 break;
             case "Crossbow":
-                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
+                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
                 s3.attackProfile = Shart;
@@ -703,7 +703,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Blowdart":
                 reverse *= -1;
-                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))));
+                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
                 var rahh = s.GetComponent<Projectile>();
                 rahh.spinglerenderer.sprite = rahh.Springles[0];
                 s3 = s.GetComponent<HitBalls>();
@@ -719,7 +719,7 @@ public class PlayerController : MonoBehaviour
             case "Bow":
                 for(int i = 0; i < 1; i++)
                 {
-                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, (Random.Range(Spread / 2, -Spread / 2)) + (15*i))));
+                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, (Random.Range(Spread / 2, -Spread / 2)) + (15*i))), Gamer.Instance.balls);
                     s3 = s.GetComponent<HitBalls>();
                     s3.playerController = this;
                     s3.attackProfile = Shart;
@@ -730,7 +730,7 @@ public class PlayerController : MonoBehaviour
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
             case "Shuriken":
-                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0));
+                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
 
@@ -755,7 +755,7 @@ public class PlayerController : MonoBehaviour
                 s3.spriteballs[2].color = ra.colormods[2];
                 break;
             case "Boomerang":
-                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0));
+                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
 
@@ -789,6 +789,25 @@ public class PlayerController : MonoBehaviour
                 epe /= x;
             }
             rigid.velocity += new Vector2(epe.x, epe.y);
+            var arr = mainweapon.ReadItemAmount("Rune Of Arrow")*0.2f;
+            if (arr > 0)
+            {
+                var ff2 = Random.Range(0f, 1f);
+                int tt2 = Mathf.FloorToInt(arr);
+                if (ff2 <= (arr % 1)) tt2++;
+                for(int i = 0; i < tt2; i++)
+                {
+                    var offshart = new DamageProfile(Shart);
+                    offshart.DamageMod *= 0.5;
+                    ff = Random.Range(0f, 1f);
+                    tt = Mathf.FloorToInt(CritChance);
+                    Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
+                    s3 = s.GetComponent<HitBalls>();
+                    s3.playerController = this;
+                    s3.attackProfile = offshart;
+                }
+            }
         }
         if (HitCollider != null)
         {

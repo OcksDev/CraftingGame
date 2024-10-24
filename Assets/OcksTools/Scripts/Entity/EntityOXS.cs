@@ -136,16 +136,18 @@ public class EntityOXS : MonoBehaviour
                 if (Gamer.Instance.GetObjectType(hit.attacker, false).type == "Player")
                 {
                     PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown / 10f;
-                    Console.Log("Hit thingy");
                     if (hit.WeaponOfAttack != null)
                     {
-                        Console.Log("weapon thingy");
-                        var x = hit.WeaponOfAttack.ReadItemAmount("Rune Of Self");
-                        Console.Log("amount thingy: " + x);
-                        if (x > 0)
+                        var arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Self") * 0.25f;
+                        if (arr > 0)
                         {
-                            Console.Log("heal thingy");
-                            s.entit.Heal(x);
+                            var ff2 = Random.Range(0f, 1f);
+                            int tt2 = Mathf.FloorToInt(arr);
+                            if (ff2 <= (arr % 1)) tt2++;
+                            if(tt2 > 0)
+                            {
+                                s.entit.Heal(tt2);
+                            }
                         }
                     }
                 }
@@ -398,6 +400,7 @@ public class DamageProfile
     public double CritChance = 0;
     public int PreCritted = -1;
     public int WasCrit = -1;
+    public double DamageMod = 1;
     public GISItem WeaponOfAttack;
     public DamageProfile(string name, double damage)
     {
@@ -426,6 +429,7 @@ public class DamageProfile
         entity = pp.entity;
         controller = pp.controller;
         NerdType = pp.NerdType;
+        DamageMod = pp.DamageMod;
         WeaponOfAttack = new GISItem(pp.WeaponOfAttack);
     }
 
@@ -458,7 +462,7 @@ public class DamageProfile
         }
 
 
-        return x;
+        return x * DamageMod;
     }
 }
 

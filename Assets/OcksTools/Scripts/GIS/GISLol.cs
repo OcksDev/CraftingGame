@@ -212,7 +212,7 @@ public class GISLol : MonoBehaviour
         {
             Mouse_Held_Item = new GISItem("Amethyst");
         }
-        if (InputManager.IsKeyDown(KeyCode.Backslash, "menu"))
+        if (InputManager.IsKeyDown(KeyCode.Backslash, "menu")|| InputManager.IsKeyDown(KeyCode.Backslash, "item_menu"))
         {
             if(Mouse_Held_Item.ItemIndex != "Empty")
             {
