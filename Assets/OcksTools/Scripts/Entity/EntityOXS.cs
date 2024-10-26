@@ -248,6 +248,11 @@ public class EntityOXS : MonoBehaviour
                 fard.sex.color = new Color32(26, 217, 61, 255);
             }
         }
+        if (playerdaddy != null)
+        {
+            var arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Confluence");
+            Shield = System.Math.Clamp(Shield + arr, 0, Max_Shield);
+        }
     }
 
     private Quaternion PointFromTo2D(Vector3 from_pos, Vector3 to_pos, float offset2)

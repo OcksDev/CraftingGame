@@ -663,13 +663,13 @@ public class Gamer : MonoBehaviour
         Sorters.Clear();
         LevelProgression.Clear();
         UpdateMenus();
+        AssembleItemPool();
     }
 
     public IEnumerator NextShopLevel()
     {
         GeneralFloorChange();
         Tags.refs["ShopArea"].SetActive(true);
-        AssembleItemPool();
         PlayerController.Instance.transform.position = new Vector3(0,0,0);
         var e2 = CameraLol.Instance.transform.position;
         e2.x = PlayerController.Instance.transform.position.x;

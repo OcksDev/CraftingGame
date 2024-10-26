@@ -261,6 +261,7 @@ public class PlayerController : MonoBehaviour
                 network_helditem.SetValue("");
             }
         }
+        mainweapon.CompileItems();
         var OLDPERC = entit.Health / entit.Max_Health;
         var OLDPERCDASH = DashCoolDown / MaxDashCooldown;
         CritChance = 0.01f;
