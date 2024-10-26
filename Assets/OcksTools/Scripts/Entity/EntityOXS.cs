@@ -44,8 +44,10 @@ public class EntityOXS : MonoBehaviour
             col = ren.color;
         }
     }
+    private double damagefromhit;
     public void Hit(DamageProfile hit)
     {
+        damagefromhit = hit.CalcDamage();
         if (AntiDieJuice) return;
         if (Gamer.GameState == "Dead") return;
         if (rg != null && hit.SpecificLocation)
@@ -92,7 +94,7 @@ public class EntityOXS : MonoBehaviour
                 s2 = OXComponent.GetComponent<PlayerController>(gameObject);
                 if (!s2.isrealowner) break;
                 //hit.Damage -= s2.GetItem("repulse");
-                if (hit.Damage < 1) hit.Damage = 1;
+                if (damagefromhit < 1) damagefromhit = 1;
 
                 if (s2.IsDashing)
                 {
@@ -111,10 +113,18 @@ public class EntityOXS : MonoBehaviour
                             CameraLol.Instance.Shake(0.4f, 0.87f);
                             Gamer.Instance.ShartPoop += 0.4f;
                         }
-                        Shield -= hit.Damage;
+                        Shield -= damagefromhit;
                         if (Shield < 0)
                         {
                             Health += Shield;
+                        }
+                        var arr = s2.mainweapon.ReadItemAmount("Rune Of Retaliation");
+                        if(arr >= 1 && hit.attacker != null)
+                        {
+                            var we = s2.GetDamageProfile();
+                            we.Damage = damagefromhit;
+                            we.DamageMod = arr;
+                            OXComponent.GetComponent<EntityOXS>(hit.attacker).Hit(we);
                         }
                     }
                     else
@@ -170,7 +180,7 @@ public class EntityOXS : MonoBehaviour
                         }
                     }
                 }
-                Shield -= hit.Damage;
+                Shield -= damagefromhit;
                 if (Shield < 0)
                 {
                     Health += Shield;
@@ -181,7 +191,7 @@ public class EntityOXS : MonoBehaviour
         var xx = (transform.localScale.x / 2) - 0.25f;
         var yy = (transform.localScale.y / 2) - 0.25f;
         GameObject e = null;
-        if (hit.Damage > 0)
+        if (damagefromhit > 0)
         {
             e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], transform.position + new Vector3(Random.Range(-xx, xx), Random.Range(-yy, yy), 0), Quaternion.identity);
         }
@@ -197,7 +207,7 @@ public class EntityOXS : MonoBehaviour
             }
             else
             {
-                fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(hit.Damage)).ToString());
+                fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(damagefromhit )).ToString());
                 fard.critlevel = hit.WasCrit;
                 DamageTimer = 0.1f;
             }
@@ -214,7 +224,7 @@ public class EntityOXS : MonoBehaviour
         {
             if (nerd.gameObject == gameObject) continue;
             var ob = Gamer.Instance.GetObjectType(nerd.gameObject);
-            if(ob.type == "Enemy")
+            if(ob.type == "Enemy" && ob.entityoxs.Health > 0.5f)
             {
                 var wank = new DamageProfile(dam);
                 wank.Damage = 25;

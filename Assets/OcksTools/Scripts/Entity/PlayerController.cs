@@ -655,14 +655,7 @@ public class PlayerController : MonoBehaviour
         HitBalls s3;
         Projectile s4;
 
-        DamageProfile Shart = new DamageProfile("PlayerAttack", Damage);
-        Shart.CritChance = CritChance;
-        Shart.controller = this;
-        Shart.WeaponOfAttack = new GISItem(mainweapon);
-        Shart.attacker = gameObject;
-        var ff = Random.Range(0f, 1f);
-        int tt = Mathf.FloorToInt(CritChance);
-        Shart.PreCritted = tt + (ff<(CritChance%1)?2:1);
+        DamageProfile Shart = GetDamageProfile();
         //Debug.Log($"D: {CritChance}, {GetItem("critglass")}, {Shart.PreCritted}, {Shart.CalcDamage()}");
 
         switch (mainweapon.ItemIndex)
@@ -795,8 +788,8 @@ public class PlayerController : MonoBehaviour
                 {
                     var offshart = new DamageProfile(Shart);
                     offshart.DamageMod *= 0.5;
-                    ff = Random.Range(0f, 1f);
-                    tt = Mathf.FloorToInt(CritChance);
+                    var ff = Random.Range(0f, 1f);
+                    var tt = Mathf.FloorToInt(CritChance);
                     Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
                     s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
                     s3 = s.GetComponent<HitBalls>();
@@ -813,6 +806,19 @@ public class PlayerController : MonoBehaviour
 
         if (isrealowner && Gamer.IsMultiplayer)ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "PAtt", spawnData.Hidden_Data[0]);
         bowsextimer = 0;
+    }
+
+    public DamageProfile GetDamageProfile()
+    {
+        DamageProfile Shart = new DamageProfile("PlayerAttack", Damage);
+        Shart.CritChance = CritChance;
+        Shart.controller = this;
+        Shart.WeaponOfAttack = new GISItem(mainweapon);
+        Shart.attacker = gameObject;
+        var ff = Random.Range(0f, 1f);
+        int tt = Mathf.FloorToInt(CritChance);
+        Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+        return Shart;
     }
 
     private Quaternion Point2D(float offset2, float spread)

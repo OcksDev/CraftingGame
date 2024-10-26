@@ -32,6 +32,7 @@ public class HoverRefHolder : MonoBehaviour
         {
             case "Item": break;
             default:
+                oldsex = null;
                 for (int i = 0; i < 3; i++)
                 {
                     MaterialDisplays[i].gameObject.SetActive(false);
@@ -41,11 +42,11 @@ public class HoverRefHolder : MonoBehaviour
                 LineTransform2.gameObject.SetActive(false);
                 break;
         }
-
         switch (hoverr.type)
         {
             case "TitleAndDesc":
                 LineTransform.gameObject.SetActive(true);
+                if (ItemName.text == hoverr.data && DescMesh.text == hoverr.data2) return;
                 ItemName.text = hoverr.data;
                 DescMesh.text = hoverr.data2;
                 var layoutr2 = ItemName.GetComponent<ContentSizeFitter>();

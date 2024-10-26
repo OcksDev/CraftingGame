@@ -161,8 +161,9 @@ public class GISLol : MonoBehaviour
             {
                 foreach(var bone in boner.Value.slots)
                 {
-                    if(bone != null)
-                    bone.HoverCheckerData();
+                    if(bone != null && IsHoveringReal(bone.gameObject)){
+                        hoverballer = bone.Held_Item;
+                    }
                 }
             }
             if (hoverballer != null) break;
@@ -240,7 +241,6 @@ public class GISLol : MonoBehaviour
     public void HoverDohicky(HoverType hv)
     {
         if (founddaddy) return;
-        founddaddy = true;
         var hoverballer = hv.item;
         hovercummer.gameObject.SetActive(true);
         if (true)
@@ -273,6 +273,7 @@ public class GISLol : MonoBehaviour
             }
             BallFondler.anchoredPosition = wank;
         }
+        founddaddy = true;
     }
 
     public string GetDescription(GISItem baller)

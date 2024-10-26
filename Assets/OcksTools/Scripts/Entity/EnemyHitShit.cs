@@ -83,6 +83,7 @@ public class EnemyHitShit : MonoBehaviour
             dam.SpecificLocation = true;
             try { dam.AttackerPos = balling.position; } catch { };
             dam.Knockback = 1f;
+            if(sexballs != null)dam.attacker = sexballs.gameObject;
             pp.entit.Hit(dam);
             hits.Add(pp);
             if (type == "spitter"|| type == "cloak" || type == "spik") Kill();

@@ -129,7 +129,6 @@ public class HitBalls : MonoBehaviour
                     }
                     var dam = new DamageProfile(attackProfile);
                     dam.NerdType = type;
-                    dam.Damage = attackProfile.CalcDamage();
                     dam.WasCrit = attackProfile.WasCrit;
                     dam.Knockback = 1f;
                     dam.attacker = playerController.gameObject;

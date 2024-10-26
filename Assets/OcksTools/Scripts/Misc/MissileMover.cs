@@ -22,6 +22,8 @@ public class MissileMover : MonoBehaviour
                 var d = RandomFunctions.Instance.Dist(transform.position, e.transform.position);
                 if (d < dist)
                 {
+                    var wenis = OXComponent.GetComponent<NavMeshEntity>(e.gameObject).HasSpawned;
+                    if (!wenis) continue;
                     target = e.gameObject;
                     dist = d;
                 }
