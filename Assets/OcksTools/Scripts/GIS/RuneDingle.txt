@@ -3,5 +3,5 @@ Rune Of Barrier:: <b>Fortnite</>
 Rune Of Missile:: <g>+10%</> chance on hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: Any time you Heal, gain <g>+1</> Barrier
 Rune Of Arrow:: <g>+20%</> chance on attack to shoot an <o>Arrow</> with 50% Damage
-Rune Of Kaboom:: <e>Enemies</> explode on kill for 35 Damage<br><g>+5m</> Explosion Size
+Rune Of Kaboom:: <e>Enemies</> explode on kill for 25 Damage<br><g>5m (+2m)</> Explosion Size
 Rune Of Spike:: Edging

@@ -24,6 +24,7 @@ public class EntityOXS : MonoBehaviour
     private PlayerController playerdaddy;
     public int healerstospawn = 1;
     public bool AntiDieJuice = false;
+    private DamageProfile lasthit;
     private void Start()
     {
         ren = GetComponent<SpriteRenderer>();
@@ -52,6 +53,7 @@ public class EntityOXS : MonoBehaviour
             var ewanker = ((Vector2)transform.position - (Vector2)hit.AttackerPos).normalized * hit.Knockback * 2.5f;
             rg.velocity += ewanker;
         }
+        lasthit = hit;
         switch (EnemyType)
         {
             case "Enemy":
@@ -202,6 +204,28 @@ public class EntityOXS : MonoBehaviour
         }
     }
 
+    public void SpawnExplosion(float size, Vector3 pos, DamageProfile dam)
+    {
+        var weenis = Instantiate(Gamer.Instance.ParticleSpawns[16], pos, Quaternion.identity).GetComponent<partShitBall>();
+        float truesz = size / 5;
+        weenis.Particicic.localScale = new Vector3(truesz, truesz, 1);
+        var we = Physics2D.OverlapCircleAll((Vector2)pos, size/2);
+        foreach(var nerd in we)
+        {
+            if (nerd.gameObject == gameObject) continue;
+            var ob = Gamer.Instance.GetObjectType(nerd.gameObject);
+            if(ob.type == "Enemy")
+            {
+                var wank = new DamageProfile(dam);
+                wank.Damage = 25;
+                wank.DamageMod = 1;
+                ob.entityoxs.Hit(wank);
+            }
+        }
+    }
+
+
+
     public void Heal(double amount)
     {
         var oldh = Health;
@@ -290,7 +314,15 @@ public class EntityOXS : MonoBehaviour
                 PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown;
                 if (effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 CameraLol.Instance.Shake(0.25f, 0.80f);
-
+                if(lasthit != null)
+                {
+                    var arr = lasthit.WeaponOfAttack.ReadItemAmount("Rune Of Kaboom")*2;
+                    arr += 3;
+                    if(arr > 4)
+                    {
+                        SpawnExplosion(arr, transform.position, lasthit);
+                    }
+                }
                 break;
             case "Player":
                 if(!PlayerController.Instance.DeathDisable) Gamer.Instance.StartCoroutine(Gamer.Instance.DeathAnim());
