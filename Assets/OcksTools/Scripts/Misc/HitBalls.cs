@@ -31,6 +31,7 @@ public class HitBalls : MonoBehaviour
                 break;
         }
         OXComponent.StoreComponent(this);
+        playerController = OXComponent.GetComponent<PlayerController>(attackProfile.attacker);
     }
 
     private void FixedUpdate()
@@ -132,7 +133,7 @@ public class HitBalls : MonoBehaviour
                     dam.WasCrit = attackProfile.WasCrit;
                     dam.Knockback = 1f;
                     dam.attacker = playerController.gameObject;
-                    if (type == "Arrow" || type == "Shuriken" || type == "Boomerang")
+                    if (type == "Arrow" || type == "Shuriken" || type == "Boomerang"|| type == "Missile")
                     {
                         dam.SpecificLocation = true;
                         dam.AttackerPos = type == "Arrow"?(transform.position + transform.rotation*Vector3.up*-1) : transform.position;
@@ -178,7 +179,7 @@ public class HitBalls : MonoBehaviour
                     }
                 }
             }
-            else if (shunk.type == "Wall" && (type == "Arrow"))
+            else if (shunk.type == "Wall" && (type == "Arrow" || type == "Missile"))
             {
                 //Debug.Log("AM DIE! " + collision.gameObject.name);
                 hite = true;
@@ -214,6 +215,9 @@ public class HitBalls : MonoBehaviour
                     c2.a -= 0.02f;
                     spriteballs[2].color = c2;
                     break;
+                case "Missile":
+                    Instantiate(Gamer.Instance.ParticleSpawns[15], transform.position, transform.rotation, Tags.refs["ParticleHolder"].transform);
+                    goto end;
                 case "ball":
                     goto end;
                 default:

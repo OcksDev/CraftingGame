@@ -66494,7 +66494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.size
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.data[0]
@@ -66596,6 +66596,10 @@ PrefabInstance:
       propertyPath: ParticleSpawns.Array.data[14]
       value: 
       objectReference: {fileID: 3653482439093956654, guid: fccced929a73dc141ad4601ae8e33a16, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[15]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: fae8e9fa1bb9e5f48814eb47cfc87d49, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].Image
       value: 
@@ -66985,9 +66989,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: b16a8d4258607084eb11059101f8b14e, type: 3}
     - target: {fileID: 1919247279447903412, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: SpawnRefs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919247279447903412, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: SpawnRefs.Array.data[0]
       value: 
       objectReference: {fileID: 8393889592928181090, guid: 9ffe39c75dab65342b979a316480a16f, type: 3}
+    - target: {fileID: 1919247279447903412, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: SpawnRefs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2278403275201244645, guid: ce43837dcadc1e54caed3260f7ce4f9e, type: 3}
     - target: {fileID: 3022886960770519242, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: GameVer
       value: v1.0.0

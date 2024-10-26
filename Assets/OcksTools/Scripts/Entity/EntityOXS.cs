@@ -144,9 +144,26 @@ public class EntityOXS : MonoBehaviour
                             var ff2 = Random.Range(0f, 1f);
                             int tt2 = Mathf.FloorToInt(arr);
                             if (ff2 <= (arr % 1)) tt2++;
-                            if(tt2 > 0)
+                            if (tt2 > 0)
                             {
                                 s.entit.Heal(tt2);
+                            }
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Missile") * 0.1f;
+                        if (arr > 0 && !hit.Procs.Contains("Missile"))
+                        {
+                            var ff2 = Random.Range(0f, 1f);
+                            int tt2 = Mathf.FloorToInt(arr);
+                            if (ff2 <= (arr % 1)) tt2++;
+                            for(int i = 0; i < tt2; i++)
+                            {
+                                var attack = new DamageProfile(hit);
+                                attack.Procs.Add("Missile");
+                                attack.DamageMod *= 2;
+                                var weenis = hit.attacker.transform;
+                                var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], weenis.position, PointFromTo2D(hit.attacker.transform.position, transform.position,90+Random.Range(-90f,90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
+                                we.hitbal.attackProfile = attack;
+                                we.target = gameObject;
                             }
                         }
                     }
@@ -209,6 +226,15 @@ public class EntityOXS : MonoBehaviour
         }
     }
 
+    private Quaternion PointFromTo2D(Vector3 from_pos, Vector3 to_pos, float offset2)
+    {
+        //returns the rotation required to make the current gameobject point at the mouse, this method is 2D only.
+        Vector3 difference = from_pos - to_pos;
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var sex = Quaternion.Euler(0f, 0f, rotation_z + offset2);
+        return sex;
+    }
     public void Kill()
     {
         switch (EnemyType)
@@ -406,12 +432,6 @@ public class DamageProfile
     {
         Damage = damage;
         Name = name;
-    }
-    public List<string> GiveProcs()
-    {
-        var e = new List<string>(Procs);
-        e.Add(Name);
-        return e;
     }
     public DamageProfile(DamageProfile pp)
     {

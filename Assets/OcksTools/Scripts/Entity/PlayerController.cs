@@ -350,7 +350,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Amethyst":
                 MaxDashCooldown *= 0.85f;
-                working_move_speed *= 0.90f;
+                //working_move_speed *= 0.90f;
                 break;
             case "Slime":
                 Damage *= 1.2f;
@@ -693,7 +693,6 @@ public class PlayerController : MonoBehaviour
             case "Crossbow":
                 s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
-                s3.playerController = this;
                 s3.attackProfile = Shart;
                 epe *= -0.5f;
                 HitCollider = null;
@@ -707,7 +706,6 @@ public class PlayerController : MonoBehaviour
                 rahh.spinglerenderer.sprite = rahh.Springles[0];
                 s3 = s.GetComponent<HitBalls>();
                 s3.OnlyHitOne = true;
-                s3.playerController = this;
                 s3.attackProfile = Shart;
                 epe *= -0.5f;
                 HitCollider = null;
@@ -720,7 +718,6 @@ public class PlayerController : MonoBehaviour
                 {
                     s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, (Random.Range(Spread / 2, -Spread / 2)) + (15*i))), Gamer.Instance.balls);
                     s3 = s.GetComponent<HitBalls>();
-                    s3.playerController = this;
                     s3.attackProfile = Shart;
                 }
                 epe *= -0.5f;
@@ -731,7 +728,6 @@ public class PlayerController : MonoBehaviour
             case "Shuriken":
                 s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
-                s3.playerController = this;
 
                 var x = RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition)), RandomFunctions.Instance.NoZ(MyAssHurts.position));
                 if (x < 10)

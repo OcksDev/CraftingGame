@@ -1,4 +1,4 @@
-Amethyst:: <g>x0.85</> Skill Cooldown<br><b>x0.9</> Movement Speed
+Amethyst:: <g>x0.85</> Skill Cooldown
 Rock:: (no modifier)
 Emerald:: <g>x1.15</> Attack Speed
 Gold:: <g>x1.2</> Damage<br><b>x0.95</> Attack Speed
