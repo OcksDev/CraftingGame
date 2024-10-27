@@ -102,8 +102,8 @@ MonoBehaviour:
   type: Barrel
   sprites:
   - {fileID: 21300000, guid: 599e1e949c974b24680bfa4057cbfa45, type: 3}
-  - {fileID: 21300000, guid: 41aec74b0eb3e204d8eaab60d90493ef, type: 3}
-  CanNotSpawn: 0
+  - {fileID: 21300000, guid: b723f7513586b5a40953e9b42e21a0ad, type: 3}
+  CanNotSpawn: 1
 --- !u!61 &-9086215895402753094
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -471,14 +471,7 @@ public class Gamer : MonoBehaviour
                 {
                     leftnut.slots[i].Held_Item = new GISItem(name);
                 }
-                if (name != "" && name != "Empty")
-                {
-                    leftnut.slots[i].CanInteract = false;
-                }
-                else
-                {
-                    leftnut.slots[i].CanInteract = true;
-                }
+                leftnut.slots[i].CanInteract = true;
             }
 
             leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
@@ -681,7 +674,7 @@ public class Gamer : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             var c = Instantiate(GetChest(), new Vector3(-6, 7, 0) + (new Vector3(6, 0, 0) * i), Quaternion.identity, Tags.refs["ShopArea"].transform).GetComponent<INteractable>();
-            var f = new GISItem(ItemPool[Random.Range(0, ItemPool.Count)]);
+            var f = GetItemForLevel();
             c.cuum = f;
             spawnedchests.Add(c);
         }
@@ -694,6 +687,11 @@ public class Gamer : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         StartCoroutine(TitleText("Shop"));
+    }
+
+    public GISItem GetItemForLevel()
+    {
+        return new GISItem(ItemPool[Random.Range(0, ItemPool.Count)]);
     }
 
     public void AssembleItemPool()
@@ -765,7 +763,7 @@ public class Gamer : MonoBehaviour
         {
             var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
             e.isused = "Chest";
-            var f = new GISItem("Rock");
+            var f = GetItemForLevel();
             c.cuum = f;
             spawnedchests.Add(c);
         }
@@ -895,7 +893,7 @@ public class Gamer : MonoBehaviour
         int x = 0;
         while(creditcount > 0)
         {
-            if (x >= 4)
+            if (x >= 3)
             {
                 break;
             }
@@ -1126,9 +1124,11 @@ public class Gamer : MonoBehaviour
         else if (shart.tag == "Furniture")
         {
             if (!noget)
+            {
                 e.furniture = OXComponent.GetComponent<Furniture>(shart);
+                e.DoOnTouch += e.furniture.OnTouch;
+            }
             e.type = "Furniture";
-            e.DoOnTouch += e.furniture.OnTouch;
         }
         else if (shart.tag == "Hitable")
         {
@@ -1138,6 +1138,30 @@ public class Gamer : MonoBehaviour
             e.BlocksSpawn = true;
         }
         return e;
+    }
+
+    public void SpawnGroundItem(Vector3 pos, GISItem cuum)
+    {
+        var itema = Instantiate(Gamer.Instance.GroundItemShit, pos, transform.rotation).GetComponent<GroundItem>();
+        itema.sexyballer = cuum;
+        Gamer.Instance.spawneditemsformymassivesexyballs.Add(itema);
+    }
+
+    public void SpawnHealers(Vector3 pos, int amount, PlayerController target)
+    {
+        List<GameObject> others = new List<GameObject>();
+        for (int i = 0; i < amount; i++)
+        {
+            var wen = Instantiate(Gamer.Instance.HealerGFooFO, pos, transform.rotation, balls);
+            others.Add(wen);
+            OXComponent.StoreComponent<HealerFollower>(wen);
+            OXComponent.GetComponent<HealerFollower>(wen).SexChaser = target;
+        }
+        foreach (var other in others)
+        {
+            var h = OXComponent.GetComponent<HealerFollower>(other);
+            h.others = others;
+        }
     }
 
     public void ToggleTabMenu()

@@ -272,7 +272,7 @@ public class NavMeshEntity : MonoBehaviour
                     }
                     else
                     {
-                        chargedir = (chargedir + (NoZ(target.transform.position) - NoZ(transform.position)).normalized*0.08f).normalized;
+                        chargedir = (chargedir + (GetDir() - NoZ(transform.position)).normalized*0.08f).normalized;
                     }
                     break;
                 case "Fwog":
@@ -450,7 +450,7 @@ public class NavMeshEntity : MonoBehaviour
         movespeed = 0.5f;
         charging = true;
         yield return new WaitForSeconds(0.3f);
-        chargedir = (NoZ(target.transform.position) - NoZ(transform.position)).normalized;
+        chargedir = (GetDir() - NoZ(transform.position)).normalized;
         movespeed = 0;
         charging2 = true;
         CLearShit?.Invoke();
@@ -465,7 +465,7 @@ public class NavMeshEntity : MonoBehaviour
     public IEnumerator SlimerSex()
     {
         charging = true;
-        chargedir = Quaternion.Euler(0,0,Random.Range(-15f,15f)) * (NoZ(target.transform.position) - NoZ(transform.position)).normalized;
+        chargedir = Quaternion.Euler(0,0,Random.Range(-15f,15f)) * (GetDir() - NoZ(transform.position)).normalized;
         charging2 = true;
         CLearShit?.Invoke();
         box.SetActive(true);
@@ -475,7 +475,10 @@ public class NavMeshEntity : MonoBehaviour
         timer2 = Random.Range(-0.25f, 0.25f);
         box.SetActive(false);
     }
-
+    public Vector3 GetDir()
+    {
+        return NoZ(beans.path.corners[1]);
+    }
     public IEnumerator SpiterSex()
     {
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
@@ -689,7 +692,7 @@ public class NavMeshEntity : MonoBehaviour
 
         canrunattacktimer = true;
         charging = true;
-        chargedir = (NoZ(target.transform.position) - NoZ(transform.position)).normalized;
+        chargedir = (GetDir() - NoZ(transform.position)).normalized;
         movespeed = 0;
         charging2 = true;
         CLearShit?.Invoke();
@@ -740,7 +743,7 @@ public class NavMeshEntity : MonoBehaviour
         if (sex)
         {
             //Debug.Log("Assert my balls");
-            if (sexp.GetComponent<PlayerController>() != null)
+            if (OXComponent.GetComponent<PlayerController>(sexp) != null)
             {
                 canseemysexybooty = true;
                 fuckyouunity = 3;
@@ -749,7 +752,7 @@ public class NavMeshEntity : MonoBehaviour
             }
             else
             {
-                var ss = p.GetComponent<NavMeshEntity>();
+                var ss = OXComponent.GetComponent<NavMeshEntity>(sexp);
                 if (target == null && ss != null) target = ss.target;
             }
         }

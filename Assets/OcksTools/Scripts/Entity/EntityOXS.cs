@@ -1,12 +1,8 @@
-using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using TMPro;
-using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class EntityOXS : MonoBehaviour
 {
@@ -119,12 +115,27 @@ public class EntityOXS : MonoBehaviour
                             Health += Shield;
                         }
                         var arr = s2.mainweapon.ReadItemAmount("Rune Of Retaliation");
-                        if(arr >= 1 && hit.attacker != null)
+                        if(arr >= 1)
                         {
-                            var we = s2.GetDamageProfile();
-                            we.Damage = damagefromhit;
-                            we.DamageMod = arr;
-                            OXComponent.GetComponent<EntityOXS>(hit.attacker).Hit(we);
+                            NavMeshEntity cuumer = null;
+                            float dist = 69696969;
+                            foreach(var gw in Gamer.Instance.EnemiesExisting)
+                            {
+                                var dd = RandomFunctions.Instance.DistNoSQRT(transform.position, gw.transform.position);
+                                if(dd < dist)
+                                {
+                                    dist = dd;
+                                    cuumer = gw;
+                                }
+                            }
+                            if(cuumer != null)
+                            {
+                                var we = s2.GetDamageProfile();
+                                we.Damage = damagefromhit;
+                                we.DamageMod = arr;
+                                cuumer.EntityOXS.Hit(we);
+                            }
+
                         }
                     }
                     else
@@ -280,17 +291,9 @@ public class EntityOXS : MonoBehaviour
         {
             case "Enemy":
                 SoundSystem.Instance.PlaySound(1, true, 0.7f, 1f);
-                List<GameObject> others = new List<GameObject>();
-                for(int i = 0; i < healerstospawn; i++)
-                {
-                    others.Add(Instantiate(Gamer.Instance.HealerGFooFO, transform.position, transform.rotation));
-                }
-                foreach (var other in others)
-                {
-                    var h = other.GetComponent<HealerFollower>();
-                    h.SexChaser = PlayerController.Instance;
-                    h.others = others;
-                }
+
+                Gamer.Instance.SpawnHealers(transform.position, healerstospawn, PlayerController.Instance);
+
                 int effect = -1;
                 var aa = OXComponent.GetComponent<NavMeshEntity>(gameObject);
                 switch (aa.EnemyType)

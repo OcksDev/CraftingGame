@@ -170,13 +170,14 @@ public class PlayerController : MonoBehaviour
         wankpos = transform.position;
         ArrowInMyperkyAss.gameObject.SetActive(true);
         bool wanker = !ga.InRoom && Gamer.CurrentFloor >= 1;
+        targetpos = new Vector3(1,1,696969);
         while (wanker)
         {
             if (entit.Health <= 0) yield break;
             if (Gamer.Instance.LevelProgression.Count<=0) goto shank;
             c = ArrowInThyAss.color;
             float max = 0.5f;
-            if(targetpos != null)
+            if(targetpos != new Vector3(1, 1, 696969))
             {
                 var d = (RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(transform.position), RandomFunctions.Instance.NoZ(targetpos)) - 8)/8;
                 max = Mathf.Min(max, d);
@@ -207,7 +208,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
             wanker = !ga.InRoom && Gamer.CurrentFloor >= 1;
         }
-        while(c.a > 0)
+        while(c.a > 0.01)
         {
             if (entit.Health <= 0) yield break;
             if (Gamer.Instance.LevelProgression.Count <= 0) goto shank;

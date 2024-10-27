@@ -209,12 +209,12 @@ MonoBehaviour:
   SpawnOverlapRadius: 1
   movespeed: 0
   SightRange: 15
-  AttackCooldown: 3
+  AttackCooldown: 3.6
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 10
+  Damage: 7
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: -1971642180, guid: 1cd0b9a6481aa384e911f64d29ac1529, type: 3}

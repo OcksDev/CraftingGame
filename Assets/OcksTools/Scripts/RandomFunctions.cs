@@ -436,6 +436,13 @@ public class RandomFunctions : MonoBehaviour
                 Mathf.Pow(p2.z - p1.z, 2f));
         return distance;
     }
+    public float DistNoSQRT(Vector3 p1, Vector3 p2)
+    {
+        return
+                Mathf.Pow(p2.x - p1.x, 2f) +
+                Mathf.Pow(p2.y - p1.y, 2f) +
+                Mathf.Pow(p2.z - p1.z, 2f);
+    }
     public int Mod(int r, int max)
     {
         return ((r % max) + max) % max;

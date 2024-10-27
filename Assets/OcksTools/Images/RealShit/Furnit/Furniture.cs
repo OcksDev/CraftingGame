@@ -13,6 +13,7 @@ public class Furniture : MonoBehaviour
     {
         self = GetComponent<SpriteRenderer>();
         if (CanNotSpawn) sprites.Add(null);
+        OXComponent.StoreComponent(this);
         SetFurniture();
     }
 
@@ -25,11 +26,11 @@ public class Furniture : MonoBehaviour
                 case "Barrel":
                     self.sprite = sprites[0];
                     var f = Random.Range(0, 1f);
-                    if (f < 0.25)
+                    if (f < 0.01)
                     {
                         self.sprite = sprites[1];
                     }
-                    if (f < 0.15)
+                    else if (f < 0.75)
                     {
                         self.sprite = sprites[2];
                     }
@@ -43,6 +44,7 @@ public class Furniture : MonoBehaviour
         {
             Destroy(self.gameObject);
         }
+        if (self.sprite == null) Destroy(gameObject);
     }
 
     public void OnTouch()
@@ -50,7 +52,24 @@ public class Furniture : MonoBehaviour
         switch (type)
         {
             case "Barrel":
-                Instantiate(Gamer.Instance.ParticleSpawns[2], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                if(self.sprite == sprites[0])
+                {
+                    var wank = Random.Range(0, 1f);
+                    if(wank <= 0.01f)
+                    {
+                        Gamer.Instance.SpawnGroundItem(transform.position, Gamer.Instance.GetItemForLevel());
+                    }
+                    else if(wank <= 0.1f)
+                    {
+                        Gamer.Instance.SpawnHealers(transform.position, 1, PlayerController.Instance);
+                    }
+                    Instantiate(Gamer.Instance.ParticleSpawns[2], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                }
+                else
+                {
+                    Gamer.Instance.SpawnHealers(transform.position, 2, PlayerController.Instance);
+                    Instantiate(Gamer.Instance.ParticleSpawns[17], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                }
                 Destroy(gameObject);
                 break;
         }

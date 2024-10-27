@@ -71,9 +71,7 @@ public class INteractable : MonoBehaviour
                 GetComponent<GroundItem>().AttemptPickup();
                 break;
             case "Chest":
-                var itema = Instantiate(Gamer.Instance.GroundItemShit, transform.position, transform.rotation).GetComponent<GroundItem>();
-                itema.sexyballer = cuum;
-                Gamer.Instance.spawneditemsformymassivesexyballs.Add(itema);
+                Gamer.Instance.SpawnGroundItem(transform.position, cuum);
                 Destroy(gameObject);
                 break;
         }
