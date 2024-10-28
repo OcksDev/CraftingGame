@@ -745,9 +745,13 @@ public class NavMeshEntity : MonoBehaviour
         }
         //Debug.Log(hits);
         if (target == null) target = PlayerController.Instance.gameObject;
-
         if (sex)
         {
+            if (OXComponent.GetComponent<PlayerController>(sexp) != null)
+            {
+                canseemysexybooty = true;
+                fuckyouunity = 3;
+            }
         }
         else
         {
