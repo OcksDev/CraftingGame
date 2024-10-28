@@ -482,7 +482,9 @@ public class NavMeshEntity : MonoBehaviour
     public IEnumerator SpiterSex()
     {
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.25f);
+        SoundSystem.Instance.PlaySound(16, true, 0.1f);
+        yield return new WaitForSeconds(0.05f);
         var wank = PointAtPoint2D(target.transform.position, 0);
         var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
@@ -649,6 +651,7 @@ public class NavMeshEntity : MonoBehaviour
 
     public IEnumerator OrbSex()
     {
+        SoundSystem.Instance.PlaySound(17, true, 0.05f);
         var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
         Instantiate(Gamer.Instance.ParticleSpawns[6], transform.position, Quaternion.identity, transform);
 
@@ -662,7 +665,8 @@ public class NavMeshEntity : MonoBehaviour
         e.Damage = Damage;
         e.balling = transform;
         e.sexballs = this;
-        yield return null;
+        yield return new WaitForSeconds(0.9f);
+        SoundSystem.Instance.PlaySound(18, false, 0.15f, 1f);
     }
     public IEnumerator FwogSex(bool ump = false)
     {
@@ -740,21 +744,10 @@ public class NavMeshEntity : MonoBehaviour
             }
         }
         //Debug.Log(hits);
+        if (target == null) target = PlayerController.Instance.gameObject;
+
         if (sex)
         {
-            //Debug.Log("Assert my balls");
-            if (OXComponent.GetComponent<PlayerController>(sexp) != null)
-            {
-                canseemysexybooty = true;
-                fuckyouunity = 3;
-                //Debug.Log("Sexyboooty");
-                if (target == null) target = p.gameObject;
-            }
-            else
-            {
-                var ss = OXComponent.GetComponent<NavMeshEntity>(sexp);
-                if (target == null && ss != null) target = ss.target;
-            }
         }
         else
         {

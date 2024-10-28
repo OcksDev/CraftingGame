@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -526,6 +527,15 @@ public class PlayerController : MonoBehaviour
                     {
                         HitCollider.SetActive(false);
                     }
+                    if(f >= (1-(0.07f*(AttacksPerSecond/ 1.3f))))
+                    {
+                        if (!fardedonhand)
+                        {
+                            fardedonhand = true;
+                            //Debug.LogError("wee");
+                            SoundSystem.Instance.PlaySound(15, false, 0.12f);
+                        }
+                    }
                     break;
                 default:
                     HitCollider.SetActive(false);
@@ -618,7 +628,7 @@ public class PlayerController : MonoBehaviour
     {
         if (dir.magnitude < 0.5f) return;
         InputBuffer.Instance.RemoveBuffer("Dash");
-        SoundSystem.Instance.PlaySound(3, false, 0.14f, 1f);
+        SoundSystem.Instance.PlaySound(3, false, 0.10f, 1f);
         SoundSystem.Instance.PlaySound(2, true, 0.2f, 1f);
         IsDashing = true;
         DashCoolDown -= MaxDashCooldown;
@@ -638,6 +648,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         IsDashing = false;
     }
+    bool fardedonhand = false;
     public void StartAttack(double d = -1)
     {
         InputBuffer.Instance.RemoveBuffer("Attack");
@@ -656,6 +667,8 @@ public class PlayerController : MonoBehaviour
         HitBalls s3;
         Projectile s4;
 
+        fardedonhand = false;
+
         DamageProfile Shart = GetDamageProfile();
         //Debug.Log($"D: {CritChance}, {GetItem("critglass")}, {Shart.PreCritted}, {Shart.CalcDamage()}");
 
@@ -668,6 +681,7 @@ public class PlayerController : MonoBehaviour
                 reverse *= -1;
                 HitCollider = HitColliders[0];
                 Shart.PreCritted = -1;
+                SoundSystem.Instance.PlaySound(11, true, 0.15f, 1f);
                 break;
             case "Axe":
                 reverse *= -1;
@@ -675,6 +689,7 @@ public class PlayerController : MonoBehaviour
                 Shart.PreCritted = -1;
                 epe *= -0.5f;
                 f2 = (0.2f) / AttacksPerSecond;
+                SoundSystem.Instance.PlaySound(13, true, 0.8f, 0.8f);
                 break;
             case "Spear":
                 s = Instantiate(SlashEffect[1], transform.position + transform.up * 2.3f, transform.rotation);
@@ -684,6 +699,7 @@ public class PlayerController : MonoBehaviour
                 s2.speedmult = 8f;
                 HitCollider = HitColliders[1];
                 Shart.PreCritted = -1;
+                SoundSystem.Instance.PlaySound(12, true, 0.15f, 1f);
                 break;
             case "Crossbow":
                 s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
@@ -693,6 +709,7 @@ public class PlayerController : MonoBehaviour
                 HitCollider = null;
                 f = 1;
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
+                SoundSystem.Instance.PlaySound(9, true, 0.15f, 1.1f);
                 break;
             case "Blowdart":
                 reverse *= -1;
@@ -705,6 +722,7 @@ public class PlayerController : MonoBehaviour
                 epe *= -0.5f;
                 HitCollider = null;
                 f2 = 0;
+                SoundSystem.Instance.PlaySound(10, true, 0.15f, 1.1f);
                 //f = 1;
                 //f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
@@ -743,6 +761,7 @@ public class PlayerController : MonoBehaviour
                 s3.spriteballs[1].color = ra.colormods[1];
                 s3.spriteballs[2].sprite = ra.sprites[2];
                 s3.spriteballs[2].color = ra.colormods[2];
+                SoundSystem.Instance.PlaySound(13, true, 0.8f, 0.8f);
                 break;
             case "Boomerang":
                 s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0), Gamer.Instance.balls);
@@ -765,6 +784,7 @@ public class PlayerController : MonoBehaviour
                 s3.spriteballs[1].color = ra2.colormods[1];
                 s3.spriteballs[2].sprite = ra2.sprites[2];
                 s3.spriteballs[2].color = ra2.colormods[2];
+                SoundSystem.Instance.PlaySound(14, false, 0.15f, Random.Range(1.2f,1.4f));
                 break;
             default:
                 HitCollider = HitColliders[0];

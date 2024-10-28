@@ -52,7 +52,8 @@ public class Furniture : MonoBehaviour
         switch (type)
         {
             case "Barrel":
-                if(self.sprite == sprites[0])
+                SoundSystem.Instance.PlaySound(8, true, 0.4f, 0.8f);
+                if (self.sprite == sprites[0])
                 {
                     var wank = Random.Range(0, 1f);
                     if(wank <= 0.01f)
