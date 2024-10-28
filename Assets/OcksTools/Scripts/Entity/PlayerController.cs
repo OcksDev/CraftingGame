@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviour
                     Damage = 5f;
                     f = 1f;
                     fardedonhand = true;
-                    f2 = 0;
+                    f2 = 0.06f;
                     break;
                 case "Blowdart":
                     AttacksPerSecond = 1.3f;
