@@ -117,17 +117,7 @@ public class EntityOXS : MonoBehaviour
                         var arr = s2.mainweapon.ReadItemAmount("Rune Of Retaliation");
                         if(arr >= 1)
                         {
-                            NavMeshEntity cuumer = null;
-                            float dist = 69696969;
-                            foreach(var gw in Gamer.Instance.EnemiesExisting)
-                            {
-                                var dd = RandomFunctions.Instance.DistNoSQRT(transform.position, gw.transform.position);
-                                if(dd < dist)
-                                {
-                                    dist = dd;
-                                    cuumer = gw;
-                                }
-                            }
+                            NavMeshEntity cuumer = NearestEnemyFrom(transform.position);
                             if(cuumer != null)
                             {
                                 var we = s2.GetDamageProfile();
@@ -269,11 +259,43 @@ public class EntityOXS : MonoBehaviour
                 fard.sex.color = new Color32(26, 217, 61, 255);
             }
         }
-        if (playerdaddy != null)
+        switch (EnemyType)
         {
-            var arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Confluence");
-            Shield = System.Math.Clamp(Shield + arr, 0, Max_Shield);
+            case "Player":
+                var arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Confluence");
+                if(arr > 0)
+                {
+                    NavMeshEntity cuumer = NearestEnemyFrom(transform.position);
+                    if (cuumer != null)
+                    {
+                        var we = playerdaddy.GetDamageProfile();
+                        we.Damage = amount * (arr + 2);
+                        we.DamageMod = 1;
+                        cuumer.EntityOXS.Hit(we);
+                    }
+                }
+                break;
         }
+    }
+
+    public NavMeshEntity NearestEnemyFrom(Vector3 pos)
+    {
+        NavMeshEntity cuumer = null;
+        float dist = 69696969;
+        foreach (var gw in Gamer.Instance.EnemiesExisting)
+        {
+            if (!gw.HasSpawned || gw.EntityOXS.Health <= 0.5f)
+            {
+                continue;
+            }
+            var dd = RandomFunctions.Instance.DistNoSQRT(pos, gw.transform.position);
+            if (dd < dist)
+            {
+                dist = dd;
+                cuumer = gw;
+            }
+        }
+        return cuumer;
     }
 
     private Quaternion PointFromTo2D(Vector3 from_pos, Vector3 to_pos, float offset2)

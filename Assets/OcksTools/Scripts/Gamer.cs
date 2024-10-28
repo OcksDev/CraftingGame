@@ -699,6 +699,7 @@ public class Gamer : MonoBehaviour
         ItemPool.Clear();
         foreach(var a in GISLol.Instance.Items)
         {
+            if(!a.CanSpawn) continue;
             if (a.IsCraftable)
             {
                 ItemPool.Add(a.Name);

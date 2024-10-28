@@ -305,6 +305,9 @@ public class PlayerController : MonoBehaviour
                 case "Axe":
                     AttacksPerSecond = 1.3f;
                     Damage = 5f;
+                    f = 1f;
+                    fardedonhand = true;
+                    f2 = 0;
                     break;
                 case "Blowdart":
                     AttacksPerSecond = 1.3f;

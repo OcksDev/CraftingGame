@@ -601,6 +601,7 @@ public class GISItem_Data
     public bool IsWeapon = false;
     public bool IsCraftable = false;
     public bool IsRune = false;
+    public bool CanSpawn = true;
     public GISItem_Data()
     {
         Sprite = null;

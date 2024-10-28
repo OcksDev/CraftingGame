@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   t: 0
   playerController: {fileID: 3786093809242686097}
-  type: HitBox
+  type: Boom
   OnlyHitOne: 0
   NoStay: 1
   hitlist: []

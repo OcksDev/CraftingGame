@@ -141,9 +141,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 150
+  Health: 100
   Shield: 0
-  Max_Health: 150
+  Max_Health: 100
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -210,12 +210,12 @@ MonoBehaviour:
   SpawnOverlapRadius: 2.5
   movespeed: 3
   SightRange: 15
-  AttackCooldown: 3
+  AttackCooldown: 3.6
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 20
+  Damage: 15
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: 21300000, guid: 13c30fd39588cf04eb2fc095e89c0a87, type: 3}
