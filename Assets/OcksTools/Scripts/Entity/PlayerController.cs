@@ -356,7 +356,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Amethyst":
                 MaxDashCooldown *= 0.85f;
-                //working_move_speed *= 0.90f;
+                working_move_speed *= 1.1f;
                 break;
             case "Slime":
                 Damage *= 1.2f;
