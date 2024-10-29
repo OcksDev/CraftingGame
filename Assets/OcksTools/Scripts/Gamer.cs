@@ -894,7 +894,7 @@ public class Gamer : MonoBehaviour
         int x = 0;
         while(creditcount > 0)
         {
-            if (x >= 3)
+            if (x >= 4)
             {
                 break;
             }
