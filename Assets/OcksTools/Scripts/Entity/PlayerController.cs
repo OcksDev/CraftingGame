@@ -388,7 +388,7 @@ public class PlayerController : MonoBehaviour
     {
         if (DeathDisable) return;
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"], "Dash", "player", 0.1f, true);
-        InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 0.1f, false);
+        if(!NoNoSwitchyBazungus)InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 0.1f, false);
     }
     float scrollcool;
     private void LateUpdate()
@@ -499,9 +499,10 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    private bool NoNoSwitchyBazungus = false;
     public void SwitchWeapon(int s3x)
     {
+        NoNoSwitchyBazungus = true;
         s3x = RandomFunctions.Instance.Mod(s3x, 2);
         selecteditem = s3x;
         if(HitCollider!=null)HitCollider.SetActive(false);
@@ -580,6 +581,15 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    if(NoNoSwitchyBazungus)
+                    {
+                        if (!InputManager.IsKey(InputManager.gamekeys["shoot"]))
+                        {
+                            NoNoSwitchyBazungus = false;
+                            InputBuffer.Instance.RemoveBuffer("Attack");
+                        }
+                    }
+                    else
                     if (InputBuffer.Instance.GetBuffer("Attack") && f2 <= 0 && f >= 1) StartAttack();
                 }
             }
