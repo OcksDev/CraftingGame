@@ -14030,6 +14030,10 @@ PrefabInstance:
       propertyPath: InteractFilter
       value: Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 4327929998764027757, guid: 283bb50cdbd4db74bbeedb431bd2ab0f, type: 3}
+      propertyPath: Held_Item.Run_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4798491299756345537, guid: 283bb50cdbd4db74bbeedb431bd2ab0f, type: 3}
       propertyPath: m_Name
       value: Slot

@@ -227,9 +227,9 @@ public class EntityOXS : MonoBehaviour
         var we = Physics2D.OverlapCircleAll((Vector2)pos, size/2);
         foreach(var nerd in we)
         {
-            if (nerd.gameObject == gameObject) continue;
+            if (nerd.gameObject == gameObject || nerd.gameObject == null) continue;
             var ob = Gamer.Instance.GetObjectType(nerd.gameObject);
-            if(ob.type == "Enemy" && ob.entityoxs.Health > 0.5f)
+            if(ob != null && ob.gm != null && ob.type == "Enemy" && ob.entityoxs != null && ob.entityoxs.Health > 0.5f)
             {
                 var wank = new DamageProfile(dam);
                 wank.Damage = 15;

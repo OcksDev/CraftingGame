@@ -1098,6 +1098,10 @@ public class Gamer : MonoBehaviour
     {
         var e = new ObjectType();
         e.gm = shart;
+        if (shart == null)
+        {
+            return e;
+        }
         if (shart.tag == "Sexy")
         {
             e.type = "Wall";

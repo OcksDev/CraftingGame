@@ -456,6 +456,10 @@ public class RandomFunctions : MonoBehaviour
     {
         return Mathf.Pow(perc, pow);
     }
+    public static float EaseOutBad(float perc, int pow)
+    {
+        return 1 - Mathf.Pow(perc - 1, 2 * pow);
+    }
     public static float EaseInAndOut(float perc, float pow = 3)
     {
         //using values like 0.4 make it go fast at the start, slow down in the middle, then speed up again at the end

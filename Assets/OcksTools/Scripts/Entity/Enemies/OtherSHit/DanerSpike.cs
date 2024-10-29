@@ -20,7 +20,7 @@ public class DanerSpike : MonoBehaviour
         life += Time.deltaTime;
         var wankperc = Mathf.Clamp01(life / Wait);
         float sz = 0;
-        sz = RandomFunctions.EaseOut(wankperc * 2, 2) * izescale;
+        sz = RandomFunctions.EaseOutBad(wankperc * 2, 2) * izescale;
         transform.localScale = new Vector3(4, sz, 4);
         if(wankperc >= 1)
         {
