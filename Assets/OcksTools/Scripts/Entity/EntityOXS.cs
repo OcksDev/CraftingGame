@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -152,13 +153,15 @@ public class EntityOXS : MonoBehaviour
                     if (hit.WeaponOfAttack != null)
                     {
                         var arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Self") * 0.25f;
-                        if (arr > 0)
+                        if (arr > 0 && !hit.Procs.Contains("HOH"))
                         {
                             var ff2 = Random.Range(0f, 1f);
+                            hit.Procs.Add("HOH");
                             int tt2 = Mathf.FloorToInt(arr);
                             if (ff2 <= (arr % 1)) tt2++;
                             if (tt2 > 0)
                             {
+                                s.entit.currentprof = hit;
                                 s.entit.Heal(tt2);
                             }
                         }
@@ -213,6 +216,7 @@ public class EntityOXS : MonoBehaviour
                 DamageTimer = 0.1f;
             }
         }
+        currentprof = null;
     }
 
     public void SpawnExplosion(float size, Vector3 pos, DamageProfile dam)
@@ -234,8 +238,8 @@ public class EntityOXS : MonoBehaviour
             }
         }
     }
-
-
+    [HideInInspector]
+    public DamageProfile currentprof;
 
     public void Heal(double amount)
     {
@@ -268,7 +272,7 @@ public class EntityOXS : MonoBehaviour
                     NavMeshEntity cuumer = NearestEnemyFrom(transform.position);
                     if (cuumer != null)
                     {
-                        var we = playerdaddy.GetDamageProfile();
+                        var we = currentprof==null? playerdaddy.GetDamageProfile():currentprof;
                         we.Damage = amount * (arr + 2);
                         we.DamageMod = 1;
                         cuumer.EntityOXS.Hit(we);
@@ -276,6 +280,7 @@ public class EntityOXS : MonoBehaviour
                 }
                 break;
         }
+        currentprof = null;
     }
 
     public NavMeshEntity NearestEnemyFrom(Vector3 pos)
