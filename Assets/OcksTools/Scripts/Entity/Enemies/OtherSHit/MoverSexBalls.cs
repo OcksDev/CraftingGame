@@ -16,6 +16,7 @@ public class MoverSexBalls : MonoBehaviour
         var wank = GetComponent<EnemyHitShit>();
         if(wank!=null)homie = wank.sexballs;
         if(homie!=null)homie2 = homie.target;
+        if (homie2 == null) homie2 = PlayerController.Instance.gameObject;
     }
 
     // Update is called once per frame

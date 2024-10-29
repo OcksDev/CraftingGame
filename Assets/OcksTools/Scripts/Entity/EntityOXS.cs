@@ -273,7 +273,7 @@ public class EntityOXS : MonoBehaviour
                     if (cuumer != null)
                     {
                         var we = currentprof==null? playerdaddy.GetDamageProfile():currentprof;
-                        we.Damage = amount * (arr + 2);
+                        we.Damage = amount * (arr + 1);
                         we.DamageMod = 1;
                         cuumer.EntityOXS.Hit(we);
                     }
