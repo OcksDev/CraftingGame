@@ -64,7 +64,7 @@ public class DeathBeamScript : MonoBehaviour
         transform.position = sex;
         if (timealive >= 1.2f || IsFrog)
         {
-            transform.rotation = RotateLock(transform.rotation, PointAtPoint2D(Player.position, 0), IsFrog? 1f: 0.25f);
+            transform.rotation = RotateLock(transform.rotation, PointAtPoint2D(Player.position, 0), IsFrog? 0.4f * RandomFunctions.EaseIn(timealive/maxlive): 0.25f);
             if(!IsFrog)transform.position += new Vector3(Random.Range(-sz, sz), Random.Range(-sz, sz), 0);
         }
 

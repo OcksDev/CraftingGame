@@ -448,11 +448,26 @@ public class RandomFunctions : MonoBehaviour
         return ((r % max) + max) % max;
     }
 
-    public static float EaseOut(float perc, int pow)
+    public static float EaseIn(float perc, float pow = 3)
     {
-        return 1 - Mathf.Pow(perc - 1, 2 * pow);
+        return 1 - Mathf.Pow(1 - perc, pow);
     }
-
+    public static float EaseOut(float perc, float pow = 3)
+    {
+        return Mathf.Pow(perc, pow);
+    }
+    public static float EaseInAndOut(float perc, float pow = 3)
+    {
+        //using values like 0.4 make it go fast at the start, slow down in the middle, then speed up again at the end
+        if (perc <= 0.5f)
+        {
+            return Mathf.Pow(2 * perc, pow) / 2;
+        }
+        else
+        {
+            return (2 - Mathf.Pow(2 * (1 - perc), pow)) / 2;
+        }
+    }
     private Quaternion PointAtPoint(Vector3 start_location, Vector3 location)
     {
         Quaternion _lookRotation =
