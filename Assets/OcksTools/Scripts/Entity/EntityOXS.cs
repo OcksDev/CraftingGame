@@ -228,7 +228,7 @@ public class EntityOXS : MonoBehaviour
             if(ob.type == "Enemy" && ob.entityoxs.Health > 0.5f)
             {
                 var wank = new DamageProfile(dam);
-                wank.Damage = 25;
+                wank.Damage = 15;
                 wank.DamageMod = 1;
                 ob.entityoxs.Hit(wank);
             }
