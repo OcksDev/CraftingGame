@@ -16,7 +16,7 @@ public class DeathBeamScript : MonoBehaviour
     float maxlive = 3f;
     private void Start()
     {
-        if (IsFrog) maxlive = 1f;
+        if (IsFrog) maxlive = 0.7f;
     }
 
     private void FixedUpdate()

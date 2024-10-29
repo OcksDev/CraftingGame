@@ -208,7 +208,7 @@ MonoBehaviour:
   FlipImage: 1
   SpawnOverlapRadius: 2
   movespeed: 0
-  SightRange: 15
+  SightRange: 12
   AttackCooldown: 1.5
   randommovetimer: 0
   beans: {fileID: 0}

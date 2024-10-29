@@ -688,7 +688,7 @@ public class NavMeshEntity : MonoBehaviour
         e.Damage = Damage;
         e.balling = transform;
         e.sexballs = this;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.9f);
         WantASpriteCranberry.sprite = SpriteVarients[0];
         yield return new WaitForSeconds(0.2f);
 
