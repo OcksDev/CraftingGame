@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class GISLol : MonoBehaviour
 {
@@ -434,6 +436,20 @@ public class GISItem
         {
             if (c != null) c.SaveTempContents();
         }
+    }
+    public int RollLuck(float arr)
+    {
+        if (arr > 0)
+        {
+            var ff2 = UnityEngine.Random.Range(0f, 1f);
+            int tt2 = Mathf.FloorToInt(arr);
+            if (ff2 <= (arr % 1)) tt2++;
+            if (tt2 > 0)
+            {
+                return tt2;
+            }
+        }
+        return 0;
     }
 
     public bool Compare(GISItem sexnut, bool usebase = false)

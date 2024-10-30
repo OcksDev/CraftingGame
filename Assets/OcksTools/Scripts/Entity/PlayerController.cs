@@ -815,9 +815,7 @@ public class PlayerController : MonoBehaviour
             var arr = mainweapon.ReadItemAmount("Rune Of Arrow")*0.2f;
             if (arr > 0)
             {
-                var ff2 = Random.Range(0f, 1f);
-                int tt2 = Mathf.FloorToInt(arr);
-                if (ff2 <= (arr % 1)) tt2++;
+                int tt2 = mainweapon.RollLuck(arr);
                 for(int i = 0; i < tt2; i++)
                 {
                     var offshart = new DamageProfile(Shart);

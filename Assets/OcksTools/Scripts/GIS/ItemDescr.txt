@@ -1,8 +1,8 @@
 Amethyst:: <g>x0.85</> Skill Cooldown<br><g>x1.1</> Movement Speed
 Rock:: (no modifier)
 Emerald:: <g>x1.15</> Attack Speed
-Gold:: <g>x1.2</> Damage<br><b>x0.95</> Attack Speed
-Slime:: <g>x1.2</> Damage<br><b>x0.9</> Movement Speed
-Glass:: <g>x1.25</> Damage<br><b>x0.9</> Max Health
-Angelic Ingot:: <g>x1.15</> Damage<br><b>-15%</> Crit Chance
-Demonic Ingot:: <g>+20%</> Crit Chance<br><b>x0.9</> Damage
+Gold:: <g>x1.2</> Attack Damage<br><b>x0.95</> Attack Speed
+Slime:: <g>x1.2</> Attack Damage<br><b>x0.9</> Movement Speed
+Glass:: <g>x1.25</> Attack Damage<br><b>x0.9</> Max Health
+Angelic Ingot:: <g>x1.15</> Attack Damage<br><b>-15%</> Crit Chance
+Demonic Ingot:: <g>+20%</> Crit Chance<br><b>x0.9</> Attack Damage

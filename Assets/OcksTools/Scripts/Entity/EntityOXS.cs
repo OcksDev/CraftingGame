@@ -155,12 +155,10 @@ public class EntityOXS : MonoBehaviour
                         var arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Self") * 0.25f;
                         if (arr > 0 && !hit.Procs.Contains("HOH"))
                         {
-                            var ff2 = Random.Range(0f, 1f);
-                            hit.Procs.Add("HOH");
-                            int tt2 = Mathf.FloorToInt(arr);
-                            if (ff2 <= (arr % 1)) tt2++;
+                            int tt2 = hit.WeaponOfAttack.RollLuck(arr);
                             if (tt2 > 0)
                             {
+                                hit.Procs.Add("HOH");
                                 s.entit.currentprof = hit;
                                 s.entit.Heal(tt2);
                             }
@@ -168,9 +166,7 @@ public class EntityOXS : MonoBehaviour
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Missile") * 0.1f;
                         if (arr > 0 && !hit.Procs.Contains("Missile"))
                         {
-                            var ff2 = Random.Range(0f, 1f);
-                            int tt2 = Mathf.FloorToInt(arr);
-                            if (ff2 <= (arr % 1)) tt2++;
+                            int tt2 = hit.WeaponOfAttack.RollLuck(arr);
                             for(int i = 0; i < tt2; i++)
                             {
                                 var attack = new DamageProfile(hit);
@@ -266,16 +262,20 @@ public class EntityOXS : MonoBehaviour
         switch (EnemyType)
         {
             case "Player":
-                var arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Confluence");
-                if(arr > 0)
+                var arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Confluence") * 0.5f;
+                if (arr > 0)
                 {
-                    NavMeshEntity cuumer = NearestEnemyFrom(transform.position);
-                    if (cuumer != null)
+                    var tt2 = playerdaddy.mainweapon.RollLuck(arr);
+                    if (tt2 > 0)
                     {
-                        var we = currentprof==null? playerdaddy.GetDamageProfile():currentprof;
-                        we.Damage = amount * (arr + 1);
-                        we.DamageMod = 1;
-                        cuumer.EntityOXS.Hit(we);
+                        NavMeshEntity cuumer = NearestEnemyFrom(transform.position);
+                        if (cuumer != null)
+                        {
+                            var we = currentprof == null ? playerdaddy.GetDamageProfile() : currentprof;
+                            we.Damage = amount * (tt2 * 2);
+                            we.DamageMod = 1;
+                            cuumer.EntityOXS.Hit(we);
+                        }
                     }
                 }
                 break;

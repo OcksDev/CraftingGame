@@ -45,3 +45,4 @@ O Glass (Custom Image Required)
 - Purple Grass
 - Purple Gem (dark purple, darker than amethyststs)
 - Bone
+- Opal: +10% Overall Damage
