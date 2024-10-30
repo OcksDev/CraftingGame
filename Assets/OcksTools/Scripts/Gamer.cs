@@ -84,6 +84,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["TempMatMenu"].SetActive(checks[7]);
         Tags.refs["SettingsMenu"].SetActive(checks[8]);
         Tags.refs["TransItems"].SetActive(checks[9]);
+        Tags.refs["FuckPause"].SetActive(checks[10]);
 
         WithinAMenu = false;
         InputManager.SetLockLevel("");
@@ -323,6 +324,10 @@ public class Gamer : MonoBehaviour
             {
                 ToggleSettings();
             }
+            else if (checks[10])
+            {
+                ToggleFuckPause();
+            }
             else if (checks[5])
             {
                 ToggleItemPickup();
@@ -366,6 +371,18 @@ public class Gamer : MonoBehaviour
     {
         checks[8] = !checks[8];
         UpdateMenus();
+    }
+    public void ToggleFuckPause()
+    {
+        if(GameState == "Lobby")
+        {
+            MainMenu();
+        }
+        else
+        {
+            checks[10] = !checks[10];
+            UpdateMenus();
+        }
     }
     List<MaterialTransfer> oldnerds = new List<MaterialTransfer>();
 
@@ -423,7 +440,8 @@ public class Gamer : MonoBehaviour
 
                 }
             }
-            foreach(var a in strings)
+            oldnerds.Clear();
+            foreach (var a in strings)
             {
                 try
                 {
@@ -725,9 +743,10 @@ public class Gamer : MonoBehaviour
         Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "StartGame";
         yield return new WaitForSeconds(0.5f);
 
-        StartCoroutine(TitleText("Shop"));
+        StopCoroutine(titlething);
+        titlething = StartCoroutine(TitleText("Shop"));
     }
-
+    Coroutine titlething;
     public GISItem GetItemForLevel()
     {
         return new GISItem(ItemPool[Random.Range(0, ItemPool.Count)]);
@@ -818,7 +837,8 @@ public class Gamer : MonoBehaviour
 
         //compile end list
         yield return new WaitForSeconds(0.7f);
-        yield return StartCoroutine(TitleText());
+        StopCoroutine(titlething);
+        titlething = StartCoroutine(TitleText());
     }
     public IEnumerator TitleText(string ver = "")
     {

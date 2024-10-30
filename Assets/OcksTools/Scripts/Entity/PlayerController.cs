@@ -821,7 +821,6 @@ public class PlayerController : MonoBehaviour
                 for(int i = 0; i < tt2; i++)
                 {
                     var offshart = new DamageProfile(Shart);
-                    offshart.DamageMod *= 0.5;
                     var ff = Random.Range(0f, 1f);
                     var tt = Mathf.FloorToInt(CritChance);
                     Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
