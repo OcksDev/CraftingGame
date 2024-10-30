@@ -262,7 +262,7 @@ public class EntityOXS : MonoBehaviour
         switch (EnemyType)
         {
             case "Player":
-                var arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Confluence") * 0.5f;
+                var arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Confluence") * 0.35f;
                 if (arr > 0)
                 {
                     var tt2 = playerdaddy.mainweapon.RollLuck(arr);

@@ -250,6 +250,7 @@ public class Gamer : MonoBehaviour
 
     public void ResetIntegreal()
     {
+        if (titlething != null) StopCoroutine(titlething);
         CameraLol.Instance.shakeo.Clear();
         CurrentFloor = 0;
         LastHitEnemy = null;
@@ -714,6 +715,7 @@ public class Gamer : MonoBehaviour
         LevelProgression.Clear();
         UpdateMenus();
         AssembleItemPool();
+        if (titlething != null) StopCoroutine(titlething);
     }
 
     public IEnumerator NextShopLevel()
@@ -743,7 +745,6 @@ public class Gamer : MonoBehaviour
         Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "StartGame";
         yield return new WaitForSeconds(0.5f);
 
-        StopCoroutine(titlething);
         titlething = StartCoroutine(TitleText("Shop"));
     }
     Coroutine titlething;
@@ -837,7 +838,6 @@ public class Gamer : MonoBehaviour
 
         //compile end list
         yield return new WaitForSeconds(0.7f);
-        StopCoroutine(titlething);
         titlething = StartCoroutine(TitleText());
     }
     public IEnumerator TitleText(string ver = "")
