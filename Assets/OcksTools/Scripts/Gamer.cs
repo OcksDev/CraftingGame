@@ -378,6 +378,7 @@ public class Gamer : MonoBehaviour
         }
         else
         {
+            checks[9] = false;
             ToggleItemTrans();
         }
     }
@@ -391,11 +392,47 @@ public class Gamer : MonoBehaviour
             var strings = GetRunItems();
             foreach (var a in oldnerds)
             {
-                Destroy(a.gameObject);
+                try
+                {
+                    Destroy(a.gameObject);
+                }
+                catch
+                {
+
+                }
+            }
+            foreach (var a in Tags.refs["RightTrans"].GetComponentsInChildren<MaterialTransfer>())
+            {
+                try
+                {
+                    Destroy(a.gameObject);
+                }
+                catch
+                {
+
+                }
+            }
+            foreach (var a in Tags.refs["LeftTrans"].GetComponentsInChildren<MaterialTransfer>())
+            {
+                try
+                {
+                    Destroy(a.gameObject);
+                }
+                catch
+                {
+
+                }
             }
             foreach(var a in strings)
             {
-                SpawnItemTranser(new GISItem(a), "FromRun");
+                try
+                {
+                    SpawnItemTranser(new GISItem(a), "FromRun");
+                }
+                catch
+                {
+
+                }
             }
         }
         UpdateMenus();
@@ -407,6 +444,7 @@ public class Gamer : MonoBehaviour
         var c = GISLol.Instance.All_Containers["Equips"];
         foreach (var a in c.slots[0].Held_Item.Run_Materials)
         {
+            if (a == null) continue;
             if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
             {
                 if (v.IsCraftable)
@@ -417,6 +455,7 @@ public class Gamer : MonoBehaviour
         }
         foreach (var a in c.slots[1].Held_Item.Run_Materials)
         {
+            if (a == null) continue;
             if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
             {
                 if (v.IsCraftable)
