@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float working_move_speed = 2;
     private float decay = 0.8f;
     public double Damage = 20;
+    public double TotalDamageMod = 1;
     public float AttacksPerSecond = 5;
     public float Spread = 15f;
     public float MaxBowMult = 2f;
@@ -269,6 +270,7 @@ public class PlayerController : MonoBehaviour
         CritChance = 0.01f;
         working_move_speed = 1.5f;
         Damage = 7;
+        TotalDamageMod = 1;
         AttacksPerSecond = 3.5f;
         Spread = 15f;
         MaxDashCooldown = BaseDashCooldown;
@@ -282,7 +284,7 @@ public class PlayerController : MonoBehaviour
             {
                 case "Spear":
                     AttacksPerSecond = 2f;
-                    Damage = 12;
+                    Damage = 10;
                     break;
                 case "Crossbow":
                     AttacksPerSecond = 4f;
@@ -292,15 +294,15 @@ public class PlayerController : MonoBehaviour
                 case "Bow":
                     AttacksPerSecond = 1.5f;
                     Spread = 5f;
-                    Damage = 1000f;
+                    Damage = 10000f;
                     break;
                 case "Shuriken":
                     AttacksPerSecond = 1.5f;
                     Damage = 6f;
                     break;
                 case "Boomerang":
-                    AttacksPerSecond = 1.5f;
-                    Damage = 5f;
+                    AttacksPerSecond = 2f;
+                    Damage = 6f;
                     break;
                 case "Axe":
                     AttacksPerSecond = 1.3f;
@@ -366,6 +368,10 @@ public class PlayerController : MonoBehaviour
                 CritChance += 0.20f;
                 Damage *= 0.90f;
                 break;
+            case "Morkite":
+                TotalDamageMod *= 1.15;
+                Damage *= 0.85f;
+                break;
             case "Angelic Ingot":
                 CritChance -= 0.15f;
                 Damage *= 1.15f;
@@ -383,7 +389,6 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-
     private void Update()
     {
         if (DeathDisable) return;

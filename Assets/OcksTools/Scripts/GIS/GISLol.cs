@@ -185,7 +185,7 @@ public class GISLol : MonoBehaviour
 #if UNITY_EDITOR
         if (InputManager.IsKeyDown(KeyCode.X, "menu"))
         {
-            Mouse_Held_Item = new GISItem("Rock");
+            Mouse_Held_Item = new GISItem("Morkite");
         }
         if (InputManager.IsKeyDown(KeyCode.C, "menu"))
         {

@@ -35,7 +35,7 @@ X What (0.1% of spawning, not pixelated like other items, only can spawn after a
 - Beefy Shields: Max shield is increased by 10%
 - Berzerk: While under 50% of max health gain +20% attack speed and +10% movement speed
 - Glass Shield: When at full health, health can not be reduced below 10 (+10 per stack) (min damage taken is 1)
-- Deeper: Each floor cleared increases damage by +1
+- Deeper: Each floor cleared increases base damage by +1
 - Mimic: Randomly transforms into one of your other items that can stack. (if no valid items are present then keep item in inventory and check for possible dupe on each item pickup until it can actually shit itself)
 
 -Legendary- (red)

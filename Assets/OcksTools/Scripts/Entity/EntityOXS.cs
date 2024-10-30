@@ -557,7 +557,10 @@ public class DamageProfile
             x *= shex;
 
         }
-
+        if(controller != null)
+        {
+            x *= controller.TotalDamageMod;
+        }
 
         return x * DamageMod;
     }
