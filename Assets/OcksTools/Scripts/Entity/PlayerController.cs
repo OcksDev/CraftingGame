@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float working_move_speed = 2;
     private float decay = 0.8f;
     public double Damage = 20;
+    public double WeaponDamageMod = 1;
     public double TotalDamageMod = 1;
     public float AttacksPerSecond = 5;
     public float Spread = 15f;
@@ -270,6 +271,7 @@ public class PlayerController : MonoBehaviour
         CritChance = 0.01f;
         working_move_speed = 1.5f;
         Damage = 7;
+        WeaponDamageMod = 1;
         TotalDamageMod = 1;
         AttacksPerSecond = 3.5f;
         Spread = 15f;
@@ -327,6 +329,7 @@ public class PlayerController : MonoBehaviour
                 ParseMaterial(m);
             }
         }
+        Damage *= WeaponDamageMod;
         /*
         helth += GetItem("steak") * 10;
         Damage += GetItem("what") * 10;
@@ -349,7 +352,7 @@ public class PlayerController : MonoBehaviour
                 AttacksPerSecond *= 1.15f;
                 break;
             case "Gold":
-                Damage *= 1.15f;
+                WeaponDamageMod += 0.15f;
                 AttacksPerSecond *= 0.95f;
                 break;
             case "Glass":
@@ -361,31 +364,30 @@ public class PlayerController : MonoBehaviour
                 working_move_speed *= 1.1f;
                 break;
             case "Slime":
-                Damage *= 1.2f;
+                WeaponDamageMod += 0.2f;
                 working_move_speed *= 0.90f;
                 break;
             case "Demonic Ingot":
                 CritChance += 0.20f;
-                Damage *= 0.90f;
-                break;
-            case "Morkite":
-                TotalDamageMod *= 1.15;
-                Damage *= 0.85f;
-                break;
-            case "Zebrium":
-                TotalDamageMod *= 0.85;
-                MaxDashCooldown *= 1.2f;
-                Damage *= 1.4;
-                break;
-            case "Void":
-                TotalDamageMod *= 1.5;
-                Damage *= 0.5f;
-                working_move_speed *= 0.75f;
-                helth *= 1.5f;
+                WeaponDamageMod *= 0.90f;
                 break;
             case "Angelic Ingot":
                 CritChance -= 0.15f;
-                Damage *= 1.15f;
+                WeaponDamageMod += 0.15f;
+                break;
+            case "Morkite":
+                TotalDamageMod *= 1.15;
+                WeaponDamageMod *= 0.85f;
+                break;
+            case "Aquarq":
+                break;
+            case "Zebrium":
+                break;
+            case "Void":
+                TotalDamageMod *= 1.5;
+                WeaponDamageMod *= 0.5f;
+                working_move_speed *= 0.75f;
+                helth *= 1.5f;
                 break;
         }
         switch (matty.itemindex)
