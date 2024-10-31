@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public double WeaponDamageMod = 1;
     public double TotalDamageMod = 1;
     public float AttacksPerSecond = 5;
+    public float AttacksPerSecondMod = 1;
     public float Spread = 15f;
     public float MaxBowMult = 2f;
     public float BowChargeSpeed = 1f;
@@ -274,6 +275,7 @@ public class PlayerController : MonoBehaviour
         WeaponDamageMod = 1;
         TotalDamageMod = 1;
         AttacksPerSecond = 3.5f;
+        AttacksPerSecondMod = 1;
         Spread = 15f;
         MaxDashCooldown = BaseDashCooldown;
         RotationOverride = false;
@@ -330,6 +332,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         Damage *= WeaponDamageMod;
+        AttacksPerSecond *= AttacksPerSecondMod;
         /*
         helth += GetItem("steak") * 10;
         Damage += GetItem("what") * 10;
@@ -349,14 +352,14 @@ public class PlayerController : MonoBehaviour
         switch (matty.index)
         {
             case "Emerald":
-                AttacksPerSecond *= 1.15f;
+                AttacksPerSecondMod *= 1.15f;
                 break;
             case "Gold":
                 WeaponDamageMod += 0.15f;
-                AttacksPerSecond *= 0.95f;
+                AttacksPerSecondMod *= 0.95f;
                 break;
             case "Glass":
-                Damage *= 1.25f;
+                WeaponDamageMod *= 1.2f;
                 helth *= 0.85f;
                 break;
             case "Amethyst":
@@ -380,8 +383,12 @@ public class PlayerController : MonoBehaviour
                 WeaponDamageMod *= 0.85f;
                 break;
             case "Aquarq":
+                working_move_speed *= 1.25f;
+                helth *= 0.9;
                 break;
             case "Zebrium":
+                AttacksPerSecondMod += 0.10f;
+                CritChance += 0.1f;
                 break;
             case "Void":
                 TotalDamageMod *= 1.5;
