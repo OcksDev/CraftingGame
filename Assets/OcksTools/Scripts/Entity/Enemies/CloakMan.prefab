@@ -142,7 +142,7 @@ MonoBehaviour:
   EnemyType: Enemy
   Health: 55
   Shield: 0
-  Max_Health: 45
+  Max_Health: 55
   Max_Shield: 0
   DamageTimer: 0.1
   col:

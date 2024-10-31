@@ -141,9 +141,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 85
+  Health: 95
   Shield: 0
-  Max_Health: 70
+  Max_Health: 95
   Max_Shield: 0
   DamageTimer: 0.1
   col:
