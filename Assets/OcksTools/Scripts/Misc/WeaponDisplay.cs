@@ -29,9 +29,15 @@ public class WeaponDisplay : MonoBehaviour
             displays[0].sprite = d.sprites[0];
             displays[1].sprite = d.sprites[1];
             displays[2].sprite = d.sprites[2];
+            displays[3].sprite = d.sprites[3];
+            displays[4].sprite = d.sprites[4];
+            displays[5].sprite = d.sprites[5];
             displays[0].color = d.colormods[0];
             displays[1].color = d.colormods[1];
             displays[2].color = d.colormods[2];
+            displays[3].color = d.colormods[3];
+            displays[4].color = d.colormods[4];
+            displays[5].color = d.colormods[5];
         }
         else
         {
@@ -39,6 +45,9 @@ public class WeaponDisplay : MonoBehaviour
             displays[0].sprite = e;
             displays[1].sprite = e;
             displays[2].sprite = e;
+            displays[3].sprite = e;
+            displays[4].sprite = e;
+            displays[5].sprite = e;
         }
     }
 }

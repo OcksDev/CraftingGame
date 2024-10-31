@@ -213,6 +213,15 @@ public class HitBalls : MonoBehaviour
                     c2 = spriteballs[2].color;
                     c2.a -= 0.02f;
                     spriteballs[2].color = c2;
+                    c2 = spriteballs[3].color;
+                    c2.a -= 0.02f;
+                    spriteballs[3].color = c2;
+                    c2 = spriteballs[4].color;
+                    c2.a -= 0.02f;
+                    spriteballs[4].color = c2;
+                    c2 = spriteballs[5].color;
+                    c2.a -= 0.02f;
+                    spriteballs[5].color = c2;
                     break;
                 case "Missile":
                     Instantiate(Gamer.Instance.ParticleSpawns[15], transform.position, transform.rotation, Tags.refs["ParticleHolder"].transform);

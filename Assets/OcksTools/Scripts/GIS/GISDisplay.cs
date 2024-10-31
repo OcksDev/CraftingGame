@@ -11,6 +11,7 @@ public class GISDisplay : MonoBehaviour
     public Image[] displays;
     public TextMeshProUGUI amnt;
     public bool AutoUpdate = true;
+    private GISItem olditem;
     private void Awake()
     {
         if (item == null) item = new GISItem();
@@ -20,20 +21,27 @@ public class GISDisplay : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (AutoUpdate) UpdateDisplay();
+        if (AutoUpdate && item != olditem) UpdateDisplay();
     }
 
     public void UpdateDisplay()
     {
+        olditem = item;
         var g = GISLol.Instance.ItemsDict[item.ItemIndex];
         amnt.text = item.Amount > 0 && g.MaxAmount != 1 ? "x" + item.Amount : "";
         var b = GetSprites(item);
         displays[0].sprite = b.sprites[0];
         displays[1].sprite = b.sprites[1];
         displays[2].sprite = b.sprites[2];
+        displays[3].sprite = b.sprites[3];
+        displays[4].sprite = b.sprites[4];
+        displays[5].sprite = b.sprites[5];
         displays[0].color = b.colormods[0];
         displays[1].color = b.colormods[1];
         displays[2].color = b.colormods[2];
+        displays[3].color = b.colormods[3];
+        displays[4].color = b.colormods[4];
+        displays[5].color = b.colormods[5];
     }
     public static SpriteReturn GetSprites(GISItem ITEM)
     {
@@ -48,8 +56,10 @@ public class GISDisplay : MonoBehaviour
             {
                 var e = GISLol.Instance.MaterialsDict[ITEM.Materials[index].index];
                 var fall = e.fallthroughmaterial;
-                Sprite baller = null;
+                Sprite baller;
+                Sprite baller2 = d;
                 Color32 beans = e.ColorMod;
+                Color32 beans2 = e.OverlayColorMod;
                 Sprite[] mysprites = null;
                 Sprite[] defaultsprites = null;
                 switch (ITEM.ItemIndex)
@@ -88,8 +98,7 @@ public class GISDisplay : MonoBehaviour
                         break;
                 }
 
-
-                if (index >= mysprites.Length || mysprites[index] == null)
+                if (index >= mysprites.Length || mysprites[index] == null || e.IsOverlay)
                 {
                     baller = defaultsprites[index];
                 }
@@ -98,29 +107,35 @@ public class GISDisplay : MonoBehaviour
                     if (e.ignorecolorforcumimg) beans = ccc;
                     baller = mysprites[index];
                 }
-
+                if (e.IsOverlay)
+                {
+                    baller2 = mysprites[index];
+                }
                 boner.Add(baller);
                 boner2.Add(beans);
+                boner.Add(baller2);
+                boner2.Add(beans2);
             }
 
         }
         else if (w.IsCraftable)
         {
-            boner = new List<Sprite>() { w.Sprite, d, d };
-            boner2 = new List<Color32>() { ccc, ccc, ccc };
+            boner = new List<Sprite>() { w.Sprite, d, d, d, d, d };
+            boner2 = new List<Color32>() { ccc, ccc, ccc, ccc, ccc, ccc };
         }
         else if (w.IsRune)
         {
-            boner = new List<Sprite>() { GISLol.Instance.ItemsDict["RuneBase"].Sprite, w.Sprite, d };
-            boner2 = new List<Color32>() { ccc, ccc, ccc };
+            boner = new List<Sprite>() { GISLol.Instance.ItemsDict["RuneBase"].Sprite, w.Sprite, d, d, d, d };
+            boner2 = new List<Color32>() { ccc, ccc, ccc, ccc, ccc, ccc };
         }
         else
         {
-            boner = new List<Sprite>() { w.Sprite, d, d };
-            boner2 = new List<Color32>() { ccc, ccc, ccc };
+            boner = new List<Sprite>() { w.Sprite, d, d, d, d, d };
+            boner2 = new List<Color32>() { ccc, ccc, ccc, ccc, ccc, ccc };
         }
 
         var a = new SpriteReturn();
+
         a.sprites = boner;
         a.colormods = boner2;
         return a;

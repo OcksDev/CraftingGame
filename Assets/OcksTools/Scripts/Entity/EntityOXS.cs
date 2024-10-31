@@ -123,7 +123,7 @@ public class EntityOXS : MonoBehaviour
                             {
                                 var we = s2.GetDamageProfile();
                                 we.Damage = damagefromhit;
-                                we.DamageMod = arr;
+                                we.DamageMod = arr/2f;
                                 cuumer.EntityOXS.Hit(we);
                             }
 

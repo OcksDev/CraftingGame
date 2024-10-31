@@ -90,6 +90,7 @@ public class CameraLol : MonoBehaviour
             */
             ppos = z;
             Vector3 ss = ppos;
+            if(Time.timeScale > 0)
             foreach (var shake in shakeo)
             {
                 float f1 = 1;

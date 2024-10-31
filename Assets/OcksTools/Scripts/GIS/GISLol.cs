@@ -215,6 +215,10 @@ public class GISLol : MonoBehaviour
         {
             Mouse_Held_Item = new GISItem("Amethyst");
         }
+        if (InputManager.IsKeyDown(KeyCode.K, "menu"))
+        {
+            Mouse_Held_Item = new GISItem("Zebrium");
+        }
         if (InputManager.IsKeyDown(KeyCode.Backslash, "menu")|| InputManager.IsKeyDown(KeyCode.Backslash, "item_menu"))
         {
             if(Mouse_Held_Item.ItemIndex != "Empty")
@@ -405,6 +409,10 @@ public class GISItem
             {
                 Amount = 1;
             }
+            else if (doingus.IsRune)
+            {
+                Amount = 1;
+            }
         }
     }
 
@@ -437,7 +445,7 @@ public class GISItem
             if (c != null) c.SaveTempContents();
         }
     }
-    public int RollLuck(float arr)
+    public int RollLuck(float arr, bool ignoreluck = false)
     {
         if (arr > 0)
         {
@@ -458,6 +466,7 @@ public class GISItem
          * false - not the same
          * true - are the same
          */
+        
         bool comp = ItemIndex == sexnut.ItemIndex;
         if( Materials.Count != sexnut.Materials.Count)
         {
@@ -658,6 +667,7 @@ public class GISMaterial_Data
     public string Name = "Null";
     public string Description;
     public Color32 ColorMod = new Color32(255,255,255,255);
+    public Color32 OverlayColorMod = new Color32(255,255,255,255);
     public Sprite[] SwordParts;
     public Sprite[] BowParts;
     public Sprite[] SpearParts;
@@ -667,5 +677,6 @@ public class GISMaterial_Data
     public Sprite[] AxeParts;
     public Sprite[] BlowParts;
     public string fallthroughmaterial = "Rock";
+    public bool IsOverlay = false;
     public bool ignorecolorforcumimg = true;
 }

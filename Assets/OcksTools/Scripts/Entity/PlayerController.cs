@@ -349,7 +349,7 @@ public class PlayerController : MonoBehaviour
                 AttacksPerSecond *= 1.15f;
                 break;
             case "Gold":
-                Damage *= 1.2f;
+                Damage *= 1.15f;
                 AttacksPerSecond *= 0.95f;
                 break;
             case "Glass":
@@ -371,6 +371,17 @@ public class PlayerController : MonoBehaviour
             case "Morkite":
                 TotalDamageMod *= 1.15;
                 Damage *= 0.85f;
+                break;
+            case "Zebrium":
+                TotalDamageMod *= 0.85;
+                MaxDashCooldown *= 1.2f;
+                Damage *= 1.4;
+                break;
+            case "Void":
+                TotalDamageMod *= 1.5;
+                Damage *= 0.5f;
+                working_move_speed *= 0.75f;
+                helth *= 1.5f;
                 break;
             case "Angelic Ingot":
                 CritChance -= 0.15f;
@@ -774,11 +785,17 @@ public class PlayerController : MonoBehaviour
                 reverse *= -1;
                 var ra = GISDisplay.GetSprites(mainweapon);
                 s3.spriteballs[0].sprite = ra.sprites[0];
-                s3.spriteballs[0].color = ra.colormods[0];
                 s3.spriteballs[1].sprite = ra.sprites[1];
-                s3.spriteballs[1].color = ra.colormods[1];
                 s3.spriteballs[2].sprite = ra.sprites[2];
+                s3.spriteballs[3].sprite = ra.sprites[3];
+                s3.spriteballs[4].sprite = ra.sprites[4];
+                s3.spriteballs[5].sprite = ra.sprites[5];
+                s3.spriteballs[0].color = ra.colormods[0];
+                s3.spriteballs[1].color = ra.colormods[1];
                 s3.spriteballs[2].color = ra.colormods[2];
+                s3.spriteballs[3].color = ra.colormods[3];
+                s3.spriteballs[4].color = ra.colormods[4];
+                s3.spriteballs[5].color = ra.colormods[5];
                 SoundSystem.Instance.PlaySound(13, true, 0.8f, 0.8f);
                 break;
             case "Boomerang":
@@ -786,7 +803,6 @@ public class PlayerController : MonoBehaviour
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
 
-                var x2 = RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition)), RandomFunctions.Instance.NoZ(MyAssHurts.position));
                 var sss = s.GetComponent<Projectile>();
                 sss.Banan = "Boomerang";
                 s3.attackProfile = Shart;
@@ -797,11 +813,17 @@ public class PlayerController : MonoBehaviour
                 reverse *= -1;
                 var ra2 = GISDisplay.GetSprites(mainweapon);
                 s3.spriteballs[0].sprite = ra2.sprites[0];
-                s3.spriteballs[0].color = ra2.colormods[0];
                 s3.spriteballs[1].sprite = ra2.sprites[1];
-                s3.spriteballs[1].color = ra2.colormods[1];
                 s3.spriteballs[2].sprite = ra2.sprites[2];
+                s3.spriteballs[3].sprite = ra2.sprites[3];
+                s3.spriteballs[4].sprite = ra2.sprites[4];
+                s3.spriteballs[5].sprite = ra2.sprites[5];
+                s3.spriteballs[0].color = ra2.colormods[0];
+                s3.spriteballs[1].color = ra2.colormods[1];
                 s3.spriteballs[2].color = ra2.colormods[2];
+                s3.spriteballs[3].color = ra2.colormods[3];
+                s3.spriteballs[4].color = ra2.colormods[4];
+                s3.spriteballs[5].color = ra2.colormods[5];
                 SoundSystem.Instance.PlaySound(14, false, 0.15f, Random.Range(1.2f,1.4f));
                 break;
             default:

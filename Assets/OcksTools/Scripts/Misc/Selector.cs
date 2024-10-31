@@ -28,8 +28,8 @@ public class Selector : MonoBehaviour
             var pp = GISDisplay.GetSprites(e).sprites;
             var rs = Instantiate(prefabsex, transform.position, transform.rotation, transform).GetComponent<ItemHolder>();
             rs.one.sprite = pp[0];
-            rs.two.sprite = pp[1];
-            rs.trhee.sprite = pp[2];
+            rs.two.sprite = pp[2];
+            rs.trhee.sprite = pp[4];
             rs.sexindex = i;
             gm.Add(rs.gameObject);
             if (i == 0) rs.Click();
