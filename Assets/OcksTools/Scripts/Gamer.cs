@@ -59,6 +59,7 @@ public class Gamer : MonoBehaviour
     public bool NextShopButtonSexFuck = false;
     public GameObject ItemTranser;
     public List<Image> HitSexers = new List<Image>();
+    public GameObject ItemAnimThing;
 
     [HideInInspector]
     public bool InRoom = false;
@@ -331,6 +332,7 @@ public class Gamer : MonoBehaviour
             }
             else if (checks[5])
             {
+                if(!anim)
                 ToggleItemPickup();
             }
             else if (checks[3])
@@ -551,9 +553,10 @@ public class Gamer : MonoBehaviour
         }
         UpdateMenus();
     }
-
+    bool anim = false;
     public void ConfirmSexMenuSex()
     {
+        if (anim) return;
         var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
         if (poopy.slots[0].Held_Item.ItemIndex != "Empty") return;
         if (GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return;
@@ -611,10 +614,82 @@ public class Gamer : MonoBehaviour
         }
         leftnutitem.item.CompileItems();
         Destroy(itemshite);
+        PlayerController.Instance.SetData();
+        StartCoroutine(ConfirmAnimation());
+    }
+    List<GameObject> dienerds = new List<GameObject>();
+    public IEnumerator ConfirmAnimation()
+    {
+        anim = true;
+        var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
+        var rightnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
+        float a1 = 0;
+        float a2 = 0;
+        float m1 = 0;
+        float m2 = 0;
+        for (int i = 0; i < leftnut.slots.Count; i++)
+        {
+            if (leftnut.slots[i].Held_Item.ItemIndex != "Empty")
+            {
+                a1++;
+                m1 = i;
+            }
+        }
+        for (int i = 0; i < rightnut.slots.Count; i++)
+        {
+            if (rightnut.slots[i].Held_Item.ItemIndex != "Empty")
+            {
+                a2++;
+                m2 = i;
+            }
+        }
+        var max = Mathf.Max(a1, a2);
+        var max2 = Mathf.Max(m1, m2);
+        float time = 0.5f/max;
+        time += 0.03f;
+        for (int i = 0; i < leftnut.slots.Count; i++)
+        {
+            bool wee = false;
+            if (leftnut.slots[i].Held_Item.ItemIndex != "Empty")
+            {
+                wee = true;
+                var weenor = Instantiate(ItemAnimThing, leftnut.slots[i].transform.position, Quaternion.identity, Tags.refs["ItemAnimParent"].transform);
+                dienerds.Add(weenor);
+                var w2 = weenor.GetComponent<MeWhenYourMom>();
+                w2.target = Tags.refs["LeftItemNut"].transform;
+                if (GISLol.Instance.ItemsDict[leftnut.slots[i].Held_Item.ItemIndex].IsCraftable)
+                {
+                    w2.img.color = GISLol.Instance.MaterialsDict[leftnut.slots[i].Held_Item.ItemIndex].ColorMod;
+                }
+                leftnut.slots[i].Held_Item = new GISItem();
+                leftnut.slots[i].GetComponent<Image>().enabled = false;
+            }
+            if (rightnut.slots[i].Held_Item.ItemIndex != "Empty")
+            {
+                wee = true;
+                var weenor = Instantiate(ItemAnimThing, rightnut.slots[i].transform.position, Quaternion.identity, Tags.refs["ItemAnimParent"].transform);
+                dienerds.Add(weenor);
+                var w2 = weenor.GetComponent<MeWhenYourMom>();
+                w2.target = Tags.refs["RightItemNut"].transform;
+                if (GISLol.Instance.ItemsDict[rightnut.slots[i].Held_Item.ItemIndex].IsCraftable)
+                {
+                    w2.img.color = GISLol.Instance.MaterialsDict[rightnut.slots[i].Held_Item.ItemIndex].ColorMod;
+                }
+                rightnut.slots[i].Held_Item = new GISItem();
+                rightnut.slots[i].GetComponent<Image>().enabled = false;
+            }
+            if (i >= max2) break;
+            if (wee)
+                yield return new WaitForSeconds(time);
+        }
+        yield return new WaitForSeconds(0.8f);
+        anim = false;
         checks[5] = false;
         UpdateMenus();
-        PlayerController.Instance.SetData();
     }
+
+
+
     public GameObject itemshite;
     string a = "wank";
     public void TextModeEnter()
