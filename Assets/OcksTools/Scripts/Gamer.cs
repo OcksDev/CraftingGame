@@ -645,8 +645,8 @@ public class Gamer : MonoBehaviour
         }
         var max = Mathf.Max(a1, a2);
         var max2 = Mathf.Max(m1, m2);
-        float time = 0.5f/max;
-        time += 0.03f;
+        float time = 0.3f/max;
+        time += 0.02f;
         for (int i = 0; i < leftnut.slots.Count; i++)
         {
             bool wee = false;

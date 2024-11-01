@@ -299,6 +299,7 @@ public class GISLol : MonoBehaviour
         e = e.Replace("<b>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[1])}>"); //bad effect / axel
         e = e.Replace("<e>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[2])}>"); //enemy
         e = e.Replace("<o>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[3])}>"); //object/physical-thing/item/woman
+        e = e.Replace("<c>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[4])}>"); //curruption
         e = e.Replace("</>", $"</color>"); // end
 
 

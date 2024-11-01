@@ -391,10 +391,7 @@ public class PlayerController : MonoBehaviour
                 CritChance += 0.1f;
                 break;
             case "Void":
-                TotalDamageMod *= 1.5;
-                WeaponDamageMod *= 0.5f;
-                working_move_speed *= 0.75f;
-                helth *= 1.5f;
+                TotalDamageMod *= 1.2;
                 break;
         }
         switch (matty.itemindex)

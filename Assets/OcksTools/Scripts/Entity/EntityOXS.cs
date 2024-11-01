@@ -212,6 +212,20 @@ public class EntityOXS : MonoBehaviour
                 DamageTimer = 0.1f;
             }
         }
+        if(EnemyType == "Enemy" && s != null)
+        {
+            var arr = s.mainweapon.ReadItemAmount("Void") * 0.01f;
+            if(s.mainweapon.RollLuck(arr, true) > 0)
+            {
+                var weenor = OXComponent.GetComponent<NavMeshEntity>(gameObject);
+                if(weenor != null && weenor.EliteType != "Corrupted")
+                {
+                    Health = 1;
+                    weenor.EliteType = "Corrupted";
+                    weenor.Start();
+                }
+            }
+        }
         currentprof = null;
     }
 

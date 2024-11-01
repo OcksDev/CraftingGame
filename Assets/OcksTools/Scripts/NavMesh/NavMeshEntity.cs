@@ -41,23 +41,50 @@ public class NavMeshEntity : MonoBehaviour
     public long creditsspent = 0;
     int curcycycle = 0;
     public event Gamer.JustFuckingRunTheMethods CLearShit;
+    [HideInInspector]
+    public double BaldMaxHealth = 0f;
+    [HideInInspector]
+    public float BaldAttackCooldown = 0f;
+    [HideInInspector]
+    public float BaldMoveSpeed = 0f;
+    [HideInInspector]
+    public float BaldAltMoveSpeed = 0f;
+    [HideInInspector]
+    public double BaldDamage = 0f;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         curcycycle = Gamer.EnemyCheckoffset;
         Gamer.EnemyCheckoffset = RandomFunctions.Instance.Mod(Gamer.EnemyCheckoffset,8);
         if (AttackType == "Melee")sex2.Damage = Damage;
-        beans = GetComponent<NavMeshAgent>();
-        sex = GetComponent<Rigidbody2D>();
-        EntityOXS = GetComponent<EntityOXS>();
-        WantASpriteCranberry = GetComponent<SpriteRenderer>();
-        transform.rotation = Quaternion.identity;
-        beans.updateRotation= false;
-        beans.updateUpAxis= false;
-        WantASpriteCranberry.flipX = Random.Range(0, 2) == 1;
-        WantASpriteCranberry.sprite = SpriteVarients[Random.Range(0, SpriteVarients.Count)];
+        if (!HasSpawned)
+        {
+            beans = GetComponent<NavMeshAgent>();
+            sex = GetComponent<Rigidbody2D>();
+            EntityOXS = GetComponent<EntityOXS>();
+            WantASpriteCranberry = GetComponent<SpriteRenderer>();
+            transform.rotation = Quaternion.identity;
+            beans.updateRotation = false;
+            beans.updateUpAxis = false;
+            WantASpriteCranberry.flipX = Random.Range(0, 2) == 1;
+            WantASpriteCranberry.sprite = SpriteVarients[Random.Range(0, SpriteVarients.Count)];
+            BaldMaxHealth = EntityOXS.Max_Health;
+            BaldDamage = Damage;
+            BaldAltMoveSpeed = alt_speed;
+            BaldMoveSpeed = movespeed;
+            BaldAttackCooldown = AttackCooldown;
+        }
+        else
+        {
+            AttackCooldown = BaldAttackCooldown;
+            movespeed = BaldMoveSpeed;
+            Damage = BaldDamage;
+            alt_speed = BaldAltMoveSpeed;
+            EntityOXS.Max_Health = BaldMaxHealth;
+        }
         randommovetimer = 0;
         SightRange = 95f;
+        if(!HasSpawned)
         switch (EnemyType)
         {
             case "Slimer":
@@ -84,6 +111,13 @@ public class NavMeshEntity : MonoBehaviour
                 EntityOXS.Max_Health *= 1.5f;
                 EntityOXS.Health = EntityOXS.Max_Health;
                 break;
+            case "Corrupted":
+                EntityOXS.Max_Health *= 6f;
+                EntityOXS.Health = EntityOXS.Max_Health;
+                AttackCooldown /= 1.5f;
+                movespeed *= 1.5f;
+                alt_speed *= 1.5f;
+                break;
             case "Perfected":
                 EntityOXS.Max_Health *= 5f;
                 EntityOXS.Health = EntityOXS.Max_Health;
@@ -109,7 +143,7 @@ public class NavMeshEntity : MonoBehaviour
                 timer2 = AttackCooldown / 2;
                 break;
         }
-        StartCoroutine(SpawningLol());
+        if(!HasSpawned)StartCoroutine(SpawningLol());
     }
 
     public IEnumerator SpawningLol()
