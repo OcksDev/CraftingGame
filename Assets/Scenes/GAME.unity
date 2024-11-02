@@ -12300,6 +12300,7 @@ GameObject:
   - component: {fileID: 360917656}
   - component: {fileID: 360917658}
   - component: {fileID: 360917659}
+  - component: {fileID: 360917660}
   m_Layer: 26
   m_Name: NormalRender
   m_TagString: Untagged
@@ -12732,6 +12733,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   namer: ItemAnimParent
   nerd: {fileID: 85216818}
+--- !u!114 &360917660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360917632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d17eddebf196574daf74b9ee36952e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namer: ItemConfirm
+  nerd: {fileID: 1372735253}
 --- !u!224 &366118863 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4933656227016282864, guid: 283bb50cdbd4db74bbeedb431bd2ab0f, type: 3}
@@ -48211,7 +48226,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1372735256}
   m_OnClick:
     m_PersistentCalls:
@@ -48241,7 +48256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.32156864, g: 0.48389322, b: 0.6117647, a: 1}
+  m_Color: {r: 0.23366857, g: 0.5694, b: 0.8396226, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -59092,8 +59107,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 2483027968
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.5803922}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

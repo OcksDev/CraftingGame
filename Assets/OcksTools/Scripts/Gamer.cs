@@ -554,13 +554,19 @@ public class Gamer : MonoBehaviour
         UpdateMenus();
     }
     bool anim = false;
+
+    private bool AmIVeryFuckableToday()
+    {
+        if (anim) return true;
+        var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
+        if (poopy.slots[0].Held_Item.ItemIndex != "Empty") return true;
+        if (GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return true;
+        return false;
+    }
+
     public void ConfirmSexMenuSex()
     {
-        if (anim) return;
-        var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
-        if (poopy.slots[0].Held_Item.ItemIndex != "Empty") return;
-        if (GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return;
-
+        if (AmIVeryFuckableToday()) return;
 
         var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
         var leftnutitem = Tags.refs["LeftItemNut"].GetComponent<GISDisplay>();
@@ -1185,6 +1191,7 @@ public class Gamer : MonoBehaviour
         }
     }
     public float ShartPoop = 0f;
+    private Button sexernuttyb;
     private void FixedUpdate()
     {
         LastHitEnemyTimer -= Time.deltaTime;
@@ -1214,6 +1221,14 @@ public class Gamer : MonoBehaviour
             }
             ShartPoop -= Time.deltaTime;
             ShartPoop = (float)System.Math.Max(Mathf.Clamp01(ShartPoop), 2 * (0.35f - (PlayerController.Instance.entit.Health / PlayerController.Instance.entit.Max_Health)));
+            if (checks[5])
+            {
+                if(sexernuttyb == null)
+                {
+                    sexernuttyb = Tags.refs["ItemConfirm"].GetComponent<Button>();
+                }
+                sexernuttyb.interactable = !AmIVeryFuckableToday();
+            }
         }
         else
         {
