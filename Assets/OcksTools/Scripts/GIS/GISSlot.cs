@@ -37,6 +37,9 @@ public class GISSlot : MonoBehaviour
             case "Trash":
                 Held_Item = new GISItem("Trash");
                 break;
+            case "VaultInput":
+                Held_Item = new GISItem("Vault Input");
+                break;
         }
     }
     public bool FailToClick()
@@ -114,8 +117,18 @@ public class GISSlot : MonoBehaviour
                 return;
             case "VaultInput":
                 if (GISLol.Instance.Mouse_Held_Item.ItemIndex == "Empty") return;
-                GISLol.Instance.AddVaultItem(new GISItem(GISLol.Instance.Mouse_Held_Item));
-                Gamer.Instance.LoadVaultPage(Gamer.Instance.currentvault);
+                var wee = GISLol.Instance.AddVaultItem(new GISItem(GISLol.Instance.Mouse_Held_Item));
+                if (wee)
+                {
+                    foreach(var d in Gamer.Instance.spawnednerds)
+                    {
+                        d.UpdateDisplay();
+                    }
+                }
+                else
+                {
+                    Gamer.Instance.LoadVaultPage(Gamer.Instance.currentvault);
+                }
                 var WEENIS2 = GISLol.Instance.Mouse_Held_Item;
                 GISLol.Instance.Mouse_Held_Item = new GISItem();
                 WEENIS2.Solidify();

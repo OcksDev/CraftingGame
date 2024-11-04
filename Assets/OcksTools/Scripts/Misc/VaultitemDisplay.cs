@@ -21,8 +21,12 @@ public class VaultitemDisplay : MonoBehaviour
             if(GISLol.Instance.VaultItems[item] <= 0)
             {
                 GISLol.Instance.VaultItems.Remove(item);
+                Gamer.Instance.LoadVaultPage(Gamer.Instance.currentvault);
             }
-            Gamer.Instance.LoadVaultPage(Gamer.Instance.currentvault);
+            else
+            {
+                UpdateDisplay();
+            }
             GISLol.Instance.Mouse_Displayer.UpdateDisplay();
         }
         else if(item.Compare(GISLol.Instance.Mouse_Held_Item))

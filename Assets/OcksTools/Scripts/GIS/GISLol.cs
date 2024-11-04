@@ -47,7 +47,7 @@ public class GISLol : MonoBehaviour
         }
     }
 
-    public void AddVaultItem(GISItem item)
+    public bool AddVaultItem(GISItem item)
     {
         for(int i = 0; i < VaultItems.Count; i++)
         {
@@ -55,10 +55,11 @@ public class GISLol : MonoBehaviour
             if (a.Key.Compare(item))
             {
                 VaultItems[a.Key]++;
-                return;
+                return true;
             }
         }
         VaultItems.Add(item, 1);
+        return false;
     }
 
     private void Awake()
