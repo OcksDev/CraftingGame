@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEditor;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+using Unity.Mathematics;
 
 public class RectWindow: EditorWindow
 {
     GameObject s;
+    GameObject s2;
+    float x1;
+    float x2;
+    float y1;
+    float y2;
     float border;
     [MenuItem("OcksTools/Rect Utils %&r", false, 1)]
     public static void ShowWindow()
@@ -70,7 +76,22 @@ public class RectWindow: EditorWindow
             fardborder(2);
         }
         GUILayout.EndHorizontal();
-
+        GUILayout.Space(10);
+        s2 = (GameObject)EditorGUILayout.ObjectField(new GUIContent("FardWingle", "OH NO NOT THE FardWingle!!!!!"), s2, typeof(GameObject), true);
+        x1 = EditorGUILayout.FloatField(new GUIContent("x1", "OH NO NOT THE FardWingle!!!!!"), x1);
+        x2 = EditorGUILayout.FloatField(new GUIContent("x2", "OH NO NOT THE FardWingle!!!!!"), x2);
+        y1 = EditorGUILayout.FloatField(new GUIContent("y1", "OH NO NOT THE FardWingle!!!!!"), y1);
+        y2 = EditorGUILayout.FloatField(new GUIContent("y2", "OH NO NOT THE FardWingle!!!!!"), y2);
+        if (GUILayout.Button(new GUIContent("Spawn My Nuts", "Fits every Axis")))
+        {
+            var a = Instantiate(s2, Vector3.zero, Quaternion.identity);
+            var b = a.GetComponent<Renderer>();
+            b.material = new Material(b.material);
+            b.material.SetFloat("x1", x1);
+            b.material.SetFloat("x2", x2);
+            b.material.SetFloat("y1", y1);
+            b.material.SetFloat("y2", y2);
+        }
     }
 
 

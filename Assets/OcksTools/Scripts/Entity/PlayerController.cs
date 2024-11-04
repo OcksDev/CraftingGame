@@ -412,6 +412,8 @@ public class PlayerController : MonoBehaviour
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"], "Dash", "player", 0.1f, true);
         if(!NoNoSwitchyBazungus)InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 0.1f, false);
     }
+
+
     float scrollcool;
     private void LateUpdate()
     {

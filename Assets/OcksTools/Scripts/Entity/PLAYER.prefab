@@ -630,8 +630,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
   Damage: 0
+  WeaponDamageMod: 1
   TotalDamageMod: 1
   AttacksPerSecond: 5
+  AttacksPerSecondMod: 1
   Spread: 15
   MaxBowMult: 2
   BowChargeSpeed: 1
@@ -679,6 +681,7 @@ MonoBehaviour:
   weewee: {fileID: 5711173659826320584}
   DeathDisable: 0
   hasaids: 0
+  weenis: {fileID: 5348337722062648516, guid: ab0ace673f5fbb7439e381d601c110d4, type: 3}
   IsDashing: 0
 --- !u!114 &6584350868192443160
 MonoBehaviour:
@@ -760,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4157409539
+  GlobalObjectIdHash: 1873435979
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
