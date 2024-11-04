@@ -130,11 +130,21 @@ public class Gamer : MonoBehaviour
         Tags.refs["BGblack"].SetActive(true);
         MainMenu();
         StartCoroutine(FUCK());
+        StartCoroutine(SPawnPool());
     }
     public static List<List<string>> Backup = new List<List<string>>();
     public static List<List<string>> QBackup = new List<List<string>>();
 
-
+    public IEnumerator SPawnPool()
+    {
+        for(int i = 0; i < 63; i++)
+        {
+            yield return new WaitForFixedUpdate();
+            var weenor = Instantiate(VaultThing, transform.position, Quaternion.identity, Tags.refs["VaultParent"].transform).GetComponent<VaultitemDisplay>();
+            prespawnednerds.Add(weenor);
+            weenor.gameObject.SetActive(false);
+        }
+    }
     public void ClearMap()
     {
         foreach (var sex in EnemiesExisting)
@@ -367,6 +377,8 @@ public class Gamer : MonoBehaviour
     public int currentvault = 0;
     [HideInInspector]
     public List<VaultitemDisplay> spawnednerds = new List<VaultitemDisplay>();
+    [HideInInspector]
+    public List<VaultitemDisplay> prespawnednerds = new List<VaultitemDisplay>();
     public int SortMethod = 0;
     public void LoadVaultPage(int page)
     {
@@ -436,13 +448,19 @@ public class Gamer : MonoBehaviour
         }
         for(int i = 0; i < offset && spawnednerds.Count < amount; i++)
         {
-            var weenor = Instantiate(VaultThing, transform.position, Quaternion.identity, Tags.refs["VaultParent"].transform).GetComponent<VaultitemDisplay>();
+            //var weenor = Instantiate(VaultThing, transform.position, Quaternion.identity, Tags.refs["VaultParent"].transform).GetComponent<VaultitemDisplay>();
+            var weenor = prespawnednerds[0];
+            weenor.gameObject.SetActive(true);
             spawnednerds.Add(weenor);
+            prespawnednerds.Remove(weenor);
         }
         for(int i = 0; i < -offset && i < amount; i++)
         {
-            Destroy(spawnednerds[0].gameObject);
+            var weenor = spawnednerds[0];
+            weenor.gameObject.SetActive(false);
+            prespawnednerds.Add(weenor);
             spawnednerds.RemoveAt(0);
+
         }
         for (int i = 0; i < (penis.Count - (page * amount)) && i < amount; i++)
         {
