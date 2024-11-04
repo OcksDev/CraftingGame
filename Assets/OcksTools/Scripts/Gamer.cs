@@ -386,7 +386,7 @@ public class Gamer : MonoBehaviour
         int amount = 63;
         List<KeyValuePair<GISItem, int>> penis = new List<KeyValuePair<GISItem, int>>();
         List<KeyValuePair<GISItem, int>> penis2 = new List<KeyValuePair<GISItem, int>>();
-        bool shungite = true;
+        bool shungite = GISLol.Instance.VaultItems.Count > 0;
         while (shungite)
         {
             try
