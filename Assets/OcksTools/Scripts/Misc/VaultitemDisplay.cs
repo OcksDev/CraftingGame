@@ -10,7 +10,7 @@ public class VaultitemDisplay : MonoBehaviour
     {
         displaything.item = item;
         displaything.UpdateDisplay();
-        displaything.amnt.text = $"x{GISLol.Instance.VaultItems[item]}";
+        displaything.amnt.text = $"x{Converter.NumToRead(GISLol.Instance.VaultItems[item].ToString())}";
     }
     public void Clickity()
     {
@@ -24,6 +24,15 @@ public class VaultitemDisplay : MonoBehaviour
             }
             Gamer.Instance.LoadVaultPage(Gamer.Instance.currentvault);
             GISLol.Instance.Mouse_Displayer.UpdateDisplay();
+        }
+        else if(item.Compare(GISLol.Instance.Mouse_Held_Item))
+        {
+            var p = GISLol.Instance.Mouse_Held_Item;
+            GISLol.Instance.Mouse_Held_Item = new GISItem();
+            p.Solidify();
+            displaything.item = item;
+            displaything.UpdateDisplay();
+            displaything.amnt.text = $"x{++GISLol.Instance.VaultItems[item]}";
         }
     }
 

@@ -147,7 +147,7 @@ public class RoomLol : MonoBehaviour
         while (available_rooms.Count > 0)
         {
             cycles++;
-            int index = UnityEngine.Random.Range(0, available_rooms.Count);
+            int index = Gamer.GlobalRand.Next(0, available_rooms.Count);
             Room rom = available_rooms[index];
             bool keepgoing = true;
             ret.room = rom;

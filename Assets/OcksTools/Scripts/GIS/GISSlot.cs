@@ -116,7 +116,6 @@ public class GISSlot : MonoBehaviour
                 if (GISLol.Instance.Mouse_Held_Item.ItemIndex == "Empty") return;
                 GISLol.Instance.AddVaultItem(new GISItem(GISLol.Instance.Mouse_Held_Item));
                 Gamer.Instance.LoadVaultPage(Gamer.Instance.currentvault);
-                GISLol.Instance.Mouse_Held_Item.Container.SaveTempContents();
                 var WEENIS2 = GISLol.Instance.Mouse_Held_Item;
                 GISLol.Instance.Mouse_Held_Item = new GISItem();
                 WEENIS2.Solidify();

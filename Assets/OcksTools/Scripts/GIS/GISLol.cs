@@ -234,6 +234,11 @@ public class GISLol : MonoBehaviour
         {
             Mouse_Held_Item = new GISItem("Zebrium");
         }
+        if (InputManager.IsKeyDown(KeyCode.O, "menu"))
+        {
+            Mouse_Held_Item = new GISItem("Zebrium");
+            Mouse_Held_Item.CustomName = $"{UnityEngine.Random.Range(-69,10101010101)}";
+        }
         if (InputManager.IsKeyDown(KeyCode.Backslash, "menu")|| InputManager.IsKeyDown(KeyCode.Backslash, "item_menu"))
         {
             if(Mouse_Held_Item.ItemIndex != "Empty")
@@ -530,12 +535,13 @@ public class GISItem
             { "Count", "0" },
             { "Name", "" },
             { "Mats", "" },
+            { "RunMats", "" },
         };
         return e;
     }
 
 
-    public string ItemToString()
+    public string ItemToString(bool perrun = false)
     {
         string e = "";
         var def = GetDefaultData();
@@ -555,6 +561,16 @@ public class GISItem
         }
         if(mats.Count > 0)
         Data["Mats"] = Converter.ListToString(mats, "(q]");
+        if (perrun)
+        {
+            var mats2 = new List<string>();
+            foreach (var mat in Run_Materials)
+            {
+                mats2.Add(mat.index == "" ? mat.itemindex : mat.index);
+            }
+            if (mats2.Count > 0)
+                Data["RunMats"] = Converter.ListToString(mats2, "(q]");
+        }
 
 
 
@@ -619,6 +635,28 @@ public class GISItem
             foreach (var pp in sex)
             {
                 if (pp != "") Materials.Add(new GISMaterial(pp));
+            }
+        }
+        if (wanker.ContainsKey("RunMats"))
+        {
+            var sex = Converter.StringToList(Data["RunMats"], "(q]");
+            Run_Materials.Clear();
+            foreach (var pp in sex)
+            {
+                if (pp != "")
+                {
+                    var weenor = GISLol.Instance.ItemsDict[pp];
+                    if (weenor.IsCraftable)
+                    {
+                        Run_Materials.Add(new GISMaterial(pp));
+                    }
+                    else
+                    {
+                        var w = new GISMaterial();
+                        w.itemindex = pp;
+                        Run_Materials.Add(w);
+                    }
+                }
             }
         }
 

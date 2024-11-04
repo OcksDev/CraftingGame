@@ -139,6 +139,42 @@ public class SaveSystem : MonoBehaviour
         SaveDataToFile(dict);
     }
 
+    public void SaveCurrentRun()
+    {
+        string dict = "current_run";
+        SetString("Floor", Gamer.CurrentFloor.ToString(), dict);
+        SetString("Health", (PlayerController.Instance.entit.Health/ PlayerController.Instance.entit.Max_Health).ToString(), dict);
+        SetString("Seed", Gamer.Seed.ToString(), dict);
+        var c = GISLol.Instance.All_Containers["Equips"];
+        SetString("Weapon1", c.slots[0].Held_Item.ItemToString(true), dict);
+        SetString("Weapon2", c.slots[1].Held_Item.ItemToString(true), dict);
+
+        SaveDataToFile(dict);
+    }
+    
+    public void LoadCurrentRun()
+    {
+        string dict = "current_run";
+        GetDataFromFile(dict);
+        Gamer.CurrentFloor = int.Parse(GetString("Floor", "1", dict))-1;
+        Gamer.Seed = int.Parse(GetString("Seed", "0", dict));
+
+        Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor2"));
+    }
+    public void LoadCurRun2()
+    {
+        string dict = "current_run";
+        PlayerController.Instance.entit.Health = double.Parse(GetString("Health", "1", dict))* PlayerController.Instance.entit.Max_Health;
+
+        var c = GISLol.Instance.All_Containers["Equips"];
+        var we = new GISItem();
+        we.StringToItem(GetString("Weapon1", "", dict));
+        c.slots[0].Held_Item = we;
+        we = new GISItem();
+        we.StringToItem(GetString("Weapon2", "", dict));
+        c.slots[1].Held_Item = we;
+    }
+
     public string DictNameToFilePath(string e)
     {
         var f = FileSystem.Instance;
@@ -146,6 +182,7 @@ public class SaveSystem : MonoBehaviour
         {
             case "def": return $"{f.GameDirectory}\\Game_Data.txt";
             case "ox_profile": return $"{f.UniversalDirectory}\\Player_Data.txt";
+            case "current_run": return $"{f.GameDirectory}\\Current_Run_Savestate.txt";
             default: return $"{f.GameDirectory}\\Data_{e}.txt";
         }
     }
@@ -162,6 +199,13 @@ public class SaveSystem : MonoBehaviour
             HoldingData.Add(name, new Dictionary<string, string>());
             return HoldingData[name];
         }
+    }
+
+    public void ResetFile(string dict)
+    {
+        var f = FileSystem.Instance;
+        f.AssembleFilePaths();
+        f.WriteFile(DictNameToFilePath(dict), "", true);
     }
 
     public void SetString(string key, string data, string dict = "def")

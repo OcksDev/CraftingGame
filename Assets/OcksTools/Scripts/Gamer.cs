@@ -369,7 +369,7 @@ public class Gamer : MonoBehaviour
     public void LoadVaultPage(int page)
     {
         currentvault = page;
-        int amount = 81;
+        int amount = 63;
         List<KeyValuePair<GISItem, int>> penis = new List<KeyValuePair<GISItem, int>>();
         for(int i = 0; i < amount; i++)
         {
@@ -401,6 +401,16 @@ public class Gamer : MonoBehaviour
         }
     }
 
+    public void VaultIncrease()
+    {
+        if(GISLol.Instance.VaultItems.Count > (currentvault+1) * 63 )
+        LoadVaultPage(currentvault + 1);
+    }
+    public void VaultDecrease()
+    {
+        if (currentvault <= 0) return;
+        LoadVaultPage(currentvault -1);
+    }
 
     public static int EnemyCheckoffset = 0;
     public void ToggleInventory()
@@ -777,6 +787,7 @@ public class Gamer : MonoBehaviour
     public IEnumerator DeathAnim()
     {
         CameraLol.Instance.Shake(0.5f, 1f);
+        SaveSystem.Instance.ResetFile("current_run");
         PlayerController.Instance.DeathDisable = true;
         StartCoroutine(DeathFlasher(40, 0.45f));
         StartCoroutine(StartFade("Death", 80));
@@ -823,8 +834,6 @@ public class Gamer : MonoBehaviour
     public void GeneralFloorChange()
     {
         OldCurrentRoom = null;
-        Seed = Random.Range(-999999999, 999999999);
-        GlobalRand = new System.Random(Seed);
         GameState = "Game";
         Tags.refs["Lobby"].SetActive(false);
         Tags.refs["ShopArea"].SetActive(false);
@@ -894,12 +903,24 @@ public class Gamer : MonoBehaviour
     }
 
 
-    public IEnumerator NextFloor()
+    public IEnumerator NextFloor(int seed = 0)
     {
         GeneralFloorChange();
+        if(seed == 0)
+        {
+            Seed = Random.Range(-999999999, 999999999);
+        }
+        else
+        {
+            Seed = seed;
+        }
+        GlobalRand = new System.Random(Seed);
         CurrentFloor++;
         RoomLol.Instance.GenerateRandomLayout();
-        
+        if(CurrentFloor > 1 && seed == 0)
+        {
+            SaveSystem.Instance.SaveCurrentRun();
+        }
         List<I_Room> enders = new List<I_Room>();
         foreach (var e in RoomLol.Instance.SpawnedRoomsDos)
         {
@@ -1387,6 +1408,12 @@ public class Gamer : MonoBehaviour
             case "NextFloor":
                 completetetge = false;
                 NextFloorBall = StartCoroutine(NextFloor());
+                yield return new WaitUntil(() => { return completetetge; });
+                break;
+            case "NextFloor2":
+                completetetge = false;
+                SaveSystem.Instance.LoadCurRun2();
+                NextFloorBall = StartCoroutine(NextFloor(Seed));
                 yield return new WaitUntil(() => { return completetetge; });
                 break;
             case "NextShop":
