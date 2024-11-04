@@ -5,6 +5,7 @@ using UnityEngine;
 public class HoverDingle : MonoBehaviour
 {
     public string type = "";
+    public VaultitemDisplay vuny;
     void Update()
     {
         var wan = GISLol.Instance.IsHoveringReal(gameObject);
@@ -13,6 +14,9 @@ public class HoverDingle : MonoBehaviour
             var hv = new HoverType(type);
             switch (type)
             {
+                case "weenor":
+                    GISLol.Instance.HoverDohicky(new HoverType(vuny.item));
+                    break;
                 default:
                     hv.type = "TitleAndDesc";
                     hv.data = "Craft";

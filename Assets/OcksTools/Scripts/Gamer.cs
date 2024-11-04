@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
@@ -60,6 +61,7 @@ public class Gamer : MonoBehaviour
     public GameObject ItemTranser;
     public List<Image> HitSexers = new List<Image>();
     public GameObject ItemAnimThing;
+    public GameObject VaultThing;
 
     [HideInInspector]
     public bool InRoom = false;
@@ -86,6 +88,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["SettingsMenu"].SetActive(checks[8]);
         Tags.refs["TransItems"].SetActive(checks[9]);
         Tags.refs["FuckPause"].SetActive(checks[10]);
+        Tags.refs["Vault"].SetActive(checks[11]);
 
         WithinAMenu = false;
         InputManager.SetLockLevel("");
@@ -360,6 +363,44 @@ public class Gamer : MonoBehaviour
 #endif
 
     }
+    [HideInInspector]
+    public int currentvault = 0;
+    List<VaultitemDisplay> spawnednerds = new List<VaultitemDisplay>();
+    public void LoadVaultPage(int page)
+    {
+        currentvault = page;
+        int amount = 81;
+        List<KeyValuePair<GISItem, int>> penis = new List<KeyValuePair<GISItem, int>>();
+        for(int i = 0; i < amount; i++)
+        {
+            try
+            {
+                var wenor = GISLol.Instance.VaultItems.ElementAt(i + (amount * page));
+                penis.Add(wenor);
+            }
+            catch
+            {
+                break;
+            }
+        }
+        int offset = penis.Count - spawnednerds.Count;
+        for(int i = 0; i < offset; i++)
+        {
+            var weenor = Instantiate(VaultThing, transform.position, Quaternion.identity, Tags.refs["VaultParent"].transform).GetComponent<VaultitemDisplay>();
+            spawnednerds.Add(weenor);
+        }
+        for(int i = 0; i < -offset; i++)
+        {
+            Destroy(spawnednerds[0].gameObject);
+            spawnednerds.RemoveAt(0);
+        }
+        for (int i = 0; i < penis.Count; i++)
+        {
+            spawnednerds[i].item = penis[i].Key;
+            spawnednerds[i].UpdateDisplay();
+        }
+    }
+
 
     public static int EnemyCheckoffset = 0;
     public void ToggleInventory()
@@ -367,6 +408,7 @@ public class Gamer : MonoBehaviour
         if (checks[0] && GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return;
         checks[0] = !checks[0];
         checks[1] = false;
+        checks[11] = false;
         checks[2] = checks[0];
         UpdateMenus();
     }
@@ -721,13 +763,10 @@ public class Gamer : MonoBehaviour
         {
             wankers.Add(a.dip.item);
         }
-        var weewee = GISLol.Instance.All_Containers["Inventory"];
         foreach (var item in wankers)
         {
-            var x = weewee.FindEmptySlot();
-            weewee.slots[x].Held_Item = item;
+            GISLol.Instance.AddVaultItem(item);
         }
-        weewee.SaveTempContents();
         FadeToLobby();
     }
     public void FadeToLobby()

@@ -58,8 +58,17 @@ public class INteractable : MonoBehaviour
                 g.checks[1] = !g.checks[1];
                 g.checks[0] = g.checks[1];
                 g.checks[2] = false;
+                g.checks[11] = false;
                 g.cuumer.Open();
                 g.UpdateMenus();
+                break;
+            case "Vault":
+                g.checks[11] = true;
+                g.checks[1] = false;
+                g.checks[0] = true;
+                g.checks[2] = false;
+                g.UpdateMenus();
+                Gamer.Instance.LoadVaultPage(0);
                 break;
             case "StartGame":
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor"));

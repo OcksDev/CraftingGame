@@ -27,6 +27,7 @@ public class GISLol : MonoBehaviour
     private HoverRefHolder hovercummer;
     public List<Color32> attributecolors = new List<Color32>();
     public List<string> nonowords = new List<string>();
+    public Dictionary<GISItem, int> VaultItems = new Dictionary<GISItem, int>();
 
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
 
@@ -44,6 +45,20 @@ public class GISLol : MonoBehaviour
         {
             if (con.Value != null) con.Value.LoadTempContents();
         }
+    }
+
+    public void AddVaultItem(GISItem item)
+    {
+        for(int i = 0; i < VaultItems.Count; i++)
+        {
+            var a = VaultItems.ElementAt(i);
+            if (a.Key.Compare(item))
+            {
+                VaultItems[a.Key]++;
+                return;
+            }
+        }
+        VaultItems.Add(item, 1);
     }
 
     private void Awake()
@@ -481,7 +496,8 @@ public class GISItem
             }
         }
 
-        if (!usebase && !comp)
+        if (sexnut.CustomName != CustomName) comp = false;
+        if (!usebase && comp)
         {
             //code to further compare goes here
         }

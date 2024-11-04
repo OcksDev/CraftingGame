@@ -52,6 +52,7 @@ public class GISSlot : MonoBehaviour
             case "Empty":
                 if (pp.ItemIndex != "Empty") return true;
                 break;
+            case "VaultInput":
             case "Trash":
                 if (pp.ItemIndex == "Empty") return true;
                 break;
@@ -111,8 +112,19 @@ public class GISSlot : MonoBehaviour
             case "RockGive":
                 GISLol.Instance.Mouse_Held_Item = new GISItem(Held_Item);
                 return;
-            case "Trash":
+            case "VaultInput":
+                if (GISLol.Instance.Mouse_Held_Item.ItemIndex == "Empty") return;
+                GISLol.Instance.AddVaultItem(new GISItem(GISLol.Instance.Mouse_Held_Item));
+                Gamer.Instance.LoadVaultPage(Gamer.Instance.currentvault);
+                GISLol.Instance.Mouse_Held_Item.Container.SaveTempContents();
+                var WEENIS2 = GISLol.Instance.Mouse_Held_Item;
                 GISLol.Instance.Mouse_Held_Item = new GISItem();
+                WEENIS2.Solidify();
+                return;
+            case "Trash":
+                var WEENIS = GISLol.Instance.Mouse_Held_Item;
+                GISLol.Instance.Mouse_Held_Item = new GISItem();
+                WEENIS.Solidify();
                 return;
         }
         //Debug.Log(balls.position.ToString() + ",    " + m.ToString());

@@ -81,6 +81,16 @@ public class SaveSystem : MonoBehaviour
             s.SFXVolume = float.Parse(GetString("snd_sfx", "1", dict));
             s.MusicVolume = float.Parse(GetString("snd_mus", "1", dict));
         }
+
+        var pp = Converter.StringToDictionary(GetString("vault_items", "", dict));
+        GISLol.Instance.VaultItems.Clear();
+        foreach(var weenor in pp)
+        {
+            var ppw = new GISItem();
+            ppw.StringToItem(weenor.Key);
+            GISLol.Instance.VaultItems.Add(ppw, int.Parse(weenor.Value));
+        }
+
         NoScroll = bool.Parse(GetString("noscroll", "False", dict));
         test = int.Parse(GetString("test_num", "0", dict));
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
@@ -111,6 +121,14 @@ public class SaveSystem : MonoBehaviour
             SetString("snd_sfx", s.SFXVolume.ToString(), dict);
             SetString("snd_mus", s.MusicVolume.ToString(), dict);
         }
+
+        Dictionary<string, string> pp = new Dictionary<string, string>();
+        foreach (var item in GISLol.Instance.VaultItems)
+        {
+            pp.Add(item.Key.ItemToString(), item.Value.ToString());
+        }
+        SetString("vault_items", Converter.DictionaryToString(pp), dict);
+
 
         SetString("test_num", test.ToString(), dict);
 
