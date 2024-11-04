@@ -38,6 +38,14 @@ public class SettingInput : MonoBehaviour
             case "MusicVolume":
                 SoundSystem.Instance.MusicVolume = slider.value;
                 break;
+            case "Highlights":
+                Gamer.Instance.Highlights = slider.value/20f;
+                Gamer.Instance.UpdateShaders();
+                break;
+            case "Lowlights":
+                Gamer.Instance.Lowlights = slider.value/20f;
+                Gamer.Instance.UpdateShaders();
+                break;
             case "ScrollNo":
                 SaveSystem.Instance.NoScroll = fard;
                 break;
@@ -58,6 +66,14 @@ public class SettingInput : MonoBehaviour
                 break;
             case "MusicVolume":
                 slider.value = SoundSystem.Instance.MusicVolume;
+                UpdateValue();
+                break;
+            case "Highlights":
+                slider.value = Gamer.Instance.Highlights*20;
+                UpdateValue();
+                break;
+            case "Lowlights":
+                slider.value = Gamer.Instance.Lowlights*20;
                 UpdateValue();
                 break;
             case "ScrollNo":

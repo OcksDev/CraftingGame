@@ -235,6 +235,10 @@ public class GISLol : MonoBehaviour
         {
             Mouse_Held_Item = new GISItem("Zebrium");
         }
+        if (InputManager.IsKeyDown(KeyCode.J, "menu"))
+        {
+            Mouse_Held_Item = new GISItem("Shungite");
+        }
         if (InputManager.IsKeyDown(KeyCode.O, "menu"))
         {
             Mouse_Held_Item = new GISItem("Zebrium");

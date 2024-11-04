@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Gamer : MonoBehaviour
@@ -62,6 +63,7 @@ public class Gamer : MonoBehaviour
     public List<Image> HitSexers = new List<Image>();
     public GameObject ItemAnimThing;
     public GameObject VaultThing;
+    public Volume volume;
 
     [HideInInspector]
     public bool InRoom = false;
@@ -109,6 +111,7 @@ public class Gamer : MonoBehaviour
         {
             InputManager.SetLockLevel("item_menu");
         }
+        UpdateShaders();
         RefreshUIPos?.Invoke();
     }
 
@@ -468,7 +471,16 @@ public class Gamer : MonoBehaviour
             spawnednerds[i].UpdateDisplay();
         }
     }
-
+    public float Highlights;
+    public float Lowlights;
+    public void UpdateShaders()
+    {
+        if (volume.profile.TryGet(out UnityEngine.Rendering.Universal.SplitToning spplit))
+        {
+            spplit.highlights.Override(new Color(Highlights, Highlights, Highlights));
+            spplit.shadows.Override(new Color(Lowlights, Lowlights, Lowlights));
+        }
+    }
     public void VaultIncrease()
     {
         if(GISLol.Instance.VaultItems.Count > (currentvault+1) * 63 )

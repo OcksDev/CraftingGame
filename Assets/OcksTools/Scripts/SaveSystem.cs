@@ -81,7 +81,8 @@ public class SaveSystem : MonoBehaviour
             s.SFXVolume = float.Parse(GetString("snd_sfx", "1", dict));
             s.MusicVolume = float.Parse(GetString("snd_mus", "1", dict));
         }
-
+        Gamer.Instance.Highlights = float.Parse(GetString("highlights", "0.5", dict));
+        Gamer.Instance.Lowlights = float.Parse(GetString("lowlights", "0.5", dict));
         var pp = Converter.StringToDictionary(GetString("vault_items", "", dict));
         GISLol.Instance.VaultItems.Clear();
         foreach(var weenor in pp)
@@ -94,7 +95,7 @@ public class SaveSystem : MonoBehaviour
         NoScroll = bool.Parse(GetString("noscroll", "False", dict));
         test = int.Parse(GetString("test_num", "0", dict));
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
-
+        Gamer.Instance.UpdateShaders();
         LoadAllData?.Invoke();
     }
     public void SaveGame(string dict = "def")
@@ -121,6 +122,8 @@ public class SaveSystem : MonoBehaviour
             SetString("snd_sfx", s.SFXVolume.ToString(), dict);
             SetString("snd_mus", s.MusicVolume.ToString(), dict);
         }
+        SetString("highlights", Gamer.Instance.Highlights.ToString(), dict);
+        SetString("lowlights", Gamer.Instance.Highlights.ToString(), dict);
 
         Dictionary<string, string> pp = new Dictionary<string, string>();
         foreach (var item in GISLol.Instance.VaultItems)
