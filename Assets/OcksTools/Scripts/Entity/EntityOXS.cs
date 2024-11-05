@@ -90,7 +90,7 @@ public class EntityOXS : MonoBehaviour
             case "Player":
                 s2 = OXComponent.GetComponent<PlayerController>(gameObject);
                 if (!s2.isrealowner) break;
-                //hit.Damage -= s2.GetItem("repulse");
+                damagefromhit -= s2.mainweapon.ReadItemAmount("Shungite");
                 if (damagefromhit < 1) damagefromhit = 1;
 
                 if (s2.IsDashing)

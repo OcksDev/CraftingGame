@@ -159,10 +159,17 @@ public class SaveSystem : MonoBehaviour
     {
         string dict = "current_run";
         GetDataFromFile(dict);
-        Gamer.CurrentFloor = int.Parse(GetString("Floor", "1", dict))-1;
-        Gamer.Seed = int.Parse(GetString("Seed", "0", dict));
+        if (GetDict(dict).ContainsKey("Loaded"))
+        {
+            Gamer.CurrentFloor = int.Parse(GetString("Floor", "1", dict)) - 1;
+            Gamer.Seed = int.Parse(GetString("Seed", "0", dict));
 
-        Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor2"));
+            Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor2"));
+        }
+        else
+        {
+            Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor"));
+        }
     }
     public void LoadCurRun2()
     {
@@ -186,6 +193,7 @@ public class SaveSystem : MonoBehaviour
             case "def": return $"{f.GameDirectory}\\Game_Data.txt";
             case "ox_profile": return $"{f.UniversalDirectory}\\Player_Data.txt";
             case "current_run": return $"{f.GameDirectory}\\Current_Run_Savestate.txt";
+            case "weapons": return $"{f.GameDirectory}\\Equipped_Weapons.txt";
             default: return $"{f.GameDirectory}\\Data_{e}.txt";
         }
     }
@@ -241,7 +249,9 @@ public class SaveSystem : MonoBehaviour
     {
         var f = FileSystem.Instance;
         f.AssembleFilePaths();
-        f.WriteFile(DictNameToFilePath(dict), Converter.DictionaryToString(GetDict(dict), Environment.NewLine, ": "), true);
+        var w = GetDict(dict);
+        if (!w.ContainsKey("Loaded")) w.Add("Loaded", "True");
+        f.WriteFile(DictNameToFilePath(dict), Converter.DictionaryToString(w, Environment.NewLine, ": "), true);
     }
 
 

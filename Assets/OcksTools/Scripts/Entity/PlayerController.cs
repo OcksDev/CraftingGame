@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -91,6 +92,22 @@ public class PlayerController : MonoBehaviour
         if (isrealowner)
         {
             Instance = this;
+
+
+            string dict = "weapons";
+            SaveSystem.Instance.GetDataFromFile(dict);
+            if (SaveSystem.Instance.GetDict(dict).ContainsKey("Loaded"))
+            {
+                var weenor = new GISItem();
+                var cc = GISLol.Instance.All_Containers["Equips"];
+                weenor.StringToItem(SaveSystem.Instance.GetString("Weapon1", "", dict));
+                cc.slots[0].Held_Item = weenor;
+                weenor = new GISItem();
+                weenor.StringToItem(SaveSystem.Instance.GetString("Weapon2", "", dict));
+                cc.slots[1].Held_Item = weenor;
+                SaveSystem.Instance.ResetFile(dict);
+            }
+
             StartCoroutine(ArrowSex());
         }
         selecteditem = 0;
@@ -389,6 +406,9 @@ public class PlayerController : MonoBehaviour
             case "Zebrium":
                 AttacksPerSecondMod += 0.10f;
                 CritChance += 0.1f;
+                break;
+            case "Shungite":
+                WeaponDamageMod = System.Math.Max((WeaponDamageMod * Damage) - 1, 1d)/Damage;
                 break;
             case "Void":
                 TotalDamageMod *= 1.2;

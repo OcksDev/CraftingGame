@@ -103,6 +103,10 @@ public class Gamer : MonoBehaviour
                 break;
             }
         }
+        if (checks[4])
+        {
+            InputManager.SetLockLevel("pause_menu");
+        }
         if (checks[3])
         {
             InputManager.SetLockLevel("main_menu");
@@ -989,6 +993,7 @@ public class Gamer : MonoBehaviour
         if(seed == 0)
         {
             Seed = Random.Range(-999999999, 999999999);
+            if (Seed == 0) Seed = 1;
         }
         else
         {
@@ -1000,6 +1005,15 @@ public class Gamer : MonoBehaviour
         if(CurrentFloor > 1 && seed == 0)
         {
             SaveSystem.Instance.SaveCurrentRun();
+        }
+        else if(CurrentFloor <= 1 && seed == 0)
+        {
+            string dict = "weapons";
+            var c = GISLol.Instance.All_Containers["Equips"];
+            SaveSystem.Instance.SetString("Weapon1", c.slots[0].Held_Item.ItemToString(), dict);
+            SaveSystem.Instance.SetString("Weapon2", c.slots[1].Held_Item.ItemToString(), dict);
+            SaveSystem.Instance.SaveDataToFile(dict);
+            SaveSystem.Instance.SaveGame();
         }
         List<I_Room> enders = new List<I_Room>();
         foreach (var e in RoomLol.Instance.SpawnedRoomsDos)
@@ -1492,8 +1506,8 @@ public class Gamer : MonoBehaviour
                 break;
             case "NextFloor2":
                 completetetge = false;
-                SaveSystem.Instance.LoadCurRun2();
                 NextFloorBall = StartCoroutine(NextFloor(Seed));
+                SaveSystem.Instance.LoadCurRun2();
                 yield return new WaitUntil(() => { return completetetge; });
                 break;
             case "NextShop":
