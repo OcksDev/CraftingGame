@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ABackgroundFader
+  m_Name: ALobbyBackgroundFader 1
   m_Shader: {fileID: -6465566751694194690, guid: aba07c016ed3f654c807231d0b3dfd3f, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -76,9 +76,9 @@ Material:
     - _X2: 0
     - _Y1: 0
     - _Y2: 0
-    - _x1: 0
+    - _x1: 1
     - _x2: 0
-    - _y1: 0
+    - _y1: 1
     - _y2: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
