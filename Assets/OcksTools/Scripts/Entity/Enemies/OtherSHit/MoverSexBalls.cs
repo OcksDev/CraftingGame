@@ -10,7 +10,9 @@ public class MoverSexBalls : MonoBehaviour
     public float HomeStrength = 0;
     public NavMeshEntity homie;
     private GameObject homie2;
-
+    public float sin_freak = 0;
+    public float sin_alphamale = 0;
+    float life = 0;
     private void Start()
     {
         var wank = GetComponent<EnemyHitShit>();
@@ -23,6 +25,11 @@ public class MoverSexBalls : MonoBehaviour
     void FixedUpdate()
     {
         transform.position += transform.right * Time.deltaTime * speed;
+        if(sin_freak > 0)
+        {
+            life += Time.deltaTime;
+            transform.position += transform.up * Mathf.Cos(life*sin_freak)*sin_alphamale;
+        }
         if (myballs != null) myballs.rotation *= Quaternion.Euler(0,0,rotationspeed);
         if(HomeStrength != 0)
         {

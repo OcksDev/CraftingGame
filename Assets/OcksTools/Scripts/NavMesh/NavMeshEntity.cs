@@ -391,6 +391,10 @@ public class NavMeshEntity : MonoBehaviour
                                     StartCoroutine(FwogSex(true));
                                 }
                                 break;
+                            case "Bat":
+                                timer2 = 0;
+                                StartCoroutine(BatSex());
+                                break;
                             case "Cannon":
                                 timer2 = 0;
                                 StartCoroutine(CannonSex());
@@ -445,11 +449,42 @@ public class NavMeshEntity : MonoBehaviour
                 beans.speed = movespeed;
                 switch (EnemyType)
                 {
-                    case "Cannon":
+                    case "Bat":
+                        if (canseemysexybooty)
+                        {
+                            var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized * -6f + target.transform.position;
+                            beans.SetDestination(e);
+                        }
+                        else
+                        {
+                            beans.SetDestination(target.transform.position);
+                            beans.speed = movespeed * 3f;
+                        }
+                        if (dist >= 15f)
+                        {
+                            beans.speed *= 1.5f;
+                        }
+                        break;
                     case "Spitter":
                         if (canseemysexybooty)
                         {
                             var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized*-7f + target.transform.position;
+                            beans.SetDestination(e);
+                        }
+                        else
+                        {
+                            beans.SetDestination(target.transform.position);
+                            beans.speed = movespeed*2f;
+                        }
+                        if (dist >= 22f)
+                        {
+                            beans.speed *= 1.5f;
+                        }
+                        break;
+                    case "Cannon":
+                        if (canseemysexybooty)
+                        {
+                            var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized*-11f + target.transform.position;
                             beans.SetDestination(e);
                         }
                         else
@@ -546,6 +581,7 @@ public class NavMeshEntity : MonoBehaviour
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
         movespeed = f;
+        timer2 = Random.Range(-0.25f, 0.25f);
     }
     public IEnumerator CannonSex()
     {
@@ -565,6 +601,27 @@ public class NavMeshEntity : MonoBehaviour
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
         movespeed = f;
+        timer2 = Random.Range(-0.25f, 0.25f);
+    }
+    public IEnumerator BatSex()
+    {
+        var wank = PointAtPoint2D(target.transform.position, 0);
+
+        var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
+        e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        e.GetComponent<MoverSexBalls>().sin_alphamale *= -1;
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
+        timer2 = Random.Range(-0.25f, 0.25f);
+        yield return null;
     }
     public IEnumerator CloakSex()
     {
@@ -630,6 +687,7 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteVarients[0];
         movespeed = f;
         canrunattacktimer = true;
+        timer2 = Random.Range(-0.25f, 0.25f);
     }
     public IEnumerator HandlessSex()
     {
@@ -708,6 +766,7 @@ public class NavMeshEntity : MonoBehaviour
         yield return new WaitForSeconds(0.30f);
         movespeed = f;
         canrunattacktimer = true;
+        timer2 = Random.Range(-0.25f, 0.25f);
     }
     private EnemyHitShit SpawnBox(Vector3 pos)
     {
