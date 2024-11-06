@@ -51,6 +51,7 @@ public class NavMeshEntity : MonoBehaviour
     public float BaldAltMoveSpeed = 0f;
     [HideInInspector]
     public double BaldDamage = 0f;
+    private Animator anime;
     // Start is called before the first frame update
     public void Start()
     {
@@ -62,6 +63,7 @@ public class NavMeshEntity : MonoBehaviour
             beans = GetComponent<NavMeshAgent>();
             sex = GetComponent<Rigidbody2D>();
             EntityOXS = GetComponent<EntityOXS>();
+            anime = GetComponent<Animator>();
             WantASpriteCranberry = GetComponent<SpriteRenderer>();
             transform.rotation = Quaternion.identity;
             beans.updateRotation = false;
@@ -260,6 +262,7 @@ public class NavMeshEntity : MonoBehaviour
     }
     public bool existing = false;
     public float ddist;
+    private Vector3 TotalVelocity = Vector3.zero;
     bool canrunattacktimer = true;
     // Update is called once per frame
     void FixedUpdate()
@@ -388,6 +391,10 @@ public class NavMeshEntity : MonoBehaviour
                                     StartCoroutine(FwogSex(true));
                                 }
                                 break;
+                            case "Cannon":
+                                timer2 = 0;
+                                StartCoroutine(CannonSex());
+                                break;
                             case "Spitter":
                                 timer2 = 0;
                                 StartCoroutine(SpiterSex());
@@ -417,6 +424,7 @@ public class NavMeshEntity : MonoBehaviour
                     }
                     break;
             }
+            TotalVelocity = beans.velocity + (Vector3)sex.velocity;
             if (charging)
             {
                 WantASpriteCranberry.flipX = chargedir.x > 0 ^ FlipImage;
@@ -425,12 +433,19 @@ public class NavMeshEntity : MonoBehaviour
             {
                 if (Mathf.Abs(beans.velocity.x) > 0.1f)
                     WantASpriteCranberry.flipX = beans.velocity.x > 0 ^ FlipImage;
+                switch (EnemyType)
+                {
+                    case "Cannon":
+                        anime.speed = TotalVelocity.magnitude/2;
+                        break;
+                }
             }
             if (target != null)
             {
                 beans.speed = movespeed;
                 switch (EnemyType)
                 {
+                    case "Cannon":
                     case "Spitter":
                         if (canseemysexybooty)
                         {
@@ -516,6 +531,8 @@ public class NavMeshEntity : MonoBehaviour
     public IEnumerator SpiterSex()
     {
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
+        float f = movespeed;
+        movespeed = 0;
         yield return new WaitForSeconds(0.25f);
         SoundSystem.Instance.PlaySound(16, true, 0.1f);
         yield return new WaitForSeconds(0.05f);
@@ -528,6 +545,26 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteVarients[0];
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
+        movespeed = f;
+    }
+    public IEnumerator CannonSex()
+    {
+        float f = movespeed;
+        movespeed = 0;
+        yield return new WaitForSeconds(0.25f);
+        //SoundSystem.Instance.PlaySound(16, true, 0.1f);
+        yield return new WaitForSeconds(0.05f);
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        Vector3 off = new Vector3(0.782000005f, 0.144999996f, 0);
+        if (WantASpriteCranberry.flipX) off.x *= -1;
+        var wenis = Instantiate(box, transform.position+off, wank, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
+        movespeed = f;
     }
     public IEnumerator CloakSex()
     {

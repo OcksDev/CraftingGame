@@ -16,7 +16,7 @@ public class EnemyHitShit : MonoBehaviour
         {
             return;
         }
-        if (type == "spitter" || type == "spik")
+        if (type == "spitter" || type == "spik" || type == "edgworth")
         {
             time -= Time.deltaTime;
             if (time <= 0) Kill();
@@ -86,7 +86,7 @@ public class EnemyHitShit : MonoBehaviour
             if(sexballs != null)dam.attacker = sexballs.gameObject;
             pp.entit.Hit(dam);
             hits.Add(pp);
-            if (type == "spitter"|| type == "cloak" || type == "spik") Kill();
+            if (type == "spitter"|| type == "cloak" || type == "spik" || type == "edgworth") Kill();
             switch (type)
             {
                 case "ball":
@@ -95,7 +95,7 @@ public class EnemyHitShit : MonoBehaviour
                     break;
             }
         }
-        else if ((type == "spitter"||type == "cloak" || type == "spik") && e.type == "Wall")
+        else if ((type == "spitter"||type == "cloak" || type == "spik" || type == "edgworth") && e.type == "Wall")
         {
             Kill();
         }
@@ -105,7 +105,7 @@ public class EnemyHitShit : MonoBehaviour
     bool isdea = false;
     public IEnumerator sexdie()
     {
-        if(type == "spitter" || type == "cloak" || type == "spik" || type == "ball")
+        if(type == "spitter" || type == "cloak" || type == "spik" || type == "ball" || type == "edgworth")
         {
             var wanks = GetComponentInChildren<SpriteRenderer>();
             if (wanks != null) wanks.enabled = false;
@@ -123,6 +123,9 @@ public class EnemyHitShit : MonoBehaviour
                     break;
                 case "ball":
                     Instantiate(g.ParticleSpawns[14], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                    break;
+                case "edgworth":
+                    Instantiate(g.ParticleSpawns[18], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                     break;
                 default:
                     Instantiate(g.ParticleSpawns[9], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
