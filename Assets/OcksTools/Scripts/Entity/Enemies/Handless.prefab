@@ -210,7 +210,7 @@ MonoBehaviour:
   SpawnOverlapRadius: 3
   movespeed: 1
   SightRange: 15
-  AttackCooldown: 4
+  AttackCooldown: 3.4
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
@@ -240,6 +240,11 @@ MonoBehaviour:
     InstantSpawn: 0
     SpawnPos: {x: 0, y: 0, z: 0}
   creditsspent: 0
+  BaldMaxHealth: 0
+  BaldAttackCooldown: 0
+  BaldMoveSpeed: 0
+  BaldAltMoveSpeed: 0
+  BaldDamage: 0
   existing: 0
   ddist: 0
   charging: 0
