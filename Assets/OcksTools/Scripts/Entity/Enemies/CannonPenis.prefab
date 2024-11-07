@@ -141,9 +141,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 15
+  Health: 22
   Shield: 0
-  Max_Health: 15
+  Max_Health: 22
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -210,7 +210,7 @@ MonoBehaviour:
   SpawnOverlapRadius: 1
   movespeed: 2.3
   SightRange: 15
-  AttackCooldown: 2.2
+  AttackCooldown: 1.8
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: charger
+  subtype: bullet
   Damage: 10
   overridedamage: -1
   sexballs: {fileID: 2284451541892325392}
