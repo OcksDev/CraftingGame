@@ -403,6 +403,10 @@ public class NavMeshEntity : MonoBehaviour
                                 timer2 = 0;
                                 StartCoroutine(SpiterSex());
                                 break;
+                            case "EyeOrb":
+                                timer2 = 0;
+                                StartCoroutine(EyeSex());
+                                break;
                             case "Cloak":
                                 timer2 = 0;
                                 StartCoroutine(CloakSex());
@@ -528,6 +532,17 @@ public class NavMeshEntity : MonoBehaviour
     public bool charging2 = false;
     public float alt_speed = 10f;
     private Vector3 chargedir = Vector3.zero;
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var weenor = Gamer.Instance.GetObjectType(collision.gameObject);
+        if (weenor.type == "Furniture")
+        {
+            weenor.FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork();
+        }
+    }
+
+
     public IEnumerator ChargeSex()
     {
         float premove = movespeed;
@@ -598,6 +613,22 @@ public class NavMeshEntity : MonoBehaviour
         e.Damage = Damage;
         e.balling = transform;
         e.sexballs = this;
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
+        movespeed = f;
+        timer2 = Random.Range(-0.25f, 0.25f);
+    }
+    public IEnumerator EyeSex()
+    {
+        float f = movespeed;
+        movespeed = 0;
+        yield return new WaitForSeconds(0.25f);
+        //SoundSystem.Instance.PlaySound(16, true, 0.1f);
+        yield return new WaitForSeconds(0.05f);
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        SpawnBox(transform.position, wank);
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, 25));
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, -25));
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
         movespeed = f;
@@ -771,6 +802,15 @@ public class NavMeshEntity : MonoBehaviour
     private EnemyHitShit SpawnBox(Vector3 pos)
     {
         var wenis = Instantiate(box, pos, Quaternion.identity, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        return e;
+    }
+    private EnemyHitShit SpawnBox(Vector3 pos, Quaternion rot)
+    {
+        var wenis = Instantiate(box, pos, rot, Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;

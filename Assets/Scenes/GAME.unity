@@ -71424,7 +71424,7 @@ PrefabInstance:
       objectReference: {fileID: 2284451541892325387, guid: 3bbaf0e94e998e44aaf73a02a41c7943, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.size
@@ -71456,7 +71456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.size
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.data[0]
@@ -71574,6 +71574,10 @@ PrefabInstance:
       propertyPath: ParticleSpawns.Array.data[18]
       value: 
       objectReference: {fileID: 3653482439093956654, guid: 22ac0c2d4711d574b8e8add9534a751c, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[19]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: 4a1803d334ae06b43987ec75ae50a456, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].Image
       value: 
@@ -71740,18 +71744,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[7].MinFloor
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[8].MinFloor
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[9].MinFloor
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[10].MinFloor
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[11].MinFloor
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
@@ -71880,7 +71888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[7].CreditCost
-      value: 40
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[7].PickChance
@@ -71924,6 +71932,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[10].PickChance
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[11].CanBeElite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[11].CreditCost
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[11].PickChance
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
@@ -71953,21 +71973,25 @@ PrefabInstance:
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[7].EnemyObject
       value: 
-      objectReference: {fileID: 2284451541892325387, guid: 35219f19e9ba415428e00aaa5a006e2b, type: 3}
+      objectReference: {fileID: 2284451541892325387, guid: 1695718151fc0b648a88773d9b8956b5, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[8].EnemyObject
       value: 
-      objectReference: {fileID: 2284451541892325387, guid: 0a17d5f75c09abc4497212cbde68bafb, type: 3}
+      objectReference: {fileID: 2284451541892325387, guid: 35219f19e9ba415428e00aaa5a006e2b, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[9].EnemyObject
       value: 
-      objectReference: {fileID: 2284451541892325387, guid: cf8e85f16a5ea0d4799b3ca916f1ba18, type: 3}
+      objectReference: {fileID: 2284451541892325387, guid: 0a17d5f75c09abc4497212cbde68bafb, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].DisplayName
       value: Speed Boots
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[10].EnemyObject
+      value: 
+      objectReference: {fileID: 2284451541892325387, guid: cf8e85f16a5ea0d4799b3ca916f1ba18, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[11].EnemyObject
       value: 
       objectReference: {fileID: 2284451541892325387, guid: ad89318c037432f4890f648300f500d9, type: 3}
     - target: {fileID: 733915574832352348, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}

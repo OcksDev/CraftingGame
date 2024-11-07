@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: cloak
+  subtype: realbullet
   Damage: 20
   overridedamage: -5
   sexballs: {fileID: 0}
@@ -72,6 +73,8 @@ MonoBehaviour:
   myballs: {fileID: 3511280402470737557}
   HomeStrength: 1.8
   homie: {fileID: 0}
+  sin_freak: 0
+  sin_alphamale: 0
 --- !u!61 &1721443495685260826
 BoxCollider2D:
   m_ObjectHideFlags: 0

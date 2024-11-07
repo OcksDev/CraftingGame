@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHitShit : MonoBehaviour
 {
     public string type = "rat";
+    public string subtype = "buy";
     public double Damage = 10;
     public double overridedamage = -1;
     float time = 10f;
@@ -95,7 +96,7 @@ public class EnemyHitShit : MonoBehaviour
                     break;
             }
         }
-        else if ((type == "spitter"||type == "cloak" || type == "spik" || type == "edgworth") && e.type == "Wall")
+        else if ((subtype == "realbullet") && e.type == "Wall")
         {
             Kill();
         }
@@ -105,7 +106,7 @@ public class EnemyHitShit : MonoBehaviour
     bool isdea = false;
     public IEnumerator sexdie()
     {
-        if(type == "spitter" || type == "cloak" || type == "spik" || type == "ball" || type == "edgworth")
+        if(subtype=="realbullet")
         {
             var wanks = GetComponentInChildren<SpriteRenderer>();
             if (wanks != null) wanks.enabled = false;
