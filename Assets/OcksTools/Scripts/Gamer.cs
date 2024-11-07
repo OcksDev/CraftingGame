@@ -375,7 +375,7 @@ public class Gamer : MonoBehaviour
         }
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
-            SpawnEnemy(EnemiesDos[6]);
+            SpawnEnemy(EnemiesDos[7]);
         }
 #endif
 

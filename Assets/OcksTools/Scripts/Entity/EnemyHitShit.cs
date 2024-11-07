@@ -109,7 +109,7 @@ public class EnemyHitShit : MonoBehaviour
         if(subtype=="realbullet")
         {
             var wanks = GetComponentInChildren<SpriteRenderer>();
-            if (wanks != null) wanks.enabled = false;
+            if (wanks != null) wanks.gameObject.SetActive(false);
             if (TryGetComponent(out BoxCollider2D wank)) wank.enabled = false;
             if (TryGetComponent(out CircleCollider2D wankw)) wankw.enabled = false;
             if (TryGetComponent(out MoverSexBalls wankww)) wankww.enabled = false;

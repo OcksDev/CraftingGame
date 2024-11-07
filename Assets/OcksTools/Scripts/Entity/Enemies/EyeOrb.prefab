@@ -220,7 +220,7 @@ MonoBehaviour:
   SpriteMiscRefs:
   - {fileID: 21300000, guid: c20016abd02afc74cba29a4a690d2682, type: 3}
   EnableOnTrueSpawn: []
-  box: {fileID: 1894346058258269852, guid: 9498607ce0dfa6344bbd253f28008e8b, type: 3}
+  box: {fileID: 1894346058258269852, guid: 33c8fdaeb123224459fc7d0b336ab5db, type: 3}
   EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
