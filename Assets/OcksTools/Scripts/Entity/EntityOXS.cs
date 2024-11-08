@@ -348,6 +348,9 @@ public class EntityOXS : MonoBehaviour
                     case "EyeOrb":
                         effect = 19;
                         break;
+                    case "Cannon":
+                        effect = 20;
+                        break;
                     case "Slimer":
                         aa.EnableOnTrueSpawn[0].transform.parent = Tags.refs["ParticleHolder"].transform;
                         aa.EnableOnTrueSpawn[0].GetComponent<ParticleSystem>().Stop();

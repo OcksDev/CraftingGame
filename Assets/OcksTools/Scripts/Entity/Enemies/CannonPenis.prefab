@@ -96,7 +96,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1516246705, guid: 1decbf43869cce64eaac513907a47ca8, type: 3}
+  m_Sprite: {fileID: -235895546, guid: e93f629aac8932c409aced56342d831a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   Damage: 12
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
-  - {fileID: 1516246705, guid: 1decbf43869cce64eaac513907a47ca8, type: 3}
+  - {fileID: -235895546, guid: e93f629aac8932c409aced56342d831a, type: 3}
   SpriteMiscRefs: []
   EnableOnTrueSpawn: []
   box: {fileID: 1894346058258269852, guid: cb014d46c0223cf4997693ee4fdfa3a4, type: 3}
@@ -259,7 +259,7 @@ Animator:
   m_GameObject: {fileID: 2284451541892325387}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 511bf670c7273204fbd87b135cb21654, type: 2}
+  m_Controller: {fileID: 9100000, guid: b95f43e1508023940a87ae31c180bb8b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
