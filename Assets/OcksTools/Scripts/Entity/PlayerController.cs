@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float BowChargeSpeed = 1f;
     public float CritChance = 0.01f;
     public float MaxDashCooldown = 3f;
+    public float DamageTickTime = 3f;
     public bool RotationOverride = false;
     private Vector3 move = new Vector3(0, 0, 0);
     public Transform SwordFart;
@@ -127,7 +128,7 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine(AidsFix());
     }
-
+    private int sexcummersofthegigashit;
 
     public IEnumerator AidsFix()
     {
@@ -299,7 +300,8 @@ public class PlayerController : MonoBehaviour
         //deprecated
         MaxBowMult = 1.5f;
         BowChargeSpeed = 1.5f;
-        if(mainweapon != null)
+        sexcummersofthegigashit = 0;
+        if (mainweapon != null)
         {
             switch (mainweapon.ItemIndex)
             {
@@ -348,6 +350,8 @@ public class PlayerController : MonoBehaviour
                 ParseMaterial(m);
             }
         }
+
+        DamageTickTime = sexcummersofthegigashit > 0? (3f / sexcummersofthegigashit):3f;
         Damage *= WeaponDamageMod;
         AttacksPerSecond *= AttacksPerSecondMod;
         /*
@@ -408,7 +412,8 @@ public class PlayerController : MonoBehaviour
                 CritChance += 0.1f;
                 break;
             case "Shungite":
-                WeaponDamageMod = System.Math.Max((WeaponDamageMod * Damage) - 1, 1d)/Damage;
+                //WeaponDamageMod = System.Math.Max((WeaponDamageMod * Damage) - 1, 1d)/Damage;
+                working_move_speed *= 0.9f;
                 break;
             case "Void":
                 TotalDamageMod *= 1.2;
@@ -416,6 +421,9 @@ public class PlayerController : MonoBehaviour
         }
         switch (matty.itemindex)
         {
+            case "Rune Of Splitting":
+                sexcummersofthegigashit++;
+                break;
             case "DieBitch":
                 switch (mainweapon.ItemIndex)
                 {
@@ -590,6 +598,24 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+
+        for(int i = 0; i < entit.ricks.Count; i++)
+        {
+            var w = entit.ricks[i];
+            w.ticktimer -= Time.deltaTime;
+            if(w.ticktimer <= 0)
+            {
+                w.SpecificLocation = false;
+                entit.Hit(w);
+                w.storedticks--;
+            }
+            if(w.storedticks <= 0)
+            {
+                entit.ricks.RemoveAt(i);
+                i--;
+            }
+        }
+
         if (isrealowner)
         {
             SetMoveSpeed();

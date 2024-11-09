@@ -22,6 +22,8 @@ public class EntityOXS : MonoBehaviour
     public int healerstospawn = 1;
     public bool AntiDieJuice = false;
     private DamageProfile lasthit;
+    [HideInInspector]
+    public List<DamageProfile> ricks = new List<DamageProfile>();
     private void Start()
     {
         ren = GetComponent<SpriteRenderer>();
@@ -52,16 +54,43 @@ public class EntityOXS : MonoBehaviour
             var ewanker = ((Vector2)transform.position - (Vector2)hit.AttackerPos).normalized * hit.Knockback * 2.5f;
             rg.velocity += ewanker;
         }
-        lasthit = hit;
+        bool wasticked = false;
         switch (EnemyType)
         {
             case "Enemy":
-                if(sexy != null)
+                lasthit = hit;
+                if (sexy != null)
                 {
                     SoundSystem.Instance.PlaySound(1, true, 0.2f, 3f);
                     sexy.target = hit.attacker;
                     sexy.MyAssChecker();
                 }
+                break;
+            case "Player":
+                int xxx = playerdaddy.mainweapon.ReadItemAmount("Rune Of Splitting")+1;
+                if(xxx > 1 && hit.storedticks == -69)
+                {
+                    hit.storeditem = playerdaddy.mainweapon;
+                    hit.storedticks = xxx-1;
+                    hit.ticktimer = playerdaddy.DamageTickTime;
+                    lasthit = hit;
+                    ricks.Add(hit);
+                    wasticked = true;
+                }
+                else
+                {
+                    lasthit = hit;
+                }
+                if(hit.storeditem != null)
+                {
+                    xxx = hit.storeditem.ReadItemAmount("Rune Of Splitting")+1;
+                    hit.ticktimer = playerdaddy.DamageTickTime;
+                    damagefromhit /= xxx;
+                    wasticked = !wasticked;
+                }
+                break;
+            default:
+                lasthit = hit;
                 break;
         }
         foreach (var effect in hit.Effects)
@@ -107,8 +136,8 @@ public class EntityOXS : MonoBehaviour
                     {
                         if (PlayerController.Instance == s2)
                         {
-                            CameraLol.Instance.Shake(0.4f, 0.87f);
-                            Gamer.Instance.ShartPoop += 0.4f;
+                            CameraLol.Instance.Shake(wasticked?0.1f:0.4f, 0.87f);
+                            Gamer.Instance.ShartPoop += wasticked ? 0.1f:0.4f;
                         }
                         Shield -= damagefromhit;
                         if (Shield < 0)
@@ -128,6 +157,12 @@ public class EntityOXS : MonoBehaviour
                             }
 
                         }
+                        arr = s2.mainweapon.ReadItemAmount("Rune Of Retribution");
+                        if(arr >= 1)
+                        {
+                            var we = s2.GetDamageProfile();
+                            SpawnExplosion((arr*2)+4, transform.position, we, 10);
+                        }
                     }
                     else
                     {
@@ -138,11 +173,11 @@ public class EntityOXS : MonoBehaviour
                 }
                 if (block)
                 {
-                    SoundSystem.Instance.PlaySound(6, true, 0.5f, 0.75f);
+                    SoundSystem.Instance.PlaySound(6, true, wasticked? 0.2f:0.5f, 0.75f);
                 }
                 else
                 {
-                    SoundSystem.Instance.PlaySound(4, true, 0.7f, 1f);
+                    SoundSystem.Instance.PlaySound(4, true, wasticked ? 0.28f:0.7f, 1f);
                 }
 
                 break;
@@ -229,7 +264,7 @@ public class EntityOXS : MonoBehaviour
         currentprof = null;
     }
 
-    public void SpawnExplosion(float size, Vector3 pos, DamageProfile dam)
+    public void SpawnExplosion(float size, Vector3 pos, DamageProfile dam, double damage = 15)
     {
         var weenis = Instantiate(Gamer.Instance.ParticleSpawns[16], pos, Quaternion.identity).GetComponent<partShitBall>();
         float truesz = size / 5;
@@ -242,7 +277,7 @@ public class EntityOXS : MonoBehaviour
             if(ob != null && ob.gm != null && ob.type == "Enemy" && ob.entityoxs != null && ob.entityoxs.Health > 0.5f)
             {
                 var wank = new DamageProfile(dam);
-                wank.Damage = 15;
+                wank.Damage = damage;
                 wank.DamageMod = 1;
                 ob.entityoxs.Hit(wank);
             }
@@ -333,7 +368,6 @@ public class EntityOXS : MonoBehaviour
             case "Enemy":
                 SoundSystem.Instance.PlaySound(1, true, 0.7f, 1f);
 
-                Gamer.Instance.SpawnHealers(transform.position, healerstospawn, PlayerController.Instance);
 
                 int effect = -1;
                 var aa = OXComponent.GetComponent<NavMeshEntity>(gameObject);
@@ -379,15 +413,22 @@ public class EntityOXS : MonoBehaviour
                 PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown;
                 if (effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 CameraLol.Instance.Shake(0.25f, 0.80f);
+                int he = healerstospawn;
                 if(lasthit != null)
                 {
-                    var arr = lasthit.WeaponOfAttack.ReadItemAmount("Rune Of Kaboom")*2;
-                    arr += 3;
-                    if(arr > 4)
+                    var arr2 = lasthit.WeaponOfAttack.ReadItemAmount("Rune Of Kaboom") * 2;
+                    arr2 += 3;
+                    if (arr2 > 4)
                     {
-                        SpawnExplosion(arr, transform.position, lasthit);
+                        SpawnExplosion(arr2, transform.position, lasthit);
+                    }
+                    var arr = lasthit.WeaponOfAttack.ReadItemAmount("Rune Of Soul") * 0.15f;
+                    if (arr > 0)
+                    {
+                        he += lasthit.WeaponOfAttack.RollLuck(arr);
                     }
                 }
+                Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
                 break;
             case "Player":
                 if(!PlayerController.Instance.DeathDisable) Gamer.Instance.StartCoroutine(Gamer.Instance.DeathAnim());
@@ -525,6 +566,9 @@ public class DamageProfile
     public int WasCrit = -1;
     public double DamageMod = 1;
     public GISItem WeaponOfAttack;
+    public GISItem storeditem;
+    public int storedticks = -69;
+    public float ticktimer = 0;
     public DamageProfile(string name, double damage)
     {
         Damage = damage;

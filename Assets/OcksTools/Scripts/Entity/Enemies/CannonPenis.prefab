@@ -210,7 +210,7 @@ MonoBehaviour:
   SpawnOverlapRadius: 1
   movespeed: 2.3
   SightRange: 15
-  AttackCooldown: 1.8
+  AttackCooldown: 2.2
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
