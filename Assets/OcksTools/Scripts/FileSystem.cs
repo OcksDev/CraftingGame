@@ -22,9 +22,9 @@ public class FileSystem : MonoBehaviour
 
 
     private static FileSystem instance;
-    public string GameFolderName = "OcksTools";
-    private string GameName = "Ocks Tools v?";
-    public string GameVer = "v1.0.0";
+    public string GameFolderName = "Hypersmith";
+    private string GameName = "Hypersmith v?";
+    public string GameVer = "v1.0.1";
     public string DirectoryLol = "";
     public string OcksDirectry = "";
     public string UniversalDirectory = "";
@@ -44,7 +44,7 @@ public class FileSystem : MonoBehaviour
         CreateFolder(UniversalDirectory);
 
         WriteFile(FileLocations[0], "", false);
-        GameName = $"Crafting Game {GameVer}";
+        GameName = $"Hypersmith {GameVer}";
         var s = ReadFile(FileLocations[0]);
         if (!s.Contains(GameName))
         {

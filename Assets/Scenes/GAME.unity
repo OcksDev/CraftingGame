@@ -71997,11 +71997,11 @@ PrefabInstance:
       objectReference: {fileID: 2278403275201244645, guid: ce43837dcadc1e54caed3260f7ce4f9e, type: 3}
     - target: {fileID: 3022886960770519242, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: GameVer
-      value: v1.0.0
+      value: v1.0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3022886960770519242, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: GameFolderName
-      value: CraftingGame
+      value: Hypersmith
       objectReference: {fileID: 0}
     - target: {fileID: 5856764855215001397, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: NetworkConfig.PlayerPrefab
