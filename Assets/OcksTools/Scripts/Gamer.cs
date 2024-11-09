@@ -197,6 +197,7 @@ public class Gamer : MonoBehaviour
             if (sex == null) continue;
             Destroy(sex);
         }
+        ShartPoop = 0;
         OXComponent.CleanUp();
     }
     public bool IsHost;
