@@ -1,5 +1,4 @@
 Rune Of Self:: <g>+25%</> chance to Heal 1 on hit
-Rune Of Barrier:: <b>Fortnite</>
 Rune Of Missile:: <g>+10%</> chance on hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: <g>+35%</> chance when you Heal to deal x2 of the amount as Damage to the nearest <e>Enemy</>
 Rune Of Arrow:: <g>+20%</> chance on attack to shoot an <o>Arrow</> with 100% Damage
@@ -8,3 +7,6 @@ Rune Of Retaliation:: When taking Damage, deal <g>+50%</> of the Damage to the n
 Rune Of Soul:: <g>+15%</> chance to spawn an extra <o>Soul</> on kill
 Rune Of Splitting:: Damage taken is split evenly between <g>2 (+1 per stack)</> ticks across 3 seconds
 Rune Of Retribution:: Explode on taking damage for 10 Damage<br><g>6m (+2m per stack)</> Explosion Size
+Rune Of Luck:: <g>+0.35</> Luck
+Rune Of Excitation:: Dealing damage grants you <g>+30%</> Movement Speed<br>This boost decays over <g>1s (+0.5s per stack)</>
+Rune Of Barrier:: While in Barrier, gain <g>+20% (asymptotic stacking)</> Block Chance<br>This is unaffected by Luck

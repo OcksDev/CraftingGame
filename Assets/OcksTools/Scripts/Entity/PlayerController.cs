@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rigid;
-    private float move_speed = 2;
+    public float move_speed = 2;
     private float working_move_speed = 2;
     private float decay = 0.8f;
     public double Damage = 20;
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float CritChance = 0.01f;
     public float MaxDashCooldown = 3f;
     public float DamageTickTime = 3f;
+    public float BarrierBlockChance = 1f;
     public bool RotationOverride = false;
     private Vector3 move = new Vector3(0, 0, 0);
     public Transform SwordFart;
@@ -294,7 +295,10 @@ public class PlayerController : MonoBehaviour
         TotalDamageMod = 1;
         AttacksPerSecond = 3.5f;
         AttacksPerSecondMod = 1;
+        mainweapon.Luck = 0f;
         Spread = 15f;
+        BarrierBlockChance = 1f;
+        MaxTimeSinceDamageDealt = 1f;
         MaxDashCooldown = BaseDashCooldown;
         RotationOverride = false;
         //deprecated
@@ -423,6 +427,15 @@ public class PlayerController : MonoBehaviour
         {
             case "Rune Of Splitting":
                 sexcummersofthegigashit++;
+                break;
+            case "Rune Of Luck":
+                mainweapon.Luck += 0.35f;
+                break;
+            case "Rune Of Excitation":
+                MaxTimeSinceDamageDealt += 0.5f;
+                break;
+            case "Rune Of Barrier":
+                BarrierBlockChance *= 0.8f;
                 break;
             case "DieBitch":
                 switch (mainweapon.ItemIndex)
@@ -706,7 +719,15 @@ public class PlayerController : MonoBehaviour
                 if (f < 0.85f) move_speed *= 0.35f;
                 break;
         }
+        if (timersincedamage > 0)
+        {
+            move_speed *= ((mainweapon.ReadItemAmount("Rune Of Excitation") * 0.30f)*(timersincedamage/MaxTimeSinceDamageDealt)) + 1;
+            timersincedamage -= Time.deltaTime;
+        }
     }
+    [HideInInspector]
+    public float timersincedamage = 0;
+    public float MaxTimeSinceDamageDealt = 0;
     public void StartDash(Vector3 dir)
     {
         if (dir.magnitude < 0.5f) return;
@@ -903,7 +924,7 @@ public class PlayerController : MonoBehaviour
                     var ff = Random.Range(0f, 1f);
                     var tt = Mathf.FloorToInt(CritChance);
                     Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
-                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
+                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, Point2DMod(MyAssHurts.position, -90, 0) * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
                     s3 = s.GetComponent<HitBalls>();
                     s3.playerController = this;
                     s3.attackProfile = offshart;

@@ -122,7 +122,13 @@ public class EntityOXS : MonoBehaviour
                 damagefromhit -= s2.mainweapon.ReadItemAmount("Shungite");
                 if (damagefromhit < 1) damagefromhit = 1;
 
-                if (s2.IsDashing)
+                if(Shield > 0.1)
+                {
+                    var weenor = s2.mainweapon.RollLuck(s2.BarrierBlockChance, true);
+                    if (weenor == 0) block = true;
+                }
+
+                if (s2.IsDashing || block)
                 {
                     block = true;
                 }
@@ -182,7 +188,8 @@ public class EntityOXS : MonoBehaviour
 
                 break;
             default:
-                if (Gamer.Instance.GetObjectType(hit.attacker, false).type == "Player")
+                var aaaaa = Gamer.Instance.GetObjectType(hit.attacker, false);
+                if (aaaaa.type == "Player")
                 {
                     PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown / 10f;
                     if (hit.WeaponOfAttack != null)
@@ -202,16 +209,25 @@ public class EntityOXS : MonoBehaviour
                         if (arr > 0 && !hit.Procs.Contains("Missile"))
                         {
                             int tt2 = hit.WeaponOfAttack.RollLuck(arr);
-                            for(int i = 0; i < tt2; i++)
+                            for (int i = 0; i < tt2; i++)
                             {
                                 var attack = new DamageProfile(hit);
                                 attack.Procs.Add("Missile");
                                 attack.DamageMod *= 2;
                                 var weenis = hit.attacker.transform;
-                                var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], weenis.position, PointFromTo2D(hit.attacker.transform.position, transform.position,90+Random.Range(-90f,90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
+                                var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], weenis.position, PointFromTo2D(hit.attacker.transform.position, transform.position, 90 + Random.Range(-90f, 90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
                                 we.hitbal.attackProfile = attack;
                                 we.target = gameObject;
                             }
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Excitation");
+                        if (arr > 0)
+                        {
+                            if ((aaaaa.playerController.MaxTimeSinceDamageDealt-aaaaa.playerController.timersincedamage)>0.1f)
+                            {
+                                Instantiate(Gamer.Instance.ParticleSpawns[21], hit.attacker.transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                            }
+                            aaaaa.playerController.timersincedamage = aaaaa.playerController.MaxTimeSinceDamageDealt;
                         }
                     }
                 }

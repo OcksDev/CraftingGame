@@ -183,6 +183,7 @@ public class SaveSystem : MonoBehaviour
         we = new GISItem();
         we.StringToItem(GetString("Weapon2", "", dict));
         c.slots[1].Held_Item = we;
+        PlayerController.Instance.SwitchWeapon(0);
     }
 
     public string DictNameToFilePath(string e)

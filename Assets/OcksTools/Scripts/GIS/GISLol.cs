@@ -372,6 +372,8 @@ public class GISItem
     public List<GISMaterial> Run_Materials = new List<GISMaterial>();
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
     public Dictionary<string, int> AmountOfItems = new Dictionary<string, int>();
+    public float Luck = -1;
+    public float BlockChance = 0;
     public GISItem()
     {
         setdefaultvals();
@@ -475,9 +477,29 @@ public class GISItem
     {
         if (arr > 0)
         {
-            var ff2 = UnityEngine.Random.Range(0f, 1f);
             int tt2 = Mathf.FloorToInt(arr);
-            if (ff2 <= (arr % 1)) tt2++;
+            var ff2 = UnityEngine.Random.Range(0f, 1f);
+            var wank = (arr % 1);
+            if (ff2 <= wank)
+            {
+                tt2++;
+            }
+            else if (Luck > 0 && !ignoreluck)
+            {
+                int times = RollLuck(Luck, true);
+                if (times > 0)
+                {
+                    for(int i = 0; i < times; i++)
+                    {
+                        ff2 = UnityEngine.Random.Range(0f, 1f);
+                        if (ff2 <= wank)
+                        {
+                            tt2++;
+                            break;
+                        }
+                    }
+                }
+            }
             if (tt2 > 0)
             {
                 return tt2;
