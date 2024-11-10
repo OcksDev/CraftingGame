@@ -728,6 +728,7 @@ public class GISItem_Data
     public bool IsCraftable = false;
     public bool IsRune = false;
     public bool CanSpawn = true;
+    public bool LogbookOverride = false;
     public GISItem_Data()
     {
         Sprite = null;

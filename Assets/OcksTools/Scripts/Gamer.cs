@@ -538,12 +538,12 @@ public class Gamer : MonoBehaviour
     List<I_penis> spawnsofmyballs = new List<I_penis>();
     public void ReloadLogbookItems()
     {
-        List<string> items1 = new List<string>() { "Rock" };
+        List<string> items1 = new List<string>();
         List<string> items2 = new List<string>();
 
         foreach (var a in GISLol.Instance.Items)
         {
-            if (a.CanSpawn)
+            if (a.CanSpawn || a.LogbookOverride)
             {
                 if (a.IsCraftable) items1.Add(a.Name);
                 else if (a.IsRune) items2.Add(a.Name);
