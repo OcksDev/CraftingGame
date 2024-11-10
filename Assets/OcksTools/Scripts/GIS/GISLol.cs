@@ -34,6 +34,7 @@ public class GISLol : MonoBehaviour
 
     public TextAsset DesciptionOverrides;
     public TextAsset GeneralDesciptionOverrides;
+    public TextAsset EXTRADescriptionSussyBacons;
     public static GISLol Instance
     {
         get { return instance; }
@@ -91,6 +92,14 @@ public class GISLol : MonoBehaviour
             if (ItemsDict.ContainsKey(we.Key))
             {
                 ItemsDict[we.Key].Description = we.Value;
+            }
+        }
+        e = Converter.StringToDictionary(EXTRADescriptionSussyBacons.text.Replace("\r", ""), "\n", ":: ");
+        foreach (var we in e)
+        {
+            if (ItemsDict.ContainsKey(we.Key))
+            {
+                ItemsDict[we.Key].EXTRADescription = we.Value;
             }
         }
 
@@ -307,7 +316,7 @@ public class GISLol : MonoBehaviour
         founddaddy = true;
     }
 
-    public string GetDescription(GISItem baller)
+    public string GetDescription(GISItem baller, bool EXTRA = false)
     {
         var wank = ItemsDict[baller.ItemIndex];
         string e = wank.Description;
@@ -319,7 +328,15 @@ public class GISLol : MonoBehaviour
         {
             e += $"<br><br>{MaterialsDict[baller.Materials[0].index].Description}";
         }
+        if (EXTRA)
+        {
+            e += $"<br><br>{ItemsDict[baller.ItemIndex].EXTRADescription}";
+        }
+        return ColorText(e);
+    }
 
+    public string ColorText(string e)
+    {
         e = e.Replace("<g>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[0])}>"); //good effect
         e = e.Replace("<b>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[1])}>"); //bad effect / axel
         e = e.Replace("<e>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[2])}>"); //enemy
@@ -330,6 +347,7 @@ public class GISLol : MonoBehaviour
 
         return e;
     }
+
     public void SaveAll()
     {
         foreach(var c in All_Containers)
@@ -704,6 +722,7 @@ public class GISItem_Data
     public string Name;
     public Sprite Sprite;
     public string Description;
+    public string EXTRADescription;
     public int MaxAmount;
     public bool IsWeapon = false;
     public bool IsCraftable = false;

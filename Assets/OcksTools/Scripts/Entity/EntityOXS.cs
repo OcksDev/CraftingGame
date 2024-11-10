@@ -88,6 +88,7 @@ public class EntityOXS : MonoBehaviour
                     damagefromhit /= xxx;
                     wasticked = !wasticked;
                 }
+                if (!wasticked && DamageTimer > 0) return;
                 break;
             default:
                 lasthit = hit;

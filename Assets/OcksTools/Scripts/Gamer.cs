@@ -63,6 +63,7 @@ public class Gamer : MonoBehaviour
     public List<Image> HitSexers = new List<Image>();
     public GameObject ItemAnimThing;
     public GameObject VaultThing;
+    public GameObject LogbookThing;
     public Volume volume;
 
     [HideInInspector]
@@ -91,6 +92,8 @@ public class Gamer : MonoBehaviour
         Tags.refs["TransItems"].SetActive(checks[9]);
         Tags.refs["FuckPause"].SetActive(checks[10]);
         Tags.refs["Vault"].SetActive(checks[11]);
+        Tags.refs["Logbook"].SetActive(checks[12]);
+        Tags.refs["LogbookSubmenu"].SetActive(checks[13]);
 
         WithinAMenu = false;
         InputManager.SetLockLevel("");
@@ -347,6 +350,15 @@ public class Gamer : MonoBehaviour
             {
                 ToggleSettings();
             }
+            else if (checks[13])
+            {
+                checks[13] = false;
+                UpdateMenus();
+            }
+            else if (checks[12])
+            {
+                ToggleLogbook();
+            }
             else if (checks[10])
             {
                 ToggleFuckPause();
@@ -512,6 +524,51 @@ public class Gamer : MonoBehaviour
         checks[8] = !checks[8];
         UpdateMenus();
     }
+    public void ToggleLogbook()
+    {
+        checks[12] = !checks[12];
+        checks[13] = false;
+        if (checks[12])
+        {
+            ReloadLogbookItems();
+        }
+
+        UpdateMenus();
+    }
+    List<I_penis> spawnsofmyballs = new List<I_penis>();
+    public void ReloadLogbookItems()
+    {
+        List<string> items1 = new List<string>() { "Rock" };
+        List<string> items2 = new List<string>();
+
+        foreach (var a in GISLol.Instance.Items)
+        {
+            if (a.CanSpawn)
+            {
+                if (a.IsCraftable) items1.Add(a.Name);
+                else if (a.IsRune) items2.Add(a.Name);
+            }
+        }
+        items1 = RandomFunctions.CombineLists(items1, items2);
+
+
+        int diff = items1.Count - spawnsofmyballs.Count;
+        for(int i = 0; i < diff; i++)
+        {
+            spawnsofmyballs.Add(Instantiate(LogbookThing, transform.position, transform.rotation, Tags.refs["LogbookParent"].transform).GetComponent<I_penis>());
+        }
+        for(int i = 0; i < -diff; i++)
+        {
+            Destroy(spawnsofmyballs[0].gameObject);
+            spawnsofmyballs.RemoveAt(0);
+        }
+        for(int i = 0; i < items1.Count; i++)
+        {
+            spawnsofmyballs[i].GISDisplay.item = new GISItem(items1[i]);
+            spawnsofmyballs[i].GISDisplay.UpdateDisplay();
+        }
+    }
+
     public void ToggleFuckPause()
     {
         if(GameState == "Lobby")

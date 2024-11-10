@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5659395772713800228}
   - component: {fileID: 4704853419993698415}
   m_Layer: 0
-  m_Name: ScarySpike
+  m_Name: BonerSpike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,10 +29,10 @@ Transform:
   m_GameObject: {fileID: 1894346058258269852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -29.431705, y: 163.34962, z: 0}
-  m_LocalScale: {x: 3, y: 0, z: 3}
+  m_LocalScale: {x: 1.4, y: 0, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3511280402470737557}
+  - {fileID: 1023801378675519910}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -114,10 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1991ad8e074aabd449326ef7ddb07adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ishingite: 0
+  ishingite: 1
   Wait: 0.8
-  izescale: 5
---- !u!1 &5194846569057996884
+  izescale: 2
+--- !u!1 &2385863512826188575
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,8 +125,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3511280402470737557}
-  - component: {fileID: 6775052420513362083}
+  - component: {fileID: 1023801378675519910}
+  - component: {fileID: 4290981624185247624}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -134,14 +134,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3511280402470737557
+--- !u!4 &1023801378675519910
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5194846569057996884}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 2385863512826188575}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -149,13 +149,13 @@ Transform:
   m_Father: {fileID: 9060262229701945039}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6775052420513362083
+--- !u!212 &4290981624185247624
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5194846569057996884}
+  m_GameObject: {fileID: 2385863512826188575}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -190,8 +190,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 37333c58605fb5e478737ebc13e75abb, type: 3}
-  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 56dd7d33aa6937c40bb67cb063c6883c, type: 3}
+  m_Color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

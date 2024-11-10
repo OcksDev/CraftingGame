@@ -243,11 +243,12 @@ MonoBehaviour:
   BaldMoveSpeed: 0
   BaldAltMoveSpeed: 0
   BaldDamage: 0
+  distancetraveleleled: 0
   existing: 0
   ddist: 0
   charging: 0
   charging2: 0
-  alt_speed: 18
+  alt_speed: 25
   canseemysexybooty: 0
 --- !u!95 &286535096734906924
 Animator:
@@ -331,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: charger
+  subtype: buy
   Damage: 10
   overridedamage: -1
   sexballs: {fileID: 2284451541892325392}

@@ -243,6 +243,8 @@ public class NavMeshEntity : MonoBehaviour
         }
         return ba;
     }
+    bool ANTICHARGEFART = false;
+    public float distancetraveleleled = 0;
     private void Update()
     {
         if(!HasSpawned) return;
@@ -251,7 +253,17 @@ public class NavMeshEntity : MonoBehaviour
             case "Charger":
                 if(ddist < SightRange)
                 {
-                    transform.position += chargedir * alt_speed * Time.deltaTime;
+                    var WEEEE = alt_speed * Time.deltaTime;
+                    transform.position += chargedir * WEEEE;
+                    if(ANTICHARGEFART && (distancetraveleleled += WEEEE) >= 1.5f)
+                    {
+                        distancetraveleleled = 0;
+                        var wenis = Instantiate(RandomFunctions.Instance.SpawnRefs[2], transform.position, Quaternion.identity, Gamer.Instance.balls);
+                        var e = wenis.GetComponent<EnemyHitShit>();
+                        e.Damage = Damage;
+                        e.balling = transform;
+                        e.sexballs = this;
+                    }
                 }
                 break;
             case "Fwog":
@@ -545,10 +557,12 @@ public class NavMeshEntity : MonoBehaviour
 
     public IEnumerator ChargeSex()
     {
+        distancetraveleleled = 0;
         float premove = movespeed;
         movespeed = 0.5f;
         charging = true;
         yield return new WaitForSeconds(0.3f);
+        ANTICHARGEFART = true;
         chargedir = (GetDir() - NoZ(transform.position)).normalized;
         movespeed = 0;
         charging2 = true;
@@ -560,6 +574,8 @@ public class NavMeshEntity : MonoBehaviour
         movespeed = premove;
         timer2 = Random.Range(-0.25f, 0.25f);
         box.SetActive(false);
+        yield return new WaitForSeconds(0.13f);
+        ANTICHARGEFART = false;
     }
     public IEnumerator SlimerSex()
     {
