@@ -658,6 +658,7 @@ public class EffectProfile
     public float TimeRemaining;
     public int MaxStack;
     public string Name;
+    public GISItem ItemOfInit;
     public EffectProfile(int type, float time, int add_method, int stacks = 1)
     {
         SetData();
@@ -694,6 +695,7 @@ public class EffectProfile
         CombineMethod = pp.CombineMethod;
         Stack = pp.Stack;
         TimeRemaining = pp.TimeRemaining;
+        ItemOfInit = pp.ItemOfInit;
         SetData();
     }
 
