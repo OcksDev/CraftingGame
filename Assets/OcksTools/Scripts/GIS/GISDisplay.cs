@@ -24,12 +24,38 @@ public class GISDisplay : MonoBehaviour
         if (AutoUpdate && item != olditem) UpdateDisplay();
     }
 
-    public void UpdateDisplay()
+    public void UpdateDisplay(string extra = "")
     {
         olditem = item;
         var g = GISLol.Instance.ItemsDict[item.ItemIndex];
         amnt.text = item.Amount > 0 && g.MaxAmount != 1 ? "x" + item.Amount : "";
         var b = GetSprites(item);
+
+        switch (extra)
+        {
+            case "logbook":
+                var c = new Color32(0, 0, 0, 255);
+                if (!GISLol.Instance.LogbookDiscoveries.ContainsKey(item.ItemIndex))
+                {
+                    displays[0].material = Gamer.Instance.sexex[4];
+                    displays[1].material = Gamer.Instance.sexex[4];
+                    displays[2].material = Gamer.Instance.sexex[4];
+                    displays[3].material = Gamer.Instance.sexex[4];
+                    displays[4].material = Gamer.Instance.sexex[4];
+                    displays[5].material = Gamer.Instance.sexex[4];
+                }
+                else
+                {
+                    displays[0].material = Gamer.Instance.sexex[0];
+                    displays[1].material = Gamer.Instance.sexex[0];
+                    displays[2].material = Gamer.Instance.sexex[0];
+                    displays[3].material = Gamer.Instance.sexex[0];
+                    displays[4].material = Gamer.Instance.sexex[0];
+                    displays[5].material = Gamer.Instance.sexex[0];
+                }
+                break;
+        }
+
         displays[0].sprite = b.sprites[0];
         displays[1].sprite = b.sprites[1];
         displays[2].sprite = b.sprites[2];

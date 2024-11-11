@@ -30,7 +30,7 @@ public class GISLol : MonoBehaviour
     public Dictionary<GISItem, int> VaultItems = new Dictionary<GISItem, int>();
 
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
-
+    public Dictionary<string, string> LogbookDiscoveries = new Dictionary<string, string>();
 
     public TextAsset DesciptionOverrides;
     public TextAsset GeneralDesciptionOverrides;

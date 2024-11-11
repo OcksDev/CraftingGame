@@ -535,6 +535,15 @@ public class Gamer : MonoBehaviour
 
         UpdateMenus();
     }
+
+    public void AttemptAddLogbookItem(string item)
+    {
+        if (!GISLol.Instance.LogbookDiscoveries.ContainsKey(item))
+        {
+            GISLol.Instance.LogbookDiscoveries.Add(item, "");
+        }
+    }
+
     List<I_penis> spawnsofmyballs = new List<I_penis>();
     public void ReloadLogbookItems()
     {
@@ -565,7 +574,7 @@ public class Gamer : MonoBehaviour
         for(int i = 0; i < items1.Count; i++)
         {
             spawnsofmyballs[i].GISDisplay.item = new GISItem(items1[i]);
-            spawnsofmyballs[i].GISDisplay.UpdateDisplay();
+            spawnsofmyballs[i].GISDisplay.UpdateDisplay("logbook");
         }
     }
 
@@ -709,6 +718,7 @@ public class Gamer : MonoBehaviour
             var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
             poopy.slots[0].Held_Item = PickupItemCrossover;
             poopy.slots[0].Displayer.UpdateDisplay();
+            AttemptAddLogbookItem(PickupItemCrossover.ItemIndex);
 
             var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
             leftnut.ClearSlots();

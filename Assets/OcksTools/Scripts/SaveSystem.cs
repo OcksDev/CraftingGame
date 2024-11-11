@@ -91,11 +91,12 @@ public class SaveSystem : MonoBehaviour
             ppw.StringToItem(weenor.Key);
             GISLol.Instance.VaultItems.Add(ppw, int.Parse(weenor.Value));
         }
-
+        GISLol.Instance.LogbookDiscoveries = Converter.StringToDictionary(GetString("logbook", "", dict));
         NoScroll = bool.Parse(GetString("noscroll", "False", dict));
         test = int.Parse(GetString("test_num", "0", dict));
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
         Gamer.Instance.UpdateShaders();
+        Gamer.Instance.AttemptAddLogbookItem("Rock");
         LoadAllData?.Invoke();
     }
     public void SaveGame(string dict = "def")
@@ -133,12 +134,12 @@ public class SaveSystem : MonoBehaviour
         SetString("vault_items", Converter.DictionaryToString(pp), dict);
 
 
-        SetString("test_num", test.ToString(), dict);
 
         SetString("noscroll", NoScroll.ToString(), dict);
 
-        SaveAllData?.Invoke();
+        SetString("logbook", Converter.DictionaryToString(GISLol.Instance.LogbookDiscoveries), dict);
 
+        SaveAllData?.Invoke();
         SaveDataToFile(dict);
     }
 
