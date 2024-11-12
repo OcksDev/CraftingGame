@@ -46,6 +46,7 @@ public class EntityOXS : MonoBehaviour
     private double damagefromhit;
     public void Hit(DamageProfile hit)
     {
+        List<DamageProfile> stored_hits = new List<DamageProfile>();
         damagefromhit = hit.CalcDamage();
         if (AntiDieJuice) return;
         if (Gamer.GameState == "Dead") return;
@@ -230,6 +231,30 @@ public class EntityOXS : MonoBehaviour
                             }
                             aaaaa.playerController.timersincedamage = aaaaa.playerController.MaxTimeSinceDamageDealt;
                         }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Collapse")*0.5f;
+                        if (arr > 0)
+                        {
+                            var weenor = new EffectProfile("Collapse", 9999999, 7, 1);
+                            weenor.ItemOfInit = hit.WeaponOfAttack;
+                            weenor.storedouble = hit.Damage;
+                            weenor.storefloat = arr;
+                            AddEffect(weenor);
+                        }
+                        var ee = ContainsEffect("Collapse");
+                        if (ee.hasthing)
+                        {
+                            for(int i = 0; i < Effects.Count; i++)
+                            {
+                                if (Effects[i].Type == "Collapse")
+                                {
+                                    Effects.RemoveAt(i);
+                                    i--;
+                                }
+                            }
+                            var attack = new DamageProfile(hit, true);
+                            attack.Damage = (ee.susser.Stack * ee.susser.storedouble) * ee.susser.storefloat;
+                            stored_hits.Add(attack);
+                        }
                     }
                 }
                 Shield -= damagefromhit;
@@ -279,7 +304,12 @@ public class EntityOXS : MonoBehaviour
             }
         }
         currentprof = null;
+        foreach(var asexy in stored_hits)
+        {
+            Hit(asexy);
+        }
     }
+
 
     public void SpawnExplosion(float size, Vector3 pos, DamageProfile dam, double damage = 15)
     {
@@ -495,6 +525,51 @@ public class EntityOXS : MonoBehaviour
         }
     }
 
+    private ret_cum_shenan ContainsEffect(EffectProfile eff)
+    {
+        bool alreadyhaseffect = false;
+        EffectProfile s = null;
+        foreach (var ef in Effects)
+        {
+            if (eff.Type == ef.Type)
+            {
+                if (eff.ItemOfInit != ef.ItemOfInit) continue;
+                s = ef;
+                alreadyhaseffect = true;
+                break;
+            }
+        }
+        var ee = new ret_cum_shenan();
+        ee.hasthing = alreadyhaseffect;
+        ee.susser = s;
+        return ee;
+    }
+    private ret_cum_shenan ContainsEffect(string eff)
+    {
+        bool alreadyhaseffect = false;
+        EffectProfile s = null;
+        foreach (var ef in Effects)
+        {
+            if (eff == ef.Type)
+            {
+                switch (eff)
+                {
+                    case "Collapse":
+                        if(ef.ItemOfInit == lasthit.WeaponOfAttack) goto ahh;
+                        break;
+                }
+                s = ef;
+                alreadyhaseffect = true;
+                break;
+            }
+        ahh:;
+        }
+        var ee = new ret_cum_shenan();
+        ee.hasthing = alreadyhaseffect;
+        ee.susser = s;
+        return ee;
+    }
+
     public void AddEffect(EffectProfile eff)
     {
         eff.TimeRemaining = eff.Duration;
@@ -504,6 +579,7 @@ public class EntityOXS : MonoBehaviour
         {
             if (eff.Type == ef.Type)
             {
+                if (eff.ItemOfInit != ef.ItemOfInit) continue;
                 s = ef;
                 alreadyhaseffect = true;
                 break;
@@ -563,7 +639,11 @@ public class EntityOXS : MonoBehaviour
 
 
 }
-
+class ret_cum_shenan
+{
+    public bool hasthing;
+    public EffectProfile susser;
+}
 
 public class DamageProfile
 {
@@ -593,6 +673,16 @@ public class DamageProfile
     }
     public DamageProfile(DamageProfile pp)
     {
+        dinkle(pp);
+        WeaponOfAttack = new GISItem(pp.WeaponOfAttack);
+    }
+    public DamageProfile(DamageProfile pp, bool ahh)
+    {
+        dinkle(pp);
+        WeaponOfAttack = pp.WeaponOfAttack;
+    }
+    private void dinkle(DamageProfile pp)
+    {
         Name = pp.Name;
         Damage = pp.Damage;
         Procs = new List<string>(pp.Procs);
@@ -608,9 +698,7 @@ public class DamageProfile
         controller = pp.controller;
         NerdType = pp.NerdType;
         DamageMod = pp.DamageMod;
-        WeaponOfAttack = new GISItem(pp.WeaponOfAttack);
     }
-
 
 
 
@@ -650,16 +738,17 @@ public class DamageProfile
 public class EffectProfile
 {
     //data you pass in
-    public int Type;
+    public string Type;
     public float Duration;
     public int CombineMethod;
     //other data
     public int Stack = 1;
     public float TimeRemaining;
     public int MaxStack;
-    public string Name;
     public GISItem ItemOfInit;
-    public EffectProfile(int type, float time, int add_method, int stacks = 1)
+    public double storedouble;
+    public float storefloat;
+    public EffectProfile(string type, float time, int add_method, int stacks = 1)
     {
         SetData();
         Type = type;
@@ -675,15 +764,10 @@ public class EffectProfile
     public void SetData()
     {
         MaxStack = 0;
-        Name = "Error";
         switch (Type)
         {
             //some example effects
-            case 0:
-                Name = "Burning";
-                break;
-            case 1:
-                Name = "Healing Energy";
+            case "Healing Energy":
                 MaxStack = 6;
                 break;
         }
