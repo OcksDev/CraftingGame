@@ -235,7 +235,7 @@ public class EntityOXS : MonoBehaviour
                         if (arr > 0)
                         {
                             var weenor = new EffectProfile("Collapse", 9999999, 7, 1);
-                            weenor.ItemOfInit = hit.WeaponOfAttack;
+                            weenor.storeint = aaaaa.playerController.selecteditem;
                             weenor.storedouble = hit.Damage;
                             weenor.storefloat = arr;
                             AddEffect(weenor);
@@ -533,7 +533,6 @@ public class EntityOXS : MonoBehaviour
         {
             if (eff.Type == ef.Type)
             {
-                if (eff.ItemOfInit != ef.ItemOfInit) continue;
                 s = ef;
                 alreadyhaseffect = true;
                 break;
@@ -555,7 +554,7 @@ public class EntityOXS : MonoBehaviour
                 switch (eff)
                 {
                     case "Collapse":
-                        if(ef.ItemOfInit == lasthit.WeaponOfAttack) goto ahh;
+                        if(ef.storeint == lasthit.controller.selecteditem) goto ahh;
                         break;
                 }
                 s = ef;
@@ -579,7 +578,6 @@ public class EntityOXS : MonoBehaviour
         {
             if (eff.Type == ef.Type)
             {
-                if (eff.ItemOfInit != ef.ItemOfInit) continue;
                 s = ef;
                 alreadyhaseffect = true;
                 break;
@@ -746,6 +744,7 @@ public class EffectProfile
     public float TimeRemaining;
     public int MaxStack;
     public GISItem ItemOfInit;
+    public int storeint;
     public double storedouble;
     public float storefloat;
     public EffectProfile(string type, float time, int add_method, int stacks = 1)
@@ -780,6 +779,9 @@ public class EffectProfile
         Stack = pp.Stack;
         TimeRemaining = pp.TimeRemaining;
         ItemOfInit = pp.ItemOfInit;
+        storedouble = pp.storedouble;
+        storeint = pp.storeint;
+        storefloat = pp.storefloat;
         SetData();
     }
 
