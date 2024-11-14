@@ -95,6 +95,9 @@ public class Gamer : MonoBehaviour
         Tags.refs["Logbook"].SetActive(checks[12]);
         Tags.refs["LogbookSubmenu"].SetActive(checks[13]);
 
+        Tags.refs["GameUI"].SetActive(GameState == "Game");
+        Tags.refs["EnemiesRemaining"].SetActive(!IsInShop);
+
         WithinAMenu = false;
         InputManager.SetLockLevel("");
         for(int i = 0; i < checks.Length; i++)
@@ -994,14 +997,16 @@ public class Gamer : MonoBehaviour
         checks[0] = false;
         Sorters.Clear();
         LevelProgression.Clear();
+        IsInShop = false;
         UpdateMenus();
         AssembleItemPool();
         if (titlething != null) StopCoroutine(titlething);
     }
-
+    public bool IsInShop = false;
     public IEnumerator NextShopLevel()
     {
         GeneralFloorChange();
+        IsInShop = true;
         Tags.refs["ShopArea"].SetActive(true);
         PlayerController.Instance.transform.position = new Vector3(0,0,0);
         var e2 = CameraLol.Instance.transform.position;
@@ -1022,6 +1027,7 @@ public class Gamer : MonoBehaviour
 
 
 
+        UpdateMenus();
         Tags.refs["NextFloor"].transform.position = new Vector3(11.5100002f, 0, -4.4000001f);
         Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "StartGame";
         yield return new WaitForSeconds(0.5f);

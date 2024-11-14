@@ -9,6 +9,15 @@ public class INteractable : MonoBehaviour
     public float IneteractDistance = 3;
     public float TextOffsetDist = 3;
     public TextMeshProUGUI DisplaySegsmcnugget;
+
+    private void OnDisable()
+    {
+        if (DisplaySegsmcnugget != null && DisplaySegsmcnugget.gameObject != null)
+        {
+            Destroy(DisplaySegsmcnugget.gameObject);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -38,7 +47,7 @@ public class INteractable : MonoBehaviour
             Destroy(DisplaySegsmcnugget.gameObject);
         }
     }
-    private void Start()
+    private void OnEnable()
     {
         var w = Instantiate(Gamer.Instance.textShuingite, transform.position, Quaternion.identity, Tags.refs["DIC"].transform);
         var e = w.GetComponent<TextMeshProUGUI>();

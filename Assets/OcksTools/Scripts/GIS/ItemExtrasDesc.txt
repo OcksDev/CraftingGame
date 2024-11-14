@@ -10,4 +10,5 @@ Rune Of Retribution::
 Rune Of Luck:: 
 Rune Of Excitation:: 
 Rune Of Barrier:: 
+Rune Of Collapse:: I am going to be honest, I kinda half-assed the code behind this one, so if it breaks, thats probably why
 Rock:: It's a fucking rock, it doesn't do anything!

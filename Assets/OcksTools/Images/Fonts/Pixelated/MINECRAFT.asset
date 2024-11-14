@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: MinecraftRegular-Bmg3 SDF
+  m_Name: MINECRAFT
   m_EditorClassIdentifier: 
   hashCode: 2128404464
   material: {fileID: -5551472778389622864}
