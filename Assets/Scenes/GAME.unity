@@ -74745,7 +74745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Effects.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: DesciptionOverrides
@@ -74968,6 +74968,14 @@ PrefabInstance:
       value: Collapse
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Effects.Array.data[1].Name
+      value: Freeze
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Effects.Array.data[2].Name
+      value: Bleed
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: GeneralDesciptionOverrides
       value: 
       objectReference: {fileID: 4900000, guid: a3906d1894bc3f340856d4aa035e8041, type: 3}
@@ -75015,6 +75023,14 @@ PrefabInstance:
       propertyPath: Effects.Array.data[0].Image
       value: 
       objectReference: {fileID: 21300000, guid: eddce703141a91643ae2a8910018e77c, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Effects.Array.data[1].Image
+      value: 
+      objectReference: {fileID: 21300000, guid: e58f02cbe7ee190439dc54e727a47e49, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Effects.Array.data[2].Image
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f91ec4de7fe9e749a157b762151bed4, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[10].Sprite
       value: 
