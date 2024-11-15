@@ -322,6 +322,16 @@ public class ConsoleLol : MonoBehaviour
                 case "join":
                     Gamer.Instance.GetComponent<PickThingymabob>().GoinGameE2(command[1]);
                     break;
+                case "aaawwwdddsssawds":
+                    //AAAWWWDDDSSSAWDS
+                    foreach (var item in GISLol.Instance.Items)
+                    {
+                        if (!GISLol.Instance.LogbookDiscoveries.ContainsKey(item.Name))
+                        {
+                            GISLol.Instance.LogbookDiscoveries.Add(item.Name, "");
+                        }
+                    }
+                    break;
                 case "dialog":
                     switch (command[1])
                     {
