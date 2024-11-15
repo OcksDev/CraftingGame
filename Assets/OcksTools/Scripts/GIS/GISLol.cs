@@ -19,8 +19,10 @@ public class GISLol : MonoBehaviour
     private static GISLol instance;
     public List<GISItem_Data> Items = new List<GISItem_Data>();
     public List<GISMaterial_Data> Materials = new List<GISMaterial_Data>();
+    public List<EntityEffect_Data> Effects = new List<EntityEffect_Data>();
     public Dictionary<string, GISItem_Data> ItemsDict = new Dictionary<string, GISItem_Data>();
     public Dictionary<string, GISMaterial_Data> MaterialsDict = new Dictionary<string, GISMaterial_Data>();
+    public Dictionary<string, EntityEffect_Data> EffectsDict = new Dictionary<string, EntityEffect_Data>();
     public List<string> AllWeaponNames = new List<string>();
     public List<string> AllCraftables = new List<string>();
     private RectTransform ballingsexnut;
@@ -76,6 +78,11 @@ public class GISLol : MonoBehaviour
         foreach (var a in Materials)
         {
             MaterialsDict.Add(a.Name, a);
+        }
+
+        foreach (var a in Effects)
+        {
+            EffectsDict.Add(a.Name, a);
         }
 
         var e = Converter.StringToDictionary(DesciptionOverrides.text.Replace("\r", ""), "\n", ":: ");
@@ -781,4 +788,11 @@ public class GISMaterial_Data
     public string fallthroughmaterial = "Rock";
     public bool IsOverlay = false;
     public bool ignorecolorforcumimg = true;
+}
+[Serializable]
+public class EntityEffect_Data
+{
+    //this is what holds all of the base data for a general material
+    public string Name = "Null";
+    public Sprite Image;
 }

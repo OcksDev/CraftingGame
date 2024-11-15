@@ -64,12 +64,16 @@ public class Gamer : MonoBehaviour
     public GameObject ItemAnimThing;
     public GameObject VaultThing;
     public GameObject LogbookThing;
+    public GameObject EffectThing;
     public Volume volume;
 
     [HideInInspector]
     public bool InRoom = false;
     [HideInInspector]
     public I_Room CurrentRoom;
+
+    private List<EffectorSexyBallzungussy> player_effect_prespawns = new List<EffectorSexyBallzungussy>();
+    private List<EffectorSexyBallzungussy> Enemy_effect_prespawns = new List<EffectorSexyBallzungussy>();
 
     public GISItem PickupItemCrossover;
 
@@ -147,7 +151,7 @@ public class Gamer : MonoBehaviour
     }
     public static List<List<string>> Backup = new List<List<string>>();
     public static List<List<string>> QBackup = new List<List<string>>();
-
+    public static bool HasFinishedSpawningPool = false;
     public IEnumerator SPawnPool()
     {
         for(int i = 0; i < 63; i++)
@@ -157,6 +161,15 @@ public class Gamer : MonoBehaviour
             prespawnednerds.Add(weenor);
             weenor.gameObject.SetActive(false);
         }
+        for(int i = 0; i < 30; i++)
+        {
+            yield return new WaitForFixedUpdate();
+            var weenor1 = Instantiate(EffectThing, transform.position, Quaternion.identity, Tags.refs["PlayerEffects"].transform).GetComponent<EffectorSexyBallzungussy>();
+            player_effect_prespawns.Add(weenor1);
+            var weenor2 = Instantiate(EffectThing, transform.position, Quaternion.identity, Tags.refs["EnemyEffects"].transform).GetComponent<EffectorSexyBallzungussy>();
+            Enemy_effect_prespawns.Add(weenor2);
+        }
+        HasFinishedSpawningPool = true;
     }
     public void ClearMap()
     {
@@ -291,6 +304,8 @@ public class Gamer : MonoBehaviour
         {
             checks[i] = false;
         }
+        Tags.refs["Lobby"].SetActive(false);
+        Tags.refs["NextFloor"].SetActive(false);
         Time.timeScale = 1;
         ShartPoop = 0f;
         ClearMap();
@@ -1000,6 +1015,7 @@ public class Gamer : MonoBehaviour
         IsInShop = false;
         UpdateMenus();
         AssembleItemPool();
+        Tags.refs["NextFloor"].SetActive(true);
         if (titlething != null) StopCoroutine(titlething);
     }
     public bool IsInShop = false;
@@ -1446,6 +1462,33 @@ public class Gamer : MonoBehaviour
                 var www = (float)System.Math.Clamp(System.Math.Sqrt(LastHitEnemy.EntityOXS.Max_Health), 3, 15);
                 enemybar.BarParentSize.sizeDelta = new Vector2(www*40f,7);
                 enemybar.BarItself.localScale = new Vector3((1-(float)System.Math.Clamp((LastHitEnemy.EntityOXS.Health)/LastHitEnemy.EntityOXS.Max_Health,0,1))*www, 1, 1);
+                var weenor = LastHitEnemy.EntityOXS.Effects;
+                for (int i = 0; i < Enemy_effect_prespawns.Count; i++)
+                {
+                    bool aa = i < weenor.Count;
+                    Enemy_effect_prespawns[i].gameObject.SetActive(aa);
+                    if (aa)
+                    {
+                        Enemy_effect_prespawns[i].UpdateRender(weenor[i]);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Enemy_effect_prespawns.Count; i++)
+                {
+                    Enemy_effect_prespawns[i].gameObject.SetActive(false);
+                }
+            }
+            var weenor2 = PlayerController.Instance.entit.Effects;
+            for (int i = 0; i < player_effect_prespawns.Count; i++)
+            {
+                bool aa = i < weenor2.Count;
+                player_effect_prespawns[i].gameObject.SetActive(aa);
+                if (aa)
+                {
+                    player_effect_prespawns[i].UpdateRender(weenor2[i]);
+                }
             }
             ShartPoop -= Time.deltaTime;
             ShartPoop = (float)System.Math.Max(Mathf.Clamp01(ShartPoop), 2 * (0.35f - (PlayerController.Instance.entit.Health / PlayerController.Instance.entit.Max_Health)));

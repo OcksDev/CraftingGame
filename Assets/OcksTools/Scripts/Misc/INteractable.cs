@@ -21,7 +21,7 @@ public class INteractable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!Gamer.Instance.CanInteractThisFrame) return;
+        if(!Gamer.Instance.CanInteractThisFrame || DisplaySegsmcnugget == null) return;
         var e = transform.position;
         if(PlayerController.Instance != null)
         {
@@ -47,8 +47,9 @@ public class INteractable : MonoBehaviour
             Destroy(DisplaySegsmcnugget.gameObject);
         }
     }
-    private void OnEnable()
+    public void OnEnable()
     {
+        if (Time.time < 0.2f) return;
         var w = Instantiate(Gamer.Instance.textShuingite, transform.position, Quaternion.identity, Tags.refs["DIC"].transform);
         var e = w.GetComponent<TextMeshProUGUI>();
         e.text = InputManager.keynames[InputManager.gamekeys["interact"]];
