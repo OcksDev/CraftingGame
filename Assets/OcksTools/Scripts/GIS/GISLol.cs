@@ -350,6 +350,7 @@ public class GISLol : MonoBehaviour
         e = e.Replace("<o>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[3])}>"); //object/physical-thing/item/woman
         e = e.Replace("<c>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[4])}>"); //curruption
         e = e.Replace("</>", $"</color>"); // end
+        e = e.Replace("<bold>", $"<b>"); //bold override lol
 
 
         return e;
