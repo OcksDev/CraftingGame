@@ -332,6 +332,10 @@ public class ConsoleLol : MonoBehaviour
                         }
                     }
                     break;
+                case "asdsasdwwwssswww":
+                    PlayerController.Instance.entit.Max_Health = 6969696969;
+                    PlayerController.Instance.entit.Health = 6969696969;
+                    break;
                 case "dialog":
                     switch (command[1])
                     {

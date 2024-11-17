@@ -420,7 +420,7 @@ public class PlayerController : MonoBehaviour
                 working_move_speed *= 0.9f;
                 break;
             case "Void":
-                TotalDamageMod *= 1.2;
+                TotalDamageMod *= 1.1;
                 break;
         }
         switch (matty.itemindex)

@@ -1,3 +1,11 @@
+Sword:: Fast attacking, average damage, melee weapon
+Axe:: Throws a boomerang which comes back to you,<br>pierces enemies
+Bow:: It shots you
+Spear:: A slow attacking, high damage, melee weapon
+Crossbow:: Shoots fast, low damage, piercing arrows
+Shuriken:: Throws a spinning projectile which deals<br>damage over time as enemies touch it.
+Boomerang:: Throws a projectile which<br>bounces between enemies
+Blowdart:: Slow shooting, high damage, non-piercing projectiles.
 Rune Of Self:: <g>+25%</> chance to Heal 1 on hit
 Rune Of Missile:: <g>+10%</> chance on hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: <g>+35%</> chance when you Heal to deal x2 of the amount as Damage to the nearest <e>Enemy</>

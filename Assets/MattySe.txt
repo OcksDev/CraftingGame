@@ -25,7 +25,7 @@ X Angelic Ingot: +10% movespeed, +10% damage, +10% attack speed, -10 health
 - Mithril
 - Adamantium
 - Kryptonite
-- Solidified Piss
+- Solidified Piss (JAR OF PISS)
 - Oak Wood
 - Spruce Wood
 - Birch Wood
@@ -46,3 +46,4 @@ X Zebrium (Zebra metal)
 - Purple Gem (dark purple, darker than amethyststs)
 - Bone
 - Opal: +10% Overall Damage
+- Heavy Iron: Lower attack speed, increase damage, might be a bit derivative of Slime
