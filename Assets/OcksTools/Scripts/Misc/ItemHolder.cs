@@ -10,6 +10,7 @@ public class ItemHolder : MonoBehaviour
     public Image trhee;
     public int sexindex = 0;
     public Color32[] sex;
+    public GISItem nerdl;
     public void Click()
     {
         var e = transform.parent.GetComponent<Selector>();

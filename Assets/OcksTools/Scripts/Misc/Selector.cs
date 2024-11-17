@@ -31,6 +31,7 @@ public class Selector : MonoBehaviour
             rs.two.sprite = pp[2];
             rs.trhee.sprite = pp[4];
             rs.sexindex = i;
+            rs.nerdl = e;
             gm.Add(rs.gameObject);
             if (i == 0) rs.Click();
         }

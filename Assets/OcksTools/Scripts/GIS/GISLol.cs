@@ -25,6 +25,7 @@ public class GISLol : MonoBehaviour
     public Dictionary<string, EntityEffect_Data> EffectsDict = new Dictionary<string, EntityEffect_Data>();
     public List<string> AllWeaponNames = new List<string>();
     public List<string> AllCraftables = new List<string>();
+    public List<string> AllRunes = new List<string>();
     private RectTransform ballingsexnut;
     private HoverRefHolder hovercummer;
     public List<Color32> attributecolors = new List<Color32>();
@@ -75,8 +76,9 @@ public class GISLol : MonoBehaviour
             ItemsDict.Add(a.Name, a);
             if(a.IsWeapon) AllWeaponNames.Add(a.Name);
             if(a.IsCraftable) AllCraftables.Add(a.Name);
+            if(a.IsRune) AllRunes.Add(a.Name);
         }
-
+        AllWeaponNames.Remove("Bow");
         foreach (var a in Materials)
         {
             MaterialsDict.Add(a.Name, a);
@@ -730,6 +732,7 @@ public class GISItem_Data
     //this is what holds all of the base data for a general item of it's type.
     //EX: All "coal" items refer back to this for things like icon and name
     public string Name;
+    public string NameOverride;
     public Sprite Sprite;
     public string Description;
     public string EXTRADescription;
@@ -752,6 +755,10 @@ public class GISItem_Data
         Name = data.Name;
         Description = data.Description;
         MaxAmount = data.MaxAmount;
+    }
+    public string GetDisplayName()
+    {
+        return NameOverride == "" ? Name : NameOverride;
     }
 }
 [Serializable]

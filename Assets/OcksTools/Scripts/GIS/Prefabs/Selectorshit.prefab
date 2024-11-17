@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 6680110708508342737}
   - component: {fileID: 5022404242499903044}
   - component: {fileID: 6654375326295443753}
+  - component: {fileID: 5975444974162478833}
   m_Layer: 5
   m_Name: Selectorshit
   m_TagString: Untagged
@@ -178,6 +179,16 @@ MonoBehaviour:
     rgba: 1879048192
   - serializedVersion: 2
     rgba: 1882492942
+  nerdl:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    Run_Materials: []
+    Interacted_Containers: []
+    Luck: -1
+    BlockChance: 0
 --- !u!114 &6654375326295443753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +245,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5975444974162478833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5477924335044611516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7056e5324e21a1246822ed0588362476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: WeaponName
+  guny: {fileID: 0}
+  vuny: {fileID: 0}
+  iuny: {fileID: 5022404242499903044}
 --- !u!1 &7069499323717254414
 GameObject:
   m_ObjectHideFlags: 0

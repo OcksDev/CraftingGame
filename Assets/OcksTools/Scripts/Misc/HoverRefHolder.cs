@@ -81,15 +81,15 @@ public class HoverRefHolder : MonoBehaviour
 
 
 
+                var itembase = GISLol.Instance.ItemsDict[hover.ItemIndex];
                 if (hover.CustomName != "")
                 {
                     ItemName.text = hover.CustomName;
                 }
                 else
                 {
-                    ItemName.text = hover.ItemIndex;
+                    ItemName.text = itembase.GetDisplayName();
                 }
-                var itembase = GISLol.Instance.ItemsDict[hover.ItemIndex];
 
 
                 DescMesh.text = GISLol.Instance.GetDescription(hover);

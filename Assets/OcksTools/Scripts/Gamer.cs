@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Gamer : MonoBehaviour
 {
@@ -264,48 +265,36 @@ public class Gamer : MonoBehaviour
     {
         Dictionary<string, List<string>> dat = new Dictionary<string, List<string>>()
         {
-            {"mats", new List<string>() },
-            {"weapons", new List<string>() },
-            {"runes", new List<string>() },
+            {"mats", GISLol.Instance.AllCraftables },
+            {"weapons", GISLol.Instance.AllWeaponNames },
+            {"runes", GISLol.Instance.AllRunes },
         };
         var weenor = new QuestProgress();
         List<string> list = new List<string>() 
         {
             "Collect",
+            "Kill",
         };
         weenor.Data["Name"] = list[Random.Range(0, list.Count)];
         switch (weenor.Data["Name"])
         {
             default:
-                foreach(var item in GISLol.Instance.Items)
-                {
-                    if (!item.CanSpawn) continue;
-                    if (item.IsWeapon)
-                    {
-                        dat["weapons"].Add(item.Name);
-                        continue;
-                    }
-                    if (item.IsCraftable)
-                    {
-                        dat["mats"].Add(item.Name);
-                        continue;
-                    }
-                    if (item.IsRune)
-                    {
-                        dat["runes"].Add(item.Name);
-                        continue;
-                    }
-                }
                 break;
         }
+        var sexx = Random.Range(3, 6);
         switch (weenor.Data["Name"])
         {
             case "Collect":
-                string sexx = Random.Range(3, 6).ToString();
                 weenor.Data["Target_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
-                weenor.Data["Target_Amount"] = sexx;
+                weenor.Data["Target_Amount"] = sexx.ToString();
                 weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
-                weenor.Data["Reward_Amount"] = sexx;
+                weenor.Data["Reward_Amount"] = sexx.ToString();
+                break;
+            case "Kill":
+                weenor.Data["Target_Data"] = dat["weapons"][Random.Range(0, dat["weapons"].Count)];
+                weenor.Data["Target_Amount"] = (sexx*50).ToString();
+                weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
+                weenor.Data["Reward_Amount"] = sexx.ToString();
                 break;
         }
         return weenor;

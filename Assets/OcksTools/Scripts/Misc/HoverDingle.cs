@@ -7,6 +7,7 @@ public class HoverDingle : MonoBehaviour
     public string type = "";
     public GISDisplay guny;
     public VaultitemDisplay vuny;
+    public ItemHolder iuny;
     void Update()
     {
         var g = GISLol.Instance;
@@ -16,6 +17,12 @@ public class HoverDingle : MonoBehaviour
             var hv = new HoverType(type);
             switch (type)
             {
+                case "WeaponName":
+                    hv.type = "TitleAndDesc";
+                    hv.data = GISLol.Instance.ItemsDict[iuny.nerdl.ItemIndex].GetDisplayName();
+                    hv.data2 = GISLol.Instance.ItemsDict[iuny.nerdl.ItemIndex].Description;
+                    g.HoverDohicky(hv);
+                    break;
                 case "weenor":
                     g.HoverDohicky(new HoverType(vuny.item));
                     break;
