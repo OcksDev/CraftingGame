@@ -94,6 +94,17 @@ public class SaveSystem : MonoBehaviour
         GISLol.Instance.LogbookDiscoveries = Converter.StringToDictionary(GetString("logbook", "", dict));
         NoScroll = bool.Parse(GetString("noscroll", "False", dict));
         test = int.Parse(GetString("test_num", "0", dict));
+
+
+        list = Converter.StringToList(GetString("quests", "", dict));
+        GISLol.Instance.Quests.Clear();
+        foreach (var quest in list)
+        {
+            if (quest == "") continue;
+            GISLol.Instance.Quests.Add(new QuestProgress(quest));
+        }
+        Gamer.Instance.TimeOfQuest = double.Parse(GetString("questtime", "-1", dict));
+
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
         Gamer.Instance.UpdateShaders();
         Gamer.Instance.AttemptAddLogbookItem("Rock");
@@ -138,6 +149,14 @@ public class SaveSystem : MonoBehaviour
         SetString("noscroll", NoScroll.ToString(), dict);
 
         SetString("logbook", Converter.DictionaryToString(GISLol.Instance.LogbookDiscoveries), dict);
+
+        list.Clear();
+        foreach(var quest in GISLol.Instance.Quests)
+        {
+            list.Add(quest.DataToString());
+        }
+        SetString("quests", Converter.ListToString(list), dict);
+        SetString("questtime", Gamer.Instance.TimeOfQuest.ToString(), dict);
 
         SaveAllData?.Invoke();
         SaveDataToFile(dict);

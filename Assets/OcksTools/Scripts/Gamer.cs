@@ -67,6 +67,10 @@ public class Gamer : MonoBehaviour
     public GameObject EffectThing;
     public Volume volume;
 
+    public double TimeOfQuest = 0;
+
+
+
     [HideInInspector]
     public bool InRoom = false;
     [HideInInspector]
@@ -238,8 +242,76 @@ public class Gamer : MonoBehaviour
             StartCoroutine(WaitForSexyGamer());
         }
 
+        UpdateCurrentQuests();
 
     }
+
+    public void UpdateCurrentQuests()
+    {
+        double f = 60 * 60 * 2;
+        var weenor = (long)(RandomFunctions.Instance.GetUnixTime()/(f));
+        if(weenor != TimeOfQuest)
+        {
+            TimeOfQuest = weenor;
+            GISLol.Instance.Quests.Clear();
+            for(int i = 0; i < 5; i++)
+            {
+                GISLol.Instance.Quests.Add(GetRandomQuest());
+            }
+        }
+    }
+    public QuestProgress GetRandomQuest()
+    {
+        Dictionary<string, List<string>> dat = new Dictionary<string, List<string>>()
+        {
+            {"mats", new List<string>() },
+            {"weapons", new List<string>() },
+            {"runes", new List<string>() },
+        };
+        var weenor = new QuestProgress();
+        List<string> list = new List<string>() 
+        {
+            "Collect",
+        };
+        weenor.Data["Name"] = list[Random.Range(0, list.Count)];
+        switch (weenor.Data["Name"])
+        {
+            default:
+                foreach(var item in GISLol.Instance.Items)
+                {
+                    if (!item.CanSpawn) continue;
+                    if (item.IsWeapon)
+                    {
+                        dat["weapons"].Add(item.Name);
+                        continue;
+                    }
+                    if (item.IsCraftable)
+                    {
+                        dat["mats"].Add(item.Name);
+                        continue;
+                    }
+                    if (item.IsRune)
+                    {
+                        dat["runes"].Add(item.Name);
+                        continue;
+                    }
+                }
+                break;
+        }
+        switch (weenor.Data["Name"])
+        {
+            case "Collect":
+                string sexx = Random.Range(3, 6).ToString();
+                weenor.Data["Target_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
+                weenor.Data["Target_Amount"] = sexx;
+                weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
+                weenor.Data["Reward_Amount"] = sexx;
+                break;
+        }
+        return weenor;
+    }
+
+
     public IEnumerator instancecoolmenus() // this is the most retarded fix for a thing I have made in a while
     {
         checks[0] = true;
@@ -406,6 +478,7 @@ public class Gamer : MonoBehaviour
         }
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
+            //SaveSystem.Instance.SaveGame();
             SpawnEnemy(EnemiesDos[7]);
         }
 #endif
@@ -1439,6 +1512,8 @@ public class Gamer : MonoBehaviour
     private void FixedUpdate()
     {
         LastHitEnemyTimer -= Time.deltaTime;
+
+
         bool a = GameState == "Game" || GameState == "Lobby";
         if (a)
         {

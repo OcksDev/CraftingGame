@@ -34,6 +34,8 @@ public class GISLol : MonoBehaviour
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
     public Dictionary<string, string> LogbookDiscoveries = new Dictionary<string, string>();
 
+    public List<QuestProgress> Quests = new List<QuestProgress>();
+
     public TextAsset DesciptionOverrides;
     public TextAsset GeneralDesciptionOverrides;
     public TextAsset EXTRADescriptionSussyBacons;
@@ -797,3 +799,65 @@ public class EntityEffect_Data
     public string Name = "Null";
     public Sprite Image;
 }
+
+public class QuestProgress
+{
+    public Dictionary<string, string> Data;
+
+    private void SetDefaults()
+    {
+        Data = GetDefaults();
+    }
+    private Dictionary<string,string> GetDefaults()
+    {
+        return new Dictionary<string, string>()
+        {
+            {"Name",""},
+            {"Progress","0"},
+            {"Target_Data",""},
+            {"Target_Amount",""},
+            {"Reward_Data",""},
+            {"Reward_Amount",""},
+            {"Completed","False"},
+        };
+    }
+    public QuestProgress(string e)
+    {
+        StringToData(e);
+    }
+    public QuestProgress()
+    {
+        SetDefaults();
+    }
+    public string DataToString()
+    {
+        Dictionary<string, string> w = new Dictionary<string, string>();
+        Dictionary<string, string> w2 = GetDefaults();
+        foreach(var a in Data)
+        {
+            if(!w2.ContainsKey(a.Key) || w2[a.Key] != a.Value)
+            {
+                w.Add(a.Key, a.Value);
+            }
+        }
+        return Converter.DictionaryToString(w, "<x>", "<y>");
+    }
+    public void StringToData(string e)
+    {
+        SetDefaults();
+        var aa = Converter.StringToDictionary(e, "<x>", "<y>");
+        foreach(var a in aa)
+        {
+            if (Data.ContainsKey(a.Key))
+            {
+                Data[a.Key] = a.Value;
+            }
+            else
+            {
+                Data.Add(a.Key, a.Value);
+            }
+        }
+    }
+}
+
+
