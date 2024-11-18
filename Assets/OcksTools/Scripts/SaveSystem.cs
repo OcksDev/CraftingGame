@@ -45,6 +45,7 @@ public class SaveSystem : MonoBehaviour
 
 
         InputManager.AssembleTheCodes();
+        Dictionary<string, string> dic = new Dictionary<string, string>();
         List<string> list = new List<string>();
 
 
@@ -57,23 +58,21 @@ public class SaveSystem : MonoBehaviour
         GetDataFromFile(dict);
 
         var ghghgg = GetString("keybinds", "fuck", dict);
-        list = Converter.StringToList(ghghgg);
+        dic = Converter.StringToDictionary(ghghgg);
+        List<KeyCode> shungite = new List<KeyCode>();
         if (ghghgg != "fuck")
         {
-            foreach (var a in list)
+            foreach (var a in dic)
             {
-                try
+                list = Converter.StringToList(a.Value);
+                shungite.Clear();
+                foreach (var key in list)
                 {
-                    var sseexx = Converter.StringToList(a, "<K>");
-                    InputManager.gamekeys[sseexx[0]] = InputManager.namekeys[sseexx[1]];
-                    x++;
+                    shungite.Add(InputManager.namekeys[key]);
                 }
-                catch
-                {
-                }
+                InputManager.gamekeys[a.Key] = new List<KeyCode>(shungite);
             }
         }
-        x = 0;
 
         if (s != null)
         {
@@ -116,16 +115,21 @@ public class SaveSystem : MonoBehaviour
          * -1 = Save whatever is the currently selected file (by default is 0)
          * Any Other Value = Save curent data to a specfic file
          */
-
+        Dictionary<string, string> dic = new Dictionary<string, string>();
         List<string> list = new List<string>();
         var s = SoundSystem.Instance;
 
-        list.Clear();
+        dic.Clear();
         foreach (var a in InputManager.gamekeys)
         {
-            list.Add(a.Key + "<K>" + InputManager.keynames[a.Value]);
+            list.Clear();
+            foreach (var b in a.Value)
+            {
+                list.Add(InputManager.keynames[b]);
+            }
+            dic.Add(a.Key, Converter.ListToString(list));
         }
-        SetString("keybinds", Converter.ListToString(list), dict);
+        SetString("keybinds", Converter.DictionaryToString(dic), dict);
         //PlayerPrefs.SetInt("UnitySelectMonitor", index); // sets the monitor that unity uses
 
         if (s != null)

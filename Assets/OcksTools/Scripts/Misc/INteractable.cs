@@ -33,7 +33,7 @@ public class INteractable : MonoBehaviour
             if (wanker)
             {
                 DisplaySegsmcnugget.transform.position = transform.position + new Vector3(0, TextOffsetDist, 0);
-                if (InputManager.IsKeyDown(InputManager.gamekeys["interact"], "player"))
+                if (InputManager.IsKeyDown("interact", "player"))
                 {
                     Interact();
                 }
@@ -52,7 +52,7 @@ public class INteractable : MonoBehaviour
         if (Time.time < 0.2f) return;
         var w = Instantiate(Gamer.Instance.textShuingite, transform.position, Quaternion.identity, Tags.refs["DIC"].transform);
         var e = w.GetComponent<TextMeshProUGUI>();
-        e.text = InputManager.keynames[InputManager.gamekeys["interact"]];
+        e.text = InputManager.keynames[InputManager.gamekeys["interact"][0]];
         DisplaySegsmcnugget = e;
     }
 

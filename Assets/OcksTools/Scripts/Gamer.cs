@@ -109,7 +109,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["EnemiesRemaining"].SetActive(!IsInShop);
 
         WithinAMenu = false;
-        InputManager.SetLockLevel("");
+        InputManager.ResetLockLevel();
         for(int i = 0; i < checks.Length; i++)
         {
             if (checks[i])
@@ -421,7 +421,7 @@ public class Gamer : MonoBehaviour
 
     public void Update()
     {
-        if (!IsFading && InputManager.IsKeyDown(InputManager.gamekeys["close_menu"]))
+        if (!IsFading && InputManager.IsKeyDown("close_menu"))
         {
             if (checks[0])
             {
@@ -449,6 +449,10 @@ public class Gamer : MonoBehaviour
                 if(!anim)
                 ToggleItemPickup();
             }
+            else if (ConsoleLol.Instance.enable)
+            {
+                ConsoleLol.Instance.CloseConsole();
+            }
             else if (checks[3])
             {
             }
@@ -457,7 +461,7 @@ public class Gamer : MonoBehaviour
                 SetPauseMenu(!checks[4]);
             }
         }
-        if (InputManager.IsKeyDown(InputManager.gamekeys["inven"], "menu") && GameState == "Lobby")
+        if (InputManager.IsKeyDown("inven", "menu") && GameState == "Lobby")
         {
             ToggleInventory();
         }
@@ -986,18 +990,11 @@ public class Gamer : MonoBehaviour
     string a = "wank";
     public void TextModeEnter()
     {
-        if("TextEntry" != InputManager.locklevel)
-        {
-            a = InputManager.locklevel;
-            InputManager.SetLockLevel("TextEntry");
-        }
+        InputManager.AddLockLevel("TextEntry");
     }
     public void TextModeExit()
     {
-        if ("TextEntry" == InputManager.locklevel)
-        {
-            InputManager.SetLockLevel(a);
-        }
+        InputManager.RemoveLockLevel("TextEntry");
     }
 
     public void ConfirmItemTrans()

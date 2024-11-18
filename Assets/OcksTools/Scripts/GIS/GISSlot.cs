@@ -105,9 +105,9 @@ public class GISSlot : MonoBehaviour
         if (!CanInteract) return;
         if (FailToClick()) return;
         if (balls == null) return;
-        bool shift = InputManager.IsKey(InputManager.gamekeys["item_alt"]);
-        bool left = Input.GetKeyDown(InputManager.gamekeys["item_select"]);
-        bool right = InputManager.IsKeyDown(InputManager.gamekeys["item_half"]);
+        bool shift = InputManager.IsKey("item_alt");
+        bool left = InputManager.IsKeyDown("item_select");
+        bool right = InputManager.IsKeyDown("item_half");
         if (!(right || left)) return;
         if (!IsHovering()) return;
         switch (InteractFilter)

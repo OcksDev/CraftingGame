@@ -450,8 +450,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (DeathDisable) return;
-        InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"], "Dash", "player", 0.1f, true);
-        if(!NoNoSwitchyBazungus)InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"], "Attack", "player", 0.1f, false);
+        InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"][0], "Dash", "player", 0.1f, true);
+        if (!NoNoSwitchyBazungus) InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"][0], "Attack", "player", 0.1f, false);
     }
 
 
@@ -666,7 +666,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if(NoNoSwitchyBazungus)
                     {
-                        if (!InputManager.IsKey(InputManager.gamekeys["shoot"]))
+                        if (!InputManager.IsKey("shoot"))
                         {
                             NoNoSwitchyBazungus = false;
                             InputBuffer.Instance.RemoveBuffer("Attack");

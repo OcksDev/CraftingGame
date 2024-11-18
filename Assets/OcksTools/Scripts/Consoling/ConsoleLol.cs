@@ -7,10 +7,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using static System.Net.Mime.MediaTypeNames;
+using UnityEngine.EventSystems;
 
 public class ConsoleLol : MonoBehaviour
 {
     public GameObject ConsoleObject;
+    public ConsolRefs ConsoleObjectRef;
     private static ConsoleLol instance;
 
     public bool enable = false;
@@ -21,6 +23,21 @@ public class ConsoleLol : MonoBehaviour
     public string BackLog = "";
     private int balls = 0;
     private int comm = 0;
+
+
+    /* the setup process!
+     * 
+     * 1. Use the ockstools window found at the top of the unity editor in the path OcksTools/Console/Utils
+     * 2. Place the console object parent (canvas) in the given field and click the setup button
+     * 3. You are done
+     */
+
+
+
+
+
+
+
     // Start is called before the first frame update
     public static ConsoleLol Instance
     {
@@ -33,6 +50,7 @@ public class ConsoleLol : MonoBehaviour
     {
         prev_commands.Clear();
         BackLog = "";
+        ConsoleObjectRef = ConsoleObject.GetComponent<ConsolRefs>();
         ConsoleChange(false);
         if (Instance == null) instance = this;
     }
@@ -45,6 +63,7 @@ public class ConsoleLol : MonoBehaviour
             { "Message_StoppedDialog", "All dialog has been stopped" },
             { "Message_Help", "Available Commands:" },
             { "Message_HelpData", "Allows for the modification of saved game data" },
+            { "Message_HelpScreenshot", "Screenshots the current screen" },
             { "Message_HelpTest", "Runs some tests and stuff" },
             { "Message_HelpDialog", "General dialog manager" },
             { "Message_HelpTime", "Sets the scale of time" },
@@ -55,13 +74,13 @@ public class ConsoleLol : MonoBehaviour
             { "Error_NoReg", "No registry inputted" },
             { "Error_NoData", "- No Data -" },
             { "Error_InvalidTime", "Invalid time scale input" },
-            { "Error_InvalidData", "Invalid data modification selected" }
+            { "Error_InvalidData", "Invalid data modification selected" },
+            { "Error_NoScreenshot", "No screenshot component is loaded in the scene" }
         };
 
         var l = LanguageFileSystem.Instance;
-        l.UpdateGameFromFile();
         bool changed = false;
-        foreach(var item in f)
+        foreach (var item in f)
         {
             if (!l.IndexValuePairs.ContainsKey(item.Key))
             {
@@ -74,9 +93,9 @@ public class ConsoleLol : MonoBehaviour
             l.UpdateTextFile();
         }
 
-        if(Console.texts.Count > 0)
+        if (Console.texts.Count > 0)
         {
-            for(int i = 0; i < Console.texts.Count; i++)
+            for (int i = 0; i < Console.texts.Count; i++)
             {
                 ConsoleLog(Console.texts[i], Console.hexes[i]);
             }
@@ -88,49 +107,48 @@ public class ConsoleLol : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.IsKeyDown(InputManager.gamekeys["console"]))
+        if (InputManager.IsKeyDown("console", "def"))
         {
             ConsoleChange(!enable);
-        }else if(InputManager.IsKeyDown(InputManager.gamekeys["close_menu"]))
+        }
+        else if (InputManager.IsKeyDown("console", "Console"))
+        {
+            ;
+            if (EventSystem.current.currentSelectedGameObject == null || EventSystem.current.currentSelectedGameObject.name != ConsoleObjectRef.input.gameObject.name)
+            {
+                ConsoleObjectRef.fix.Select();
+                ConsoleObjectRef.input.Select();
+            }
+        }
+        else if (InputManager.IsKeyDown("close_menu"))
         {
             ConsoleChange(false);
         }
 
 
-        if (enable && InputManager.IsKeyDown(InputManager.gamekeys["console_up"]))
+        if (enable && InputManager.IsKeyDown("console_up"))
         {
             CommandChange(-1);
         }
-        if (enable && InputManager.IsKeyDown(InputManager.gamekeys["console_down"]))
+        if (enable && InputManager.IsKeyDown("console_down"))
         {
             CommandChange(1);
         }
     }
-    private string oldlock;
-    public void OnStartEdit()
-    {
-        oldlock = InputManager.locklevel;
-        InputManager.SetLockLevel("Console");
-    }
-    public void OnEndEdit()
-    {
-        InputManager.SetLockLevel(oldlock);
-    }
-
     private void LateUpdate()
     {
         if (balls > 0)
         {
             balls--;
-            var pp = ConsoleObject.GetComponentInChildren<Scrollbar>();
+            var pp = ConsoleObjectRef.scrollbar;
             if (pp != null) pp.value = 1;
         }
     }
 
     public void CommandChange(int i)
     {
-        var sp = ConsoleObject.GetComponentInChildren<TMP_InputField>();
-        if(prev_commands.Count > 0)
+        var sp = ConsoleObjectRef.input;
+        if (prev_commands.Count > 0)
         {
             comm += i;
             comm = Math.Clamp(comm, 0, prev_commands.Count - 1);
@@ -138,17 +156,17 @@ public class ConsoleLol : MonoBehaviour
         }
     }
 
-    public void Submit()
+    public void Submit(string inputgaming)
     {
-        if (InputManager.IsKeyDown(InputManager.gamekeys["console"]) || InputManager.IsKeyDown(InputManager.gamekeys["close_menu"]) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) return;
+        if (InputManager.IsKeyDown("console") || InputManager.IsKeyDown("close_menu") || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) return;
         balls = 3;
-        var pp = ConsoleObject.GetComponentInChildren<Scrollbar>();
+        var pp = ConsoleObjectRef.scrollbar;
         if (pp != null) pp.value = 1;
         var lang = LanguageFileSystem.Instance;
         //this must be run when the text is finished editing
         try
         {
-            s = ConsoleObject.GetComponentInChildren<TMP_InputField>().text;
+            s = inputgaming;
             if (s != "" && (prev_commands.Count == 0 || prev_commands[prev_commands.Count - 1] != s)) prev_commands.Add(s);
             var s2 = s;
             if (s == "") return;
@@ -156,7 +174,7 @@ public class ConsoleLol : MonoBehaviour
             command = s.Split(' ').ToList();
             command_caps = s2.Split(' ').ToList();
 
-            for (int i = 0; i<10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 command.Add("");
             }
@@ -182,11 +200,19 @@ public class ConsoleLol : MonoBehaviour
 
                             ), "#bdbdbdff");
                             break;
+                        case "screenshot":
+                            ConsoleLog((
+
+                                lang.IndexValuePairs["Message_HelpScreenshot"] +
+                                "<br> - screenshot"
+
+                            ), "#bdbdbdff");
+                            break;
                         case "dialog":
                             ConsoleLog((
 
                                 lang.IndexValuePairs["Message_HelpDialog"] +
-                                "<br> - dialog <#>" + 
+                                "<br> - dialog <#>" +
                                 "<br> - dialog stop"
 
                             ), "#bdbdbdff");
@@ -200,7 +226,8 @@ public class ConsoleLol : MonoBehaviour
                                 "<br> - test circle" +
                                 "<br> - test destroy" +
                                 "<br> - test garbage" +
-                                "<br> - test listall"
+                                "<br> - test listall" +
+                                "<br> - test escape"
 
                             ), "#bdbdbdff");
                             break;
@@ -231,6 +258,7 @@ public class ConsoleLol : MonoBehaviour
                                 "<br> - test" +
                                 "<br> - dialog" +
                                 "<br> - data" +
+                                "<br> - screenshot" +
                                 "<br> - clear"
 
                             ), "#bdbdbdff");
@@ -252,11 +280,8 @@ public class ConsoleLol : MonoBehaviour
                             ), "#bdbdbdff");
                             Tags.ClearAllOf("penis");
                             break;
-                        case "circle":
-                            RandomFunctions.Instance.SpawnObject(0, gameObject, Vector3.zero, Quaternion.Euler(0, 0, 0));
-                            break;
                         case "chat":
-                            for(int i = 0; i < 10; i++)
+                            for (int i = 0; i < 10; i++)
                             {
                                 ChatLol.Instance.WriteChat("Chat Test Lol", "#" + UnityEngine.Random.ColorHSV().ToHexString());
                             }
@@ -269,6 +294,32 @@ public class ConsoleLol : MonoBehaviour
 
                                 ), "#bdbdbdff");
                             break;
+                        case "escape":
+                            string banana = "help(0)eat()cumjjragbanana your_welcum";
+                            List<string> escape = new List<string>() { "eat", "cum", "rag", "jj" };
+                            ConsoleLog((
+
+                                "input: " + banana
+
+                            ), "#bdbdbdff");
+                            ConsoleLog((
+
+                                $"remove: {escape[0]}, {escape[1]}, {escape[2]}, {escape[3]}"
+
+                            ), "#bdbdbdff");
+                            banana = Converter.EscapeString(banana, escape);
+                            ConsoleLog((
+
+                                "escaped: " + banana
+
+                            ), "#bdbdbdff");
+                            banana = Converter.UnescapeString(banana, escape);
+                            ConsoleLog((
+
+                                "result: " + banana
+
+                            ), "#bdbdbdff");
+                            break;
                         case "max":
                             ConsoleLog((
 
@@ -279,7 +330,7 @@ public class ConsoleLol : MonoBehaviour
                         case "refs":
                             string cum = "";
                             int icum = 0;
-                            foreach(var d in Tags.refs)
+                            foreach (var d in Tags.refs)
                             {
                                 cum += d.Key + ": " + d.Value.name;
                                 if (icum < Tags.refs.Count - 1) cum += "<br>";
@@ -327,26 +378,6 @@ public class ConsoleLol : MonoBehaviour
                             break;
                     }
                     break;
-                case "host":
-                    Gamer.Instance.GetComponent<PickThingymabob>().MakeGame();
-                    break;
-                case "join":
-                    Gamer.Instance.GetComponent<PickThingymabob>().GoinGameE2(command[1]);
-                    break;
-                case "aaawwwdddsssawds":
-                    //AAAWWWDDDSSSAWDS
-                    foreach (var item in GISLol.Instance.Items)
-                    {
-                        if (!GISLol.Instance.LogbookDiscoveries.ContainsKey(item.Name))
-                        {
-                            GISLol.Instance.LogbookDiscoveries.Add(item.Name, "");
-                        }
-                    }
-                    break;
-                case "asdsasdwwwssswww":
-                    PlayerController.Instance.entit.Max_Health = 6969696969;
-                    PlayerController.Instance.entit.Health = 6969696969;
-                    break;
                 case "dialog":
                     switch (command[1])
                     {
@@ -387,6 +418,24 @@ public class ConsoleLol : MonoBehaviour
                 case "clear":
                     BackLog = "";
                     break;
+
+                case "aaawwwdddsssawds":
+                    //AAAWWWDDDSSSAWDS
+                    foreach (var item in GISLol.Instance.Items)
+                    {
+                        if (!GISLol.Instance.LogbookDiscoveries.ContainsKey(item.Name))
+                        {
+                            GISLol.Instance.LogbookDiscoveries.Add(item.Name, "");
+                        }
+                    }
+                    break;
+                case "asdsasdwwwssswww":
+                    PlayerController.Instance.entit.Max_Health = 6969696969;
+                    PlayerController.Instance.entit.Health = 6969696969;
+                    break;
+                case "aqswdeswaqdsaewq":
+                    Gamer.Instance.TimeOfQuest = 0;
+                    break;
                 case "data":
                     switch (command[1])
                     {
@@ -415,7 +464,7 @@ public class ConsoleLol : MonoBehaviour
                         case "listall":
                             if (SaveSystem.Instance.UseFileSystem)
                             {
-                                ConsoleLol.Instance.ConsoleLog($"{Converter.DictionaryToString( SaveSystem.Instance.GetDict(), Environment.NewLine, ": ")}");
+                                ConsoleLol.Instance.ConsoleLog($"{Converter.DictionaryToString(SaveSystem.Instance.GetDict(), Environment.NewLine, ": ")}");
                             }
                             else
                             {
@@ -440,7 +489,10 @@ public class ConsoleLol : MonoBehaviour
 
         balls = 3;
         comm = prev_commands.Count;
+        ConsoleObjectRef.fix.Select();
+        ConsoleObjectRef.input.Select();
     }
+
 
     public void ConsoleLog(string text = "Logged", string hex = "\"white\"")
     {
@@ -457,17 +509,14 @@ public class ConsoleLol : MonoBehaviour
         ConsoleObject.SetActive(e);
         if (e)
         {
-            var imp = ConsoleObject.GetComponentInChildren<TMP_InputField>();
-            var imp2 = ConsoleObject.GetComponentInChildren<Button>();
-            imp.text = "";
-            //stupid fucking selection fix I hate this.
-            //if I dont have this useless line of code it stops working and I dont know why
-            imp2.Select();
-            imp.Select();
+            InputManager.AddLockLevel("Console");
+            ConsoleObjectRef.fix.Select();
+            ConsoleObjectRef.input.Select();
+            ConsoleObjectRef.input.text = "";
         }
         else
         {
-            InputManager.SetLockLevel(oldlock);
+            InputManager.RemoveLockLevel("Console");
         }
     }
 }
@@ -479,7 +528,7 @@ public class Console : MonoBehaviour
     // a shortcut/shorthand for the console, makes writing to the console faster
     public static void Log(string text = "Logged", string hex = "\"white\"")
     {
-        if(ConsoleLol.Instance != null)
+        if (ConsoleLol.Instance != null)
         {
             ConsoleLol.Instance.ConsoleLog(text, hex);
         }

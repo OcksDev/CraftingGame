@@ -135,6 +135,43 @@ public class RandomFunctions : MonoBehaviour
         };
     }
 
+    public static bool ListContainsItemFromList<T>(List<T> ti, List<T> tee)
+    {
+        foreach (T t in ti)
+        {
+            if (tee.Contains(t)) return true;
+        }
+        return false;
+    }
+    public static bool ListMatchesList<T>(List<T> ti, List<T> tee)
+    {
+        if (ti.Count != tee.Count) return false;
+        for (int t = 0; t < ti.Count; t++)
+        {
+            if (!ti[t].Equals(tee[t]))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static bool ListMatchesListOrderless<T>(List<T> ti, List<T> tee)
+    {
+        if (ti.Count != tee.Count) return false;
+        var tea = new List<T>(ti);
+        var teatea = new List<T>(tee);
+        for (int t = 0; t < tea.Count;)
+        {
+            if (!teatea.Contains(tea[0])) return false;
+            else
+            {
+                teatea.Remove(tea[0]);
+                tea.RemoveAt(0);
+            }
+        }
+        return true;
+    }
+
     public float SpreadCalc(int index, int max, float spread, bool fix = false)
     {
         // a spread calculation used to spread out objects over an angle
