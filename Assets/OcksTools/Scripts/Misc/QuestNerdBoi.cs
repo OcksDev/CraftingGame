@@ -24,7 +24,7 @@ public class QuestNerdBoi : MonoBehaviour
         Func<string> res = () => {
             switch (quest.Data["Name"])
             {
-                case "Collect": return $"Collect {quest.Data["Target_Amount"]}x of {quest.Data["Target_Data"]}";
+                case "Collect": return $"Collect {quest.Data["Target_Amount"]} {quest.Data["Target_Data"]}";
                 case "Kill": return $"Kill {quest.Data["Target_Amount"]} enemies using a {quest.Data["Target_Data"]} weapon";
                 default: return "";
             }
@@ -33,10 +33,22 @@ public class QuestNerdBoi : MonoBehaviour
         res = () => {
             switch (quest.Data["Name"])
             {
-                default: return $"Reward: {quest.Data["Reward_Amount"]}x of {quest.Data["Reward_Data"]}"; ;
+                default: return $"Reward: {quest.Data["Reward_Amount"]} {quest.Data["Reward_Data"]}";
             }
         };
         MainBody.text = res();
+        res = () => {
+            if (quest.Data["Completed"] == "False")
+                switch (quest.Data["Name"])
+                {
+                    case "Collect": return $"Collected: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
+                    case "Kill": return $"Slain: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
+                    default: return $"Incomplete";
+                }
+            else
+                return $"Complete";
+        };
+        Status.text = res();
 
     }
 

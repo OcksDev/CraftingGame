@@ -267,10 +267,11 @@ public class Gamer : MonoBehaviour
     {
         Dictionary<string, List<string>> dat = new Dictionary<string, List<string>>()
         {
-            {"mats", GISLol.Instance.AllCraftables },
+            {"mats", new List<string>(GISLol.Instance.AllCraftables) },
             {"weapons", GISLol.Instance.AllWeaponNames },
             {"runes", GISLol.Instance.AllRunes },
         };
+        dat["mats"].Remove("Rock");
         var weenor = new QuestProgress();
         List<string> list = new List<string>() 
         {
@@ -423,7 +424,11 @@ public class Gamer : MonoBehaviour
     {
         if (!IsFading && InputManager.IsKeyDown("close_menu"))
         {
-            if (checks[0])
+             if (checks[14])
+            {
+                ToggleQuests();
+            }
+            else if(checks[0])
             {
                 ToggleInventory();
             }
@@ -461,7 +466,7 @@ public class Gamer : MonoBehaviour
                 SetPauseMenu(!checks[4]);
             }
         }
-        if (InputManager.IsKeyDown("inven", "menu") && GameState == "Lobby")
+        if ((InputManager.IsKeyDown("inven", "player") && GameState == "Lobby") || (checks[0] && InputManager.IsKeyDown("inven")))
         {
             ToggleInventory();
         }
@@ -608,6 +613,12 @@ public class Gamer : MonoBehaviour
     public void ToggleSettings()
     {
         checks[8] = !checks[8];
+        UpdateMenus();
+    }
+    public void ToggleQuests()
+    {
+        checks[14] = !checks[14];
+        if (checks[14]) Tags.refs["QuestMenu"].GetComponent<QuestMenuUpdater>().FixedUpdate();
         UpdateMenus();
     }
     public void ToggleLogbook()

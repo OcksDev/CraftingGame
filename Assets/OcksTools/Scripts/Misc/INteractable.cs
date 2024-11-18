@@ -86,6 +86,9 @@ public class INteractable : MonoBehaviour
             case "ContinueRun":
                 SaveSystem.Instance.LoadCurrentRun();
                 break;
+            case "Quest":
+                Gamer.Instance.ToggleQuests();
+                break;
             case "NextShop":
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextShop"));
                 break;

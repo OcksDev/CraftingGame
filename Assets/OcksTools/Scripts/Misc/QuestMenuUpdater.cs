@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class QuestMenuUpdater : MonoBehaviour
 {
-    List<QuestNerdBoi> QuestNerds = new List<QuestNerdBoi>();
+    public List<QuestNerdBoi> QuestNerds = new List<QuestNerdBoi>();
 
     // Update is called once per frame
-    void FixedUpdate()
+    public void FixedUpdate()
     {
-        /* seems reasonable
-         * current amount of normal enemies: 13 I think (?)
-         * "what is your fucking issue, what is your fucking problem" crazy stuff
-         */
 
         Gamer.Instance.UpdateCurrentQuests();
         for(int i = 0; i < GISLol.Instance.Quests.Count; i++)

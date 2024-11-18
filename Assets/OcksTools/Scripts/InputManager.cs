@@ -247,17 +247,29 @@ public class InputManager : MonoBehaviour
         }
         return false;
     }
-    public static bool IsKeyDown(string baller, string a = "")
+    public static bool IsKeyDown(string baller, string a)
     {
         return IsKeyDown(baller, new List<string>() { a });
     }
-    public static bool IsKey(string baller, string a = "")
+    public static bool IsKey(string baller, string a)
     {
         return IsKey(baller, new List<string>() { a });
     }
-    public static bool IsKeyUp(string baller, string a = "")
+    public static bool IsKeyUp(string baller, string a)
     {
         return IsKeyUp(baller, new List<string>() { a });
+    }
+    public static bool IsKeyDown(string baller)
+    {
+        return IsKeyDown(baller, new List<string>());
+    }
+    public static bool IsKey(string baller)
+    {
+        return IsKey(baller, new List<string>());
+    }
+    public static bool IsKeyUp(string baller)
+    {
+        return IsKeyUp(baller, new List<string>());
     }
     [Obsolete]
     public static bool IsMouseDown(int baller, List<string> ide)
