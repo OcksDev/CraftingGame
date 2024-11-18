@@ -103,6 +103,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["Vault"].SetActive(checks[11]);
         Tags.refs["Logbook"].SetActive(checks[12]);
         Tags.refs["LogbookSubmenu"].SetActive(checks[13]);
+        Tags.refs["QuestMenu"].SetActive(checks[14]);
 
         Tags.refs["GameUI"].SetActive(GameState == "Game");
         Tags.refs["EnemiesRemaining"].SetActive(!IsInShop);
@@ -259,6 +260,7 @@ public class Gamer : MonoBehaviour
             {
                 GISLol.Instance.Quests.Add(GetRandomQuest());
             }
+
         }
     }
     public QuestProgress GetRandomQuest()

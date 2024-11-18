@@ -106,6 +106,17 @@ public class ConsoleLol : MonoBehaviour
             CommandChange(1);
         }
     }
+    private string oldlock;
+    public void OnStartEdit()
+    {
+        oldlock = InputManager.locklevel;
+        InputManager.SetLockLevel("Console");
+    }
+    public void OnEndEdit()
+    {
+        InputManager.SetLockLevel(oldlock);
+    }
+
     private void LateUpdate()
     {
         if (balls > 0)
@@ -453,6 +464,10 @@ public class ConsoleLol : MonoBehaviour
             //if I dont have this useless line of code it stops working and I dont know why
             imp2.Select();
             imp.Select();
+        }
+        else
+        {
+            InputManager.SetLockLevel(oldlock);
         }
     }
 }
