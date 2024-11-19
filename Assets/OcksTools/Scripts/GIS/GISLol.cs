@@ -822,6 +822,7 @@ public class QuestProgress
         {
             {"Name",""},
             {"Progress","0"},
+            {"Target_Type","Item"},
             {"Target_Data",""},
             {"Target_Amount",""},
             {"Reward_Type","Item"},

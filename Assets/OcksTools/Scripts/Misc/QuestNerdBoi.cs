@@ -10,8 +10,10 @@ public class QuestNerdBoi : MonoBehaviour
     public TextMeshProUGUI Title;
     public TextMeshProUGUI MainBody;
     public TextMeshProUGUI Status;
-    public Image Icon;
+    public GISDisplay Icon;
+    public GISDisplay Icon2;
     public QuestProgress quest;
+    public Color32[] Cols;
     public void UpdateStuff(QuestProgress q)
     {
         if(quest == q) return;
@@ -30,6 +32,10 @@ public class QuestNerdBoi : MonoBehaviour
             }
         };
         Title.text = res();
+        if (quest.Data["Completed"] == "True")
+        {
+            Title.text = $"<color=#{ColorUtility.ToHtmlStringRGBA(Cols[0])}>" + Title.text;
+        }
         res = () => {
             switch (quest.Data["Name"])
             {
@@ -37,6 +43,10 @@ public class QuestNerdBoi : MonoBehaviour
             }
         };
         MainBody.text = res();
+        if (quest.Data["Completed"] == "True")
+        {
+            MainBody.text = $"<color=#{ColorUtility.ToHtmlStringRGBA(Cols[1])}>" + MainBody.text;
+        }
         res = () => {
             if (quest.Data["Completed"] == "False")
                 switch (quest.Data["Name"])
@@ -49,7 +59,39 @@ public class QuestNerdBoi : MonoBehaviour
                 return $"Complete";
         };
         Status.text = res();
+        if (quest.Data["Completed"] == "True")
+        {
+            Status.text = $"<color=#{ColorUtility.ToHtmlStringRGBA(Cols[0])}>" + Status.text;
+        }
+        SetImageOnGISD(Icon, "Target");
+        SetImageOnGISD(Icon2, "Reward");
 
     }
-
+    public void SetImageOnGISD(GISDisplay Icon, string boner)
+    {
+        if (quest.Data["Completed"] == "True")
+        {
+            GISItem dikl = new GISItem("Check");
+            Icon.item = dikl;
+            Icon.UpdateDisplay();
+            return;
+        }
+        switch (quest.Data[$"{boner}_Type"])
+        {
+            default:
+                GISItem dikl = new GISItem(quest.Data[$"{boner}_Data"]);
+                if (GISLol.Instance.ItemsDict[dikl.ItemIndex].IsWeapon)
+                {
+                    dikl.Materials = new List<GISMaterial>()
+                    {
+                        new GISMaterial("Rock"),
+                        new GISMaterial("Rock"),
+                        new GISMaterial("Rock"),
+                    };
+                }
+                Icon.item = dikl;
+                Icon.UpdateDisplay();
+                break;
+        }
+    }
 }
