@@ -295,7 +295,7 @@ public class Gamer : MonoBehaviour
                 break;
             case "Kill":
                 weenor.Data["Target_Data"] = dat["weapons"][Random.Range(0, dat["weapons"].Count)];
-                weenor.Data["Target_Amount"] = (sexx*50).ToString();
+                weenor.Data["Target_Amount"] = (sexx*100).ToString();
                 weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
                 weenor.Data["Reward_Amount"] = sexx.ToString();
                 break;
@@ -1506,6 +1506,18 @@ public class Gamer : MonoBehaviour
             LastHitEnemy = cum;
         }
     }
+    public static void QuestProgressIncrease(string Name, string Target)
+    {
+        foreach(var quest in GISLol.Instance.Quests)
+        {
+            if (quest.Data["Name"]== Name && quest.Data["Target_Data"] == Target)
+            {
+                quest.Data["Progress"] = (int.Parse(quest.Data["Progress"]) + 1).ToString();
+                quest.CheckComplete();
+            }
+        }
+    }
+
     public float ShartPoop = 0f;
     private Button sexernuttyb;
     private void FixedUpdate()
@@ -1793,6 +1805,9 @@ public class ObjectType
     }
 
 }
+
+
+
 
 [System.Serializable]
 public class EnemyHolder

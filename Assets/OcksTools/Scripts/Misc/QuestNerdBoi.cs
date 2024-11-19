@@ -24,8 +24,8 @@ public class QuestNerdBoi : MonoBehaviour
         Func<string> res = () => {
             switch (quest.Data["Name"])
             {
-                case "Collect": return $"Collect {quest.Data["Target_Amount"]} {quest.Data["Target_Data"]}";
-                case "Kill": return $"Kill {quest.Data["Target_Amount"]} enemies using a {quest.Data["Target_Data"]} weapon";
+                case "Collect": return $"Collect {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
+                case "Kill": return $"Kill {quest.Data["Target_Amount"]} enemies using weapons of type {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
                 default: return "";
             }
         };
@@ -33,7 +33,7 @@ public class QuestNerdBoi : MonoBehaviour
         res = () => {
             switch (quest.Data["Name"])
             {
-                default: return $"Reward: {quest.Data["Reward_Amount"]} {quest.Data["Reward_Data"]}";
+                default: return $"Reward: {quest.Data["Reward_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Reward_Data"]].GetDisplayName()}";
             }
         };
         MainBody.text = res();

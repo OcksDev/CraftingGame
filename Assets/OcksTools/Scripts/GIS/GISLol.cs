@@ -55,6 +55,7 @@ public class GISLol : MonoBehaviour
 
     public bool AddVaultItem(GISItem item)
     {
+        Gamer.QuestProgressIncrease("Collect", item.ItemIndex);
         for(int i = 0; i < VaultItems.Count; i++)
         {
             var a = VaultItems.ElementAt(i);
@@ -823,6 +824,7 @@ public class QuestProgress
             {"Progress","0"},
             {"Target_Data",""},
             {"Target_Amount",""},
+            {"Reward_Type","Item"},
             {"Reward_Data",""},
             {"Reward_Amount",""},
             {"Completed","False"},
@@ -862,6 +864,26 @@ public class QuestProgress
             else
             {
                 Data.Add(a.Key, a.Value);
+            }
+        }
+    }
+
+    public void CheckComplete()
+    {
+        if (Data["Completed"] == "True") return;
+        if (int.Parse(Data["Progress"]) >= int.Parse(Data["Target_Amount"]))
+        {
+            Data["Completed"] = "True";
+            switch (Data["Reward_Type"])
+            {
+                default:
+                    var x = int.Parse(Data["Reward_Amount"]);
+                    for(int i = 0; i < x; i++)
+                    {
+                        var item = new GISItem(Data["Reward_Data"]);
+                        GISLol.Instance.AddVaultItem(item);
+                    }
+                    break;
             }
         }
     }

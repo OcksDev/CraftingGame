@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class EntityOXS : MonoBehaviour
 {
@@ -476,6 +477,7 @@ public class EntityOXS : MonoBehaviour
                     }
                 }
                 Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+                if(lasthit.WeaponOfAttack != null) Gamer.QuestProgressIncrease("Kill", lasthit.WeaponOfAttack.ItemIndex);
                 break;
             case "Player":
                 if(!PlayerController.Instance.DeathDisable) Gamer.Instance.StartCoroutine(Gamer.Instance.DeathAnim());
