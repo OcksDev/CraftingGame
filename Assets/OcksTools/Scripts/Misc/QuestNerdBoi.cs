@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class QuestNerdBoi : MonoBehaviour
 {
@@ -14,9 +15,9 @@ public class QuestNerdBoi : MonoBehaviour
     public GISDisplay Icon2;
     public QuestProgress quest;
     public Color32[] Cols;
-    public void UpdateStuff(QuestProgress q)
+    public void UpdateStuff(QuestProgress q, bool force = false)
     {
-        if(quest == q) return;
+        if(quest == q && !force) return;
         quest = q;
 
         
@@ -28,6 +29,7 @@ public class QuestNerdBoi : MonoBehaviour
             {
                 case "Collect": return $"Collect {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
                 case "Kill": return $"Kill {quest.Data["Target_Amount"]} enemies using weapons of type {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
+                case "Craft": return $"Craft {quest.Data["Target_Amount"]} weapons of type {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}, (Rock disqualifies craft)";
                 default: return "";
             }
         };
@@ -53,6 +55,7 @@ public class QuestNerdBoi : MonoBehaviour
                 {
                     case "Collect": return $"Collected: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
                     case "Kill": return $"Slain: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
+                    case "Craft": return $"Crafted: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
                     default: return $"Incomplete";
                 }
             else
@@ -82,15 +85,31 @@ public class QuestNerdBoi : MonoBehaviour
                 GISItem dikl = new GISItem(quest.Data[$"{boner}_Data"]);
                 if (GISLol.Instance.ItemsDict[dikl.ItemIndex].IsWeapon)
                 {
-                    dikl.Materials = new List<GISMaterial>()
+                    switch (quest.Data["Name"])
                     {
-                        new GISMaterial("Rock"),
-                        new GISMaterial("Rock"),
-                        new GISMaterial("Rock"),
-                    };
+                        case "Craft":
+                            dikl.Materials = new List<GISMaterial>()
+                            {
+                                new GISMaterial("Gold"),
+                                new GISMaterial("Gold"),
+                                new GISMaterial("Gold"),
+                            };
+                            break;
+                        default:
+                            dikl.Materials = new List<GISMaterial>()
+                            {
+                                new GISMaterial("Rock"),
+                                new GISMaterial("Rock"),
+                                new GISMaterial("Rock"),
+                            };
+                            break;
+                    }
                 }
+                
                 Icon.item = dikl;
                 Icon.UpdateDisplay();
+                if (boner=="Target")
+                Icon.amnt.text = $"x{Converter.NumToRead(quest.Data[$"{boner}_Amount"])}";
                 break;
         }
     }

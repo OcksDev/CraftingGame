@@ -829,6 +829,7 @@ public class QuestProgress
             {"Reward_Data",""},
             {"Reward_Amount",""},
             {"Completed","False"},
+            {"Extra_Data",""},
         };
     }
     public QuestProgress(string e)

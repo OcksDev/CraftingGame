@@ -89,6 +89,7 @@ public class Gamer : MonoBehaviour
     {
         Tags.refs["Inventory"].SetActive(checks[0]);
         Tags.refs["Crafting"].SetActive(checks[1]);
+        Tags.refs["CrafterDarker"].SetActive(checks[1]);
         Tags.refs["Equips"].SetActive(checks[2]);
         Tags.refs["MainMenu"].SetActive(checks[3]);
         Tags.refs["MainMenu1"].SetActive(checks[3]);
@@ -265,6 +266,7 @@ public class Gamer : MonoBehaviour
     }
     public QuestProgress GetRandomQuest()
     {
+        weenis:
         Dictionary<string, List<string>> dat = new Dictionary<string, List<string>>()
         {
             {"mats", new List<string>(GISLol.Instance.AllCraftables) },
@@ -277,6 +279,7 @@ public class Gamer : MonoBehaviour
         {
             "Collect",
             "Kill",
+            "Craft",
         };
         weenor.Data["Name"] = list[Random.Range(0, list.Count)];
         switch (weenor.Data["Name"])
@@ -299,7 +302,22 @@ public class Gamer : MonoBehaviour
                 weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
                 weenor.Data["Reward_Amount"] = sexx.ToString();
                 break;
+            case "Craft":
+                weenor.Data["Target_Data"] = dat["weapons"][Random.Range(0, dat["weapons"].Count)];
+                weenor.Data["Target_Amount"] = (sexx).ToString();
+                weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
+                weenor.Data["Reward_Amount"] = (sexx*2).ToString();
+                break;
         }
+
+        foreach(var e in GISLol.Instance.Quests)
+        {
+            if (e.Data["Name"] == weenor.Data["Name"] && e.Data["Target_Data"] == weenor.Data["Target_Data"])
+            {
+                goto weenis;
+            }
+        }
+
         return weenor;
     }
 
@@ -618,7 +636,7 @@ public class Gamer : MonoBehaviour
     public void ToggleQuests()
     {
         checks[14] = !checks[14];
-        if (checks[14]) Tags.refs["QuestMenu"].GetComponent<QuestMenuUpdater>().FixedUpdate();
+        if (checks[14]) Tags.refs["QuestMenu"].GetComponent<QuestMenuUpdater>().OpenCum();
         UpdateMenus();
     }
     public void ToggleLogbook()
@@ -1510,6 +1528,7 @@ public class Gamer : MonoBehaviour
     {
         foreach(var quest in GISLol.Instance.Quests)
         {
+            if (quest.Data["Completed"] == "True") continue;
             if (quest.Data["Name"]== Name && quest.Data["Target_Data"] == Target)
             {
                 quest.Data["Progress"] = (int.Parse(quest.Data["Progress"]) + 1).ToString();
@@ -1784,6 +1803,10 @@ public class Gamer : MonoBehaviour
             con.slots[1].Held_Item = new GISItem();
             con.slots[2].Held_Item = new GISItem();
             con.slots[3].Held_Item = e;
+            if (e.Materials[0].GetName() != "Rock" && e.Materials[1].GetName() != "Rock" && e.Materials[2].GetName() != "Rock")
+            {
+                QuestProgressIncrease("Craft", e.ItemIndex);
+            }
         }
     }
 }

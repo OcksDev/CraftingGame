@@ -50,6 +50,11 @@ public class TextFromData : MonoBehaviour
             case "CountMax":
                 a = $"{Tags.refs["RightTrans"].transform.childCount}/{Gamer.CurrentFloor}";
                 break;
+            case "TimeUntilQuest":
+                var ff = (RandomFunctions.Instance.GetUnixTime());
+                var ff2 = (Gamer.Instance.TimeOfQuest+1) * 60 * 60 * 2;
+                a = $"Time Until Refresh: {Converter.TimeToRead((long)(ff2-ff))}";
+                break;
         }
 
         jessie.text = a;
