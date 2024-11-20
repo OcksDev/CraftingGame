@@ -70,6 +70,7 @@ public class INteractable : MonoBehaviour
                 g.checks[2] = false;
                 g.checks[11] = false;
                 g.cuumer.Open();
+                g.InitCraftMenu();
                 g.UpdateMenus();
                 break;
             case "Vault":

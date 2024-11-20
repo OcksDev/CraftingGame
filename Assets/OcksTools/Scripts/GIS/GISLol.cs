@@ -53,9 +53,9 @@ public class GISLol : MonoBehaviour
         }
     }
 
-    public bool AddVaultItem(GISItem item)
+    public bool AddVaultItem(GISItem item, bool CanQuestCount = false)
     {
-        Gamer.QuestProgressIncrease("Collect", item.ItemIndex);
+        if(CanQuestCount) Gamer.QuestProgressIncrease("Collect", item.ItemIndex);
         for(int i = 0; i < VaultItems.Count; i++)
         {
             var a = VaultItems.ElementAt(i);
@@ -883,7 +883,7 @@ public class QuestProgress
                     for(int i = 0; i < x; i++)
                     {
                         var item = new GISItem(Data["Reward_Data"]);
-                        GISLol.Instance.AddVaultItem(item);
+                        GISLol.Instance.AddVaultItem(item, true);
                     }
                     break;
             }

@@ -448,7 +448,7 @@ public class Gamer : MonoBehaviour
             }
             else if(checks[0])
             {
-                ToggleInventory();
+                ToggleInventory(true);
             }
             else if (checks[8])
             {
@@ -619,9 +619,10 @@ public class Gamer : MonoBehaviour
     }
 
     public static int EnemyCheckoffset = 0;
-    public void ToggleInventory()
+    public void ToggleInventory(bool overrides = false)
     {
         if (checks[0] && GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return;
+        if (checks[1] && !overrides) return;
         checks[0] = !checks[0];
         checks[1] = false;
         checks[11] = false;
@@ -1020,10 +1021,12 @@ public class Gamer : MonoBehaviour
     public void TextModeEnter()
     {
         InputManager.AddLockLevel("TextEntry");
+        InputManager.RemoveLockLevel("menu");
     }
     public void TextModeExit()
     {
         InputManager.RemoveLockLevel("TextEntry");
+        InputManager.AddLockLevel("menu");
     }
 
     public void ConfirmItemTrans()
@@ -1035,7 +1038,7 @@ public class Gamer : MonoBehaviour
         }
         foreach (var item in wankers)
         {
-            GISLol.Instance.AddVaultItem(item);
+            GISLol.Instance.AddVaultItem(item, true);
         }
         FadeToLobby();
     }
@@ -1777,37 +1780,73 @@ public class Gamer : MonoBehaviour
         return Chests[0];
     }
     public bool completetetge = false;
-    public void AttemptCraft()
+    public bool CanCurrentCraft()
     {
         var con = GISLol.Instance.All_Containers["Crafting"];
-        if (ItemNameInput.text != "" && con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft())
+        if (anim) return false;
+        return ItemNameInput.text != "" && con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft() && con.slots[3].Held_Item.ItemIndex == "Empty";
+    }
+    public void AttemptCraft()
+    {
+        if (CanCurrentCraft())
         {
-            var e = new GISItem();
-            e.ItemIndex = CraftSex;
-            e.Amount = 1;
-            e.CustomName = ItemNameInput.text;
-            ItemNameInput.text = "";
-            foreach (var ep in con.slots[0].Held_Item.Materials)
-            {
-                e.Materials.Add(ep);
-            }
-            foreach (var ep in con.slots[1].Held_Item.Materials)
-            {
-                e.Materials.Add(ep);
-            }
-            foreach (var ep in con.slots[2].Held_Item.Materials)
-            {
-                e.Materials.Add(ep);
-            }
-            con.slots[0].Held_Item = new GISItem();
-            con.slots[1].Held_Item = new GISItem();
-            con.slots[2].Held_Item = new GISItem();
-            con.slots[3].Held_Item = e;
-            if (e.Materials[0].GetName() != "Rock" && e.Materials[1].GetName() != "Rock" && e.Materials[2].GetName() != "Rock")
-            {
-                QuestProgressIncrease("Craft", e.ItemIndex);
-            }
+            StartCoroutine(CraftAnim());
         }
+    }
+    List<GISItem> mattertyeysys = new List<GISItem>();
+    public IEnumerator CraftAnim()
+    {
+        var con = GISLol.Instance.All_Containers["Crafting"];
+        string a = ItemNameInput.text;
+        mattertyeysys.Clear();
+        anim = true;
+        SpawnAnim(0);
+        SpawnAnim(1);
+        SpawnAnim(2);
+        yield return new WaitForSeconds(0.6f);
+        var e = new GISItem();
+        e.ItemIndex = CraftSex;
+        e.Amount = 1;
+        e.CustomName = a;
+        ItemNameInput.text = "";
+        foreach (var ep in mattertyeysys[0].Materials)
+        {
+            e.Materials.Add(ep);
+        }
+        foreach (var ep in mattertyeysys[1].Materials)
+        {
+            e.Materials.Add(ep);
+        }
+        foreach (var ep in mattertyeysys[2].Materials)
+        {
+            e.Materials.Add(ep);
+        }
+        con.slots[3].Held_Item = e;
+        if (e.Materials[0].GetName() != "Rock" && e.Materials[1].GetName() != "Rock" && e.Materials[2].GetName() != "Rock")
+        {
+            QuestProgressIncrease("Craft", e.ItemIndex);
+        }
+        anim = false;
+    }
+    public void SpawnAnim(int i)
+    {
+        var con = GISLol.Instance.All_Containers["Crafting"];
+        var weenor = Instantiate(ItemAnimThing, con.slots[i].transform.position, Quaternion.identity, Tags.refs["CrafterAnimHolder"].transform);
+        dienerds.Add(weenor);
+        var w2 = weenor.GetComponent<MeWhenYourMom>();
+        w2.target = con.slots[3].transform;
+        w2.speed = 9f;
+        if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
+        {
+            w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].ColorMod;
+        }
+        var aa = con.slots[i].Held_Item;
+        mattertyeysys.Add(aa);
+        con.slots[i].Held_Item = new GISItem();
+    }
+    public void InitCraftMenu()
+    {
+        anim = false;
     }
 }
 
