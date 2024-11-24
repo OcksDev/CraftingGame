@@ -13,6 +13,7 @@ public class BodyFollower : MonoBehaviour
     public List<CircleCollider2D> FollowersHitboxes = new List<CircleCollider2D>();
     public ParticleSystem IUNgoundidnd;
     public float FollowerDist = 1;
+    public Sprite TailIMg;
     private void Start()
     {
         Followers.Insert(0, transform);
@@ -21,6 +22,7 @@ public class BodyFollower : MonoBehaviour
     }
     public void SpawnNerds()
     {
+        var en = GetComponent<EntityOXS>();
         for(int i = 0; i < Amount; i++)
         {
             var a = Instantiate(thing, transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0), Quaternion.identity, Tags.refs["ParticleHolder"].transform).transform;
@@ -32,6 +34,11 @@ public class BodyFollower : MonoBehaviour
             weenor.radius = 0.55f;
             weenor.isTrigger = true;
             FollowersHitboxes.Add(weenor);
+            if(i == Amount - 1)
+            {
+                b.sprite = TailIMg;
+            }
+            en.additionalnerds.Add(b);
         }
     }
     void Update()
@@ -44,7 +51,7 @@ public class BodyFollower : MonoBehaviour
             var newd = targ + (targdir * FollowerDist);
             Followers[i].transform.position = newd;
             Followers[i].transform.rotation = RandomFunctions.PointAtPoint2D(newd, targ, 0);
-            FollowersHitboxes[i-1].offset = newd- Followers[0].position;
+            FollowersHitboxes[i-1].offset = Quaternion.Inverse(Followers[0].rotation) * (newd-Followers[0].position);
             wankisor.Add(true);
         }
     }
@@ -77,6 +84,7 @@ public class BodyFollower : MonoBehaviour
     {
         for (int i = 1; i < Followers.Count; i++)
         {
+            Instantiate(Gamer.Instance.ParticleSpawns[23], Followers[i].transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
             Destroy(Followers[i].gameObject);
         }
     }

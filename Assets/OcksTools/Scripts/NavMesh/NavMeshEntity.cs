@@ -53,12 +53,22 @@ public class NavMeshEntity : MonoBehaviour
     public double BaldDamage = 0f;
     private Animator anime;
     public float TurnSpeen = 0f;
+    bool CanChangeIMg = false;
     // Start is called before the first frame update
     public void Start()
     {
         curcycycle = Gamer.EnemyCheckoffset;
         Gamer.EnemyCheckoffset = RandomFunctions.Instance.Mod(Gamer.EnemyCheckoffset,8);
         if (AttackType == "Melee")sex2.Damage = Damage;
+        switch (EnemyType)
+        {
+            case "Worm":
+                CanChangeIMg = false;
+                break;
+            default:
+                CanChangeIMg = true;
+                break;
+        }
         if (!HasSpawned)
         {
             beans = GetComponent<NavMeshAgent>();
@@ -69,7 +79,7 @@ public class NavMeshEntity : MonoBehaviour
             transform.rotation = Quaternion.identity;
             beans.updateRotation = false;
             beans.updateUpAxis = false;
-            WantASpriteCranberry.flipX = Random.Range(0, 2) == 1;
+            if(CanChangeIMg)WantASpriteCranberry.flipX = Random.Range(0, 2) == 1;
             WantASpriteCranberry.sprite = SpriteVarients[Random.Range(0, SpriteVarients.Count)];
             BaldMaxHealth = EntityOXS.Max_Health;
             BaldDamage = Damage;
@@ -443,6 +453,9 @@ public class NavMeshEntity : MonoBehaviour
                                 StartCoroutine(SpiterSex());
                                 break;
                             case "EyeOrb":
+                                timer2 = 0;
+                                StartCoroutine(SnormSex());
+                                break;
                             case "Worm":
                                 timer2 = 0;
                                 StartCoroutine(EyeSex());
@@ -473,21 +486,34 @@ public class NavMeshEntity : MonoBehaviour
                     break;
             }
             TotalVelocity = beans.velocity + (Vector3)sex.velocity;
-            if (charging)
+            if (CanChangeIMg)
             {
-                WantASpriteCranberry.flipX = chargedir.x > 0 ^ FlipImage;
+                if (charging)
+                {
+                    WantASpriteCranberry.flipX = chargedir.x > 0 ^ FlipImage;
+                }
+                else
+                {
+                    if (Mathf.Abs(beans.velocity.x) > 0.1f)
+                        WantASpriteCranberry.flipX = beans.velocity.x > 0 ^ FlipImage;
+                    switch (EnemyType)
+                    {
+                        case "Cannon":
+                            anime.speed = TotalVelocity.magnitude / 2;
+                            break;
+                    }
+                }
             }
             else
             {
-                if (Mathf.Abs(beans.velocity.x) > 0.1f)
-                    WantASpriteCranberry.flipX = beans.velocity.x > 0 ^ FlipImage;
                 switch (EnemyType)
                 {
-                    case "Cannon":
-                        anime.speed = TotalVelocity.magnitude/2;
+                    case "Worm":
+                        transform.rotation = RandomFunctions.PointAtPoint2D(transform.position, transform.position + chargedir, 0);
                         break;
                 }
             }
+            
             if (target != null)
             {
                 beans.speed = movespeed;
@@ -679,6 +705,19 @@ public class NavMeshEntity : MonoBehaviour
         sex.velocity += (Vector2)w2;
         movespeed = f;
         timer2 = Random.Range(-0.25f, 0.25f);
+    }
+    public IEnumerator SnormSex()
+    {
+        float f = movespeed;
+        movespeed = 0;
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        SpawnBox(transform.position, wank);
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, 25));
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, -25));
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
+        movespeed = f;
+        yield return null;
     }
     public IEnumerator BatSex()
     {

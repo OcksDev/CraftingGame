@@ -25,6 +25,7 @@ public class EntityOXS : MonoBehaviour
     private DamageProfile lasthit;
     [HideInInspector]
     public List<DamageProfile> ricks = new List<DamageProfile>();
+    public List<SpriteRenderer> additionalnerds = new List<SpriteRenderer>();
     private void Start()
     {
         ren = GetComponent<SpriteRenderer>();
@@ -43,6 +44,7 @@ public class EntityOXS : MonoBehaviour
         {
             col = ren.color;
         }
+        additionalnerds.Insert(0, ren);
     }
     private double damagefromhit;
     public void Hit(DamageProfile hit)
@@ -271,7 +273,7 @@ public class EntityOXS : MonoBehaviour
         GameObject e = null;
         if (damagefromhit > 0)
         {
-            e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], (hit.IsSpecificPointOfDamage? transform.position + hit.SpecificPointOfDamage: transform.position) + new Vector3(Random.Range(-xx, xx), Random.Range(-yy, yy), 0), Quaternion.identity);
+            e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], (hit.IsSpecificPointOfDamage? transform.position + (transform.rotation * hit.SpecificPointOfDamage): transform.position) + new Vector3(Random.Range(-xx, xx), Random.Range(-yy, yy), 0), Quaternion.identity);
         }
         if (e != null)
         {
@@ -433,6 +435,9 @@ public class EntityOXS : MonoBehaviour
                     case "Cannon":
                         effect = 20;
                         break;
+                    case "Worm":
+                        effect = 23;
+                        break;
                     case "Slimer":
                         aa.EnableOnTrueSpawn[0].transform.parent = Tags.refs["ParticleHolder"].transform;
                         aa.EnableOnTrueSpawn[0].GetComponent<ParticleSystem>().Stop();
@@ -490,22 +495,28 @@ public class EntityOXS : MonoBehaviour
     private void Update()
     {
         if (AntiDieJuice) return;
-        if (ren != null)
+        if (additionalnerds.Count > 0)
         {
             curstatus = DamageTimer >= 0;
-            if(curstatus != oldstatus)
+            if (curstatus != oldstatus)
             {
-                if (sexy != null && sexy.EliteType != "")
+                var w1 = Gamer.Instance.sexex[DamageTimer >= 0 ? 3 : 2];
+                var w3 = Gamer.Instance.sexex[DamageTimer >= 0 ? 1 : 0];
+                foreach (var ren in additionalnerds)
                 {
-                    ren.material = Gamer.Instance.sexex[DamageTimer >= 0 ? 3 : 2];
-                    ren.material.color = Gamer.Instance.EliteTypesDict[sexy.EliteType].color;
-                    ren.material.SetFloat("_OutlineThickness", 1f / sexy.ImagePixelSize);
+                    if (sexy != null && sexy.EliteType != "")
+                    {
+                        var w2 = 1f / sexy.ImagePixelSize;
+                        ren.material = w1;
+                        ren.material.color = Gamer.Instance.EliteTypesDict[sexy.EliteType].color;
+                        ren.material.SetFloat("_OutlineThickness", w2);
+                    }
+                    else
+                    {
+                        ren.material = w3;
+                    }
+                    ren.color = DamageTimer >= 0 ? new Color32(255, 255, 255, 255) : col;
                 }
-                else
-                {
-                    ren.material = Gamer.Instance.sexex[DamageTimer >= 0 ? 1 : 0];
-                }
-                ren.color = DamageTimer >= 0 ? new Color32(255, 255, 255, 255) : col;
                 oldstatus = curstatus;
             }
         }

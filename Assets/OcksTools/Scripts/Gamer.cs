@@ -497,7 +497,8 @@ public class Gamer : MonoBehaviour
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
             //SaveSystem.Instance.SaveGame();
-            SpawnEnemy(EnemiesDos[12]);
+            var a = SpawnEnemy(EnemiesDos[12]);
+            a.EliteType = "Corrupted";
         }
 #endif
 
