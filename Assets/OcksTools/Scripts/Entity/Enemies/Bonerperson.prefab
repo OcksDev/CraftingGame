@@ -152,6 +152,7 @@ MonoBehaviour:
   sexy: {fileID: 0}
   healerstospawn: 1
   AntiDieJuice: 0
+  additionalnerds: []
 --- !u!58 &2284451541892325393
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -243,12 +244,13 @@ MonoBehaviour:
   BaldMoveSpeed: 0
   BaldAltMoveSpeed: 0
   BaldDamage: 0
+  TurnSpeen: 0
   distancetraveleleled: 0
   existing: 0
   ddist: 0
   charging: 0
   charging2: 0
-  alt_speed: 25
+  alt_speed: 20
   canseemysexybooty: 0
 --- !u!95 &286535096734906924
 Animator:
