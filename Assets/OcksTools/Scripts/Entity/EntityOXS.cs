@@ -271,7 +271,7 @@ public class EntityOXS : MonoBehaviour
         GameObject e = null;
         if (damagefromhit > 0)
         {
-            e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], transform.position + new Vector3(Random.Range(-xx, xx), Random.Range(-yy, yy), 0), Quaternion.identity);
+            e = RandomFunctions.Instance.SpawnObject(0, Tags.refs["DIC"], (hit.IsSpecificPointOfDamage? transform.position + hit.SpecificPointOfDamage: transform.position) + new Vector3(Random.Range(-xx, xx), Random.Range(-yy, yy), 0), Quaternion.identity);
         }
         if (e != null)
         {
@@ -666,6 +666,8 @@ public class DamageProfile
     public GISItem storeditem;
     public int storedticks = -69;
     public float ticktimer = 0;
+    public bool IsSpecificPointOfDamage = false;
+    public Vector3 SpecificPointOfDamage = Vector3.zero;
     public DamageProfile(string name, double damage)
     {
         Damage = damage;

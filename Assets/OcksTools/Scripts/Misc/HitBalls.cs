@@ -19,6 +19,7 @@ public class HitBalls : MonoBehaviour
     public ParticleSystem trail;
     public float hsh = 26.3f;
     private Dictionary<GameObject, int> hitdict = new Dictionary<GameObject, int>();
+    public List<EntityOXS> EnemeisPenis = new List<EntityOXS>();
 
 
     private void Start()
@@ -36,6 +37,8 @@ public class HitBalls : MonoBehaviour
 
     private void FixedUpdate()
     {
+        EnemeisPenis.Clear();
+        //
         switch (type)
         {
             case "Shuriken":
@@ -90,6 +93,7 @@ public class HitBalls : MonoBehaviour
 
             if ((shunk.type == "Enemy" || shunk.type == "Hitable") && !hite && !hitlist.Contains(collision.gameObject))
             {
+                if (shunk.entityoxs != null && EnemeisPenis.Contains(shunk.entityoxs)) return; 
                 bool sex = true;
                 float dist = 69;
                 if (type == "HitBox")
@@ -132,12 +136,15 @@ public class HitBalls : MonoBehaviour
                     dam.WasCrit = attackProfile.WasCrit;
                     dam.Knockback = 1f;
                     dam.attacker = playerController.gameObject;
+                    dam.IsSpecificPointOfDamage = true;
+                    dam.SpecificPointOfDamage = collision.offset;
                     if (type == "Arrow" || type == "Shuriken" || type == "Boomerang"|| type == "Missile")
                     {
                         dam.SpecificLocation = true;
                         dam.AttackerPos = type == "Arrow"?(transform.position + transform.rotation*Vector3.up*-1) : transform.position;
                     }
                     playerController.HitEnemy(e, dam);
+                    EnemeisPenis.Add(e);
                     switch (type)
                     {
                         case "Arrow":

@@ -935,6 +935,7 @@ public class PlayerController : MonoBehaviour
         {
             HitCollider.SetActive(true);
             HitCollider.GetComponent<HitBalls>().attackProfile = Shart;
+            HitCollider.GetComponent<HitBalls>().EnemeisPenis.Clear();
         }
 
         if (isrealowner && Gamer.IsMultiplayer)ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "PAtt", spawnData.Hidden_Data[0]);

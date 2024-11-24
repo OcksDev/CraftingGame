@@ -52,6 +52,7 @@ public class NavMeshEntity : MonoBehaviour
     [HideInInspector]
     public double BaldDamage = 0f;
     private Animator anime;
+    public float TurnSpeen = 0f;
     // Start is called before the first frame update
     public void Start()
     {
@@ -143,6 +144,9 @@ public class NavMeshEntity : MonoBehaviour
                 break;
             case "Fwog":
                 timer2 = AttackCooldown / 2;
+                break;
+            case "Worm":
+                TurnSpeen = alt_speed * 0.00833333333f;
                 break;
         }
         if(!HasSpawned)StartCoroutine(SpawningLol());
@@ -341,7 +345,7 @@ public class NavMeshEntity : MonoBehaviour
                         float ta3 = targetangle - curdie3;
                         if (Mathf.Abs(ta2) < Mathf.Abs(ta)) ta = -ta2;
                         if (Mathf.Abs(ta3) < Mathf.Abs(ta)) ta = -ta3;
-                        var diff = Mathf.Clamp(ta, -0.5f, 0.5f) * sexcum * 0.1f;
+                        var diff = Mathf.Clamp(ta, -0.5f, 0.5f) * sexcum * TurnSpeen;
                         var qwat = Quaternion.Euler(0, 0, diff);
                         chargedir = qwat * chargedir;
                     }
