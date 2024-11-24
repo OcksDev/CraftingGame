@@ -75092,7 +75092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.size
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.data[0]
@@ -75226,6 +75226,10 @@ PrefabInstance:
       propertyPath: ParticleSpawns.Array.data[22]
       value: 
       objectReference: {fileID: 3653482439093956654, guid: 0fe9c77fab57c93488117fd054723eea, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[23]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: e3848cae7f2420045bd9a23d2e57a5ad, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].Image
       value: 
