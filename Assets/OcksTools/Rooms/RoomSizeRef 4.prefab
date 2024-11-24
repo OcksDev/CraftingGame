@@ -146,6 +146,8 @@ MonoBehaviour:
     HasBottomDoor: 0
     RoomID: -1
   RelatedRooms: []
+  floors:
+  - {fileID: 5808220945695035771}
   gm: {fileID: 0}
   dist: 9.438574e+10
   isused: 0
@@ -164,7 +166,7 @@ GameObject:
   - component: {fileID: 3163550375115374705}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: RoomBG
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

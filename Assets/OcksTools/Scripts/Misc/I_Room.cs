@@ -7,6 +7,7 @@ public class I_Room : MonoBehaviour
     public Room room;
     public Room parent_room;
     public List<I_Room> RelatedRooms = new List<I_Room>();
+    public List<GameObject> floors = new List<GameObject>();
     public GameObject gm;
     public float dist = 94385740398;
     public string isused = "";

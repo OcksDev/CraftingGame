@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Furniture
   - Hitable
+  - RoomBG
   layers:
   - Default
   - TransparentFX

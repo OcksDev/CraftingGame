@@ -497,7 +497,7 @@ public class Gamer : MonoBehaviour
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
             //SaveSystem.Instance.SaveGame();
-            SpawnEnemy(EnemiesDos[7]);
+            SpawnEnemy(EnemiesDos[12]);
         }
 #endif
 
@@ -1479,6 +1479,45 @@ public class Gamer : MonoBehaviour
         }
         return x;
     }
+
+    public bool IsPosInBounds(Vector3 pos)
+    {
+        var a = Physics2D.RaycastAll(pos, Vector3.back);
+        bool inbounds = false;
+        foreach(var g in a)
+        {
+            var ob = GetObjectType(g.collider.gameObject);
+            switch (ob.type)
+            {
+                case "RoomBG":
+                    if(CurrentRoom != null)
+                    {
+                        foreach(var aaa in CurrentRoom.floors)
+                        {
+                            if(aaa == ob.gm)
+                            {
+                                inbounds = true;
+                                goto NextThing;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        inbounds = true;
+                    }
+                    break;
+                case "Wall":
+                    Debug.Log("WALL HIT");
+                    inbounds = false;
+                    goto exit;
+            }
+        NextThing:;
+        }
+        exit:
+        return inbounds;
+    }
+
+
     [HideInInspector]
     public I_Room OldCurrentRoom;
     public void BoomyRoomy()
@@ -1669,6 +1708,10 @@ public class Gamer : MonoBehaviour
                 e.entityoxs = shart.GetComponent<EntityOXS>();
             e.type = "Hitable";
             e.BlocksSpawn = true;
+        }
+        else if (shart.tag == "RoomBG")
+        {
+            e.type = "RoomBG";
         }
         return e;
     }

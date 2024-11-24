@@ -520,7 +520,15 @@ public class RandomFunctions : MonoBehaviour
         return Quaternion.RotateTowards(start_rot, target, max_speed);
     }
 
-    private Quaternion Point2D(float offset2, float spread)
+    public static Quaternion PointAtPoint2D(Vector3 from_pos, Vector3 to_pos, float offset2)
+    {
+        Vector3 difference = from_pos - to_pos;
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var sex = Quaternion.Euler(0f, 0f, rotation_z + offset2);
+        return sex;
+    }
+    private Quaternion PointAtPoint(float offset2, float spread)
     {
         //returns the rotation required to make the current gameobject point at the mouse, untested in 3D.
         var offset = UnityEngine.Random.Range(-spread, spread);

@@ -181,7 +181,9 @@ public class NavMeshEntity : MonoBehaviour
         }
         switch (EnemyType)
         {
-            case "Fwog":
+            case "Worm":
+                chargedir = Quaternion.Euler(0,0,Random.Range(-360f,360f)) * new Vector3(1, 0, 0);
+                GetComponent<BodyFollower>().SpawnNerds();
                 //EnableOnTrueSpawn[0].GetComponent<ParticleSystem>().Play();
                 break;
         }
@@ -266,6 +268,7 @@ public class NavMeshEntity : MonoBehaviour
                     }
                 }
                 break;
+            case "Worm":
             case "Fwog":
             case "Slimer":
                 transform.position += chargedir * alt_speed * Time.deltaTime;
@@ -276,10 +279,11 @@ public class NavMeshEntity : MonoBehaviour
     public float ddist;
     private Vector3 TotalVelocity = Vector3.zero;
     bool canrunattacktimer = true;
+    const float sexcum = 180 / Mathf.PI;
     // Update is called once per frame
     void FixedUpdate()
     {
-        curcycycle = (curcycycle + 1) % 8;
+        curcycycle = (curcycycle + 1) % (EnemyType=="Worm"? 3: 8);
         if (!HasSpawned) return;
         if (!existing)
         {
@@ -323,6 +327,25 @@ public class NavMeshEntity : MonoBehaviour
                     {
                         chargedir = (chargedir + (GetDir() - NoZ(transform.position)).normalized*0.08f).normalized;
                     }
+                    break;
+                case "Worm":
+                    if(target != null && !Gamer.Instance.IsPosInBounds(transform.position))
+                    {
+                        var pos = target.transform.position - transform.position;
+                        float curdie = Mathf.Atan2(chargedir.y, chargedir.x);
+                        float curdie2 = curdie - Mathf.PI;
+                        float curdie3 = curdie + Mathf.PI;
+                        float targetangle = Mathf.Atan2(pos.y, pos.x);
+                        float ta = targetangle - curdie;
+                        float ta2 = targetangle - curdie2;
+                        float ta3 = targetangle - curdie3;
+                        if (Mathf.Abs(ta2) < Mathf.Abs(ta)) ta = -ta2;
+                        if (Mathf.Abs(ta3) < Mathf.Abs(ta)) ta = -ta3;
+                        var diff = Mathf.Clamp(ta, -0.5f, 0.5f) * sexcum * 0.1f;
+                        var qwat = Quaternion.Euler(0, 0, diff);
+                        chargedir = qwat * chargedir;
+                    }
+
                     break;
                 case "Fwog":
                 case "Charger":
@@ -416,6 +439,7 @@ public class NavMeshEntity : MonoBehaviour
                                 StartCoroutine(SpiterSex());
                                 break;
                             case "EyeOrb":
+                            case "Worm":
                                 timer2 = 0;
                                 StartCoroutine(EyeSex());
                                 break;
@@ -519,6 +543,8 @@ public class NavMeshEntity : MonoBehaviour
                         {
                             beans.speed = movespeed * 2.5f;
                         }
+                        break;
+                    case "Worm":
                         break;
                     default:
                         beans.SetDestination(target.transform.position);
@@ -936,7 +962,7 @@ public class NavMeshEntity : MonoBehaviour
             if (OXComponent.GetComponent<PlayerController>(sexp) != null)
             {
                 canseemysexybooty = true;
-                fuckyouunity = 3;
+                fuckyouunity = (EnemyType == "Worm" ? 0 : 3);
             }
         }
         else
