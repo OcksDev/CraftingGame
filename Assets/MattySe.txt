@@ -9,7 +9,7 @@ X Slime: Slower attack speed, increased damage
 X Morkite: +10% movement speed
 - Bronze: +15% health
 - Jade: +25% shield gain
-- Aquart: +10% all healing
+X Aquart: +10% all healing
 X Amethyst: +25% attack speed, -10% move speed
 - Diamond: +35% damage, -20% (hyperbolic) attack speed
 - Red Stone: slight attack speed increase, +1 healing on hit, -5 max heath
@@ -38,7 +38,7 @@ X Glass (Custom Image Required)
 - Literally Fire
 X Zebrium (Zebra metal)
 - 3D print (solid orange color)
-- Branch (has leaves)
+X Branch (has leaves)
 - Green Grass (custom texture, white scale + color)
 - Red Grass
 - Blue Grass
