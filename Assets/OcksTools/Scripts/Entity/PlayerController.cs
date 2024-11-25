@@ -422,6 +422,10 @@ public class PlayerController : MonoBehaviour
             case "Void":
                 TotalDamageMod *= 1.1;
                 break;
+            case "Branch":
+                AttacksPerSecondMod *= 0.9f;
+                mainweapon.Luck += 0.5f;
+                break;
         }
         switch (matty.itemindex)
         {

@@ -488,6 +488,7 @@ public class GISItem
         CustomName = sexnut.CustomName;
         Materials = new List<GISMaterial>(sexnut.Materials);
         Run_Materials = new List<GISMaterial>(sexnut.Run_Materials);
+        Luck = sexnut.Luck;
         CompileItems();
     }
     private void setdefaultvals()

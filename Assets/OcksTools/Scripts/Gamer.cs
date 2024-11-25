@@ -498,7 +498,7 @@ public class Gamer : MonoBehaviour
         {
             //SaveSystem.Instance.SaveGame();
             var a = SpawnEnemy(EnemiesDos[12]);
-            a.EliteType = "Corrupted";
+            //a.EliteType = "Corrupted";
         }
 #endif
 
