@@ -1190,14 +1190,9 @@ public class Gamer : MonoBehaviour
         {
             SaveSystem.Instance.SaveCurrentRun();
         }
-        else if(CurrentFloor <= 1 && seed == 0)
+        else if(CurrentFloor <= 1)
         {
-            string dict = "weapons";
-            var c = GISLol.Instance.All_Containers["Equips"];
-            SaveSystem.Instance.SetString("Weapon1", c.slots[0].Held_Item.ItemToString(), dict);
-            SaveSystem.Instance.SetString("Weapon2", c.slots[1].Held_Item.ItemToString(), dict);
-            SaveSystem.Instance.SaveDataToFile(dict);
-            SaveSystem.Instance.SaveGame();
+            SaveCurrentWeapons();
         }
         List<I_Room> enders = new List<I_Room>();
         foreach (var e in RoomLol.Instance.SpawnedRoomsDos)
@@ -1259,6 +1254,17 @@ public class Gamer : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         titlething = StartCoroutine(TitleText());
     }
+
+    public void SaveCurrentWeapons()
+    {
+        string dict = "weapons";
+        var c = GISLol.Instance.All_Containers["Equips"];
+        SaveSystem.Instance.SetString("Weapon1", c.slots[0].Held_Item.ItemToString(), dict);
+        SaveSystem.Instance.SetString("Weapon2", c.slots[1].Held_Item.ItemToString(), dict);
+        SaveSystem.Instance.SaveDataToFile(dict);
+        SaveSystem.Instance.SaveGame();
+    }
+
     public IEnumerator TitleText(string ver = "")
     {
         float x = 0;

@@ -200,6 +200,7 @@ public class SaveSystem : MonoBehaviour
         string dict = "current_run";
         PlayerController.Instance.entit.Health = double.Parse(GetString("Health", "1", dict))* PlayerController.Instance.entit.Max_Health;
 
+        Gamer.Instance.SaveCurrentWeapons();
         var c = GISLol.Instance.All_Containers["Equips"];
         var we = new GISItem();
         we.StringToItem(GetString("Weapon1", "", dict));
