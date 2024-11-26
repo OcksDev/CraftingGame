@@ -216,7 +216,7 @@ MonoBehaviour:
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 10
+  Damage: 8
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: 1598183410, guid: 5c37c6038fcfd744c86960d7f6eb7190, type: 3}

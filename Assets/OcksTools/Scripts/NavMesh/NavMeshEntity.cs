@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Analytics;
 using UnityEngine.UIElements;
 using static Unity.Collections.AllocatorManager;
 
@@ -404,6 +405,10 @@ public class NavMeshEntity : MonoBehaviour
                                 timer2 = 0;
                                 StartCoroutine(SlimerSex());
                                 break;
+                            case "Wraith":
+                                timer2 = 0;
+                                StartCoroutine(WraithSex());
+                                break;
                         }
                     }
                     break;
@@ -688,6 +693,28 @@ public class NavMeshEntity : MonoBehaviour
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
         movespeed = f;
+        timer2 = Random.Range(-0.25f, 0.25f);
+    }
+    public IEnumerator WraithSex()
+    {
+        var targetpos = GetDir();
+
+        float dist = Mathf.Min(RandomFunctions.Instance.Dist(transform.position, targetpos)+2, alt_speed);
+
+        transform.position = transform.position + ((targetpos-transform.position).normalized * dist);
+        if (!canseemysexybooty) goto weeno;
+        yield return new WaitForSeconds(0.25f);
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        Vector3 off = new Vector3(0.782000005f, 0.144999996f, 0);
+        if (WantASpriteCranberry.flipX) off.x *= -1;
+        var wenis = Instantiate(box, transform.position+off, wank, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
+        weeno:
         timer2 = Random.Range(-0.25f, 0.25f);
     }
     public IEnumerator EyeSex()

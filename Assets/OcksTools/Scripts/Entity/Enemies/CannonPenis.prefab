@@ -152,6 +152,7 @@ MonoBehaviour:
   sexy: {fileID: 0}
   healerstospawn: 1
   AntiDieJuice: 0
+  additionalnerds: []
 --- !u!58 &2284451541892325393
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ MonoBehaviour:
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 12
+  Damage: 10
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: -235895546, guid: e93f629aac8932c409aced56342d831a, type: 3}
@@ -243,6 +244,8 @@ MonoBehaviour:
   BaldMoveSpeed: 0
   BaldAltMoveSpeed: 0
   BaldDamage: 0
+  TurnSpeen: 0
+  distancetraveleleled: 0
   existing: 0
   ddist: 0
   charging: 0

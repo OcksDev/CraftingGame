@@ -58,6 +58,7 @@ public class Gamer : MonoBehaviour
     public TMP_InputField ItemNameInput;
     public List<string> ItemPool = new List<string>();
     public bool CanInteractThisFrame;
+    public int EnemySpawnNumber = 0;
     public bool NextFloorButtonSexFuck = false;
     public bool NextShopButtonSexFuck = false;
     public GameObject ItemTranser;
@@ -497,7 +498,7 @@ public class Gamer : MonoBehaviour
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
             //SaveSystem.Instance.SaveGame();
-            var a = SpawnEnemy(EnemiesDos[12]);
+            var a = SpawnEnemy(EnemiesDos[EnemySpawnNumber]);
             //a.EliteType = "Corrupted";
         }
 #endif
