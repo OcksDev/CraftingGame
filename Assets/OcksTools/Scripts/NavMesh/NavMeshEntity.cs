@@ -697,15 +697,21 @@ public class NavMeshEntity : MonoBehaviour
     }
     public IEnumerator WraithSex()
     {
+        Instantiate(Gamer.Instance.ParticleSpawns[24], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+        var path = Instantiate(Gamer.Instance.ParticleSpawns[26], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
         var targetpos = GetDir();
 
         float dist = Mathf.Min(RandomFunctions.Instance.Dist(transform.position, targetpos)+2, alt_speed);
-
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
         transform.position = transform.position + ((targetpos-transform.position).normalized * dist);
+        Instantiate(Gamer.Instance.ParticleSpawns[25], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+        Console.Log($"Moved from {path.transform.position} to {transform.position}");
+        path.transform.position = transform.position;
         if (!canseemysexybooty) goto weeno;
         yield return new WaitForSeconds(0.25f);
         var wank = PointAtPoint2D(target.transform.position, 0);
-        Vector3 off = new Vector3(0.782000005f, 0.144999996f, 0);
+        Vector3 off = new Vector3(0, 0, 0);
         if (WantASpriteCranberry.flipX) off.x *= -1;
         var wenis = Instantiate(box, transform.position+off, wank, Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
