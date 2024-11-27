@@ -59,6 +59,7 @@ public class Gamer : MonoBehaviour
     public List<string> ItemPool = new List<string>();
     public bool CanInteractThisFrame;
     public int EnemySpawnNumber = 0;
+    public string EnemySpawnElite = "";
     public bool NextFloorButtonSexFuck = false;
     public bool NextShopButtonSexFuck = false;
     public GameObject ItemTranser;
@@ -499,7 +500,7 @@ public class Gamer : MonoBehaviour
         {
             //SaveSystem.Instance.SaveGame();
             var a = SpawnEnemy(EnemiesDos[EnemySpawnNumber]);
-            //a.EliteType = "Corrupted";
+            a.EliteType = EnemySpawnElite;
         }
 #endif
 
@@ -1247,13 +1248,17 @@ public class Gamer : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
 
-        nmr.BuildNavMesh();
+        SexMeSomeGigaFuck();
 
         completetetge = true;
 
         //compile end list
         yield return new WaitForSeconds(0.7f);
         titlething = StartCoroutine(TitleText());
+    }
+    public void SexMeSomeGigaFuck()
+    {
+        nmr.BuildNavMesh();
     }
 
     public void SaveCurrentWeapons()
@@ -1459,9 +1464,16 @@ public class Gamer : MonoBehaviour
 
     public Vector3 FindValidPos(I_Room originroom, NavMeshEntity wankw)
     {
-        var s = originroom.gm.transform;
-        var s1 = s.localScale / 2;
-        var x = s.position + new Vector3(Random.Range(-s1.x + 3f, s1.x - 3f), Random.Range(-s1.y + 3f, s1.y - 3f), 0);
+        Transform s = null;
+        Vector3 s1 = new Vector3(10,-10);
+        Vector3 pos = new Vector3(0, 0);
+        if(originroom != null && originroom.gm != null)
+        {
+            s = originroom.gm.transform;
+            s1 = s.localScale / 2;
+            pos = s.position;
+        }
+        var x = pos + new Vector3(Random.Range(-s1.x + 3f, s1.x - 3f), Random.Range(-s1.y + 3f, s1.y - 3f), 0);
         bool failed = false;
         if(RandomFunctions.Instance.Dist(x, PlayerController.Instance.transform.position) < 5)
         {

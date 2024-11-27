@@ -94,7 +94,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0d58a9d026ab4704fa6d6f4c409203ba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 280869c4a9f06384aac492c35bc3e513, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   Name: Wraith
   EnemyType: Wraith
   AttackType: Forever
-  ImagePixelSize: 24
+  ImagePixelSize: 36
   FlipImage: 0
   SpawnOverlapRadius: 1
   movespeed: 3
@@ -217,10 +217,10 @@ MonoBehaviour:
   Damage: 10
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
-  - {fileID: 21300000, guid: 0d58a9d026ab4704fa6d6f4c409203ba, type: 3}
+  - {fileID: 21300000, guid: 280869c4a9f06384aac492c35bc3e513, type: 3}
   SpriteMiscRefs: []
   EnableOnTrueSpawn: []
-  box: {fileID: 1894346058258269852, guid: 9498607ce0dfa6344bbd253f28008e8b, type: 3}
+  box: {fileID: 1894346058258269852, guid: 46783c73a7cf2bf498e3d3d342476628, type: 3}
   EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}

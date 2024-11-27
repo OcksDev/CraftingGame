@@ -17,7 +17,7 @@ public class EnemyHitShit : MonoBehaviour
         {
             return;
         }
-        if (type == "spitter" || type == "spik" || type == "edgworth")
+        if (type == "spitter" || type == "spik" || type == "edgworth"|| type == "cloak"|| type == "wra")
         {
             time -= Time.deltaTime;
             if (time <= 0) Kill();
@@ -87,7 +87,7 @@ public class EnemyHitShit : MonoBehaviour
             if(sexballs != null)dam.attacker = sexballs.gameObject;
             pp.entit.Hit(dam);
             hits.Add(pp);
-            if (type == "spitter"|| type == "cloak" || type == "spik" || type == "edgworth") Kill();
+            if (type == "spitter"|| type == "cloak" || type == "spik" || type == "edgworth" || type == "wra") Kill();
             switch (type)
             {
                 case "ball":
@@ -127,6 +127,9 @@ public class EnemyHitShit : MonoBehaviour
                     break;
                 case "edgworth":
                     Instantiate(g.ParticleSpawns[18], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                    break;
+                case "wra":
+                    Instantiate(g.ParticleSpawns[27], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                     break;
                 default:
                     Instantiate(g.ParticleSpawns[9], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);

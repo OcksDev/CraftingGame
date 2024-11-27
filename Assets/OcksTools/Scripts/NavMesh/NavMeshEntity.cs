@@ -407,6 +407,7 @@ public class NavMeshEntity : MonoBehaviour
                                 break;
                             case "Wraith":
                                 timer2 = 0;
+                                if(target != null)
                                 StartCoroutine(WraithSex());
                                 break;
                         }
@@ -706,10 +707,9 @@ public class NavMeshEntity : MonoBehaviour
         yield return new WaitForFixedUpdate();
         transform.position = transform.position + ((targetpos-transform.position).normalized * dist);
         Instantiate(Gamer.Instance.ParticleSpawns[25], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
-        Console.Log($"Moved from {path.transform.position} to {transform.position}");
         path.transform.position = transform.position;
         if (!canseemysexybooty) goto weeno;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.35f);
         var wank = PointAtPoint2D(target.transform.position, 0);
         Vector3 off = new Vector3(0, 0, 0);
         if (WantASpriteCranberry.flipX) off.x *= -1;

@@ -395,6 +395,9 @@ public class ConsoleLol : MonoBehaviour
                             break;
                     }
                     break;
+                case "navbuild":
+                    Gamer.Instance.SexMeSomeGigaFuck();
+                    break;
                 case "settimescale":
                     try
                     {
