@@ -518,6 +518,15 @@ public class EntityOXS : MonoBehaviour
                     ren.color = DamageTimer >= 0 ? new Color32(255, 255, 255, 255) : col;
                 }
                 oldstatus = curstatus;
+                if (!curstatus && sexy != null)
+                {
+                    switch (sexy.EnemyType)
+                    {
+                        case "Worm":
+                            GetComponent<BodyFollower>().ForceUpdateStatus();
+                            break;
+                    }
+                }
             }
         }
         DamageTimer -= Time.deltaTime;

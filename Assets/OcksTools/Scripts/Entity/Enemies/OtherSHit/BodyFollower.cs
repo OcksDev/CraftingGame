@@ -80,6 +80,28 @@ public class BodyFollower : MonoBehaviour
         }
     }
 
+    public void ForceUpdateStatus()
+    {
+        for (int i = 0; i < sPIRTETET.Count; i++)
+        {
+            bool wankis = Gamer.Instance.IsPosInBounds(Followers[i].position);
+            wankisor[i] = wankis;
+            sPIRTETET[i].color = wankis ? cols[0] : cols[1];
+            Instantiate(Gamer.Instance.ParticleSpawns[22], Followers[i].position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+            if (i == 0)
+            {
+                if (wankis)
+                {
+                    IUNgoundidnd.Stop();
+                }
+                else
+                {
+                    IUNgoundidnd.Play();
+                }
+            }
+        }
+    }
+
     private void OnDestroy()
     {
         for (int i = 1; i < Followers.Count; i++)

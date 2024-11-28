@@ -454,6 +454,10 @@ public class NavMeshEntity : MonoBehaviour
                                 timer2 = 0;
                                 StartCoroutine(CannonSex());
                                 break;
+                            case "Spitter2.0":
+                                timer2 = 0;
+                                StartCoroutine(Spiter2Sex());
+                                break;
                             case "Spitter":
                                 timer2 = 0;
                                 StartCoroutine(SpiterSex());
@@ -663,13 +667,34 @@ public class NavMeshEntity : MonoBehaviour
         movespeed = 0;
         yield return new WaitForSeconds(0.25f);
         SoundSystem.Instance.PlaySound(16, true, 0.1f);
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.07f);
         var wank = PointAtPoint2D(target.transform.position, 0);
         var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
         e.sexballs = this;
+        WantASpriteCranberry.sprite = SpriteVarients[0];
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
+        movespeed = f;
+        timer2 = Random.Range(-0.25f, 0.25f);
+    }
+    public IEnumerator Spiter2Sex()
+    {
+        WantASpriteCranberry.sprite = SpriteMiscRefs[0];
+        float f = movespeed;
+        movespeed = 0;
+        yield return new WaitForSeconds(0.20f);
+        SoundSystem.Instance.PlaySound(16, true, 0.1f, 0.5f);
+        yield return new WaitForSeconds(0.1f);
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        SpawnBox(transform.position, wank);
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, 25));
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, -25));
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, 50));
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, -50));
+
         WantASpriteCranberry.sprite = SpriteVarients[0];
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
