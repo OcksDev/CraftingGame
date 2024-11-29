@@ -469,7 +469,7 @@ public class PlayerController : MonoBehaviour
             if (InputManager.IsKeyDown(KeyCode.Alpha1, "player")) SwitchWeapon(0);
             else if (InputManager.IsKeyDown(KeyCode.Alpha2, "player")) SwitchWeapon(1);
             //scrollcool -= Time.deltaTime;
-            if(Input.mouseScrollDelta.y != 0 && !SaveSystem.Instance.NoScroll)
+            if(Input.mouseScrollDelta.y != 0 && !SaveSystem.Instance.NoScroll && Time.timeScale > 0.1f)
             {
                 scrollcool = 0.075f;
                 SwitchWeapon(selecteditem + (int)Input.mouseScrollDelta.y);
