@@ -2707,9 +2707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogBoxObject: {fileID: 1962915389}
   files:
-  - {fileID: 4900000, guid: e59274044828ab048b1da61466b60130, type: 3}
-  - {fileID: 4900000, guid: 5bf2fdb37f72e3b41b12953826947400, type: 3}
-  - {fileID: 4900000, guid: de4183e1df9ea0b49b4fbd123c093cb7, type: 3}
+  - {fileID: 4900000, guid: bad9e87ca2856b942b5be5e56c315d80, type: 3}
   chooses:
   - {fileID: 0}
   dialogmode: 0
