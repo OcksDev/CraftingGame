@@ -421,6 +421,10 @@ public class ConsoleLol : MonoBehaviour
                 case "clear":
                     BackLog = "";
                     break;
+                    
+                case "corrupt":
+                    CorruptionCode.Instance.CorruptTile(new Vector2Int((int)PlayerController.Instance.transform.position.x, (int)PlayerController.Instance.transform.position.y));
+                    break;
 
                 case "aaawwwdddsssawds":
                     //AAAWWWDDDSSSAWDS

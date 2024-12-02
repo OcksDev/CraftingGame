@@ -745,7 +745,11 @@ public class PlayerController : MonoBehaviour
         Instantiate(Gamer.Instance.ParticleSpawns[5], c.position, c.rotation, c);
         StartCoroutine(Dash(dir));
     }
-
+    float corrupttimer = 0;
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        corrupttimer -= Time.deltaTime;
+    }
     public IEnumerator Dash(Vector3 dir)
     {
         for(int i = 0; i < 7; i++)

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4946020246177621660}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Sexy
+  m_TagString: SexyDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5592552778303873460}
   m_Layer: 0
   m_Name: Square (2)
-  m_TagString: Sexy
+  m_TagString: SexyDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 4002469284532743767}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Sexy
+  m_TagString: SexyDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 8087357794119548076}
   m_Layer: 0
   m_Name: DoorLol
-  m_TagString: Sexy
+  m_TagString: SexyDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

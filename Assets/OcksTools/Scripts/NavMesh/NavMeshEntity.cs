@@ -619,6 +619,19 @@ public class NavMeshEntity : MonoBehaviour
             weenor.FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork();
         }
     }
+    private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    {
+        var weenor = Gamer.Instance.GetObjectType(collision.gameObject);
+        if (weenor.type == "Void")
+        {
+            if(EliteType != "Corrupted")
+            {
+                EliteType = "Corrupted";
+                EntityOXS.DamageTimer = 0.1f;
+                Start();
+            }
+        }
+    }
 
 
     public IEnumerator ChargeSex()

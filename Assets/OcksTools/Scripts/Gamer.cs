@@ -227,6 +227,7 @@ public class Gamer : MonoBehaviour
         }
         ShartPoop = 0;
         OXComponent.CleanUp();
+        StartCoroutine(CorruptionCode.Instance.ClearAllNerds());
     }
     public bool IsHost;
     public void LoadLobbyScene()
@@ -1500,7 +1501,7 @@ public class Gamer : MonoBehaviour
         return x;
     }
 
-    public bool IsPosInBounds(Vector3 pos)
+    public bool IsPosInBounds(Vector3 pos, bool GlobalCheck = false, bool IgnoreDoors = false)
     {
         var a = Physics2D.RaycastAll(pos, Vector3.back);
         bool inbounds = false;
@@ -1510,7 +1511,7 @@ public class Gamer : MonoBehaviour
             switch (ob.type)
             {
                 case "RoomBG":
-                    if(CurrentRoom != null)
+                    if(CurrentRoom != null && !GlobalCheck)
                     {
                         foreach(var aaa in CurrentRoom.floors)
                         {
@@ -1527,7 +1528,7 @@ public class Gamer : MonoBehaviour
                     }
                     break;
                 case "Wall":
-                    Debug.Log("WALL HIT");
+                    if(IgnoreDoors && ob.isdoor) goto NextThing;
                     inbounds = false;
                     goto exit;
             }
@@ -1689,10 +1690,11 @@ public class Gamer : MonoBehaviour
         {
             return e;
         }
-        if (shart.tag == "Sexy")
+        if (shart.tag == "Sexy" || shart.tag == "SexyDoor")
         {
             e.type = "Wall";
-            e.BlocksSpawn = true;
+            e.BlocksSpawn = true; 
+            e.isdoor = shart.tag == "SexyDoor";
         }
         else if (shart.tag == "PlayerNerd")
         {
@@ -1732,6 +1734,10 @@ public class Gamer : MonoBehaviour
         else if (shart.tag == "RoomBG")
         {
             e.type = "RoomBG";
+        }
+        else if (shart.tag == "Void")
+        {
+            e.type = "Void";
         }
         return e;
     }
@@ -1922,6 +1928,7 @@ public class ObjectType
     public EntityOXS entityoxs=null;
     public Furniture furniture = null;
     public bool BlocksSpawn = false;
+    public bool isdoor=  false;
     public event Gamer.JustFuckingRunTheMethods DoOnTouch;
 
     public void FuckYouJustGodDamnRunTheShittyFuckingDoOnTouchMethodsAlreadyIWantToStabYourEyeballsWithAFork()
