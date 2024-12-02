@@ -748,7 +748,16 @@ public class PlayerController : MonoBehaviour
     float corrupttimer = 0;
     private void OnTriggerStay2D(Collider2D collision)
     {
-        corrupttimer -= Time.deltaTime;
+        var weenor = Gamer.Instance.GetObjectType(collision.gameObject);
+        if (weenor.type == "Void")
+        {
+            if((corrupttimer -= Time.deltaTime) < 0)
+            {
+                corrupttimer = 0.8f;
+                var dam = new DamageProfile("Void", 5);
+                entit.Hit(dam);
+            }
+        }
     }
     public IEnumerator Dash(Vector3 dir)
     {
