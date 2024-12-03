@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6032996991623451846}
   - component: {fileID: 2066634969823971439}
   - component: {fileID: -8358102938962417887}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Corruptiojr
   m_TagString: Void
   m_Icon: {fileID: 0}

@@ -25,12 +25,12 @@ public class CorruptionCode : MonoBehaviour
         }
         var we = new Dictionary<Vector2Int, VoidTile>(allnerds);
         allnerds.Clear();
-        int amtper = 3;
+        int amtper = 1;
         int i = 0;
         foreach(var a in we)
         {
             i++;
-            Destroy(a.Value.VoidObject);
+            KillObj(a.Key, a.Value.VoidObject);
             if (i >= amtper)
             {
                 i = 0;
@@ -39,7 +39,11 @@ public class CorruptionCode : MonoBehaviour
         }
 
     }
-
+    public void KillObj(Vector2Int pos, GameObject VoidObject)
+    {
+        if(VoidObject != null) Destroy(VoidObject);
+        if(allnerds.ContainsKey(pos)) allnerds.Remove(pos);
+    }
 
     public void CorruptTile(Vector2Int pos)
     {
@@ -63,10 +67,11 @@ public class CorruptionCode : MonoBehaviour
             goto wa;
         }
         CompleteCorruption(pos);
+        goto skibidi;
         yield return new WaitForSeconds(maxtim);
         if (!allnerds.ContainsKey(pos))
         {
-            Destroy(ween.VoidObject);
+            KillObj(pos, ween.VoidObject);
             goto wa;
         }
         float minfade = 0.7f;
@@ -79,7 +84,7 @@ public class CorruptionCode : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
         if (!allnerds.ContainsKey(pos))
         {
-            Destroy(ween.VoidObject);
+            KillObj(pos, ween.VoidObject);
             goto wa;
         }
         c = aaa.color;
@@ -89,7 +94,7 @@ public class CorruptionCode : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
         if (!allnerds.ContainsKey(pos))
         {
-            Destroy(ween.VoidObject);
+            KillObj(pos, ween.VoidObject);
             goto wa;
         }
         c = aaa.color;
@@ -99,7 +104,7 @@ public class CorruptionCode : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
         if (!allnerds.ContainsKey(pos))
         {
-            Destroy(ween.VoidObject);
+            KillObj(pos, ween.VoidObject);
             goto wa;
         }
         c = aaa.color;
@@ -109,19 +114,19 @@ public class CorruptionCode : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
         if (!allnerds.ContainsKey(pos))
         {
-            Destroy(ween.VoidObject);
+            KillObj(pos, ween.VoidObject);
             goto wa;
         }
         c = aaa.color;
         c *= 0.84f;
         c.a = 1;
         aaa.color = c;
-
+        skibidi:
         ween.iscomplete = true;
         yield return new WaitForSeconds(8);
         if (!allnerds.ContainsKey(pos))
         {
-            Destroy(ween.VoidObject);
+            KillObj(pos, ween.VoidObject);
             goto wa;
         }
         List<Vector2Int> possy = new List<Vector2Int>() 
@@ -139,7 +144,7 @@ public class CorruptionCode : MonoBehaviour
         {
             foreach(var p in possy)
             {
-                Destroy(allnerds[p].VoidObject);
+                KillObj(p, allnerds[p].VoidObject);
                 allnerds.Remove(p);
             }
             ween.VoidObject.transform.localScale = new Vector3(3,3,1);
