@@ -21,7 +21,7 @@ public class CorruptionCode : MonoBehaviour
     {
         foreach(var a in allnerds)
         {
-            a.Value.VoidObject.SetActive(false);
+            a.Value.VoidObject.transform.position = new Vector3 (0, 1000000000, 10000);
         }
         var we = new Dictionary<Vector2Int, VoidTile>(allnerds);
         allnerds.Clear();
@@ -58,9 +58,17 @@ public class CorruptionCode : MonoBehaviour
         allnerds.Add(pos, ween);
         activenerds.Add(pos, ween);
         yield return new WaitForSeconds(ween.timer);
-
+        if (!allnerds.ContainsKey(pos))
+        {
+            goto wa;
+        }
         CompleteCorruption(pos);
         yield return new WaitForSeconds(maxtim);
+        if (!allnerds.ContainsKey(pos))
+        {
+            Destroy(ween.VoidObject);
+            goto wa;
+        }
         float minfade = 0.7f;
         float maxfade = 3f;
         var aaa = ween.VoidObject.GetComponent<SpriteRenderer>();
@@ -69,45 +77,84 @@ public class CorruptionCode : MonoBehaviour
         c.a = 1;
         aaa.color = c;
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
+        if (!allnerds.ContainsKey(pos))
+        {
+            Destroy(ween.VoidObject);
+            goto wa;
+        }
         c = aaa.color;
         c *= 0.92f;
         c.a = 1;
         aaa.color = c;
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
+        if (!allnerds.ContainsKey(pos))
+        {
+            Destroy(ween.VoidObject);
+            goto wa;
+        }
         c = aaa.color;
         c *= 0.90f;
         c.a = 1;
         aaa.color = c;
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
+        if (!allnerds.ContainsKey(pos))
+        {
+            Destroy(ween.VoidObject);
+            goto wa;
+        }
         c = aaa.color;
         c *= 0.87f;
         c.a = 1;
         aaa.color = c;
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
+        if (!allnerds.ContainsKey(pos))
+        {
+            Destroy(ween.VoidObject);
+            goto wa;
+        }
         c = aaa.color;
         c *= 0.84f;
         c.a = 1;
         aaa.color = c;
-        goto wa;
-        yield return new WaitForSeconds(0.3f);
-        c = aaa.color;
-        c *= 0.6f;
-        c.a = 1;
-        aaa.color = c;
-        yield return new WaitForSeconds(0.3f);
-        c = aaa.color;
-        c *= 0.5f;
-        c.a = 1;
-        aaa.color = c;
-        yield return new WaitForSeconds(0.3f);
-        c = aaa.color;
-        c *= 0.4f;
-        c.a = 1;
-        aaa.color = c;
-        yield return new WaitForSeconds(0.3f);
-        aaa.color = Color.black;
+
+        ween.iscomplete = true;
+        yield return new WaitForSeconds(8);
+        if (!allnerds.ContainsKey(pos))
+        {
+            Destroy(ween.VoidObject);
+            goto wa;
+        }
+        List<Vector2Int> possy = new List<Vector2Int>() 
+        {
+            pos + new Vector2Int(1, 1),
+            pos + new Vector2Int(-1, 1),
+            pos + new Vector2Int(1, -1),
+            pos + new Vector2Int(-1, -1),
+            pos + new Vector2Int(1, 0),
+            pos + new Vector2Int(-1, 0),
+            pos + new Vector2Int(0, 1),
+            pos + new Vector2Int(0, -1),
+        };
+        if (TileExists(possy[0]) && TileExists(possy[1]) && TileExists(possy[2]) && TileExists(possy[3]) && TileExists(possy[4]) && TileExists(possy[5]) && TileExists(possy[6]) && TileExists(possy[7]))
+        {
+            foreach(var p in possy)
+            {
+                Destroy(allnerds[p].VoidObject);
+                allnerds.Remove(p);
+            }
+            ween.VoidObject.transform.localScale = new Vector3(3,3,1);
+
+        }
+
+
     wa:;
     }
+
+    public bool TileExists(Vector2Int pos)
+    {
+        return allnerds.ContainsKey(pos);
+    }
+
 
     public static Vector3 twotothree(Vector2Int pos)
     {
@@ -119,7 +166,6 @@ public class CorruptionCode : MonoBehaviour
         activenerds.Remove(pos);
         var ween = allnerds[pos];
         ween.VoidObject= Instantiate(VoidObject, twotothree(pos), Quaternion.identity, Tags.refs["VoidHolder"].transform);
-        ween.iscomplete=true;
         CorruptTile(pos+new Vector2Int(0,1));
         CorruptTile(pos+new Vector2Int(0,-1));
         CorruptTile(pos+new Vector2Int(1,0));
