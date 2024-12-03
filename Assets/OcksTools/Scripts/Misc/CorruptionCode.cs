@@ -45,8 +45,8 @@ public class CorruptionCode : MonoBehaviour
     {
         StartCoroutine(cortile(pos));
     }
-    float maxtim = 3.5f;
-    float mintim = 1.2f;
+    float maxtim = 2f;
+    float mintim = 0.35f;
     private IEnumerator cortile(Vector2Int pos)
     {
         if (allnerds.ContainsKey(pos)) goto wa;
@@ -65,12 +65,7 @@ public class CorruptionCode : MonoBehaviour
         float maxfade = 3f;
         var aaa = ween.VoidObject.GetComponent<SpriteRenderer>();
         var c = aaa.color;
-        c *= 0.94f;
-        c.a = 1;
-        aaa.color = c;
-        yield return new WaitForSeconds(Random.Range(minfade, maxfade));
-        c = aaa.color;
-        c *= 0.93f;
+        c *= 0.92f;
         c.a = 1;
         aaa.color = c;
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
@@ -85,7 +80,12 @@ public class CorruptionCode : MonoBehaviour
         aaa.color = c;
         yield return new WaitForSeconds(Random.Range(minfade, maxfade));
         c = aaa.color;
-        c *= 0.88f;
+        c *= 0.87f;
+        c.a = 1;
+        aaa.color = c;
+        yield return new WaitForSeconds(Random.Range(minfade, maxfade));
+        c = aaa.color;
+        c *= 0.84f;
         c.a = 1;
         aaa.color = c;
         goto wa;
