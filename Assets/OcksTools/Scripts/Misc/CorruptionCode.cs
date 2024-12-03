@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -21,6 +22,7 @@ public class CorruptionCode : MonoBehaviour
     {
         foreach(var a in allnerds)
         {
+            if (a.Value.VoidObject != null)
             a.Value.VoidObject.transform.position = new Vector3 (0, 1000000000, 10000);
         }
         var we = new Dictionary<Vector2Int, VoidTile>(allnerds);
@@ -41,8 +43,9 @@ public class CorruptionCode : MonoBehaviour
     }
     public void KillObj(Vector2Int pos, GameObject VoidObject)
     {
-        if(VoidObject != null) Destroy(VoidObject);
-        if(allnerds.ContainsKey(pos)) allnerds.Remove(pos);
+        if(VoidObject != null)
+            VoidObject.SetActive(true);
+        if (allnerds.ContainsKey(pos)) allnerds.Remove(pos);
     }
 
     public void CorruptTile(Vector2Int pos)
@@ -159,7 +162,20 @@ public class CorruptionCode : MonoBehaviour
     {
         return allnerds.ContainsKey(pos);
     }
+    Dictionary<GameObject, int> sussypool = new Dictionary<GameObject, int>();
 
+    public GameObject PullFromPool(Vector2Int pos)
+    {
+        if(sussypool.Count > 0)
+        {
+            var a = sussypool.ElementAt(0);
+            a.Key.transform.localScale = Vector3.one;
+            sussypool.Remove(a.Key);
+            a.Key.SetActive(true);
+            return a.Key;
+        }
+        return Instantiate(VoidObject, twotothree(pos), Quaternion.identity, Tags.refs["VoidHolder"].transform);
+    }
 
     public static Vector3 twotothree(Vector2Int pos)
     {
@@ -170,7 +186,7 @@ public class CorruptionCode : MonoBehaviour
     {
         activenerds.Remove(pos);
         var ween = allnerds[pos];
-        ween.VoidObject= Instantiate(VoidObject, twotothree(pos), Quaternion.identity, Tags.refs["VoidHolder"].transform);
+        ween.VoidObject = PullFromPool(pos);
         CorruptTile(pos+new Vector2Int(0,1));
         CorruptTile(pos+new Vector2Int(0,-1));
         CorruptTile(pos+new Vector2Int(1,0));
