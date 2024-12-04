@@ -18,17 +18,14 @@ public class CorruptionCode : MonoBehaviour
     {
         Instance = this;
     }
+    int exi = 0;
     private void FixedUpdate()
     {
-        timtim = Time.deltaTime;
-        var th = new Thread(EEE);
-        th.Start();
-    }
-    private static float timtim;
-    public void EEE()
-    {
-
-        for (int i = 0; i < activenerds.Count; i++)
+        exi++;
+        int revs = 4;
+        exi %= revs;
+        float timtim = Time.deltaTime * revs;
+        for (int i = exi; i < activenerds.Count; i+=revs)
         {
             var tingle = activenerds.ElementAt(i).Value;
             if ((tingle.timer -= timtim) <= 0)
@@ -97,7 +94,7 @@ public class VoidTile
     public float timer = 0;
     public bool iscomplete = false;
     public bool isend = false;
-    public GameObject VoidObject;
+    public Tile TileMe;
 }
 /* v1
 public class CorruptionCode : MonoBehaviour

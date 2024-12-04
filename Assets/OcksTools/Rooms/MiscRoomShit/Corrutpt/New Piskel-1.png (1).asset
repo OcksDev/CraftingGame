@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New Piskel-1.png (1)
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: ede743369fd1c2c41b3d31218dc6a760, type: 3}
-  m_Color: {r: 0.28451225, g: 0, b: 0.4433962, a: 1}
+  m_Color: {r: 0.2627451, g: 0, b: 0.48235294, a: 1}
   m_Transform:
     e00: 1
     e01: 0
