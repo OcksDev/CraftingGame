@@ -3,8 +3,103 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using static UnityEditor.PlayerSettings;
 
+public class CorruptionCode : MonoBehaviour
+{
+    Dictionary<Vector3Int, VoidTile> allnerds = new Dictionary<Vector3Int, VoidTile>();
+    Dictionary<Vector3Int, VoidTile> activenerds = new Dictionary<Vector3Int, VoidTile>();
+    public Tilemap TM;
+    public TileBase VoidThing;
+
+    public static CorruptionCode Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+    private void FixedUpdate()
+    {
+        timtim = Time.deltaTime;
+        var th = new Thread(EEE);
+        th.Start();
+    }
+    private static float timtim;
+    public void EEE()
+    {
+
+        for (int i = 0; i < activenerds.Count; i++)
+        {
+            var tingle = activenerds.ElementAt(i).Value;
+            if ((tingle.timer -= timtim) <= 0)
+            {
+                TM.SetTile(tingle.pos, VoidThing);
+                CorruptTile(tingle.pos + new Vector3Int(1, 0, 0));
+                CorruptTile(tingle.pos + new Vector3Int(-1, 0, 0));
+                CorruptTile(tingle.pos + new Vector3Int(0, 1, 0));
+                CorruptTile(tingle.pos + new Vector3Int(0, -1, 0));
+                activenerds.Remove(tingle.pos);
+                i--;
+            }
+        }
+    }
+
+    public IEnumerator ClearAllNerds()
+    {
+        activenerds.Clear();
+        allnerds.Clear();
+        yield return null;
+        TM.ClearAllTiles();
+        yield break;
+    }
+    public string GetCurretHolder(int holder)
+    {
+        return $"VoidHolder{holder}";
+    }
+
+    public void CorruptTile(Vector3Int pos)
+    {
+        if (allnerds.ContainsKey(pos)) return;
+        if (!Gamer.Instance.IsPosInBounds(pos, true, true)) return;
+        var ween = new VoidTile();
+        ween.pos = pos;
+        ween.timer = Random.Range(mintim, maxtim);
+        allnerds.Add(pos, ween);
+        activenerds.Add(pos, ween);
+    }
+
+    float mintim = 0.35f;
+    float maxtim = 2f;
+    private static List<Vector2Int> nerdlocs = new List<Vector2Int>()
+    {
+        new Vector2Int(1,1),
+        new Vector2Int(1,-1),
+        new Vector2Int(-1,1),
+        new Vector2Int(-1,-1),
+        new Vector2Int(0,1),
+        new Vector2Int(0,-1),
+        new Vector2Int(1,0),
+        new Vector2Int(-1,0),
+    };
+    public static Vector3 twotothree(Vector2Int pos)
+    {
+        return new Vector3(pos.x, pos.y, 0);
+    }
+
+
+}
+
+
+public class VoidTile
+{
+    public Vector3Int pos;
+    public int stage = 0;
+    public float timer = 0;
+    public bool iscomplete = false;
+    public bool isend = false;
+    public GameObject VoidObject;
+}
+/* v1
 public class CorruptionCode : MonoBehaviour
 {
     Dictionary<Vector2Int, VoidTile> allnerds = new Dictionary<Vector2Int, VoidTile>();
@@ -66,7 +161,7 @@ public class CorruptionCode : MonoBehaviour
     private IEnumerator cortile(Vector2Int pos)
     {
         if (allnerds.ContainsKey(pos)) goto wa;
-        if(!Gamer.Instance.IsPosInBounds(twotothree(pos), true, true)) goto wa;
+       // if(!Gamer.Instance.IsPosInBounds(twotothree(pos), true, true)) goto wa;
         var ween = new VoidTile();
         ween.pos = pos;
         ween.timer = Random.Range(mintim, maxtim);
@@ -169,3 +264,4 @@ public class VoidTile
     public bool isend = false;
     public GameObject VoidObject;
 }
+*/

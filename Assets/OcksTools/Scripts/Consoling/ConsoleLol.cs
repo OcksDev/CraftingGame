@@ -423,7 +423,7 @@ public class ConsoleLol : MonoBehaviour
                     break;
                     
                 case "corrupt":
-                    CorruptionCode.Instance.CorruptTile(new Vector2Int((int)PlayerController.Instance.transform.position.x, (int)PlayerController.Instance.transform.position.y));
+                    CorruptionCode.Instance.CorruptTile(new Vector3Int((int)PlayerController.Instance.transform.position.x, (int)PlayerController.Instance.transform.position.y));
                     break;
 
                 case "aaawwwdddsssawds":
