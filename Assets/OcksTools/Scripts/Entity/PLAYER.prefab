@@ -307,6 +307,7 @@ MonoBehaviour:
   specialsharts: []
   trail: {fileID: 0}
   hsh: 26.3
+  EnemeisPenis: []
 --- !u!58 &2048564359178978501
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -439,7 +440,7 @@ Transform:
   - {fileID: 6193982676122008170}
   - {fileID: 1066387814657488983}
   m_Father: {fileID: 3786093809242686098}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5711173659826320584
 MonoBehaviour:
@@ -584,6 +585,7 @@ Transform:
   m_Children:
   - {fileID: 3033001111833298205}
   - {fileID: 1830576388047842341}
+  - {fileID: 8033358624047943428}
   - {fileID: 8759965893661416233}
   - {fileID: 7602808736849075482}
   - {fileID: 4971977308512331650}
@@ -616,6 +618,7 @@ MonoBehaviour:
   sexy: {fileID: 0}
   healerstospawn: 1
   AntiDieJuice: 0
+  additionalnerds: []
 --- !u!114 &3786093809242686097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,6 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
+  move_speed: 2
   Damage: 0
   WeaponDamageMod: 1
   TotalDamageMod: 1
@@ -639,6 +643,8 @@ MonoBehaviour:
   BowChargeSpeed: 1
   CritChance: 0.01
   MaxDashCooldown: 3
+  DamageTickTime: 3
+  BarrierBlockChance: 1
   RotationOverride: 0
   SwordFart: {fileID: 4699981174079926565}
   dicksplit: {fileID: 3033001111833298205}
@@ -667,6 +673,8 @@ MonoBehaviour:
     Materials: []
     Run_Materials: []
     Interacted_Containers: []
+    Luck: -1
+    BlockChance: 0
   entit: {fileID: 0}
   sexer: {fileID: 0}
   selecteditem: 0
@@ -681,8 +689,9 @@ MonoBehaviour:
   weewee: {fileID: 5711173659826320584}
   DeathDisable: 0
   hasaids: 0
-  weenis: {fileID: 5348337722062648516, guid: ab0ace673f5fbb7439e381d601c110d4, type: 3}
   IsDashing: 0
+  timersincedamage: 0
+  MaxTimeSinceDamageDealt: 0
 --- !u!114 &6584350868192443160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1873435979
+  GlobalObjectIdHash: 4157409539
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -851,6 +860,68 @@ Transform:
   m_Father: {fileID: 4699981174079926565}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3887787957530216177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8033358624047943428}
+  - component: {fileID: 96199580176287200}
+  - component: {fileID: 807168952945849837}
+  m_Layer: 23
+  m_Name: Circle (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8033358624047943428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887787957530216177}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3786093809242686098}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &96199580176287200
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887787957530216177}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.47
+--- !u!114 &807168952945849837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887787957530216177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ee07b70c9ccad4388bbac5532f1d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 3786093809242686097}
 --- !u!1 &4220264068934514932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,7 +1098,7 @@ Transform:
   m_Children:
   - {fileID: 8932404900202709776}
   m_Father: {fileID: 3786093809242686098}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5069659872662987114
 GameObject:
@@ -1060,7 +1131,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3786093809242686098}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6450118255509126218
 BoxCollider2D:
@@ -1110,6 +1181,7 @@ MonoBehaviour:
   specialsharts: []
   trail: {fileID: 0}
   hsh: 26.3
+  EnemeisPenis: []
 --- !u!1 &7118059998714274347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,7 +1295,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3786093809242686098}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -121.092}
 --- !u!1 &7935303766622380024
 GameObject:
@@ -1372,7 +1444,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3786093809242686098}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &784464415064613310
 BoxCollider2D:
@@ -1422,6 +1494,7 @@ MonoBehaviour:
   specialsharts: []
   trail: {fileID: 0}
   hsh: 26.3
+  EnemeisPenis: []
 --- !u!1 &9067443756659564030
 GameObject:
   m_ObjectHideFlags: 0

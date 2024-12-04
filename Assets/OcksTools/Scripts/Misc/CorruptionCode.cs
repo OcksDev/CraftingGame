@@ -13,6 +13,8 @@ public class CorruptionCode : MonoBehaviour
     public Tilemap TM;
     public TileBase VoidThing;
 
+    public Color[] colors = new Color[3];
+
     public static CorruptionCode Instance;
     private void Awake()
     {
@@ -28,15 +30,33 @@ public class CorruptionCode : MonoBehaviour
         for (int i = exi; i < activenerds.Count; i+=revs)
         {
             var tingle = activenerds.ElementAt(i).Value;
+
             if ((tingle.timer -= timtim) <= 0)
             {
-                TM.SetTile(tingle.pos, VoidThing);
-                CorruptTile(tingle.pos + new Vector3Int(1, 0, 0));
-                CorruptTile(tingle.pos + new Vector3Int(-1, 0, 0));
-                CorruptTile(tingle.pos + new Vector3Int(0, 1, 0));
-                CorruptTile(tingle.pos + new Vector3Int(0, -1, 0));
-                activenerds.Remove(tingle.pos);
-                i--;
+                switch (tingle.stage)
+                {
+                    case 0:
+                        TM.SetTile(tingle.pos, VoidThing);
+                        TM.SetTileFlags(tingle.pos, TileFlags.None);
+                        CorruptTile(tingle.pos + new Vector3Int(1, 0, 0));
+                        CorruptTile(tingle.pos + new Vector3Int(-1, 0, 0));
+                        CorruptTile(tingle.pos + new Vector3Int(0, 1, 0));
+                        CorruptTile(tingle.pos + new Vector3Int(0, -1, 0));
+                        tingle.stage++;
+                        tingle.timer = Random.Range(maxtim, maxtim+0.5f);
+                        break;
+                    case 3:
+                    case 2:
+                    case 1:
+                        TM.SetColor(tingle.pos, colors[tingle.stage]);
+                        tingle.stage++;
+                        tingle.timer = Random.Range(maxtim, maxtim + 0.5f);
+                        break;
+                    default:
+                        activenerds.Remove(tingle.pos);
+                        i--;
+                        break;
+                }
             }
         }
     }

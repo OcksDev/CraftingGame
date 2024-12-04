@@ -75287,6 +75287,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TM: {fileID: 1904359870}
   VoidThing: {fileID: 11400000, guid: be93ea709b3de4640bc8477f6d62c758, type: 2}
+  colors:
+  - {r: 0.2627451, g: 0, b: 0.48235294, a: 1}
+  - {r: 0.22363634, g: 0, b: 0.41, a: 1}
+  - {r: 0.19636363, g: 0, b: 0.36, a: 1}
+  - {r: 0.16516858, g: 0, b: 0.3, a: 1}
 --- !u!1 &2064939463
 GameObject:
   m_ObjectHideFlags: 0
