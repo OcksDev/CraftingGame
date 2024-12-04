@@ -24,7 +24,7 @@ public class CorruptionCode : MonoBehaviour
     private void FixedUpdate()
     {
         exi++;
-        int revs = 4;
+        int revs = 8;
         exi %= revs;
         float timtim = Time.deltaTime * revs;
         for (int i = exi; i < activenerds.Count; i+=revs)
