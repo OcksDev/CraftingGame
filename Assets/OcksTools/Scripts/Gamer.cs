@@ -150,7 +150,22 @@ public class Gamer : MonoBehaviour
         c2.a = 1;
         fader.color = c2;
         mainnerddeingle.Render();
+        AssembleRoomTypes();
     }
+
+    public void AssembleRoomTypes()
+    {
+        ValidRoomTypes = new List<RoomTypeHolder> 
+        { 
+            new RoomTypeHolder("Chest"),
+            new RoomTypeHolder("Chase The Orb"),
+            new RoomTypeHolder("Bullet Dodge"),
+            new RoomTypeHolder("Passcode"),
+            new RoomTypeHolder("Monster Crystal"),
+            new RoomTypeHolder("Shrine"),
+        };
+    }
+
     private void Start()
     {
         Tags.refs["BGblack"].SetActive(true);
@@ -1100,6 +1115,7 @@ public class Gamer : MonoBehaviour
     public static int CurrentFloor = 0;
     public void GeneralFloorChange()
     {
+        hascorrupted = false;
         OldCurrentRoom = null;
         GameState = "Game";
         Tags.refs["Lobby"].SetActive(false);
@@ -1173,6 +1189,8 @@ public class Gamer : MonoBehaviour
         ItemPool.Remove("Rock");
     }
 
+    public static List<RoomTypeHolder> ValidRoomTypes = new List<RoomTypeHolder>();
+
 
     public IEnumerator NextFloor(int seed = 0)
     {
@@ -1221,6 +1239,7 @@ public class Gamer : MonoBehaviour
         //Debug.Log("Endo Count: "+ endos.Count);
         rm.isused = "Start";
         PlayerController.Instance.transform.position = rm.transform.position;
+        playerstpos = rm.transform.position;
         enders.Remove(rm);
         endos.Remove(rm);
         var rm2 = FindEndRoom(rm);
@@ -1236,16 +1255,14 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.ppos = e2;
         CameraLol.Instance.targetpos = e2;
 
+        PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
+        yield return new WaitForFixedUpdate();
+
         foreach (var e in enders)
         {
-            var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
-            e.isused = "Chest";
-            var f = GetItemForLevel();
-            c.cuum = f;
-            spawnedchests.Add(c);
+            AssignRoomStuff(e);
         }
 
-        PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
 
         yield return new WaitForFixedUpdate();
 
@@ -1257,10 +1274,31 @@ public class Gamer : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         titlething = StartCoroutine(TitleText());
     }
+    [HideInInspector]
+    public Vector3 playerstpos;
+
     public void SexMeSomeGigaFuck()
     {
         nmr.BuildNavMesh();
     }
+
+    public void AssignRoomStuff(I_Room e)
+    {
+        var tp = ValidRoomTypes[GlobalRand.Next(0, ValidRoomTypes.Count)];
+        e.rth = tp;
+        switch (tp.Name)
+        {
+            default:
+                var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
+                e.isused = "Chest";
+                var f = GetItemForLevel();
+                c.cuum = f;
+                spawnedchests.Add(c);
+                break;
+        }
+        
+    }
+
 
     public void SaveCurrentWeapons()
     {
@@ -1339,9 +1377,12 @@ public class Gamer : MonoBehaviour
 
 
     long creditcount = 0;
+    bool hascorrupted = false;
     public IEnumerator StartRoom()
     {
         BoomyRoomy();
+
+
         yield return new WaitForSeconds(1.5f);
         float time = 1.5f;
         int wavesex = 3;
@@ -1373,6 +1414,11 @@ public class Gamer : MonoBehaviour
         CurrentRoom = null;
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         InRoom = false;
+        if (!hascorrupted && CurrentFloor > 1)
+        {
+            hascorrupted = true;
+            CorruptionCode.Instance.CorruptTile(new Vector3Int((int)playerstpos.x, (int)playerstpos.y));
+        }
     }
 
 
@@ -1978,4 +2024,23 @@ public class EliteTypeHolder
     public float CostMod = 1;
     [HideInInspector]
     public bool Enabled = false;
+}
+
+[System.Serializable]
+public class RoomTypeHolder
+{
+    public string Name = "Balls";
+    public bool IsPuzzleRoom = false;
+    public RoomTypeHolder(string name) 
+    {
+        Name = name;
+        switch (Name)
+        {
+            case "Chase The Orb":
+            case "Passcode":
+            case "Bullet Dodge":
+                IsPuzzleRoom = true;
+                break;
+        }
+    }
 }

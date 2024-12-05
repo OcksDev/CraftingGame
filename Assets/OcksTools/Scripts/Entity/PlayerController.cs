@@ -333,7 +333,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Axe":
                     AttacksPerSecond = 1.3f;
-                    Damage = 5f;
+                    Damage = 6f;
                     f = 1f;
                     fardedonhand = true;
                     f2 = 0.06f;
