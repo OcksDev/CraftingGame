@@ -1419,6 +1419,8 @@ public class Gamer : MonoBehaviour
             hascorrupted = true;
             CorruptionCode.Instance.CorruptTile(new Vector3Int((int)playerstpos.x, (int)playerstpos.y));
         }
+
+        //test
     }
 
 
