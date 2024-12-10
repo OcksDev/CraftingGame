@@ -159,10 +159,10 @@ public class Gamer : MonoBehaviour
         { 
             new RoomTypeHolder("Chest"),
             new RoomTypeHolder("Chase The Orb"),
-            new RoomTypeHolder("Bullet Dodge"),
-            new RoomTypeHolder("Passcode"),
-            new RoomTypeHolder("Monster Crystal"),
-            new RoomTypeHolder("Shrine"),
+            //new RoomTypeHolder("Bullet Dodge"),
+            //new RoomTypeHolder("Passcode"),
+            //new RoomTypeHolder("Monster Crystal"),
+            //new RoomTypeHolder("Shrine"),
         };
     }
 
@@ -1281,13 +1281,18 @@ public class Gamer : MonoBehaviour
     {
         nmr.BuildNavMesh();
     }
-
+    public GameObject OrbChaser;
     public void AssignRoomStuff(I_Room e)
     {
         var tp = ValidRoomTypes[GlobalRand.Next(0, ValidRoomTypes.Count)];
         e.rth = tp;
         switch (tp.Name)
         {
+            case "Chase The Orb":
+                var c2 = Instantiate(OrbChaser, e.transform.position, Quaternion.identity).GetComponent<CumChasser>();
+                c2.iroom = e;
+                e.isused = "Orb";
+                break;
             default:
                 var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
                 e.isused = "Chest";
