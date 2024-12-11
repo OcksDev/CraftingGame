@@ -290,6 +290,7 @@ public class Gamer : MonoBehaviour
             {"mats", new List<string>(GISLol.Instance.AllCraftables) },
             {"weapons", GISLol.Instance.AllWeaponNames },
             {"runes", GISLol.Instance.AllRunes },
+            {"rooms", new List<string>() },
         };
         dat["mats"].Remove("Rock");
         var weenor = new QuestProgress();
@@ -298,14 +299,21 @@ public class Gamer : MonoBehaviour
             "Collect",
             "Kill",
             "Craft",
+            "Room",
         };
         weenor.Data["Name"] = list[Random.Range(0, list.Count)];
+        var sexx = Random.Range(3, 6);
         switch (weenor.Data["Name"])
         {
+            case "Room":
+                foreach(var a in ValidRoomTypes)
+                {
+                    dat["rooms"].Add(a.Name);
+                }
+                break;
             default:
                 break;
         }
-        var sexx = Random.Range(3, 6);
         switch (weenor.Data["Name"])
         {
             case "Collect":
@@ -325,6 +333,12 @@ public class Gamer : MonoBehaviour
                 weenor.Data["Target_Amount"] = (sexx).ToString();
                 weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
                 weenor.Data["Reward_Amount"] = (sexx*2).ToString();
+                break;
+            case "Room":
+                weenor.Data["Target_Data"] = dat["rooms"][Random.Range(0, dat["rooms"].Count)];
+                weenor.Data["Target_Amount"] = (sexx*2).ToString();
+                weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
+                weenor.Data["Reward_Amount"] = (sexx).ToString();
                 break;
         }
 

@@ -30,6 +30,14 @@ public class QuestNerdBoi : MonoBehaviour
                 case "Collect": return $"Collect {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
                 case "Kill": return $"Kill {quest.Data["Target_Amount"]} enemies using weapons of type {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
                 case "Craft": return $"Craft {quest.Data["Target_Amount"]} weapons of type {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}, (Rock disqualifies craft)";
+                case "Room":
+                    switch (quest.Data["Target_Data"])
+                    {
+                        case "Chest":
+                            return $"Open {quest.Data["Target_Amount"]} Dungeon Chests";
+                        default:
+                        return $"Clear {quest.Data["Target_Amount"]} {quest.Data["Target_Data"]} rooms";
+                    }
                 default: return "";
             }
         };
@@ -56,6 +64,7 @@ public class QuestNerdBoi : MonoBehaviour
                     case "Collect": return $"Collected: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
                     case "Kill": return $"Slain: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
                     case "Craft": return $"Crafted: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
+                    case "Room": return $"Progress: {quest.Data["Progress"]}/{quest.Data["Target_Amount"]}";
                     default: return $"Incomplete";
                 }
             else
