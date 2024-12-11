@@ -11,13 +11,15 @@ public class DamIndi : MonoBehaviour
     public int critlevel = -1;
     public bool NoCLor = false;
     public float r = 0;
+    public float rmod = 1;
+    public float lifemod = 1;
     float size = 2;
     float spd = 3;
     public Color[] colors = new Color[0];
     public void Start()
     {
         float ee = 1.4f;
-        r = Random.Range(-ee, ee);
+        r = Random.Range(-ee, ee) * rmod;
         transform.localScale = new Vector3(2, 2, 2);
         if(critlevel > -1)
         {
@@ -49,7 +51,7 @@ public class DamIndi : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        t += Time.deltaTime * spd;
+        t += Time.deltaTime * spd * lifemod;
         transform.Rotate(0, 0, r);
         transform.position += transform.up * Time.deltaTime;
         float g = size / (t);

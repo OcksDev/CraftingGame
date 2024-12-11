@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9008532800970509908}
   - component: {fileID: -322564756568275846}
   - component: {fileID: -297667098886521330}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: CircelChase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iroom: {fileID: 0}
+  notif: {fileID: 8393889592928181090, guid: 9ffe39c75dab65342b979a316480a16f, type: 3}
+  amnt: 0
 --- !u!58 &-297667098886521330
 CircleCollider2D:
   m_ObjectHideFlags: 0
