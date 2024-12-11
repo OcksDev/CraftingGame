@@ -36,7 +36,7 @@ public class QuestNerdBoi : MonoBehaviour
                         case "Chest":
                             return $"Open {quest.Data["Target_Amount"]} Dungeon Chests";
                         default:
-                        return $"Clear {quest.Data["Target_Amount"]} {quest.Data["Target_Data"]} rooms";
+                        return $"Clear {quest.Data["Target_Amount"]} \"{quest.Data["Target_Data"]}\" rooms";
                     }
                 default: return "";
             }
@@ -87,6 +87,19 @@ public class QuestNerdBoi : MonoBehaviour
             Icon.item = dikl;
             Icon.UpdateDisplay();
             return;
+        }
+        if(boner == "Target")
+        {
+            switch (quest.Data["Name"])
+            {
+                case "Room":
+                    var sp = GISLol.Instance.ItemsDict["Trash"].Sprite;
+                    Icon.item = new GISItem();
+                    Icon.UpdateDisplay();
+                    Icon.displays[0].sprite = sp;
+                    Icon.amnt.text = $"x{Converter.NumToRead(quest.Data[$"{boner}_Amount"])}";
+                    return;
+            }
         }
         switch (quest.Data[$"{boner}_Type"])
         {

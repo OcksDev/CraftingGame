@@ -52,7 +52,24 @@ public class INteractable : MonoBehaviour
         if (Time.time < 0.2f) return;
         var w = Instantiate(Gamer.Instance.textShuingite, transform.position, Quaternion.identity, Tags.refs["DIC"].transform);
         var e = w.GetComponent<TextMeshProUGUI>();
-        e.text = InputManager.keynames[InputManager.gamekeys["interact"][0]];
+        string pon = InputManager.keynames[InputManager.gamekeys["interact"][0]];
+        switch (Type)
+        {
+            case "Chest":
+                if (Gamer.Instance.IsInShop)
+                {
+                    goto wank;
+                }
+                else
+                {
+                    e.text = $"5 Coins  [ {pon} ]";
+                }
+                break;
+            default:
+                wank:
+                e.text = $"[ {pon} ]";
+                break;
+        }
         DisplaySegsmcnugget = e;
     }
 
