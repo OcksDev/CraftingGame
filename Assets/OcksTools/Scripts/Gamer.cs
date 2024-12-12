@@ -27,6 +27,7 @@ public class Gamer : MonoBehaviour
     public List<GameObject> Chests = new List<GameObject>();
     public List<EliteTypeHolder> EliteTypes = new List<EliteTypeHolder>();
     public GameObject HealerGFooFO;
+    public GameObject CoinGFooFO;
     public NavMeshRefresher nmr;
     public Transform DoorHolder;
     public static bool IsMultiplayer = false;
@@ -1835,6 +1836,22 @@ public class Gamer : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             var wen = Instantiate(Gamer.Instance.HealerGFooFO, pos, transform.rotation, balls);
+            others.Add(wen);
+            OXComponent.StoreComponent<HealerFollower>(wen);
+            OXComponent.GetComponent<HealerFollower>(wen).SexChaser = target;
+        }
+        foreach (var other in others)
+        {
+            var h = OXComponent.GetComponent<HealerFollower>(other);
+            h.others = others;
+        }
+    }
+    public void SpawnCoins(Vector3 pos, int amount, PlayerController target)
+    {
+        List<GameObject> others = new List<GameObject>();
+        for (int i = 0; i < amount; i++)
+        {
+            var wen = Instantiate(Gamer.Instance.CoinGFooFO, pos, transform.rotation, balls);
             others.Add(wen);
             OXComponent.StoreComponent<HealerFollower>(wen);
             OXComponent.GetComponent<HealerFollower>(wen).SexChaser = target;

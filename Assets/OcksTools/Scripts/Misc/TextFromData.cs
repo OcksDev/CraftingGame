@@ -55,6 +55,9 @@ public class TextFromData : MonoBehaviour
                 var ff2 = (Gamer.Instance.TimeOfQuest+1) * 60 * 60 * 2;
                 a = $"Time Until Refresh: {Converter.TimeToRead((long)(ff2-ff))}";
                 break;
+            case "Coins":
+                a = PlayerController.Instance.Coins.ToString();
+                break;
         }
 
         jessie.text = a;

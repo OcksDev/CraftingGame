@@ -9,6 +9,7 @@ public class HealerFollower : MonoBehaviour
     public SpriteRenderer sex2;
     public Vector3 vel;
     public float sexer;
+    public bool IsCoin =false;
     // Update is called once per frame
 
     private void Start()
@@ -59,8 +60,15 @@ public class HealerFollower : MonoBehaviour
     {
         if (SexChaser != null)
         {
-            SexChaser.entit.Heal(5);
-            SoundSystem.Instance.PlaySound(5, true, 0.3f);
+            if (IsCoin)
+            {
+                PlayerController.Instance.AddCoin(1);
+            }
+            else
+            {
+                SexChaser.entit.Heal(5);
+                SoundSystem.Instance.PlaySound(5, true, 0.3f);
+            }
         }
         sexer = 0f;
         hadsexualencounterwithplayerandwasrapedfrombehindthensenttocounselingfortraumaandlackofballs = true;

@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float MaxDashCooldown = 3f;
     public float DamageTickTime = 3f;
     public float BarrierBlockChance = 1f;
+    public long Coins = 0;
     public bool RotationOverride = false;
     private Vector3 move = new Vector3(0, 0, 0);
     public Transform SwordFart;
@@ -130,7 +131,10 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(AidsFix());
     }
     private int sexcummersofthegigashit;
-
+    public void AddCoin(int coins)
+    {
+        Coins += coins;
+    }
     public IEnumerator AidsFix()
     {
         yield return null;
