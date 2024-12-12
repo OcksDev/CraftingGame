@@ -115,6 +115,7 @@ public class INteractable : MonoBehaviour
                 break;
             case "Chest":
                 Gamer.Instance.SpawnGroundItem(transform.position, cuum);
+                Gamer.QuestProgressIncrease("Room", "Chest");
                 Destroy(gameObject);
                 break;
         }

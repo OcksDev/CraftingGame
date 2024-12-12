@@ -93,7 +93,7 @@ public class QuestNerdBoi : MonoBehaviour
             switch (quest.Data["Name"])
             {
                 case "Room":
-                    var sp = GISLol.Instance.ItemsDict["Trash"].Sprite;
+                    var sp = GISLol.Instance.ItemsDict[quest.Data[$"{boner}_Data"]].Sprite;
                     Icon.item = new GISItem();
                     Icon.UpdateDisplay();
                     Icon.displays[0].sprite = sp;

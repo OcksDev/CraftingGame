@@ -235,15 +235,27 @@ public class Gamer : MonoBehaviour
         {
             Destroy(sex.gameObject);
         }
+        foreach (var sex in OXComponent.GetComponentsInChildren<partShitBall>(Tags.refs["ParticleHolder"]))
+        {
+            Destroy(sex.gameObject);
+        }
         foreach (var sex in StupidAssDoorDoohickies)
         {
             if (sex == null) continue;
             Destroy(sex);
         }
+        StupidAssDoorDoohickies.Clear();
+        foreach (var sex in KillMeOnRoomSex)
+        {
+            if (sex == null) continue;
+            Destroy(sex);
+        }
+        KillMeOnRoomSex.Clear();
         ShartPoop = 0;
         OXComponent.CleanUp();
         StartCoroutine(CorruptionCode.Instance.ClearAllNerds());
     }
+    public List<GameObject> KillMeOnRoomSex = new List<GameObject>();
     public bool IsHost;
     public void LoadLobbyScene()
     {
@@ -1306,6 +1318,7 @@ public class Gamer : MonoBehaviour
                 var c2 = Instantiate(OrbChaser, e.transform.position, Quaternion.identity).GetComponent<CumChasser>();
                 c2.iroom = e;
                 e.isused = "Orb";
+                KillMeOnRoomSex.Add(c2.gameObject);
                 break;
             default:
                 var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
