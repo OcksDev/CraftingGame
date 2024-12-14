@@ -9,6 +9,8 @@ public class INteractable : MonoBehaviour
     public float IneteractDistance = 3;
     public float TextOffsetDist = 3;
     public TextMeshProUGUI DisplaySegsmcnugget;
+    public GameObject Parente;
+
 
     private void OnDisable()
     {
@@ -113,10 +115,22 @@ public class INteractable : MonoBehaviour
             case "Item":
                 GetComponent<GroundItem>().AttemptPickup();
                 break;
+            case "ColorPass":
+                OXComponent.GetComponent<ColorRoomBanana>(Parente).ClickityMe(this);
+                break;
             case "Chest":
-                Gamer.Instance.SpawnGroundItem(transform.position, cuum);
-                Gamer.QuestProgressIncrease("Room", "Chest");
-                Destroy(gameObject);
+                bool pass = Gamer.Instance.IsInShop;
+                if (!pass && PlayerController.Instance.Coins >= 5)
+                {
+                    PlayerController.Instance.SpendCoin(5);
+                    pass = true;
+                }
+                if (pass)
+                {
+                    Gamer.Instance.SpawnGroundItem(transform.position, cuum);
+                    Gamer.QuestProgressIncrease("Room", "Chest");
+                    Destroy(gameObject);
+                }
                 break;
         }
     }

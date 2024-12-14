@@ -418,6 +418,7 @@ public class EntityOXS : MonoBehaviour
             case "Enemy":
                 SoundSystem.Instance.PlaySound(1, true, 0.7f, 1f);
 
+                Gamer.Instance.lastkillpos = transform.position;
 
                 int effect = -1;
                 var aa = OXComponent.GetComponent<NavMeshEntity>(gameObject);

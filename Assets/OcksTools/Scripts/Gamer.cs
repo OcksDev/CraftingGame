@@ -161,7 +161,7 @@ public class Gamer : MonoBehaviour
             new RoomTypeHolder("Chest"),
             new RoomTypeHolder("Chase The Orb"),
             //new RoomTypeHolder("Bullet Dodge"),
-            //new RoomTypeHolder("Passcode"),
+            new RoomTypeHolder("Passcode"),
             //new RoomTypeHolder("Monster Crystal"),
             //new RoomTypeHolder("Shrine"),
         };
@@ -1142,6 +1142,7 @@ public class Gamer : MonoBehaviour
     public static int CurrentFloor = 0;
     public void GeneralFloorChange()
     {
+        lastkillpos = Vector3.zero;
         hascorrupted = false;
         OldCurrentRoom = null;
         GameState = "Game";
@@ -1321,6 +1322,12 @@ public class Gamer : MonoBehaviour
                 e.isused = "Orb";
                 KillMeOnRoomSex.Add(c2.gameObject);
                 break;
+            case "Passcode":
+                var c3 = Instantiate(OrbChaser, e.transform.position, Quaternion.identity).GetComponent<CumChasser>();
+                c3.iroom = e;
+                e.isused = "Orb";
+                KillMeOnRoomSex.Add(c3.gameObject);
+                break;
             default:
                 var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
                 e.isused = "Chest";
@@ -1452,6 +1459,8 @@ public class Gamer : MonoBehaviour
             hascorrupted = true;
             CorruptionCode.Instance.CorruptTile(new Vector3Int((int)playerstpos.x, (int)playerstpos.y));
         }
+
+        SpawnCoins(lastkillpos, 1, PlayerController.Instance);
 
         //test
     }
@@ -1830,6 +1839,8 @@ public class Gamer : MonoBehaviour
         Gamer.Instance.spawneditemsformymassivesexyballs.Add(itema);
     }
 
+    [HideInInspector]
+    public Vector3 lastkillpos = new Vector3();
     public void SpawnHealers(Vector3 pos, int amount, PlayerController target)
     {
         List<GameObject> others = new List<GameObject>();

@@ -34,7 +34,7 @@ public class QuestNerdBoi : MonoBehaviour
                     switch (quest.Data["Target_Data"])
                     {
                         case "Chest":
-                            return $"Open {quest.Data["Target_Amount"]} Dungeon Chests";
+                            return $"Pay to open {quest.Data["Target_Amount"]} Dungeon Chests";
                         default:
                         return $"Clear {quest.Data["Target_Amount"]} \"{quest.Data["Target_Data"]}\" rooms";
                     }

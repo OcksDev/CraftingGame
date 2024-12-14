@@ -39,6 +39,7 @@ public class CumChasser : MonoBehaviour
         weenk.transform.position = iroom.transform.position;
         GetComponent<SpriteRenderer>().enabled = false;
         Gamer.QuestProgressIncrease("Room", "Chase The Orb");
+        Gamer.Instance.SpawnCoins(iroom.transform.position, 2, PlayerController.Instance);
         yield return new WaitForSeconds(0.6f);
         Destroy(weenk.gameObject);
         Destroy(gameObject);

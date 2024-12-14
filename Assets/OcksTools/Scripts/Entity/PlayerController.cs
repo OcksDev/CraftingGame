@@ -135,6 +135,10 @@ public class PlayerController : MonoBehaviour
     {
         Coins += coins;
     }
+    public void SpendCoin(int coins)
+    {
+        Coins -= coins;
+    }
     public IEnumerator AidsFix()
     {
         yield return null;
