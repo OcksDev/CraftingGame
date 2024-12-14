@@ -10,7 +10,7 @@ public class INteractable : MonoBehaviour
     public float TextOffsetDist = 3;
     public TextMeshProUGUI DisplaySegsmcnugget;
     public GameObject Parente;
-
+    public bool CanInteract = true;
 
     private void OnDisable()
     {
@@ -31,11 +31,11 @@ public class INteractable : MonoBehaviour
             e.z = 0;
             e2.z = 0;
             bool wanker = (e - e2).magnitude <= IneteractDistance + transform.localScale.x;
-            DisplaySegsmcnugget.gameObject.SetActive(wanker);
+            DisplaySegsmcnugget.gameObject.SetActive(CanInteract && wanker);
             if (wanker)
             {
                 DisplaySegsmcnugget.transform.position = transform.position + new Vector3(0, TextOffsetDist, 0);
-                if (InputManager.IsKeyDown("interact", "player"))
+                if (CanInteract && InputManager.IsKeyDown("interact", "player"))
                 {
                     Interact();
                 }
@@ -116,7 +116,10 @@ public class INteractable : MonoBehaviour
                 GetComponent<GroundItem>().AttemptPickup();
                 break;
             case "ColorPass":
-                OXComponent.GetComponent<ColorRoomBanana>(Parente).ClickityMe(this);
+                var wank = Parente.GetComponent<ColorRoomBanana>().ClickityMe(this);
+                break;
+            case "ColorPassStart":
+                Parente.GetComponent<ColorRoomBanana>().SrartThing();
                 break;
             case "Chest":
                 bool pass = Gamer.Instance.IsInShop;

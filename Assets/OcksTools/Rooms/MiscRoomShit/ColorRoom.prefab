@@ -98,10 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: ColorPass
-  IneteractDistance: 3
-  TextOffsetDist: 3
+  IneteractDistance: 2
+  TextOffsetDist: 1.5
   DisplaySegsmcnugget: {fileID: 0}
   Parente: {fileID: 7882002805762910198}
+  CanInteract: 0
   cuum:
     ItemIndex: Empty
     Amount: 0
@@ -210,10 +211,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: ColorPass
-  IneteractDistance: 3
-  TextOffsetDist: 3
+  IneteractDistance: 2
+  TextOffsetDist: 1.5
   DisplaySegsmcnugget: {fileID: 0}
   Parente: {fileID: 7882002805762910198}
+  CanInteract: 0
   cuum:
     ItemIndex: Empty
     Amount: 0
@@ -322,10 +324,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: ColorPass
-  IneteractDistance: 3
-  TextOffsetDist: 3
+  IneteractDistance: 2
+  TextOffsetDist: 1.5
   DisplaySegsmcnugget: {fileID: 0}
   Parente: {fileID: 7882002805762910198}
+  CanInteract: 0
   cuum:
     ItemIndex: Empty
     Amount: 0
@@ -518,10 +521,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: ColorPass
-  IneteractDistance: 3
-  TextOffsetDist: 3
+  IneteractDistance: 2
+  TextOffsetDist: 1.5
   DisplaySegsmcnugget: {fileID: 0}
   Parente: {fileID: 7882002805762910198}
+  CanInteract: 0
   cuum:
     ItemIndex: Empty
     Amount: 0
@@ -714,10 +718,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: ColorPass
-  IneteractDistance: 3
-  TextOffsetDist: 3
+  IneteractDistance: 2
+  TextOffsetDist: 1.5
   DisplaySegsmcnugget: {fileID: 0}
   Parente: {fileID: 7882002805762910198}
+  CanInteract: 0
   cuum:
     ItemIndex: Empty
     Amount: 0
@@ -775,6 +780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1448758391070671448}
   - component: {fileID: 2316440532238392470}
+  - component: {fileID: 8119563230596371195}
   m_Layer: 24
   m_Name: ColorRoom
   m_TagString: Untagged
@@ -833,6 +839,36 @@ MonoBehaviour:
   - {fileID: 2002396471262906623}
   - {fileID: 5306528447701042018}
   ints: 
+  displaysegsmcnugget: {fileID: 3331332828532554607}
+  ptrog: 0
+--- !u!114 &8119563230596371195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882002805762910198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc4c7dde3a1dce4d84600b8e0cc1a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: ColorPassStart
+  IneteractDistance: 2
+  TextOffsetDist: 1.5
+  DisplaySegsmcnugget: {fileID: 0}
+  Parente: {fileID: 7882002805762910198}
+  CanInteract: 1
+  cuum:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    Run_Materials: []
+    Interacted_Containers: []
+    Luck: -1
+    BlockChance: 0
 --- !u!1 &9079400438364843865
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,10 +967,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: ColorPass
-  IneteractDistance: 3
-  TextOffsetDist: 3
+  IneteractDistance: 2
+  TextOffsetDist: 1.5
   DisplaySegsmcnugget: {fileID: 0}
   Parente: {fileID: 7882002805762910198}
+  CanInteract: 0
   cuum:
     ItemIndex: Empty
     Amount: 0
