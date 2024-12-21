@@ -63,6 +63,7 @@ public class HealerFollower : MonoBehaviour
             if (IsCoin)
             {
                 PlayerController.Instance.AddCoin(1);
+                SoundSystem.Instance.PlaySound(19, true, 0.3f);
             }
             else
             {

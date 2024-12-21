@@ -45,10 +45,13 @@ public class ColorRoomBanana : MonoBehaviour
             SpawnParticle(me.transform.position, cd);
             Destroy(me.gameObject);
         }
-        yield return null;  
+        yield return new WaitForSeconds(0.3f);
+        Gamer.Instance.SpawnCoins(transform.position, 5, PlayerController.Instance);
+        Destroy(gameObject);
     }
     public void SrartThing()
     {
+        GetComponent<INteractable>().CanInteract = false;
         foreach(var t in refs)
         {
             t.CanInteract = true;
@@ -58,7 +61,7 @@ public class ColorRoomBanana : MonoBehaviour
     public IEnumerator PasscodeShow()
     {
         float wa = 0.4f;
-        float wa2 = 0.4f;
+        float wa2 = 0.6f;
         var disck = displaysegsmcnugget.GetComponent<SpriteRenderer>();
         foreach (var item in ints)
         {
@@ -67,6 +70,7 @@ public class ColorRoomBanana : MonoBehaviour
             disck.color = OXComponent.GetComponent<SpriteRenderer>(refs[item].gameObject).color;
             yield return new WaitForSeconds(wa2);
         }
+        disck.color = new Color32(255, 255, 255, 30);
     }
 
     public void SpawnParticle(Vector3 pos, Color32 cl)

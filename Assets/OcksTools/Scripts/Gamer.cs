@@ -1310,6 +1310,7 @@ public class Gamer : MonoBehaviour
         nmr.BuildNavMesh();
     }
     public GameObject OrbChaser;
+    public GameObject PasscodeSex;
     public void AssignRoomStuff(I_Room e)
     {
         var tp = ValidRoomTypes[GlobalRand.Next(0, ValidRoomTypes.Count)];
@@ -1323,10 +1324,9 @@ public class Gamer : MonoBehaviour
                 KillMeOnRoomSex.Add(c2.gameObject);
                 break;
             case "Passcode":
-                var c3 = Instantiate(OrbChaser, e.transform.position, Quaternion.identity).GetComponent<CumChasser>();
-                c3.iroom = e;
-                e.isused = "Orb";
-                KillMeOnRoomSex.Add(c3.gameObject);
+                var c3 = Instantiate(PasscodeSex, e.transform.position, Quaternion.identity, Tags.refs["NavMesh"].transform);
+                e.isused = "Passcode";
+                KillMeOnRoomSex.Add(c3);
                 break;
             default:
                 var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
