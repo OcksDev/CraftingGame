@@ -21,6 +21,7 @@ public class Gamer : MonoBehaviour
     public Camera mainnerddeingle;
     public GameObject textShuingite;
     public List<GISContainer> ballers = new List<GISContainer>();
+    public List<Sprite> floordinglers = new List<Sprite>();
     public List<EnemyHolder> EnemiesDos = new List<EnemyHolder>();
     public List<PlayerController> Players = new List<PlayerController>();
     public List<NavMeshEntity> EnemiesExisting = new List<NavMeshEntity>();
@@ -262,12 +263,12 @@ public class Gamer : MonoBehaviour
     {
         InputManager.SetLockLevel("");
         GeneralFloorChange();
-        Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "StartGame";
         GameState = "Lobby";
         InRoom = false;
         CurrentRoom = null;
         OldCurrentRoom = null;
         Tags.refs["NextFloor"].transform.position = new Vector3(11.51f, 0, 0);
+        Tags.refs["NextShop"].transform.position = new Vector3(100000, 100000, 0);
         Tags.refs["Lobby"].SetActive(true);
         Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
         if (IsMultiplayer)
@@ -433,6 +434,7 @@ public class Gamer : MonoBehaviour
         }
         Tags.refs["Lobby"].SetActive(false);
         Tags.refs["NextFloor"].SetActive(false);
+        Tags.refs["NextShop"].SetActive(false);
         Time.timeScale = 1;
         ShartPoop = 0f;
         ClearMap();
@@ -1157,6 +1159,7 @@ public class Gamer : MonoBehaviour
         UpdateMenus();
         AssembleItemPool();
         Tags.refs["NextFloor"].SetActive(true);
+        Tags.refs["NextShop"].SetActive(true);
         if (titlething != null) StopCoroutine(titlething);
     }
     public bool IsInShop = false;
@@ -1186,7 +1189,7 @@ public class Gamer : MonoBehaviour
 
         UpdateMenus();
         Tags.refs["NextFloor"].transform.position = new Vector3(11.5100002f, 0, -4.4000001f);
-        Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "StartGame";
+        Tags.refs["NextShop"].transform.position = new Vector3(100000, 100000, 0);
         yield return new WaitForSeconds(0.5f);
 
         titlething = StartCoroutine(TitleText("Shop"));
@@ -1272,8 +1275,13 @@ public class Gamer : MonoBehaviour
         endos.Remove(rm);
         var rm2 = FindEndRoom(rm);
         rm2.isused = "End";
-        Tags.refs["NextFloor"].transform.position = rm2.transform.position;
-        Tags.refs["NextFloor"].GetComponent<INteractable>().Type = "NextShop";
+        Tags.refs["NextShop"].transform.position = rm2.transform.position;
+        Tags.refs["NextFloor"].transform.position = new Vector3(100000, 100000, 0);
+        if(CurrentFloor > 1)
+        {
+            Tags.refs["NextShop"].transform.position = rm2.transform.position + new Vector3(5,0,0);
+            Tags.refs["NextFloor"].transform.position = rm2.transform.position + new Vector3(-5, 0, 0);
+        }
         enders.Remove(rm2);
         endos.Remove(rm2);
         var e2 = CameraLol.Instance.transform.position;
