@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float MaxDashCooldown = 3f;
     public float DamageTickTime = 3f;
     public float BarrierBlockChance = 1f;
+    public double DamageOnAttack = 0;
     public long Coins = 0;
     public bool RotationOverride = false;
     private Vector3 move = new Vector3(0, 0, 0);
@@ -309,6 +310,7 @@ public class PlayerController : MonoBehaviour
         MaxTimeSinceDamageDealt = 1f;
         MaxDashCooldown = BaseDashCooldown;
         RotationOverride = false;
+        DamageOnAttack = 0;
         //deprecated
         MaxBowMult = 1.5f;
         BowChargeSpeed = 1.5f;
@@ -394,6 +396,10 @@ public class PlayerController : MonoBehaviour
             case "Glass":
                 WeaponDamageMod *= 1.2f;
                 helth *= 0.85f;
+                break;
+            case "Infused Rock":
+                WeaponDamageMod *= 1.15f;
+                DamageOnAttack += 1;
                 break;
             case "Amethyst":
                 MaxDashCooldown *= 0.85f;
@@ -799,6 +805,11 @@ public class PlayerController : MonoBehaviour
         Projectile s4;
 
         fardedonhand = false;
+
+        if(DamageOnAttack > 0 && (entit.Health + 1 > DamageOnAttack))
+        {
+            entit.Health -= DamageOnAttack;
+        }
 
         DamageProfile Shart = GetDamageProfile();
         //Debug.Log($"D: {CritChance}, {GetItem("critglass")}, {Shart.PreCritted}, {Shart.CalcDamage()}");

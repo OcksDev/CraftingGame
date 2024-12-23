@@ -147,8 +147,8 @@ public class EntityOXS : MonoBehaviour
                     {
                         if (PlayerController.Instance == s2)
                         {
-                            CameraLol.Instance.Shake(wasticked?0.1f:0.4f, 0.87f);
-                            Gamer.Instance.ShartPoop += wasticked ? 0.1f:0.4f;
+                            CameraLol.Instance.Shake(wasticked || hit.Name == "nono" ? 0.1f:0.4f, 0.87f);
+                            Gamer.Instance.ShartPoop += wasticked || hit.Name == "nono" ? 0.1f:0.4f;
                         }
                         Shield -= damagefromhit;
                         if (Shield < 0)
@@ -184,11 +184,11 @@ public class EntityOXS : MonoBehaviour
                 }
                 if (block)
                 {
-                    SoundSystem.Instance.PlaySound(6, true, wasticked? 0.2f:0.5f, 0.75f);
+                    SoundSystem.Instance.PlaySound(6, true, wasticked || hit.Name == "nono" ? 0.2f:0.5f, 0.75f);
                 }
                 else
                 {
-                    SoundSystem.Instance.PlaySound(4, true, wasticked ? 0.28f:0.7f, 1f);
+                    SoundSystem.Instance.PlaySound(4, true, wasticked||hit.Name=="nono" ? 0.28f:0.7f, 1f);
                 }
 
                 break;
