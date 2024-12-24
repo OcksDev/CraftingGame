@@ -20,9 +20,11 @@ public class GISLol : MonoBehaviour
     public List<GISItem_Data> Items = new List<GISItem_Data>();
     public List<GISMaterial_Data> Materials = new List<GISMaterial_Data>();
     public List<EntityEffect_Data> Effects = new List<EntityEffect_Data>();
+    public List<Skill_Data> Skills = new List<Skill_Data>();
     public Dictionary<string, GISItem_Data> ItemsDict = new Dictionary<string, GISItem_Data>();
     public Dictionary<string, GISMaterial_Data> MaterialsDict = new Dictionary<string, GISMaterial_Data>();
     public Dictionary<string, EntityEffect_Data> EffectsDict = new Dictionary<string, EntityEffect_Data>();
+    public Dictionary<string, Skill_Data> SkillsDict = new Dictionary<string, Skill_Data>();
     public List<string> AllWeaponNames = new List<string>();
     public List<string> AllCraftables = new List<string>();
     public List<string> AllRunes = new List<string>();
@@ -808,7 +810,13 @@ public class GISMaterial_Data
 [Serializable]
 public class EntityEffect_Data
 {
-    //this is what holds all of the base data for a general material
+    public string Name = "Null";
+    public Sprite Image;
+}
+
+[Serializable]
+public class Skill_Data
+{
     public string Name = "Null";
     public Sprite Image;
 }
@@ -897,3 +905,19 @@ public class QuestProgress
 }
 
 
+public class Skill
+{
+    public string Name;
+    public float Timer = 0;
+
+
+    public string SkillToString()
+    {
+        return Name;
+    }
+    public void StringToSkill(string a)
+    {
+        Name = a;
+    }
+
+}

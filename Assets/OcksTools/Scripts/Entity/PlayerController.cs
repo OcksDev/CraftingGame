@@ -599,6 +599,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (DeathDisable) return;
+
+        if(Gamer.GameState == "Lobby")
+        {
+            entit.Health = entit.Max_Health;
+        }
+
         if(!isrealowner && HasLoadedWeapon && network_helditem.GetValue() != oldval)
         {
             oldval = network_helditem.GetValue();

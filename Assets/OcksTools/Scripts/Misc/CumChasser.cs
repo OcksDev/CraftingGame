@@ -33,8 +33,11 @@ public class CumChasser : MonoBehaviour
     {
         weenk = Instantiate(Gamer.Instance.ParticleSpawns[29], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform).transform;
     }
+    bool stap = false;
     public IEnumerator Cumplete()
     {
+        if (stap) goto endme;
+        stap = true;
         Gamer.Instance.SpawnGroundItem(iroom.transform.position, Gamer.Instance.GetItemForLevel());
         weenk.transform.position = iroom.transform.position;
         GetComponent<SpriteRenderer>().enabled = false;
@@ -43,6 +46,7 @@ public class CumChasser : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         Destroy(weenk.gameObject);
         Destroy(gameObject);
+    endme:;
     }
 
 
