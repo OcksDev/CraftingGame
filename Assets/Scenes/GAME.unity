@@ -18609,7 +18609,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -22.300049, y: 100.5}
+  m_AnchoredPosition: {x: -22.300049, y: 127.29999}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &659388919
@@ -61270,7 +61270,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -161, y: 53}
+  m_AnchoredPosition: {x: -173.70001, y: 69.099976}
   m_SizeDelta: {x: 310.12, y: 71.82001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1541728100
@@ -61291,10 +61291,10 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 8
-  m_StartCorner: 3
+  m_StartCorner: 2
   m_StartAxis: 0
   m_CellSize: {x: 59.443, y: 59.443}
-  m_Spacing: {x: 3.38, y: 0}
+  m_Spacing: {x: 22.63, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1 &1545994086
@@ -77256,6 +77256,10 @@ PrefabInstance:
       value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Skills.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Effects.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -77500,6 +77504,10 @@ PrefabInstance:
       value: Branch
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Skills.Array.data[0].Name
+      value: Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Effects.Array.data[0].Name
       value: Collapse
       objectReference: {fileID: 0}
@@ -77559,6 +77567,10 @@ PrefabInstance:
       propertyPath: Items.Array.data[9].Sprite
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Skills.Array.data[0].Image
+      value: 
+      objectReference: {fileID: 21300000, guid: 3cace273289fb9d4196fe4d9c842b199, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: attributecolors.Array.size
       value: 5
@@ -78216,6 +78228,10 @@ PrefabInstance:
       value: Shungite
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Skills.Array.data[0].Cooldown
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[10].MaxAmount
       value: 1
       objectReference: {fileID: 0}
@@ -78385,6 +78401,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[52].MaxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Skills.Array.data[0].MaxStacks
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}

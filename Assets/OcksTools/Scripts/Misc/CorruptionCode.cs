@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static UnityEditor.PlayerSettings;
 
 public class CorruptionCode : MonoBehaviour
 {

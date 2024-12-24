@@ -92,6 +92,11 @@ public class GISLol : MonoBehaviour
             EffectsDict.Add(a.Name, a);
         }
 
+        foreach (var a in Skills)
+        {
+            SkillsDict.Add(a.Name, a);
+        }
+
         var e = Converter.StringToDictionary(DesciptionOverrides.text.Replace("\r", ""), "\n", ":: ");
         foreach (var we in e)
         {
@@ -814,13 +819,6 @@ public class EntityEffect_Data
     public Sprite Image;
 }
 
-[Serializable]
-public class Skill_Data
-{
-    public string Name = "Null";
-    public Sprite Image;
-}
-
 public class QuestProgress
 {
     public Dictionary<string, string> Data;
@@ -905,11 +903,29 @@ public class QuestProgress
 }
 
 
+[Serializable]
+public class Skill_Data
+{
+    public string Name = "Null";
+    public Sprite Image;
+    public float Cooldown = 5f;
+    public int MaxStacks = 1;
+}
+
 public class Skill
 {
     public string Name;
     public float Timer = 0;
+    public float MaxCooldown = 0;
+    public int Stacks = 0;
+    public Skill()
+    {
 
+    }
+    public Skill(string name)
+    {
+        Name = name;
+    }
 
     public string SkillToString()
     {

@@ -4,7 +4,6 @@ using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class EntityOXS : MonoBehaviour
 {

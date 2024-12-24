@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float MaxDashCooldown = 3f;
     public float DamageTickTime = 3f;
     public float BarrierBlockChance = 1f;
+    public float SkillCooldownMult = 1f;
     public double DamageOnAttack = 0;
     public long Coins = 0;
     public bool RotationOverride = false;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer Underlay;
     public WeaponDisplay weewee;
     public bool DeathDisable = false;
+    public List<Skill> Skills = new List<Skill>();
     private void Awake()
     {
         Gamer.Instance.Players.Add(this);
@@ -65,6 +67,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        if(Skills.Count < 1)
+        {
+            Skills.Add(new Skill("Dash"));
+        }
         var c = GISLol.Instance.All_Containers["Equips"];
         foreach(var wankwank in c.slots)
         {
@@ -307,14 +313,23 @@ public class PlayerController : MonoBehaviour
         mainweapon.Luck = 0f;
         Spread = 15f;
         BarrierBlockChance = 1f;
+        SkillCooldownMult = 1f;
         MaxTimeSinceDamageDealt = 1f;
         MaxDashCooldown = BaseDashCooldown;
         RotationOverride = false;
         DamageOnAttack = 0;
         //deprecated
+
         MaxBowMult = 1.5f;
         BowChargeSpeed = 1.5f;
         sexcummersofthegigashit = 0;
+
+        foreach(var a in Skills)
+        {
+            a.MaxCooldown = GISLol.Instance.SkillsDict[a.Name].Cooldown;
+        }
+
+
         if (mainweapon != null)
         {
             switch (mainweapon.ItemIndex)
@@ -365,6 +380,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        MaxDashCooldown *= SkillCooldownMult;
+
+
+        foreach (var a in Skills)
+        {
+            a.MaxCooldown = Mathf.Max(a.MaxCooldown * SkillCooldownMult, 0.1f);
+        }
+
+
         DamageTickTime = sexcummersofthegigashit > 0? (3f / sexcummersofthegigashit):3f;
         Damage *= WeaponDamageMod;
         AttacksPerSecond *= AttacksPerSecondMod;
@@ -402,7 +426,7 @@ public class PlayerController : MonoBehaviour
                 DamageOnAttack += 1;
                 break;
             case "Amethyst":
-                MaxDashCooldown *= 0.85f;
+                SkillCooldownMult *= 0.85f;
                 working_move_speed *= 1.1f;
                 break;
             case "Slime":
@@ -1049,4 +1073,3 @@ public class PlayerController : MonoBehaviour
     }
 
 }
-

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ColorRoomBanana : MonoBehaviour
 {

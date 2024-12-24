@@ -11,7 +11,6 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class Gamer : MonoBehaviour
 {
