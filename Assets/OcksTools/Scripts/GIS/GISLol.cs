@@ -31,6 +31,7 @@ public class GISLol : MonoBehaviour
     private RectTransform ballingsexnut;
     private HoverRefHolder hovercummer;
     public List<Color32> attributecolors = new List<Color32>();
+    public List<Color32> lorecharcolors = new List<Color32>();
     public List<string> nonowords = new List<string>();
     public Dictionary<GISItem, int> VaultItems = new Dictionary<GISItem, int>();
 
@@ -68,6 +69,22 @@ public class GISLol : MonoBehaviour
             }
         }
         VaultItems.Add(item, 1);
+        return false;
+    }
+    public bool GrantItem(GISItem item, bool CanQuestCount = false)
+    {
+        if(CanQuestCount) Gamer.QuestProgressIncrease("Collect", item.ItemIndex);
+
+        var x = All_Containers["Inventory"].FindEmptySlot();
+        if(x > -1)
+        {
+            All_Containers["Inventory"].slots[x].Held_Item = item;
+        }
+        else
+        {
+            AddVaultItem(item, false);
+        }
+
         return false;
     }
 
@@ -368,6 +385,13 @@ public class GISLol : MonoBehaviour
         e = e.Replace("</>", $"</color>"); // end
         e = e.Replace("<bold>", $"<b>"); //bold override lol
 
+        e = e.Replace("H:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[0])}>H:");
+        e = e.Replace("F:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[1])}>F:");
+        e = e.Replace("K:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[2])}>K:");
+        e = e.Replace("J:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[3])}>J:");
+        e = e.Replace("ADA:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[4])}>ADA:");
+        e = e.Replace("God:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[5])}>God:");
+        e = e.Replace("G:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[6])}>G:");
 
         return e;
     }
@@ -894,7 +918,7 @@ public class QuestProgress
                     for(int i = 0; i < x; i++)
                     {
                         var item = new GISItem(Data["Reward_Data"]);
-                        GISLol.Instance.AddVaultItem(item, true);
+                        GISLol.Instance.GrantItem(item, true);
                     }
                     break;
             }

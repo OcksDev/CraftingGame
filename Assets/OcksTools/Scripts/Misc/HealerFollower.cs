@@ -14,6 +14,11 @@ public class HealerFollower : MonoBehaviour
 
     private void Start()
     {
+        if (SexChaser == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         transform.position += new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0);
         Gamer.Instance.healers.Add(gameObject);
         sexer = 0.5f;

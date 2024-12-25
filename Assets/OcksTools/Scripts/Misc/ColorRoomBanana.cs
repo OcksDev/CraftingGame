@@ -46,6 +46,7 @@ public class ColorRoomBanana : MonoBehaviour
         }
         yield return new WaitForSeconds(0.3f);
         Gamer.Instance.SpawnCoins(transform.position, 5, PlayerController.Instance);
+        Gamer.QuestProgressIncrease("Room", "Passcode");
         Destroy(gameObject);
     }
     public void SrartThing()

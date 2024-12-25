@@ -88,6 +88,7 @@ public class Gamer : MonoBehaviour
     public delegate void JustFuckingRunTheMethods();
     public event JustFuckingRunTheMethods RefreshUIPos;
     public static bool WithinAMenu = false;
+    bool wasincraft = false;
     public void UpdateMenus()
     {
         Tags.refs["Inventory"].SetActive(checks[0]);
@@ -111,6 +112,18 @@ public class Gamer : MonoBehaviour
 
         Tags.refs["GameUI"].SetActive(GameState == "Game");
         Tags.refs["EnemiesRemaining"].SetActive(!IsInShop);
+
+        if (wasincraft && !checks[1])
+        {
+            foreach(var a in GISLol.Instance.All_Containers["Crafting"].slots)
+            {
+                if(a.InteractFilter != "RockGive" && a.Held_Item.ItemIndex != "Empty")
+                {
+                    GISLol.Instance.GrantItem(a.Held_Item);
+                    a.Held_Item = new GISItem();
+                }
+            }
+        }
 
         WithinAMenu = false;
         InputManager.ResetLockLevel();
@@ -137,6 +150,7 @@ public class Gamer : MonoBehaviour
         }
         UpdateShaders();
         RefreshUIPos?.Invoke();
+        wasincraft = checks[1];
     }
 
     public static Gamer Instance;
@@ -274,6 +288,10 @@ public class Gamer : MonoBehaviour
         {
             IsHost = NetworkManager.Singleton.IsHost;
             StartCoroutine(WaitForSexyGamer());
+        }
+        foreach(var a in GISLol.Instance.Quests)
+        {
+            a.CheckComplete();
         }
 
         UpdateCurrentQuests();
@@ -668,7 +686,11 @@ public class Gamer : MonoBehaviour
     public static int EnemyCheckoffset = 0;
     public void ToggleInventory(bool overrides = false)
     {
-        if (checks[0] && GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return;
+        if(GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty")
+        {
+            GISLol.Instance.GrantItem(GISLol.Instance.Mouse_Held_Item);
+            GISLol.Instance.Mouse_Held_Item = new GISItem();
+        }
         if (checks[1] && !overrides) return;
         checks[0] = !checks[0];
         checks[1] = false;
@@ -1085,7 +1107,7 @@ public class Gamer : MonoBehaviour
         }
         foreach (var item in wankers)
         {
-            GISLol.Instance.AddVaultItem(item, true);
+            GISLol.Instance.GrantItem(item, true);
         }
         FadeToLobby();
     }
