@@ -89,7 +89,7 @@ public class ColorRoomBanana : MonoBehaviour
             OXComponent.GetComponent<SpriteRenderer>(r.gameObject).color = Color32s[x];
             Color32s.RemoveAt(x);
         }
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 7; i++)
         {
             ints.Add(Random.Range(0, refs.Count));
         }
