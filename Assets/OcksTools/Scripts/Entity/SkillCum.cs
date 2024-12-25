@@ -17,17 +17,22 @@ public class SkillCum : MonoBehaviour
     {
         if(PlayerController.Instance == null) return;
         var me = PlayerController.Instance.Skills[SkillIndex];
-        SkillIcon.sprite = GISLol.Instance.SkillsDict[me.Name].Image;
-        switch (SkillIndex)
+        bool a = me.Name != "Empty";
+        gameObject.SetActive(a);
+        if (a)
         {
-            case 0:
-                Keybindn.text = InputManager.keynames[InputManager.gamekeys[$"dash"][0]].ToUpper();
-                break;
-            default:
-                Keybindn.text = InputManager.keynames[InputManager.gamekeys[$"skill{SkillIndex}"][0]].ToUpper();
-                break;
+            SkillIcon.sprite = GISLol.Instance.SkillsDict[me.Name].Image;
+            switch (SkillIndex)
+            {
+                case 0:
+                    Keybindn.text = InputManager.keynames[InputManager.gamekeys[$"dash"][0]].ToUpper();
+                    break;
+                default:
+                    Keybindn.text = InputManager.keynames[InputManager.gamekeys[$"skill{SkillIndex}"][0]].ToUpper();
+                    break;
+            }
+            UpdateCommon();
         }
-        UpdateCommon();
     }
 
     private void FixedUpdate()

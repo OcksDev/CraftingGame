@@ -425,6 +425,10 @@ public class ConsoleLol : MonoBehaviour
                 case "corrupt":
                     CorruptionCode.Instance.CorruptTile(new Vector3Int((int)PlayerController.Instance.transform.position.x, (int)PlayerController.Instance.transform.position.y));
                     break;
+                    
+                case "skill":
+                    PlayerController.Instance.Skills[int.Parse(command[1])] = new Skill(command_caps[2]);
+                    break;
 
                 case "aaawwwdddsssawds":
                     //AAAWWWDDDSSSAWDS

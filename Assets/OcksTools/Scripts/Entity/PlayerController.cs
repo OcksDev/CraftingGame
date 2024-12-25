@@ -70,9 +70,9 @@ public class PlayerController : MonoBehaviour
         if(Skills.Count < 1)
         {
             Skills.Add(new Skill("Dash"));
-            Skills.Add(new Skill("Dash"));
-            Skills.Add(new Skill("Dash"));
-            Skills.Add(new Skill("Dash"));
+            Skills.Add(new Skill("Empty"));
+            Skills.Add(new Skill("Empty"));
+            Skills.Add(new Skill("Empty"));
         }
         var c = GISLol.Instance.All_Containers["Equips"];
         foreach(var wankwank in c.slots)
