@@ -70,6 +70,9 @@ public class PlayerController : MonoBehaviour
         if(Skills.Count < 1)
         {
             Skills.Add(new Skill("Dash"));
+            Skills.Add(new Skill("Dash"));
+            Skills.Add(new Skill("Dash"));
+            Skills.Add(new Skill("Dash"));
         }
         var c = GISLol.Instance.All_Containers["Equips"];
         foreach(var wankwank in c.slots)
@@ -690,6 +693,11 @@ public class PlayerController : MonoBehaviour
             {
                 dir.Normalize();
                 move += dir;
+            }
+
+            for(int i = 1; i < Skills.Count; i++)
+            {
+                Skills[i].Timer = Mathf.Max(Skills[i].Timer - Time.deltaTime, 0);
             }
 
             if (mainweapon != null && isrealowner)

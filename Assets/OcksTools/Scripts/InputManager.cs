@@ -64,6 +64,9 @@ public class InputManager : MonoBehaviour
         CreateKeyAllocation("interact", KeyCode.F);
         CreateKeyAllocation("craft", KeyCode.R);
         CreateKeyAllocation("dash", KeyCode.LeftShift);
+        CreateKeyAllocation("skill1", KeyCode.Q);
+        CreateKeyAllocation("skill2", KeyCode.E);
+        CreateKeyAllocation("skill3", KeyCode.R);
 
 
     }

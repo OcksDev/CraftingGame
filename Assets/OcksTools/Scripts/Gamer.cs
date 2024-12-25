@@ -65,6 +65,7 @@ public class Gamer : MonoBehaviour
     public bool NextShopButtonSexFuck = false;
     public GameObject ItemTranser;
     public List<Image> HitSexers = new List<Image>();
+    public List<SkillCum> SkillCumSexers = new List<SkillCum>();
     public GameObject ItemAnimThing;
     public GameObject VaultThing;
     public GameObject LogbookThing;
@@ -124,7 +125,13 @@ public class Gamer : MonoBehaviour
                 }
             }
         }
-
+        foreach(var a in SkillCumSexers)
+        {
+            a.UpdateRare();
+        }
+        //SkillCumSexers[1].gameObject.SetActive(false);
+        //SkillCumSexers[2].gameObject.SetActive(false);
+        //SkillCumSexers[3].gameObject.SetActive(false);
         WithinAMenu = false;
         InputManager.ResetLockLevel();
         for(int i = 0; i < checks.Length; i++)
