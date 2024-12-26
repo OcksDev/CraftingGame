@@ -936,6 +936,7 @@ public class Skill_Data
     public int MaxStacks = 1;
 }
 
+[Serializable]
 public class Skill
 {
     public string Name;

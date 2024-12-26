@@ -172,9 +172,16 @@ public class SaveSystem : MonoBehaviour
         SetString("Floor", Gamer.CurrentFloor.ToString(), dict);
         SetString("Health", (PlayerController.Instance.entit.Health/ PlayerController.Instance.entit.Max_Health).ToString(), dict);
         SetString("Seed", Gamer.Seed.ToString(), dict);
+        SetString("Coins", PlayerController.Instance.Coins.ToString(), dict);
         var c = GISLol.Instance.All_Containers["Equips"];
         SetString("Weapon1", c.slots[0].Held_Item.ItemToString(true), dict);
         SetString("Weapon2", c.slots[1].Held_Item.ItemToString(true), dict);
+        List<string> list = new List<string>();
+        foreach(var a in PlayerController.Instance.Skills)
+        {
+            list.Add(a.SkillToString());
+        }
+        SetString("Skills", Converter.ListToString(list, "<SK>"), dict);
 
         SaveDataToFile(dict);
     }
@@ -199,7 +206,7 @@ public class SaveSystem : MonoBehaviour
     {
         string dict = "current_run";
         PlayerController.Instance.entit.Health = double.Parse(GetString("Health", "1", dict))* PlayerController.Instance.entit.Max_Health;
-
+        PlayerController.Instance.Coins = long.Parse(GetString("Coins", "0", dict));
         Gamer.Instance.SaveCurrentWeapons();
         var c = GISLol.Instance.All_Containers["Equips"];
         var we = new GISItem();
@@ -209,7 +216,24 @@ public class SaveSystem : MonoBehaviour
         we.StringToItem(GetString("Weapon2", "", dict));
         c.slots[1].Held_Item = we;
         PlayerController.Instance.SwitchWeapon(0);
+        var list = Converter.StringToList(GetString("Skills", "", dict), "<SK>");
+        PlayerController.Instance.Skills.Clear();
+        foreach (var a in list)
+        {
+            var sk = new Skill();
+            sk.StringToSkill(a);
+            PlayerController.Instance.Skills.Add(sk);
+        }
+        StartCoroutine(WaitRefersh());
     }
+
+    public IEnumerator WaitRefersh()
+    {
+        yield return new WaitForFixedUpdate();
+        Gamer.Instance.UpdateMenus();
+        PlayerController.Instance.SetData();
+    }
+
 
     public string DictNameToFilePath(string e)
     {

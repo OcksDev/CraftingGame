@@ -1189,6 +1189,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["NextFloor"].SetActive(true);
         Tags.refs["NextShop"].SetActive(true);
         if (titlething != null) StopCoroutine(titlething);
+        if(PlayerController.Instance != null)PlayerController.Instance.SetData();
     }
     public bool IsInShop = false;
     public IEnumerator NextShopLevel()

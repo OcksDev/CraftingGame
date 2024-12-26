@@ -496,6 +496,9 @@ public class PlayerController : MonoBehaviour
     {
         if (DeathDisable) return;
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"][0], "Dash", "player", 0.1f, true);
+        InputBuffer.Instance.BufferListen(InputManager.gamekeys["skill1"][0], "Skill1", "player", 0.1f, true);
+        InputBuffer.Instance.BufferListen(InputManager.gamekeys["skill2"][0], "Skill2", "player", 0.1f, true);
+        InputBuffer.Instance.BufferListen(InputManager.gamekeys["skill3"][0], "Skill3", "player", 0.1f, true);
         if (!NoNoSwitchyBazungus) InputBuffer.Instance.BufferListen(InputManager.gamekeys["shoot"][0], "Attack", "player", 0.1f, false);
     }
 
@@ -697,7 +700,14 @@ public class PlayerController : MonoBehaviour
 
             for(int i = 1; i < Skills.Count; i++)
             {
+                var xx = GISLol.Instance.SkillsDict[Skills[i].Name].MaxStacks;
+                if (Skills[i].Stacks == xx) continue;
                 Skills[i].Timer = Mathf.Max(Skills[i].Timer - Time.deltaTime, 0);
+                if(Skills[i].Timer <= 0)
+                {
+                    Skills[i].Stacks++;
+                    if (Skills[i].Stacks != xx) Skills[i].Timer = Skills[i].MaxCooldown;
+                }
             }
 
             if (mainweapon != null && isrealowner)
@@ -742,7 +752,15 @@ public class PlayerController : MonoBehaviour
                 bool candash = DashCoolDown >= MaxDashCooldown && !IsDashing;
                 if (candash && InputBuffer.Instance.GetBuffer("Dash"))
                 {
-                    StartDash(dir);
+                    crosspver = dir;
+                    DoSkill(0);
+                }
+                for(int i = 1; i < Skills.Count; i++)
+                {
+                    if (Skills[i].Name != "Empty" && Skills[i].Stacks > 0 && InputBuffer.Instance.GetBuffer($"Skill{i}"))
+                    {
+                        DoSkill(i);
+                    }
                 }
                 var c = IsDashing ? (Color)new Color32(15, 140, 0, 255) : oldsex;
                 c.a = candash||IsDashing?1:0.3f;
@@ -762,6 +780,36 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    Vector3 crosspver;
+    public void DoSkill(int index, bool wankme = true)
+    {
+        var wank = Skills[index];
+        switch (wank.Name)
+        {
+            case "Dash":
+                InputBuffer.Instance.RemoveBuffer("Dash");
+                break;
+            default:
+                InputBuffer.Instance.RemoveBuffer($"Skill{index}");
+                if (wankme)
+                {
+                    if (wank.Stacks == GISLol.Instance.SkillsDict[wank.Name].MaxStacks) wank.Timer = wank.MaxCooldown;
+                    wank.Stacks--;
+                }
+                break;
+        }
+        switch (wank.Name)
+        {
+            case "Dash":
+                StartDash(crosspver);
+                break;
+            default:
+                Debug.Log("ruh roh");
+                break;
+        }
+    }
+
+
     private bool sexed = false;
     public void SetMoveSpeed()
     {
@@ -787,7 +835,6 @@ public class PlayerController : MonoBehaviour
     public void StartDash(Vector3 dir)
     {
         if (dir.magnitude < 0.5f) return;
-        InputBuffer.Instance.RemoveBuffer("Dash");
         SoundSystem.Instance.PlaySound(3, false, 0.10f, 1f);
         SoundSystem.Instance.PlaySound(2, true, 0.2f, 1f);
         IsDashing = true;
