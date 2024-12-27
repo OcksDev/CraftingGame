@@ -55,7 +55,7 @@ public class SkillCum : MonoBehaviour
                 break;
             default:
                 Cooldownsex.fillAmount = me.Timer / me.MaxCooldown;
-                Charges.text = me.Stacks > 1 ?$"{me.Stacks}":"";
+                Charges.text = me.Stacks > 0 ?$"{me.Stacks}":"";
                 break;
         }
     }

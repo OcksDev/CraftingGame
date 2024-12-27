@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -386,10 +387,6 @@ public class PlayerController : MonoBehaviour
         MaxDashCooldown *= SkillCooldownMult;
 
 
-        foreach (var a in Skills)
-        {
-            a.MaxCooldown = Mathf.Max(a.MaxCooldown * SkillCooldownMult, 0.1f);
-        }
 
 
         DamageTickTime = sexcummersofthegigashit > 0? (3f / sexcummersofthegigashit):3f;
@@ -702,7 +699,7 @@ public class PlayerController : MonoBehaviour
             {
                 var xx = GISLol.Instance.SkillsDict[Skills[i].Name].MaxStacks;
                 if (Skills[i].Stacks == xx) continue;
-                Skills[i].Timer = Mathf.Max(Skills[i].Timer - Time.deltaTime, 0);
+                Skills[i].Timer = Mathf.Max(Skills[i].Timer - (Time.deltaTime/SkillCooldownMult), 0);
                 if(Skills[i].Timer <= 0)
                 {
                     Skills[i].Stacks++;
@@ -784,6 +781,7 @@ public class PlayerController : MonoBehaviour
     public void DoSkill(int index, bool wankme = true)
     {
         var wank = Skills[index];
+        GISItem wep = mainweapon;
         switch (wank.Name)
         {
             case "Dash":
@@ -802,6 +800,9 @@ public class PlayerController : MonoBehaviour
         {
             case "Dash":
                 StartDash(crosspver);
+                break;
+            case "ArrowStorm":
+                StartCoroutine(StartArrowStorm());
                 break;
             default:
                 Debug.Log("ruh roh");
@@ -845,6 +846,33 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(Dash(dir));
     }
     float corrupttimer = 0;
+    public IEnumerator StartArrowStorm()
+    {
+        float amnt = 6;
+        var Shart = GetDamageProfile();
+        var wankerpos = transform.rotation;
+        Func<int, int> wanker = (i) =>
+        {
+            var offshart = new DamageProfile(Shart);
+            offshart.DamageMod *= 0.5;
+            var ff = UnityEngine.Random.Range(0f, 1f);
+            var tt = Mathf.FloorToInt(CritChance);
+            Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+            var s = Instantiate(SlashEffect[2], transform.position, wankerpos * Quaternion.Euler(new Vector3(0, 0, (120 / amnt) * i)), Gamer.Instance.balls);
+            var s3 = s.GetComponent<HitBalls>();
+            s3.playerController = this;
+            s3.attackProfile = offshart;
+            return 0;
+        };
+        wanker(0);
+        for (int i = 1; i < amnt; i++)
+        {
+            yield return new WaitForSeconds(0.035f);
+            wanker(i);
+            wanker(-i);
+        }
+
+    }
 
     public void CorruptTim(Collider2D collision)
     {
@@ -929,7 +957,7 @@ public class PlayerController : MonoBehaviour
                 SoundSystem.Instance.PlaySound(12, true, 0.15f, 1f);
                 break;
             case "Crossbow":
-                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
+                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
                 s3.attackProfile = Shart;
                 epe *= -0.5f;
@@ -940,7 +968,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Blowdart":
                 reverse *= -1;
-                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
+                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
                 var rahh = s.GetComponent<Projectile>();
                 rahh.spinglerenderer.sprite = rahh.Springles[0];
                 s3 = s.GetComponent<HitBalls>();
@@ -956,7 +984,7 @@ public class PlayerController : MonoBehaviour
             case "Bow":
                 for(int i = 0; i < 1; i++)
                 {
-                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, (Random.Range(Spread / 2, -Spread / 2)) + (15*i))), Gamer.Instance.balls);
+                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, (UnityEngine.Random.Range(Spread / 2, -Spread / 2)) + (15*i))), Gamer.Instance.balls);
                     s3 = s.GetComponent<HitBalls>();
                     s3.attackProfile = Shart;
                 }
@@ -1022,7 +1050,7 @@ public class PlayerController : MonoBehaviour
                 s3.spriteballs[3].color = ra2.colormods[3];
                 s3.spriteballs[4].color = ra2.colormods[4];
                 s3.spriteballs[5].color = ra2.colormods[5];
-                SoundSystem.Instance.PlaySound(14, false, 0.15f, Random.Range(1.2f,1.4f));
+                SoundSystem.Instance.PlaySound(14, false, 0.15f, UnityEngine.Random.Range(1.2f,1.4f));
                 break;
             default:
                 HitCollider = HitColliders[0];
@@ -1044,10 +1072,10 @@ public class PlayerController : MonoBehaviour
                 for(int i = 0; i < tt2; i++)
                 {
                     var offshart = new DamageProfile(Shart);
-                    var ff = Random.Range(0f, 1f);
+                    var ff = UnityEngine.Random.Range(0f, 1f);
                     var tt = Mathf.FloorToInt(CritChance);
                     Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
-                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, Point2DMod(MyAssHurts.position, -90, 0) * Quaternion.Euler(new Vector3(0, 0, Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
+                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, Point2DMod(MyAssHurts.position, -90, 0) * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
                     s3 = s.GetComponent<HitBalls>();
                     s3.playerController = this;
                     s3.attackProfile = offshart;
@@ -1072,7 +1100,7 @@ public class PlayerController : MonoBehaviour
         Shart.controller = this;
         Shart.WeaponOfAttack = new GISItem(mainweapon);
         Shart.attacker = gameObject;
-        var ff = Random.Range(0f, 1f);
+        var ff = UnityEngine.Random.Range(0f, 1f);
         int tt = Mathf.FloorToInt(CritChance);
         Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
         return Shart;

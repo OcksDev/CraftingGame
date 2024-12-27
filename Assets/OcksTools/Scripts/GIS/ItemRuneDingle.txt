@@ -23,7 +23,7 @@ Branch:: Feels kinda tickly
 Infused Rock:: Gives off an ominous aura
 Rune Of Self:: <g>+25%</> chance to Heal 1 on hit
 Rune Of Missile:: <g>+10%</> chance on hit to shoot a <o>Missile</> with 200% Damage
-Rune Of Confluence:: <g>+35%</> chance when you Heal to deal x2 of the amount as Damage to the nearest <e>Enemy</>
+Rune Of Confluence:: <g>+35%</> chance when you Heal to deal<br>x2 the amount as Damage to the nearest <e>Enemy</>
 Rune Of Arrow:: <g>+20%</> chance on attack to shoot an <o>Arrow</> with 100% Damage
 Rune Of Kaboom:: <e>Enemies</> explode on kill for 15 Damage<br><g>5m (+2m per stack)</> Explosion Size
 Rune Of Retaliation:: When taking Damage, deal <g>+50%</> of the Damage to the nearest <e>Enemy</>

@@ -1490,6 +1490,11 @@ public class Gamer : MonoBehaviour
         yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
         CurrentRoom = null;
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
+        for(int i = 1; i < PlayerController.Instance.Skills.Count; i++)
+        {
+            PlayerController.Instance.Skills[i].Stacks = GISLol.Instance.SkillsDict[PlayerController.Instance.Skills[i].Name].MaxStacks;
+            PlayerController.Instance.Skills[i].Timer = 0;
+        }
         InRoom = false;
         if (!hascorrupted && CurrentFloor > 1)
         {

@@ -242,7 +242,6 @@ public class GISLol : MonoBehaviour
             hovercummer.gameObject.SetActive(false);
         }
         founddaddy = false;
-
 #if UNITY_EDITOR
         if (InputManager.IsKeyDown(KeyCode.X, "menu"))
         {
