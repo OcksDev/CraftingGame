@@ -12,6 +12,7 @@ TagManager:
   - RoomBG
   - SexyDoor
   - Void
+  - PlayerIsMyDad
   layers:
   - Default
   - TransparentFX

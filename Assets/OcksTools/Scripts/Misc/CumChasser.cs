@@ -11,6 +11,8 @@ public class CumChasser : MonoBehaviour
     Transform weenk;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        var EEE = Gamer.Instance.GetObjectType(collision.gameObject);
+        if (EEE.type != "PlayerDaddy") return;
         int max = 15;
         var wank = Instantiate(notif, transform.position, Quaternion.identity, Tags.refs["RanNot"].transform).GetComponent<DamIndi>();
         amnt++;

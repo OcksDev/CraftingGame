@@ -14,6 +14,7 @@ public class SaveSystem : MonoBehaviour
     public int test = 0;
 
     public bool NoScroll = false;
+    public bool DashSkillShow = false;
 
     public delegate void JustFuckingRunTheMethods();
     public static event JustFuckingRunTheMethods SaveAllData;
@@ -92,6 +93,7 @@ public class SaveSystem : MonoBehaviour
         }
         GISLol.Instance.LogbookDiscoveries = Converter.StringToDictionary(GetString("logbook", "", dict));
         NoScroll = bool.Parse(GetString("noscroll", "False", dict));
+        DashSkillShow = bool.Parse(GetString("dashskillshow", "False", dict));
         test = int.Parse(GetString("test_num", "0", dict));
 
 
@@ -151,6 +153,7 @@ public class SaveSystem : MonoBehaviour
 
 
         SetString("noscroll", NoScroll.ToString(), dict);
+        SetString("dashskillshow", DashSkillShow.ToString(), dict);
 
         SetString("logbook", Converter.DictionaryToString(GISLol.Instance.LogbookDiscoveries), dict);
 

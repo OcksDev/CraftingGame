@@ -645,6 +645,9 @@ MonoBehaviour:
   MaxDashCooldown: 3
   DamageTickTime: 3
   BarrierBlockChance: 1
+  SkillCooldownMult: 1
+  DamageOnAttack: 0
+  Coins: 0
   RotationOverride: 0
   SwordFart: {fileID: 4699981174079926565}
   dicksplit: {fileID: 3033001111833298205}
@@ -688,6 +691,7 @@ MonoBehaviour:
   Underlay: {fileID: 401543440080684480}
   weewee: {fileID: 5711173659826320584}
   DeathDisable: 0
+  Skills: []
   hasaids: 0
   IsDashing: 0
   timersincedamage: 0
@@ -873,7 +877,7 @@ GameObject:
   - component: {fileID: 807168952945849837}
   m_Layer: 23
   m_Name: Circle (1)
-  m_TagString: Untagged
+  m_TagString: PlayerIsMyDad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

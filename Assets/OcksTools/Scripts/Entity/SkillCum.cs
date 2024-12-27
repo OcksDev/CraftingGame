@@ -16,6 +16,11 @@ public class SkillCum : MonoBehaviour
     public void UpdateRare()
     {
         if(PlayerController.Instance == null) return;
+        if (SkillIndex == 0 && !SaveSystem.Instance.DashSkillShow)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         var me = PlayerController.Instance.Skills[SkillIndex];
         bool a = me.Name != "Empty";
         gameObject.SetActive(a);

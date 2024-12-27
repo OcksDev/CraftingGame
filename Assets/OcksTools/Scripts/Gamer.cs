@@ -1838,6 +1838,16 @@ public class Gamer : MonoBehaviour
             e.type = "Player";
             e.BlocksSpawn = true;
         }
+        else if (shart.tag == "PlayerIsMyDad")
+        {
+            if (!noget)
+            {
+                e.playerController = OXComponent.GetComponent<PlayerController>(shart.transform.parent.gameObject);
+                e.entityoxs = e.playerController.entit;
+            }
+            e.type = "PlayerDaddy";
+            e.BlocksSpawn = true;
+        }
         else if (shart.tag == "Enemy")
         {
             if (!noget)
