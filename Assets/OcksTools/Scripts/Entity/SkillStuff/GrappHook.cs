@@ -49,6 +49,7 @@ public class GrappHook : MonoBehaviour
                         oldpos = a.collider.transform.position;
                         oldrotz = a.collider.transform.rotation.eulerAngles.z;
                         target = a.collider.transform;
+                        str += 0.3f;
                         goto wankout;
                 }
             }
@@ -129,12 +130,18 @@ public class GrappHook : MonoBehaviour
         for(int i = 1; i < amnt; i++)
         {
             var off = (life + i / 1.5f);
-            line.SetPosition(i, Vector3.Lerp(Vector3.zero, tg, (1f/amnt)*i) + Quaternion.Euler(0, 0, 90) * tg.normalized * Mathf.Sin(off) * str);
+            float cum = 1;
+            if (i == amnt - 1) cum = 0.5f;
+            line.SetPosition(i, Vector3.Lerp(Vector3.zero, tg, (1f/amnt)*i) + Quaternion.Euler(0, 0, 90) * tg.normalized * Mathf.Sin(off) * str * cum);
         }
         line.SetPosition(amnt, tg);
     }
     public void End()
     {
+        if (!SkillDad.IsHeld && !islatched)
+        {
+            SkillDad.Timer = 0.1f;
+        }
         SkillDad.IsHeld = false;
         Destroy(gameObject);
     }
