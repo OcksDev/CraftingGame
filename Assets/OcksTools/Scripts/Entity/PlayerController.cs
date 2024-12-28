@@ -623,6 +623,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool IsDashing = false;
     private string oldval;
+    public Vector3 moveintent = Vector3.zero;
     void FixedUpdate()
     {
         if (DeathDisable) return;
@@ -694,12 +695,15 @@ public class PlayerController : MonoBehaviour
                 dir.Normalize();
                 move += dir;
             }
+            moveintent = dir/2;
 
-            for(int i = 1; i < Skills.Count; i++)
+            for (int i = 1; i < Skills.Count; i++)
             {
                 var xx = GISLol.Instance.SkillsDict[Skills[i].Name].MaxStacks;
                 if (Skills[i].Stacks == xx) continue;
+                if (Skills[i].IsHeld && GISLol.Instance.SkillsDict[Skills[i].Name].CanHold) continue;   
                 Skills[i].Timer = Mathf.Max(Skills[i].Timer - (Time.deltaTime/SkillCooldownMult), 0);
+                Skills[i].usecool = Mathf.Max(Skills[i].usecool - Time.deltaTime, 0);
                 if(Skills[i].Timer <= 0)
                 {
                     Skills[i].Stacks++;
@@ -741,6 +745,8 @@ public class PlayerController : MonoBehaviour
             }
             Vector3 bgalls = move * Time.deltaTime * move_speed * 20;
             rigid.velocity += new Vector2(bgalls.x, bgalls.y);
+            momentum *= 0.93f;
+            rigid.velocity += momentum;
             if (isrealowner)
             {
                 float sex = Time.deltaTime;
@@ -754,7 +760,14 @@ public class PlayerController : MonoBehaviour
                 }
                 for(int i = 1; i < Skills.Count; i++)
                 {
-                    if (Skills[i].Name != "Empty" && Skills[i].Stacks > 0 && InputBuffer.Instance.GetBuffer($"Skill{i}"))
+                    if (Skills[i].Name != "Empty" && Skills[i].IsHeld && !InputManager.IsKey($"skill{i}", "player"))
+                    {
+                        EndSkill(i);
+                    }
+                }
+                for(int i = 1; i < Skills.Count; i++)
+                {
+                    if (Skills[i].Name != "Empty" && !Skills[i].IsHeld && Skills[i].Stacks > 0 && InputBuffer.Instance.GetBuffer($"Skill{i}") && Skills[i].usecool <= 0)
                     {
                         DoSkill(i);
                     }
@@ -781,6 +794,7 @@ public class PlayerController : MonoBehaviour
     public void DoSkill(int index, bool wankme = true)
     {
         var wank = Skills[index];
+        Skills[index].IsHeld = true;
         GISItem wep = mainweapon;
         switch (wank.Name)
         {
@@ -804,12 +818,24 @@ public class PlayerController : MonoBehaviour
             case "ArrowStorm":
                 StartCoroutine(StartArrowStorm());
                 break;
+            case "Grappling":
+                LaunchGrapple(wank);
+                break;
             default:
                 Debug.Log("ruh roh");
                 break;
         }
     }
-
+    public void EndSkill(int index)
+    {
+        var wank = Skills[index];
+        wank.IsHeld = false;
+        switch (wank.Name)
+        {
+            default:
+                break;
+        }
+    }
 
     private bool sexed = false;
     public void SetMoveSpeed()
@@ -873,7 +899,13 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
+    public void LaunchGrapple(Skill sk)
+    {
+        var cd = Instantiate(SlashEffect[5], transform.position, Point2D(0, 0)).GetComponent<GrappHook>();
+        cd.dad = this;
+        cd.SkillDad = sk;
+    }
+    public Vector2 momentum = Vector2.zero;
     public void CorruptTim(Collider2D collision)
     {
         var weenor = Gamer.Instance.GetObjectType(collision.gameObject);
