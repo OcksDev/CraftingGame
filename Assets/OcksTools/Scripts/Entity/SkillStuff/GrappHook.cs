@@ -10,6 +10,7 @@ public class GrappHook : MonoBehaviour
     public float speed = 5;
     public float strength = 5;
     public CircleCollider2D cic;
+    public LineRenderer line;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,8 +65,10 @@ public class GrappHook : MonoBehaviour
             End();
             return;
         }
-        if(islatched)
+        if (islatched)
         {
+            str *= 0.90f;
+            spd *= 1.15f;
             var x1 = transform.position;
             x1.z = 0;
             var x2 = dad.transform.position;
@@ -76,14 +79,23 @@ public class GrappHook : MonoBehaviour
                 End();
                 return;
             }
-            var dir = ((x1 - x2).normalized*2 + dad.moveintent) * strength;
+            var dir = ((x1 - x2).normalized * 2 + dad.moveintent) * strength;
             dad.momentum += (Vector2)dir;
         }
+        else
+        {
+            speed *= 0.96f;
+        }
+        str *= 0.97f;
+        spd *= 0.975f;
     }
-
+    float life = 0;
+    float spd = 30;
+    float str = 1;
     Transform target;
     private void LateUpdate()
     {
+        life += Time.deltaTime * spd;
         if(islatched && target == null)
         {
             End();
@@ -109,6 +121,17 @@ public class GrappHook : MonoBehaviour
                 oldrotz = 0;
             }
         }
+        var tg = Quaternion.Inverse(transform.rotation) * (dad.transform.position - line.transform.position);
+        line.SetPosition(0, Vector3.zero);
+        int amnt = 15;
+        float total = Mathf.PI / amnt;
+        //Debug.Log(total);
+        for(int i = 1; i < amnt; i++)
+        {
+            var off = (life + i / 1.5f);
+            line.SetPosition(i, Vector3.Lerp(Vector3.zero, tg, (1f/amnt)*i) + Quaternion.Euler(0, 0, 90) * tg.normalized * Mathf.Sin(off) * str);
+        }
+        line.SetPosition(amnt, tg);
     }
     public void End()
     {
