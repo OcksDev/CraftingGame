@@ -482,7 +482,7 @@ public class EntityOXS : MonoBehaviour
                     }
                 }
                 Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
-                if(lasthit.WeaponOfAttack != null) Gamer.QuestProgressIncrease("Kill", lasthit.WeaponOfAttack.ItemIndex);
+                if(lasthit != null && lasthit.WeaponOfAttack != null) Gamer.QuestProgressIncrease("Kill", lasthit.WeaponOfAttack.ItemIndex);
                 break;
             case "Player":
                 if(!PlayerController.Instance.DeathDisable) Gamer.Instance.StartCoroutine(Gamer.Instance.DeathAnim());

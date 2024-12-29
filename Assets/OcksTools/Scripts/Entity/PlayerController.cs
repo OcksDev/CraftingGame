@@ -794,6 +794,14 @@ public class PlayerController : MonoBehaviour
     public void DoSkill(int index, bool wankme = true)
     {
         var wank = Skills[index];
+
+        switch (wank.Name)
+        {
+            case "Capitalism":
+                if (Coins <= 0 || Gamer.Instance.EnemiesExisting.Count <= 0) return;
+                break;
+        }
+
         Skills[index].IsHeld = true;
         GISItem wep = mainweapon;
         switch (wank.Name)
@@ -820,6 +828,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Grappling":
                 LaunchGrapple(wank);
+                break;
+            case "Capitalism":
+                Capitalism(wank);
                 break;
             default:
                 Debug.Log("ruh roh");
@@ -904,6 +915,26 @@ public class PlayerController : MonoBehaviour
         var cd = Instantiate(SlashEffect[5], transform.position, Point2D(0, 0)).GetComponent<GrappHook>();
         cd.dad = this;
         cd.SkillDad = sk;
+    }
+    public void Capitalism(Skill sk)
+    {
+        Coins--;
+        for(int i = 0; i < 3; i++)
+        {
+            if (Gamer.Instance.EnemiesExisting.Count <= 0) return;
+            float dist = Mathf.Infinity;
+            NavMeshEntity me = null;
+            foreach (var n in Gamer.Instance.EnemiesExisting)
+            {
+                var x = (n.transform.position - transform.position).magnitude;
+                if (x <= dist)
+                {
+                    dist = x;
+                    me = n;
+                }
+            }
+            me.EntityOXS.Kill();
+        }
     }
     public Vector2 momentum = Vector2.zero;
     public void CorruptTim(Collider2D collision)
