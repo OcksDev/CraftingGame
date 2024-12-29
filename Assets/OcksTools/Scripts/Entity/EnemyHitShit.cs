@@ -71,7 +71,7 @@ public class EnemyHitShit : MonoBehaviour
     public void Tirggegg(Collider2D collision, bool ignorehits = false)
     {
         if (isdea) return;
-        if (sexballs != null && sexballs.EntityOXS.AntiDieJuice) return;
+        if (sexballs != null && sexballs.EntityOXS != null && sexballs.EntityOXS.AntiDieJuice) return;
         var e = Gamer.Instance.GetObjectType(collision.gameObject);
         if (sexballs != null)
             Damage = sexballs.Damage;

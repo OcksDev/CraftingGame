@@ -466,22 +466,7 @@ public class EntityOXS : MonoBehaviour
                 PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown;
                 if (effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 CameraLol.Instance.Shake(0.25f, 0.80f);
-                int he = healerstospawn;
-                if(lasthit != null)
-                {
-                    var arr2 = lasthit.WeaponOfAttack.ReadItemAmount("Rune Of Kaboom") * 2;
-                    arr2 += 3;
-                    if (arr2 > 4)
-                    {
-                        SpawnExplosion(arr2, transform.position, lasthit);
-                    }
-                    var arr = lasthit.WeaponOfAttack.ReadItemAmount("Rune Of Soul") * 0.15f;
-                    if (arr > 0)
-                    {
-                        he += lasthit.WeaponOfAttack.RollLuck(arr);
-                    }
-                }
-                Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+                if (!ContainsEffect("Soulless").hasthing) DropKillReward(false);
                 if(lasthit != null && lasthit.WeaponOfAttack != null) Gamer.QuestProgressIncrease("Kill", lasthit.WeaponOfAttack.ItemIndex);
                 break;
             case "Player":
@@ -490,6 +475,39 @@ public class EntityOXS : MonoBehaviour
         }
         Destroy(gameObject);
     }
+
+    public void DropKillReward(bool useplayermainweapon)
+    {
+        int he = healerstospawn;
+
+        GISItem inpu = null;
+        if (lasthit != null)
+        {
+            inpu = lasthit.WeaponOfAttack;
+        }
+        if (useplayermainweapon)
+        {
+            inpu = PlayerController.Instance.mainweapon;
+        }
+
+        if (inpu != null)
+        {
+            var arr2 = inpu.ReadItemAmount("Rune Of Kaboom") * 2;
+            arr2 += 3;
+            if (arr2 > 4)
+            {
+                SpawnExplosion(arr2, transform.position, lasthit);
+            }
+            var arr = inpu.ReadItemAmount("Rune Of Soul") * 0.15f;
+            if (arr > 0)
+            {
+                he += inpu.RollLuck(arr);
+            }
+        }
+        Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+    }
+
+
     bool oldstatus = false;
     bool curstatus = false;
     private void Update()
@@ -547,7 +565,7 @@ public class EntityOXS : MonoBehaviour
         }
     }
 
-    private ret_cum_shenan ContainsEffect(EffectProfile eff)
+    public ret_cum_shenan ContainsEffect(EffectProfile eff)
     {
         bool alreadyhaseffect = false;
         EffectProfile s = null;
@@ -565,7 +583,7 @@ public class EntityOXS : MonoBehaviour
         ee.susser = s;
         return ee;
     }
-    private ret_cum_shenan ContainsEffect(string eff)
+    public ret_cum_shenan ContainsEffect(string eff)
     {
         bool alreadyhaseffect = false;
         EffectProfile s = null;
@@ -659,7 +677,7 @@ public class EntityOXS : MonoBehaviour
 
 
 }
-class ret_cum_shenan
+public class ret_cum_shenan
 {
     public bool hasthing;
     public EffectProfile susser;

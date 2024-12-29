@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Burst.CompilerServices;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -632,8 +633,10 @@ public class PlayerController : MonoBehaviour
         {
             entit.Health = entit.Max_Health;
         }
+        float sex = Time.deltaTime;
+        if (!Gamer.Instance.InRoom) sex *= 5;
 
-        if(!isrealowner && HasLoadedWeapon && network_helditem.GetValue() != oldval)
+        if (!isrealowner && HasLoadedWeapon && network_helditem.GetValue() != oldval)
         {
             oldval = network_helditem.GetValue();
             SetData();
@@ -701,8 +704,12 @@ public class PlayerController : MonoBehaviour
             {
                 var xx = GISLol.Instance.SkillsDict[Skills[i].Name].MaxStacks;
                 if (Skills[i].Stacks == xx) continue;
-                if (Skills[i].IsHeld && GISLol.Instance.SkillsDict[Skills[i].Name].CanHold) continue;   
-                Skills[i].Timer = Mathf.Max(Skills[i].Timer - (Time.deltaTime/SkillCooldownMult), 0);
+                if (Skills[i].IsHeld && GISLol.Instance.SkillsDict[Skills[i].Name].CanHold) continue;
+
+                Debug.Log("sexval: " + (sex).ToString());
+                Debug.Log("1: " + ((sex / SkillCooldownMult)).ToString());
+
+                Skills[i].Timer = Mathf.Max(Skills[i].Timer - (sex / SkillCooldownMult), 0);
                 Skills[i].usecool = Mathf.Max(Skills[i].usecool - Time.deltaTime, 0);
                 if(Skills[i].Timer <= 0)
                 {
@@ -749,8 +756,6 @@ public class PlayerController : MonoBehaviour
             rigid.velocity += momentum;
             if (isrealowner)
             {
-                float sex = Time.deltaTime;
-                if (!Gamer.Instance.InRoom) sex *= 5;
                 DashCoolDown = Mathf.Clamp(DashCoolDown + sex, 0, MaxDashCooldown * 3);
                 bool candash = DashCoolDown >= MaxDashCooldown && !IsDashing;
                 if (candash && InputBuffer.Instance.GetBuffer("Dash"))
@@ -831,6 +836,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Capitalism":
                 Capitalism(wank);
+                break;
+            case "SoulDrain":
+                SoulDrain();
                 break;
             default:
                 Debug.Log("ruh roh");
@@ -927,13 +935,30 @@ public class PlayerController : MonoBehaviour
             foreach (var n in Gamer.Instance.EnemiesExisting)
             {
                 var x = (n.transform.position - transform.position).magnitude;
-                if (x <= dist)
+                if (x <= dist && n.EntityOXS != null)
                 {
                     dist = x;
                     me = n;
                 }
             }
             me.EntityOXS.Kill();
+        }
+    }
+    public void SoulDrain()
+    {
+        Instantiate(Gamer.Instance.ParticleSpawns[31], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+        float maxdist = 13;
+        foreach (var n in Gamer.Instance.EnemiesExisting)
+        {
+            var x = (n.transform.position - transform.position).magnitude;
+            if (x <= maxdist && n.EntityOXS != null)
+            {
+                if (n.EntityOXS.ContainsEffect("Soulless").hasthing) continue;
+                n.EntityOXS.DropKillReward(true);
+                n.EntityOXS.DropKillReward(true);
+                var w = new EffectProfile("Soulless", 999999999, 1, 1);
+                n.EntityOXS.AddEffect(w);
+            }
         }
     }
     public Vector2 momentum = Vector2.zero;
