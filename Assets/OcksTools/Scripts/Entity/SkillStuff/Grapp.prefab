@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 8780374519178872501}
   - component: {fileID: 8780374519178872502}
   - component: {fileID: 8780374519178872491}
+  - component: {fileID: 8373291289422220480}
   m_Layer: 8
   m_Name: Grapp
   m_TagString: Untagged
@@ -254,7 +255,7 @@ MonoBehaviour:
     IsHeld: 0
   speed: 100
   strength: 0.6
-  cic: {fileID: 0}
+  cic: {fileID: 8780374519178872491}
   line: {fileID: 1939504536617132856}
 --- !u!58 &8780374519178872491
 CircleCollider2D:
@@ -272,3 +273,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.41
+--- !u!50 &8373291289422220480
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8780374519178872503}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

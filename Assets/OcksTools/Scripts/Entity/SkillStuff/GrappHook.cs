@@ -12,10 +12,6 @@ public class GrappHook : MonoBehaviour
     public CircleCollider2D cic;
     public LineRenderer line;
     // Start is called before the first frame update
-    void Start()
-    {
-        cic  = GetComponent<CircleCollider2D>();
-    }
     bool islatched = false;
     // Update is called once per frame
     Vector3 oldpos = Vector3.zero;
@@ -37,7 +33,6 @@ public class GrappHook : MonoBehaviour
             {
                 if (a.collider == null) continue;
                 var tp = Gamer.Instance.GetObjectType(a.collider.gameObject);
-                Console.Log(tp.type);
                 switch (tp.type)
                 {
                     case "Enemy":

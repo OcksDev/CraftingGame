@@ -110,6 +110,9 @@ public class SaveSystem : MonoBehaviour
         Gamer.Instance.UpdateShaders();
         Gamer.Instance.AttemptAddLogbookItem("Rock");
         LoadAllData?.Invoke();
+#if !UNITY_EDITOR
+        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+#endif
     }
     public void SaveGame(string dict = "def")
     {

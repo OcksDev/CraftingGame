@@ -58,6 +58,9 @@ public class TextFromData : MonoBehaviour
             case "Coins":
                 a = PlayerController.Instance.Coins.ToString();
                 break;
+            case "FPS":
+                a = ((int)(1.0f / Time.smoothDeltaTime)).ToString();
+                break;
         }
 
         jessie.text = a;
