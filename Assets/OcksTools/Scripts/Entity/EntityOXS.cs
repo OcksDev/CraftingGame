@@ -132,7 +132,7 @@ public class EntityOXS : MonoBehaviour
                     if (weenor == 0) block = true;
                 }
 
-                if (s2.IsDashing || block)
+                if (s2.IsDashingImmume || block)
                 {
                     block = true;
                 }
@@ -208,6 +208,11 @@ public class EntityOXS : MonoBehaviour
                                 s.entit.currentprof = hit;
                                 s.entit.Heal(tt2);
                             }
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Investment");
+                        if (arr > 0 && hit.controller != null)
+                        {
+                            damagefromhit *= ((double)arr * hit.controller.Coins)/100 + 1;
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Missile") * 0.1f;
                         if (arr > 0 && !hit.Procs.Contains("Missile"))
@@ -502,6 +507,19 @@ public class EntityOXS : MonoBehaviour
             if (arr > 0)
             {
                 he += inpu.RollLuck(arr);
+            }
+            arr2 = inpu.ReadItemAmount("Rune Of Surge");
+            if (arr2 > 0)
+            {
+                if(inpu.RollLuck(0.2f) > 0)
+                {
+                    for(int i  = 1; i < inpu.Player.Skills.Count; i++)
+                    {
+                        var x = GISLol.Instance.SkillsDict[inpu.Player.Skills[i].Name].MaxStacks;
+                        inpu.Player.Skills[i].Stacks = Mathf.Clamp(inpu.Player.Skills[i].Stacks + arr2, 0, x);
+                        if (inpu.Player.Skills[i].Stacks == x) inpu.Player.Skills[i].Timer = 0;
+                    }
+                }
             }
         }
         Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);

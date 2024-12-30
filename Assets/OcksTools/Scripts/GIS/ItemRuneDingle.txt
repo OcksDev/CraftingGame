@@ -37,3 +37,6 @@ Rune Of Collapse:: Damaging an <e>Enemy</> applies <o>Collapse</> which stores <
 Rune Of Freeze:: +50% chance on hit to apply a stack of <o>Freeze</><br><o>Freeze</> reduces Movement Speed by 30% per stack for 5s
 Rune Of Bleed:: +10% chance on hit to apply a stack of <o>Bleed</><br><o>Bleed</> deals 3 (+3 per stack) Damage per second for 3s
 Rune Of Consumption:: Clear all <o>Effects</> on an <e>Enemy</>, for each stack cleared<br>increase Total Damage Dealt by +20%
+Rune Of Investment:: <g>+1%</> Total Damage per <o>Coin</> currently held
+Rune Of Dashed Protection:: <g>+0.2s</> of Dash Invulnerability
+Rune Of Surge:: +20% chance on kill to refill all skills by <g>+1</> Stock

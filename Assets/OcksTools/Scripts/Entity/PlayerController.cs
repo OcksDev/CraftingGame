@@ -280,7 +280,9 @@ public class PlayerController : MonoBehaviour
             {
                 var c = GISLol.Instance.All_Containers["Equips"];
                 mainweapon = c.slots[selecteditem].Held_Item;
-                if(hasaids)network_helditem.SetValue(mainweapon.ItemToString());
+                c.slots[0].Held_Item.Player = this;
+                c.slots[1].Held_Item.Player = this;
+                if (hasaids)network_helditem.SetValue(mainweapon.ItemToString());
             }
             else
             {
@@ -623,6 +625,8 @@ public class PlayerController : MonoBehaviour
     Color oldsex;
     [HideInInspector]
     public bool IsDashing = false;
+    [HideInInspector]
+    public bool IsDashingImmume = false;
     private string oldval;
     public Vector3 moveintent = Vector3.zero;
     void FixedUpdate()
@@ -777,7 +781,7 @@ public class PlayerController : MonoBehaviour
                         DoSkill(i);
                     }
                 }
-                var c = IsDashing ? (Color)new Color32(15, 140, 0, 255) : oldsex;
+                var c = IsDashingImmume ? (Color)new Color32(15, 140, 0, 255) : oldsex;
                 c.a = candash||IsDashing?1:0.3f;
                 Underlay.color = c;
             }
@@ -884,12 +888,15 @@ public class PlayerController : MonoBehaviour
         SoundSystem.Instance.PlaySound(3, false, 0.10f, 1f);
         SoundSystem.Instance.PlaySound(2, true, 0.2f, 1f);
         IsDashing = true;
+        IsDashingImmume = true;
         DashCoolDown -= MaxDashCooldown;
         Instantiate(Gamer.Instance.ParticleSpawns[4], transform.position, transform.rotation, transform);
         var c = Tags.refs["DashHolder"].transform;
         Instantiate(Gamer.Instance.ParticleSpawns[5], c.position, c.rotation, c);
-        StartCoroutine(Dash(dir));
+        if(dashcor != null) StopCoroutine(dashcor);
+        dashcor = StartCoroutine(Dash(dir));
     }
+    Coroutine dashcor;
     float corrupttimer = 0;
     public IEnumerator StartArrowStorm()
     {
@@ -985,6 +992,9 @@ public class PlayerController : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
         IsDashing = false;
+        yield return new WaitForSeconds(mainweapon.ReadItemAmount("Rune Of Dashed Protection") * 0.2f);
+        if (IsDashing) yield break;
+        IsDashingImmume = false;
     }
     bool fardedonhand = false;
     public void StartAttack(double d = -1)

@@ -439,6 +439,7 @@ public class GISItem
     public Dictionary<string, int> AmountOfItems = new Dictionary<string, int>();
     public float Luck = -1;
     public float BlockChance = 0;
+    public PlayerController Player;
     public GISItem()
     {
         setdefaultvals();
