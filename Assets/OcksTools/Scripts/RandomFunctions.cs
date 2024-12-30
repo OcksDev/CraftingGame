@@ -246,7 +246,10 @@ public class RandomFunctions : MonoBehaviour
         var b = Quaternion.LookRotation((a - transform.position).normalized);
         return Quaternion.RotateTowards(transform.rotation, b, max_angle_change);
     }
-
+    public static Vector3 ReflectVector(Vector3 incoming, Vector3 axis)
+    {
+        return incoming - 2 * Vector3.Dot(incoming, axis) * axis;
+    }
     public string NumToRead(string number, int style = 0)
     {
         //converts a raw string of numbers into a much nicer format of your choosing

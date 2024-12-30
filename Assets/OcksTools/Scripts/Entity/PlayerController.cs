@@ -136,6 +136,7 @@ public class PlayerController : MonoBehaviour
         //SetData();
 
 
+
     }
     public bool hasaids = false;
     public void Aids()
