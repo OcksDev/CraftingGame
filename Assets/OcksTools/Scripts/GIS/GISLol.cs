@@ -521,6 +521,7 @@ public class GISItem
         Run_Materials = new List<GISMaterial>(sexnut.Run_Materials);
         Luck = sexnut.Luck;
         CompileItems();
+        Player = sexnut.Player;
     }
     private void setdefaultvals()
     {
