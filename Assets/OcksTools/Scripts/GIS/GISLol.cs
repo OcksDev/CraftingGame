@@ -6,6 +6,7 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class GISLol : MonoBehaviour
@@ -91,6 +92,19 @@ public class GISLol : MonoBehaviour
     private void Awake()
     {
 
+        foreach (var a in Skills)
+        {
+            SkillsDict.Add(a.Name, a);
+            if (a.Name == "Empty") continue;
+            var newitem = new GISItem_Data();
+            newitem.Name = a.Name;
+            newitem.Sprite = a.Image;
+            newitem.LogbookOverride = true;
+            newitem.IsSkill = true;
+            Items.Add(newitem);
+        }
+
+
         foreach (var a in Items)
         {
             ItemsDict.Add(a.Name, a);
@@ -109,10 +123,6 @@ public class GISLol : MonoBehaviour
             EffectsDict.Add(a.Name, a);
         }
 
-        foreach (var a in Skills)
-        {
-            SkillsDict.Add(a.Name, a);
-        }
 
         var e = Converter.StringToDictionary(DesciptionOverrides.text.Replace("\r", ""), "\n", ":: ");
         foreach (var we in e)
@@ -778,6 +788,7 @@ public class GISItem_Data
     public bool IsWeapon = false;
     public bool IsCraftable = false;
     public bool IsRune = false;
+    public bool IsSkill = false;
     public bool CanSpawn = true;
     public bool LogbookOverride = false;
     public GISItem_Data()
@@ -833,6 +844,7 @@ public class GISMaterial_Data
     public Sprite[] SawbladeParts;
     public Sprite[] AxeParts;
     public Sprite[] BlowParts;
+    public Sprite[] TDaggerParts;
     public string fallthroughmaterial = "Rock";
     public bool IsOverlay = false;
     public bool ignorecolorforcumimg = true;

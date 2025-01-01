@@ -6,21 +6,22 @@ Crossbow:: Shoots fast, low damage, piercing arrows
 Shuriken:: Throws a spinning projectile which deals<br>damage over time as enemies touch it.
 Boomerang:: Throws a projectile which<br>bounces between enemies
 Blowdart:: Slow shooting, high damage, non-piercing projectiles.
-Rock:: It's a rock, what more did you expect?
+Rock:: "It's a rock, what more did you expect?"
 Emerald:: ooo shiny
 Gold:: GOLD!
 Slime:: Sticky and gross, but surprisingly tasty
 Shungite:: It has a protective feeling
-Morkite:: Mission Control is displeased, get back to work.
+Morkite:: "Mission Control is displeased, get back to work."
 Void:: Unstable Substance
 Amethyst:: PORPOL
 Angelic Ingot:: Holy Canole
 Demonic Ingot:: Unholy Uncanole
 Glass:: Sharp!
-Aquarq:: Molly! Where are you?
-Zebrium:: It's striped, it's strapped, and it's stripped.
+Aquarq:: "Molly! Where are you?"
+Zebrium:: "It's striped, it's strapped, and it's stripped."
 Branch:: Feels kinda tickly
 Infused Rock:: Gives off an ominous aura
+Plastic:: Seems hollow, feels smooth
 Rune Of Self:: <g>+25%</> chance to Heal 1 on hit
 Rune Of Missile:: <g>+10%</> chance on hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: <g>+35%</> chance when you Heal to deal<br>x2 the amount as Damage to the nearest <e>Enemy</>
@@ -39,4 +40,4 @@ Rune Of Bleed:: +10% chance on hit to apply a stack of <o>Bleed</><br><o>Bleed</
 Rune Of Consumption:: Clear all <o>Effects</> on an <e>Enemy</>, for each stack cleared<br>increase Total Damage Dealt by +20%
 Rune Of Investment:: <g>+1%</> Total Damage per <o>Coin</> currently held
 Rune Of Dashed Protection:: <g>+0.2s</> of Dash Invulnerability
-Rune Of Surge:: +20% chance on kill to refill all skills by <g>+1</> Stock
+Rune Of Surge:: +15% chance on kill to refill all skills by <g>+1</> Stock

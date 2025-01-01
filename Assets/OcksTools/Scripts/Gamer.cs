@@ -741,6 +741,7 @@ public class Gamer : MonoBehaviour
     {
         List<string> items1 = new List<string>();
         List<string> items2 = new List<string>();
+        List<string> skills = new List<string>();
 
         foreach (var a in GISLol.Instance.Items)
         {
@@ -748,9 +749,11 @@ public class Gamer : MonoBehaviour
             {
                 if (a.IsCraftable) items1.Add(a.Name);
                 else if (a.IsRune) items2.Add(a.Name);
+                else if (a.IsSkill) skills.Add(a.Name);
             }
         }
         items1 = RandomFunctions.CombineLists(items1, items2);
+        items1 = RandomFunctions.CombineLists(items1, skills);
 
 
         int diff = items1.Count - spawnsofmyballs.Count;

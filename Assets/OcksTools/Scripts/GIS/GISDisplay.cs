@@ -122,6 +122,10 @@ public class GISDisplay : MonoBehaviour
                         mysprites = e.BlowParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].BlowParts;
                         break;
+                    case "Dagger":
+                        mysprites = e.TDaggerParts;
+                        defaultsprites = GISLol.Instance.MaterialsDict[fall].TDaggerParts;
+                        break;
                 }
 
                 if (index >= mysprites.Length || mysprites[index] == null || e.IsOverlay)

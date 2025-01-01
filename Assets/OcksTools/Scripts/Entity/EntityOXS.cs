@@ -511,7 +511,7 @@ public class EntityOXS : MonoBehaviour
             arr2 = inpu.ReadItemAmount("Rune Of Surge");
             if (arr2 > 0)
             {
-                if(inpu.RollLuck(0.2f) > 0)
+                if(inpu.RollLuck(0.15f) > 0)
                 {
                     for(int i  = 1; i < inpu.Player.Skills.Count; i++)
                     {

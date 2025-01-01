@@ -468,6 +468,10 @@ public class PlayerController : MonoBehaviour
                 AttacksPerSecondMod *= 0.9f;
                 mainweapon.Luck += 0.5f;
                 break;
+            case "Plastic":
+                helth *= 1.15f;
+                CritChance -= 0.1f;
+                break;
         }
         switch (matty.itemindex)
         {
@@ -711,8 +715,6 @@ public class PlayerController : MonoBehaviour
                 if (Skills[i].Stacks == xx) continue;
                 if (Skills[i].IsHeld && GISLol.Instance.SkillsDict[Skills[i].Name].CanHold) continue;
 
-                Debug.Log("sexval: " + (sex).ToString());
-                Debug.Log("1: " + ((sex / SkillCooldownMult)).ToString());
 
                 Skills[i].Timer = Mathf.Max(Skills[i].Timer - (sex / SkillCooldownMult), 0);
                 Skills[i].usecool = Mathf.Max(Skills[i].usecool - Time.deltaTime, 0);

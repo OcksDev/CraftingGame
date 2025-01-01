@@ -14,3 +14,4 @@ Shungite:: <g>-1</> Damage Taken (can not reduce below 1)<br><b>x0.9</> Movement
 Blood Stone:: <g>x1.2</> Attack Damage<br><b>-1</> Current Health on starting an attack (can't kill)
 Branch:: <g>+0.5</> Luck<br><b>x0.9</> Attack Speed
 Infused Rock:: <g>x1.15</> Attack Damage<br><b>-1</> Health On Attack (can't kill, doesn't activate runes)
+Plastic:: <g>x1.15</> Max Health<br><b>-10%</> Crit Chance
