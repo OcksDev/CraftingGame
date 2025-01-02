@@ -30,59 +30,52 @@ public class Projectile : MonoBehaviour
                 targetlife = 0.2f;
                 break;
         }
+        if (Bouncy) iswank = wankme();
     }
     Dictionary<Vector2, int> bannedvectiors = new Dictionary<Vector2, int>();
     // Update is called once per frame
     int ticks = 0;
+    bool iswank = false;
     void FixedUpdate()
     {
-        ticks++;
-        if (Bouncy && ticks > 2)
+        bool nogo = false;
+        if (Bouncy)
         {
-            List<Vector2> killme = new List<Vector2> ();
-            for(int i = 0; i < bannedvectiors.Count; i++) 
+            if (iswank)
             {
-                var wank = bannedvectiors.ElementAt(i);
-                bannedvectiors[wank.Key]--;
-                if (bannedvectiors[wank.Key] <= 0) killme.Add(wank.Key);
-            }
-            foreach(var a in killme)
-            {
-                bannedvectiors.Remove(a);
-            }
-            RaycastHit2D[] results = new RaycastHit2D[10];
-            var x = cic.Cast(transform.up, results, speed);
+                RaycastHit2D[] results = new RaycastHit2D[10];
+                var x = cic.Cast(transform.up, results, speed);
 
-            var dir = transform.up;
-            int realx = 0;
-            foreach (var a in results)
-            {
-                if (a.collider == null) continue;
-                var tp = Gamer.Instance.GetObjectType(a.collider.gameObject);
-                switch (tp.type)
+                var dir = transform.up;
+                int realx = 0;
+                float dist = 0;
+                foreach (var a in results)
                 {
-                    case "Wall":
-                        if (!bannedvectiors.ContainsKey(a.normal))
-                        {
+                    if (a.collider == null) continue;
+                    var tp = Gamer.Instance.GetObjectType(a.collider.gameObject);
+                    switch (tp.type)
+                    {
+                        case "Wall":
                             realx++;
+                            dist = a.distance-0.01f;
                             dir = RandomFunctions.ReflectVector(dir, a.normal);
-                            bannedvectiors.Add(a.normal, 0);
-                        }
-                        goto end;
-                        break;
+                            break;
+                    }
+                }
+                if (realx > 0)
+                {
+                    transform.position += transform.up * dist;
+                    nogo = true;
+                    transform.rotation = Point2DMod2(transform.position + dir, -90, 0);
                 }
             }
-            end:
-            if(realx > 0)
+            else
             {
-
-                transform.rotation = Point2DMod2(transform.position + dir, -90, 0);
-                transform.position += transform.up * speed;
+                iswank = wankme();
             }
-            wankout:;
         }
 
-        transform.position += transform.up * speed;
+        if(!nogo)transform.position += transform.up * speed;
 
 
         if ((life += Time.deltaTime) > targetlife)
@@ -92,6 +85,12 @@ public class Projectile : MonoBehaviour
             //speed = 0f;
         }
     }
+
+    public bool wankme()
+    {
+        return Gamer.Instance.IsPosInBounds(transform.position - (transform.up * speed) + transform.right*speed) && Gamer.Instance.IsPosInBounds(transform.position + (transform.up * speed) + transform.right * speed) && Gamer.Instance.IsPosInBounds(transform.position - (transform.up * speed) - transform.right*speed) && Gamer.Instance.IsPosInBounds(transform.position + (transform.up * speed) - transform.right * speed);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!Bouncy) return;
