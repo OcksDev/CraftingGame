@@ -20,7 +20,8 @@ public class HitBalls : MonoBehaviour
     public float hsh = 26.3f;
     private Dictionary<GameObject, int> hitdict = new Dictionary<GameObject, int>();
     public List<EntityOXS> EnemeisPenis = new List<EntityOXS>();
-
+    public CircleCollider2D coll;
+    public Rigidbody2D ridig;
 
     private void Start()
     {
@@ -29,6 +30,15 @@ public class HitBalls : MonoBehaviour
             case "Boomerang":
                 var f = 0.336f;
                 trail.transform.localPosition = new Vector3(f,f,0);
+                break;
+            case "Dagger":
+                hsh = 0;
+                specialsharts[0].transform.rotation *= Quaternion.Euler(0, 0, 45);
+                coll.radius = 0.6f;
+                var c = trail.emission;
+                c.rateOverTime = 50;
+                coll.isTrigger = false;
+                ridig.bodyType = RigidbodyType2D.Dynamic;
                 break;
         }
         OXComponent.StoreComponent(this);
@@ -72,6 +82,11 @@ public class HitBalls : MonoBehaviour
         }
         else
             Collisonsns(collision);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Collisonsns(collision.collider);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -138,7 +153,7 @@ public class HitBalls : MonoBehaviour
                     dam.attacker = playerController.gameObject;
                     dam.IsSpecificPointOfDamage = true;
                     dam.SpecificPointOfDamage = collision.offset;
-                    if (type == "Arrow" || type == "Shuriken" || type == "Boomerang"|| type == "Missile")
+                    if (type == "Arrow" || type == "Shuriken" || type == "Boomerang"|| type == "Missile"|| type == "Dagger")
                     {
                         dam.SpecificLocation = true;
                         dam.AttackerPos = type == "Arrow"?(transform.position + transform.rotation*Vector3.up*-1) : transform.position;
@@ -147,6 +162,7 @@ public class HitBalls : MonoBehaviour
                     EnemeisPenis.Add(e);
                     switch (type)
                     {
+                        case "Dagger":
                         case "Arrow":
                             hitlist.Add(collision.gameObject);
                             break;
@@ -206,10 +222,25 @@ public class HitBalls : MonoBehaviour
         var e2 = GetComponent<BallScrip>();
         if (fart && e2 != null) e2.speed = 0;
         var f = GetComponent<SpriteRenderer>();
+        if (type == "Dagger")
+        {
+            var c = trail.emission;
+            c.rateOverTime = 0;
+            if (fart)
+            {
+                foreach (var cc in spriteballs)
+                {
+                    var c2 = cc.color;
+                    c2.a = 0;
+                    cc.color = c2;
+                }
+            }
+        }
         for (int i = 0; i < 50; i++)
         {
             switch (type)
             {
+                case "Dagger":
                 case "Boomerang":
                     var c2 = spriteballs[0].color;
                     c2.a -= 0.02f;
@@ -244,7 +275,7 @@ public class HitBalls : MonoBehaviour
                     }
                     break;
             }
-            if (i > 5 && type != "Shuriken")
+            if (i > 5 && type != "Shuriken" && type != "Dagger")
             {
                 NO = true;
                 if(trail != null) trail.Stop();
@@ -263,6 +294,10 @@ public class HitBalls : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         if (e != null) e.speed = 0;
+        if (type == "Dagger")
+        {
+            coll.enabled = false;
+        }
         if (type == "Shuriken")
         {
             yield return new WaitForSeconds(1f);

@@ -360,6 +360,10 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond = 1.5f;
                     Damage = 6f;
                     break;
+                case "Dagger":
+                    AttacksPerSecond = 2.5f;
+                    Damage = 4f;
+                    break;
                 case "Boomerang":
                     AttacksPerSecond = 2f;
                     Damage = 6f;
@@ -552,7 +556,10 @@ public class PlayerController : MonoBehaviour
                 case "Sword":
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, g) * reverse)) * transform.rotation;
                     break;
+                case "Dagger":
                 case "Shuriken":
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
+                    break;
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 121 * reverse)) * transform.rotation;
                     break;
                 case "Boomerang":
@@ -609,6 +616,7 @@ public class PlayerController : MonoBehaviour
                 {
                     case "Crossbow": SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
                     case "Shuriken": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
+                    case "Dagger": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
                     case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
                     case "Axe": SwordFart.localScale = new Vector3(1, 1, 1); break;
                     case "Blowdart": SwordFart.localScale = new Vector3(1, 1, 1); break;
@@ -1123,6 +1131,40 @@ public class PlayerController : MonoBehaviour
                 s3.spriteballs[3].color = ra.colormods[3];
                 s3.spriteballs[4].color = ra.colormods[4];
                 s3.spriteballs[5].color = ra.colormods[5];
+                SoundSystem.Instance.PlaySound(13, true, 0.8f, 0.8f);
+                break;
+            case "Dagger":
+                for(int i = 0; i < 3; i++)
+                {
+                    s = Instantiate(SlashEffect[4], MyAssHurts.position, Quaternion.Euler(0,0,(i-1)*10f) * Point2DMod(MyAssHurts.position, -90, 0), Gamer.Instance.balls);
+                    s3 = s.GetComponent<HitBalls>();
+
+                    var sss2 = s.GetComponent<Projectile>();
+                    sss2.Banan = "Dagger";
+                    sss2.speed = 0.8f;
+                    sss2.Bouncy = true;
+                    s3.attackProfile = Shart;
+                    s3.hsh *= -reverse;
+                    s3.type = "Dagger";
+                    s3.OnlyHitOne = true;
+                    s3.NoStay = true;
+                    epe *= -0.5f;
+                    HitCollider = null;
+                    reverse *= -1;
+                    var ra3 = GISDisplay.GetSprites(mainweapon);
+                    s3.spriteballs[0].sprite = ra3.sprites[0];
+                    s3.spriteballs[1].sprite = ra3.sprites[1];
+                    s3.spriteballs[2].sprite = ra3.sprites[2];
+                    s3.spriteballs[3].sprite = ra3.sprites[3];
+                    s3.spriteballs[4].sprite = ra3.sprites[4];
+                    s3.spriteballs[5].sprite = ra3.sprites[5];
+                    s3.spriteballs[0].color = ra3.colormods[0];
+                    s3.spriteballs[1].color = ra3.colormods[1];
+                    s3.spriteballs[2].color = ra3.colormods[2];
+                    s3.spriteballs[3].color = ra3.colormods[3];
+                    s3.spriteballs[4].color = ra3.colormods[4];
+                    s3.spriteballs[5].color = ra3.colormods[5];
+                }
                 SoundSystem.Instance.PlaySound(13, true, 0.8f, 0.8f);
                 break;
             case "Boomerang":

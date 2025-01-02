@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7266247298035566312}
   - component: {fileID: 988634181841942042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 2300964143502615943}
   - component: {fileID: 6646572603122715760}
   - component: {fileID: 531870453691666476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shuriken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,6 +149,9 @@ MonoBehaviour:
   - {fileID: 5813971898094422569}
   trail: {fileID: 5473836194542814290}
   hsh: 26.3
+  EnemeisPenis: []
+  coll: {fileID: 531870453691666476}
+  ridig: {fileID: 6646572603122715760}
 --- !u!114 &2300964143502615943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,8 +167,10 @@ MonoBehaviour:
   speed: 0.6
   Banan: Arrow
   life: 0
+  Bouncy: 0
   Springles: []
   spinglerenderer: {fileID: 0}
+  cic: {fileID: 531870453691666476}
 --- !u!50 &6646572603122715760
 Rigidbody2D:
   serializedVersion: 4
@@ -178,15 +183,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!58 &531870453691666476
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -214,7 +219,7 @@ GameObject:
   - component: {fileID: 76737889605239918}
   - component: {fileID: 5473836194542814290}
   - component: {fileID: 7671772196834622910}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5083,7 +5088,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8240357871781651117}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5122,7 +5127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1489561853907388354}
   - component: {fileID: 4796232533428427072}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5206,7 +5211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4658676407895660717}
   - component: {fileID: 7490134343820243871}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5290,7 +5295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1958535794329613586}
   - component: {fileID: 1381649783101737089}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5374,7 +5379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9018437246825829698}
   - component: {fileID: 2040758014544579702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5458,7 +5463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7220991545928193858}
   - component: {fileID: 4426478930192637523}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
