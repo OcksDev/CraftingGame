@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour
                     {
                         case "Wall":
                             realx++;
-                            dist = a.distance-0.01f;
+                            dist = a.distance-0.1f;
                             dir = RandomFunctions.ReflectVector(dir, a.normal);
                             break;
                     }
