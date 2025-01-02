@@ -44,6 +44,6 @@ X Branch (has leaves)
 - Blue Grass
 - Purple Grass
 - Purple Gem (dark purple, darker than amethyststs)
-- Bone
+X Bone
 - Opal: +10% Overall Damage
 - Heavy Iron: Lower attack speed, increase damage, might be a bit derivative of Slime

@@ -98,8 +98,10 @@ public class GISLol : MonoBehaviour
             if (a.Name == "Empty") continue;
             var newitem = new GISItem_Data();
             newitem.Name = a.Name;
+            newitem.NameOverride = a.Name;
             newitem.Sprite = a.Image;
             newitem.LogbookOverride = true;
+            //newitem.IsRune = true;
             newitem.IsSkill = true;
             Items.Add(newitem);
         }
@@ -846,6 +848,7 @@ public class GISMaterial_Data
     public Sprite[] BlowParts;
     public Sprite[] TDaggerParts;
     public string fallthroughmaterial = "Rock";
+    public string fallthroughmaterialmian = "";
     public bool IsOverlay = false;
     public bool ignorecolorforcumimg = true;
 }

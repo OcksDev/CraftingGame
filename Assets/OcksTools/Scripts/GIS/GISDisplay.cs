@@ -81,7 +81,8 @@ public class GISDisplay : MonoBehaviour
             for (int index = 0; index < 3; index++)
             {
                 var e = GISLol.Instance.MaterialsDict[ITEM.Materials[index].index];
-                var fall = e.fallthroughmaterial;
+                var fall = TraceFallthrough(e.fallthroughmaterial);
+                var fallmian = TraceFallthrough2(e.fallthroughmaterialmian, e.Name);
                 Sprite baller;
                 Sprite baller2 = d;
                 Color32 beans = e.ColorMod;
@@ -91,39 +92,39 @@ public class GISDisplay : MonoBehaviour
                 switch (ITEM.ItemIndex)
                 {
                     default:
-                        mysprites = e.SwordParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].SwordParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].SwordParts;
                         break;
                     case "Bow":
-                        mysprites = e.BowParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].BowParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].BowParts;
                         break;
                     case "Spear":
-                        mysprites = e.SpearParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].SpearParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].SpearParts;
                         break;
                     case "Crossbow":
-                        mysprites = e.CrossbowParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].CrossbowParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].CrossbowParts;
                         break;
                     case "Shuriken":
-                        mysprites = e.DaggerParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].DaggerParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].DaggerParts;
                         break;
                     case "Boomerang":
-                        mysprites = e.SawbladeParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].SawbladeParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].SawbladeParts;
                         break;
                     case "Axe":
-                        mysprites = e.AxeParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].AxeParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].AxeParts;
                         break;
                     case "Blowdart":
-                        mysprites = e.BlowParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].BlowParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].BlowParts;
                         break;
                     case "Dagger":
-                        mysprites = e.TDaggerParts;
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].TDaggerParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].TDaggerParts;
                         break;
                 }
@@ -169,6 +170,30 @@ public class GISDisplay : MonoBehaviour
         a.sprites = boner;
         a.colormods = boner2;
         return a;
+    }
+
+    public static string TraceFallthrough(string origin)
+    {
+        if (GISLol.Instance.MaterialsDict[origin].IsOverlay)
+        {
+            return TraceFallthrough(GISLol.Instance.MaterialsDict[origin].fallthroughmaterial);
+        }
+        else
+        {
+            return origin;
+        }
+    }
+    public static string TraceFallthrough2(string origin, string main)
+    {
+        if (origin == "") return main;
+        if (GISLol.Instance.MaterialsDict[origin].IsOverlay)
+        {
+            return TraceFallthrough2(GISLol.Instance.MaterialsDict[origin].fallthroughmaterialmian, origin);
+        }
+        else
+        {
+            return origin;
+        }
     }
 
 

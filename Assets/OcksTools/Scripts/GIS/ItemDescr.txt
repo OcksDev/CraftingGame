@@ -15,3 +15,4 @@ Blood Stone:: <g>x1.2</> Attack Damage<br><b>-1</> Current Health on starting an
 Branch:: <g>+0.5</> Luck<br><b>x0.9</> Attack Speed
 Infused Rock:: <g>x1.15</> Attack Damage<br><b>-1</> Health On Attack (can't kill, doesn't activate runes)
 Plastic:: <g>x1.15</> Max Health<br><b>-10%</> Crit Chance
+Bone:: <g>x1.2</> Max Health<br><b>+15%</> Skill Cooldown

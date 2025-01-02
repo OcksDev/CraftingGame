@@ -476,6 +476,10 @@ public class PlayerController : MonoBehaviour
                 helth *= 1.15f;
                 CritChance -= 0.1f;
                 break;
+            case "Bone":
+                helth *= 1.2f;
+                SkillCooldownMult += 0.15f;
+                break;
         }
         switch (matty.itemindex)
         {
