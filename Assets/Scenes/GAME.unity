@@ -78249,7 +78249,7 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[34].Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 745c2cc51a423f04686150ae22d30a84, type: 3}
+      objectReference: {fileID: 21300000, guid: 698d8e380ff3bef4aac637f644634b76, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[35].IsRune
       value: 0
@@ -78257,7 +78257,7 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[35].Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 745c2cc51a423f04686150ae22d30a84, type: 3}
+      objectReference: {fileID: 21300000, guid: 8e97e6b89894a1d43a0a1b742859910c, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[36].IsRune
       value: 0
@@ -78664,7 +78664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[34].CanSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Items.Array.data[35].CanSpawn
