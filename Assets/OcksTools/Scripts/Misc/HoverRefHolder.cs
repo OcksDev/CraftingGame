@@ -30,7 +30,16 @@ public class HoverRefHolder : MonoBehaviour
 
         switch (hoverr.type)
         {
-            case "Item": break;
+            case "Item":
+#if UNITY_EDITOR
+                if(InputManager.IsKeyDown(KeyCode.Mouse2, "menu"))
+                {
+                    GISLol.Instance.Mouse_Held_Item = new GISItem(hoverr.item);
+                }
+
+
+#endif
+                break;
             default:
                 oldsex = null;
                 for (int i = 0; i < 3; i++)

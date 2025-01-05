@@ -214,6 +214,18 @@ public class EntityOXS : MonoBehaviour
                         {
                             damagefromhit *= ((double)arr * hit.controller.Coins)/100 + 1;
                         }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Bleed") * 0.2f;
+                        if (arr > 0 && hit.controller != null)
+                        {
+                            int tt2 = hit.WeaponOfAttack.RollLuck(arr);
+                            if (tt2 > 0) AddEffect(new EffectProfile("Bleed", 3, 7, tt2));
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Freeze") * 0.5f;
+                        if (arr > 0 && hit.controller != null)
+                        {
+                            int tt2 = hit.WeaponOfAttack.RollLuck(arr);
+                            if (tt2 > 0) AddEffect(new EffectProfile("Freeze", 5, 7, tt2));
+                        }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Missile") * 0.1f;
                         if (arr > 0 && !hit.Procs.Contains("Missile"))
                         {

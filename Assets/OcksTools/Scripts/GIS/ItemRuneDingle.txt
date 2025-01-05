@@ -6,6 +6,7 @@ Crossbow:: Shoots fast, low damage, piercing arrows
 Shuriken:: Throws a spinning projectile which deals<br>damage over time as enemies touch it.
 Boomerang:: Throws a projectile which<br>bounces between enemies
 Blowdart:: Slow shooting, high damage, non-piercing projectiles.
+Dagger:: Fast throwing, low damage, trio of non-piercing projectiles.
 Rock:: "It's a rock, what more did you expect?"
 Emerald:: ooo shiny
 Gold:: GOLD!
@@ -35,9 +36,10 @@ Rune Of Luck:: <g>+0.35</> Luck
 Rune Of Excitation:: Dealing damage grants you <g>+30%</> Movement Speed<br>This boost decays over <g>1s (+0.5s per stack)</>
 Rune Of Barrier:: While in Barrier, gain <g>+20% (asymptotic stacking)</> Block Chance<br>This is unaffected by Luck
 Rune Of Collapse:: Damaging an <e>Enemy</> applies <o>Collapse</> which stores <g>+50%</> of Damage dealt<br>Damage the same <e>Enemy</> with the other equipped <o>Weapon</> to deal all <br> stored Damage from <o>Collapse</><br><o>Collapse</> stacks are cleared on release
-Rune Of Freeze:: +50% chance on hit to apply a stack of <o>Freeze</><br><o>Freeze</> reduces Movement Speed by 30% per stack for 5s
-Rune Of Bleed:: +10% chance on hit to apply a stack of <o>Bleed</><br><o>Bleed</> deals 3 (+3 per stack) Damage per second for 3s
+Rune Of Freeze:: <g>+50%</> chance on hit to apply a stack of <o>Freeze</><br><o>Freeze</> reduces Movement Speed by 30% per stack for 5s
+Rune Of Bleed:: <g>+20%</> chance on hit to apply a stack of <o>Bleed</><br><o>Bleed</> deals 3 (+3 per stack) Damage per second for 3s
 Rune Of Consumption:: Clear all <o>Effects</> on an <e>Enemy</>, for each stack cleared<br>increase Total Damage Dealt by +20%
 Rune Of Investment:: <g>+1%</> Total Damage per <o>Coin</> currently held
 Rune Of Dashed Protection:: <g>+0.2s</> of Dash Invulnerability
-Rune Of Surge:: +15% chance on kill to refill all skills by <g>+1</> Stock
+Rune Of Surge:: 15% chance on kill to refill all skills by <g>+1</> Stock
+Rune Of Life:: 25% chance on heal to increase amount healed by <g>+1</>
