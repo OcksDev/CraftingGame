@@ -218,7 +218,9 @@ public class EntityOXS : MonoBehaviour
                         if (arr > 0 && hit.controller != null)
                         {
                             int tt2 = hit.WeaponOfAttack.RollLuck(arr);
-                            if (tt2 > 0) AddEffect(new EffectProfile("Bleed", 3, 7, tt2));
+                            var ef = new EffectProfile("Bleed", 3, 7, tt2);
+                            ef.storefloat = 1f;
+                            if (tt2 > 0) AddEffect(ef);
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Freeze") * 0.5f;
                         if (arr > 0 && hit.controller != null)
@@ -354,6 +356,17 @@ public class EntityOXS : MonoBehaviour
 
     public void Heal(double amount)
     {
+        switch (EnemyType)
+        {
+            case "Player":
+                var arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Life");
+                if (arr > 0)
+                {
+                    int tt2 = playerdaddy.mainweapon.RollLuck(0.25f);
+                    if (tt2 > 0) amount += arr;
+                }
+                break;
+        }
         var oldh = Health;
         Health = System.Math.Clamp(Health + amount, 0, Max_Health);
         var change = amount-( Health - oldh);
@@ -594,7 +607,27 @@ public class EntityOXS : MonoBehaviour
             Kill();
         }
     }
-
+    private void FixedUpdate()
+    {
+        switch(EnemyType)
+        {
+            case "Enemy":
+                if(Effects.Count > 0)
+                {
+                    var cd= ContainsEffect("Bleed");
+                    if (cd.hasthing)
+                    {
+                        if((cd.susser.storefloat -= Time.deltaTime) < 0)
+                        {
+                            cd.susser.storefloat = 0.98f;
+                            var dmg = new DamageProfile("Bleed", (double)3 * cd.susser.Stack);
+                            Hit(dmg);
+                        }
+                    }
+                }
+                break;
+        }
+    }
     public ret_cum_shenan ContainsEffect(EffectProfile eff)
     {
         bool alreadyhaseffect = false;
@@ -668,16 +701,16 @@ public class EntityOXS : MonoBehaviour
                     break;
                 case 2:
                     //increase stack count
-                    s.Stack++;
+                    s.Stack += eff.Stack;
                     break;
                 case 3:
                     //increase stack count, up to maximum value
-                    s.Stack++;
+                    s.Stack += eff.Stack;
                     if (s.Stack > s.MaxStack) s.Stack = s.MaxStack;
                     break;
                 case 4:
                     //increase stack count, up to maximum value, refresh duration
-                    s.Stack++;
+                    s.Stack += eff.Stack;
                     s.TimeRemaining = eff.Duration;
                     if (s.Stack > s.MaxStack) s.Stack = s.MaxStack;
                     break;
@@ -688,11 +721,11 @@ public class EntityOXS : MonoBehaviour
                 case 6:
                     //add old time remaining with new time (2s + 5s = 7s), also increase stack count
                     s.TimeRemaining += eff.Duration;
-                    s.Stack++;
+                    s.Stack += eff.Stack;
                     break;
                 case 7:
                     //increase stack count, refresh time remaining
-                    s.Stack++;
+                    s.Stack += eff.Stack;
                     s.TimeRemaining = eff.Duration;
                     break;
             }

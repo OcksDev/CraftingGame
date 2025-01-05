@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Analytics;
 using UnityEngine.UIElements;
-using static Unity.Collections.AllocatorManager;
 
 public class NavMeshEntity : MonoBehaviour
 {
@@ -295,6 +294,27 @@ public class NavMeshEntity : MonoBehaviour
     private Vector3 TotalVelocity = Vector3.zero;
     bool canrunattacktimer = true;
     const float sexcum = 180 / Mathf.PI;
+
+    public void SetMoveSpeeds()
+    {
+        float mult = 1;
+
+        if(EntityOXS.Effects.Count > 0)
+        {
+            var cd = EntityOXS.ContainsEffect("Freeze");
+            if (cd.hasthing)
+            {
+                float bigG = 1;
+                bigG += cd.susser.Stack * 0.5f;
+                mult /= bigG;
+            }
+        }
+
+
+        movespeed = BaldMoveSpeed * mult;
+        alt_speed = BaldAltMoveSpeed * mult;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -323,6 +343,7 @@ public class NavMeshEntity : MonoBehaviour
                 dist = x;
             }
         }
+        SetMoveSpeeds();
         ddist= dist;
         if(nearestnerd != null && dist <= 100)
         {
@@ -681,6 +702,7 @@ public class NavMeshEntity : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         SoundSystem.Instance.PlaySound(16, true, 0.1f);
         yield return new WaitForSeconds(0.07f);
+        if (target == null) yield break;
         var wank = PointAtPoint2D(target.transform.position, 0);
         var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
