@@ -11,7 +11,7 @@ X Battery Acid: +10% movespeed
 X Shungite: +10% attack speed
 X Touger Times: +5% chance to block damage (stacks like 1/20, 2/21, 3/22, 4/23, etc, approaching but never reaching 100%)  (x/(a+x))
 X Red Glasses: +10% crit chance (can go past 100, each roll adds 100% damage meaning at 200% crit chance you do x3 damage, then x4, x5, etc)
-- Bloody Knife: +10% chance on hit to bleed enemy (stacks over 100% add multiple stacks of bleed at once), bleed deals stack amount * 5 damage per second, lasts 5 seconds by default, idk how cooldown should be affetced
+X Bloody Knife: +10% chance on hit to bleed enemy (stacks over 100% add multiple stacks of bleed at once), bleed deals stack amount * 5 damage per second, lasts 5 seconds by default, idk how cooldown should be affetced
 X Repulsion Armor Plate: -1 damage taken from all sources, can not reduce below 1.
 X Power Elixir: +10% damage dealth
 - Scope: deal +10% damage to enemies further than 10m
@@ -41,7 +41,7 @@ X What (0.1% of spawning, not pixelated like other items, only can spawn after a
 -Legendary- (red)
 - Criminal Dagger: A dagger floats around you attacking nearby enemies for 100% (+100% per stack) damage
 - Soul Ripper: Enemies gain a 50% (+50% per stack) chance of creating an additional soul on death
-- Foreign Fruit: All sources of healing grant +1 extra healing
+X Foreign Fruit: All sources of healing grant +1 extra healing
 - Dio's Worst Friend: Gain an additional life, consumed on death
 
 - Plague: Enemies within 5m (+3m per stack) are affliced with poison

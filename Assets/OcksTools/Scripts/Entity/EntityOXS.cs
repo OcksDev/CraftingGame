@@ -209,6 +209,12 @@ public class EntityOXS : MonoBehaviour
                                 s.entit.Heal(tt2);
                             }
                         }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Death");
+                        if (arr > 0 && hit.controller != null)
+                        {
+                            int tt2 = hit.WeaponOfAttack.RollLuck(0.25f);
+                            if (tt2 > 0) damagefromhit += arr * 3;
+                        }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Investment");
                         if (arr > 0 && hit.controller != null)
                         {
