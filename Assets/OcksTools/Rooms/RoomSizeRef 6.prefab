@@ -256,6 +256,9 @@ MonoBehaviour:
   RelatedRooms: []
   floors:
   - {fileID: 1222212342697620924}
+  rth:
+    Name: 
+    IsPuzzleRoom: 0
   gm: {fileID: 0}
   dist: 9.438574e+10
   isused: 0
