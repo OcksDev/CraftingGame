@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private int reverse = 1;
     public GISItem mainweapon;
     private double helth = 0;
+    private double sheldmult = 0;
     public EntityOXS entit;
     private SpriteRenderer dicksplay;
     public static PlayerController Instance;
@@ -274,7 +275,6 @@ public class PlayerController : MonoBehaviour
     }
     public void SetData()
     {
-        helth = 100.0;
         if (GISLol.Instance.All_Containers.ContainsKey("Equips"))
         {
             if (isrealowner)
@@ -326,6 +326,8 @@ public class PlayerController : MonoBehaviour
         MaxDashCooldown = BaseDashCooldown;
         RotationOverride = false;
         DamageOnAttack = 0;
+        helth = 100.0;
+        sheldmult = 1;
         //deprecated
 
         MaxBowMult = 1.5f;
@@ -409,7 +411,7 @@ public class PlayerController : MonoBehaviour
         CritChance += (GetItem("critglass")*0.1f);*/
         entit.Max_Health = helth;
         entit.Health = helth * OLDPERC;
-        entit.Max_Shield = helth/2;
+        entit.Max_Shield = (helth/2) * sheldmult;
         DashCoolDown = MaxDashCooldown * OLDPERCDASH;
         SetMoveSpeed();
         if (CritChance < 0) CritChance = 0;
@@ -479,6 +481,12 @@ public class PlayerController : MonoBehaviour
             case "Bone":
                 helth *= 1.2f;
                 SkillCooldownMult += 0.15f;
+                break;
+            case "Diamond":
+                helth *= 1.2f;
+                WeaponDamageMod += 0.2;
+                AttacksPerSecond *= 0.9f;
+                working_move_speed *= 0.8f;
                 break;
         }
         switch (matty.itemindex)
