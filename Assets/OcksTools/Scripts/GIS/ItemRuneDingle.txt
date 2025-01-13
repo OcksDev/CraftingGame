@@ -44,3 +44,5 @@ Rune Of Dashed Protection:: <g>+0.2s</> of Dash Invulnerability
 Rune Of Surge:: 15% chance on Kill to refill all skills by <g>+1</> Stock
 Rune Of Life:: 25% chance on Heal to increase amount healed by <g>+1</>
 Rune Of Death:: 25% chance on Hit to increase Damage dealt by <g>+3</>
+Rune Of Ballistics:: On Skill shoot a <o>Missile</> with <g>+50%</> Damage
+Rune Of Electricity:: On Skill shoot <o>Lightning</> with <g>+20%</> Damage (max of 4 bounces)

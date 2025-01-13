@@ -308,6 +308,8 @@ MonoBehaviour:
   trail: {fileID: 0}
   hsh: 26.3
   EnemeisPenis: []
+  coll: {fileID: 0}
+  ridig: {fileID: 0}
 --- !u!58 &2048564359178978501
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -664,6 +666,7 @@ MonoBehaviour:
   - {fileID: 4220264068934514932}
   - {fileID: 2278403275201244645, guid: 35f717709a8751a49a658d7e91cdde9e, type: 3}
   - {fileID: 8780374519178872503, guid: 1bc7b2b87fd3d20498a6ee3ca771eee0, type: 3}
+  - {fileID: 2278403275201244645, guid: 240c8c3c8d9c0a148828f3a142beb480, type: 3}
   HitCollider: {fileID: 8591088333642842602}
   HitColliders:
   - {fileID: 8591088333642842602}
@@ -679,6 +682,7 @@ MonoBehaviour:
     Interacted_Containers: []
     Luck: -1
     BlockChance: 0
+    Player: {fileID: 0}
   entit: {fileID: 0}
   sexer: {fileID: 0}
   selecteditem: 0
@@ -695,8 +699,11 @@ MonoBehaviour:
   Skills: []
   hasaids: 0
   IsDashing: 0
+  IsDashingImmume: 0
+  moveintent: {x: 0, y: 0, z: 0}
   timersincedamage: 0
   MaxTimeSinceDamageDealt: 0
+  momentum: {x: 0, y: 0}
 --- !u!114 &6584350868192443160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,7 +784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1873435979
+  GlobalObjectIdHash: 4157409539
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -1187,6 +1194,8 @@ MonoBehaviour:
   trail: {fileID: 0}
   hsh: 26.3
   EnemeisPenis: []
+  coll: {fileID: 0}
+  ridig: {fileID: 0}
 --- !u!1 &7118059998714274347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,6 +1509,8 @@ MonoBehaviour:
   trail: {fileID: 0}
   hsh: 26.3
   EnemeisPenis: []
+  coll: {fileID: 0}
+  ridig: {fileID: 0}
 --- !u!1 &9067443756659564030
 GameObject:
   m_ObjectHideFlags: 0

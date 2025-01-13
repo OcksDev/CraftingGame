@@ -834,6 +834,27 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+
+        var arr = mainweapon.ReadItemAmount("Rune Of Ballistics");
+        if (arr > 0)
+        {
+            var attack = GetDamageProfile();
+            attack.DamageMod *= 0.5 * arr;
+            var weenis = transform;
+            var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], weenis.position, PointFromTo2D(transform.position, RandomFunctions.Instance.MousePositon(Camera.main), 90 + UnityEngine.Random.Range(-90f, 90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
+            we.hitbal.attackProfile = attack;
+        }
+        arr = mainweapon.ReadItemAmount("Rune Of Electricity");
+        if (arr > 0)
+        {
+            var attack = GetDamageProfile();
+            attack.DamageMod *= 0.2 * arr;
+            var weenis = transform;
+            var we = Instantiate(SlashEffect[6], weenis.position, Quaternion.identity, Gamer.Instance.balls).GetComponent<Lightning>();
+            we.profile = attack;
+        }
+
+
         Skills[index].IsHeld = true;
         GISItem wep = mainweapon;
         switch (wank.Name)
@@ -1310,4 +1331,13 @@ public class PlayerController : MonoBehaviour
         enem.Hit(dam);
     }
 
+    private Quaternion PointFromTo2D(Vector3 from_pos, Vector3 to_pos, float offset2)
+    {
+        //returns the rotation required to make the current gameobject point at the mouse, this method is 2D only.
+        Vector3 difference = from_pos - to_pos;
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var sex = Quaternion.Euler(0f, 0f, rotation_z + offset2);
+        return sex;
+    }
 }
