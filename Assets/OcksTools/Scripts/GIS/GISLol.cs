@@ -403,6 +403,7 @@ public class GISLol : MonoBehaviour
         e = e.Replace("ADA:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[4])}>ADA:");
         e = e.Replace("God:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[5])}>God:");
         e = e.Replace("G:", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[6])}>G:");
+        e = e.Replace("<ch_G>", $"<color=#{ColorUtility.ToHtmlStringRGBA(lorecharcolors[6])}>");
 
         return e;
     }
