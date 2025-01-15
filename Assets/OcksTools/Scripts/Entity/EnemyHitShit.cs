@@ -10,6 +10,7 @@ public class EnemyHitShit : MonoBehaviour
     public double overridedamage = -1;
     float time = 10f;
     public NavMeshEntity sexballs;
+    public MoverSexBalls moversexballs;
     List<PlayerController> hits = new List<PlayerController>(); 
     private void Update()
     {
@@ -17,7 +18,7 @@ public class EnemyHitShit : MonoBehaviour
         {
             return;
         }
-        if (type == "spitter" ||type == "spitter2" || type == "spik" || type == "edgworth"|| type == "cloak"|| type == "wra")
+        if (type == "spitter" ||type == "spitter2" || type == "spik" || type == "edgworth"|| type == "cloak"|| type == "wra"|| type == "jell")
         {
             time -= Time.deltaTime;
             if (time <= 0) Kill();
@@ -66,6 +67,19 @@ public class EnemyHitShit : MonoBehaviour
     private void FixedUpdate()
     {
         nono -= Time.deltaTime;
+        if (isdea) return;
+        switch (type)
+        {
+            case "jell":
+                var dir = transform.right;
+                var dir2 = (PlayerController.Instance.transform.position - transform.position).normalized;
+                var dist = RandomFunctions.Instance.DistNoSQRT(PlayerController.Instance.transform.position, transform.position);
+                if(Vector3.Dot(dir, dir2) < 0 && dist < 30)
+                {
+                    Kill();
+                }
+                break;
+        }
     }
 
     public void Tirggegg(Collider2D collision, bool ignorehits = false)
@@ -87,7 +101,7 @@ public class EnemyHitShit : MonoBehaviour
             if(sexballs != null)dam.attacker = sexballs.gameObject;
             pp.entit.Hit(dam);
             hits.Add(pp);
-            if (type == "spitter"|| type == "cloak" || type == "spik" || type == "edgworth" || type == "wra"|| type == "spitter2") Kill();
+            if (type == "spitter"|| type == "cloak" || type == "spik" || type == "edgworth" || type == "wra"|| type == "spitter2"|| type == "jell") Kill();
             switch (type)
             {
                 case "ball":
