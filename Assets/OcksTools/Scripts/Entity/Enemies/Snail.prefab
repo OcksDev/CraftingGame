@@ -9,16 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2284451541892325397}
-  - component: {fileID: -1650502587987379608}
+  - component: {fileID: -3262192874125570601}
   - component: {fileID: 2284451541892325386}
   - component: {fileID: 2284451541892325396}
   - component: {fileID: 2284451541892325398}
   - component: {fileID: 2284451541892325393}
   - component: {fileID: 2284451541892325395}
   - component: {fileID: 2284451541892325392}
-  - component: {fileID: 286535096734906924}
   m_Layer: 0
-  m_Name: JellyBingle
+  m_Name: Snail
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +38,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1650502587987379608
+--- !u!114 &-3262192874125570601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +73,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,12 +94,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 398938655, guid: 0195c6bddf4e6e34f91423630cbe12d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d8b560e1fd9fb34586d312df4966066, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -118,7 +117,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1
   m_LinearDrag: 7
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -140,9 +139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 100
+  Health: 120
   Shield: 0
-  Max_Health: 100
+  Max_Health: 120
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -167,7 +166,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.69
+  m_Radius: 0.83
 --- !u!195 &2284451541892325395
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -177,12 +176,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 2284451541892325387}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.69
+  m_Radius: 0.83
   m_Speed: 5
-  m_Acceleration: 26
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -202,26 +201,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2d2ecf164b9d42848a24a19fc5cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Zoglis
-  EnemyType: Elec
+  Name: Snail
+  EnemyType: Snail
   AttackType: Ranged
-  ImagePixelSize: 64
-  FlipImage: 1
+  ImagePixelSize: 32
+  FlipImage: 0
   SpawnOverlapRadius: 1
-  movespeed: 6.5
+  movespeed: 3
   SightRange: 15
-  AttackCooldown: 2.2
+  AttackCooldown: 1.8
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 10
+  Damage: 15
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
-  - {fileID: 398938655, guid: 0195c6bddf4e6e34f91423630cbe12d3, type: 3}
+  - {fileID: 21300000, guid: 0d8b560e1fd9fb34586d312df4966066, type: 3}
   SpriteMiscRefs: []
   EnableOnTrueSpawn: []
-  box: {fileID: 1894346058258269852, guid: bee166c2a4125ca48a57d0033e0c1be9, type: 3}
+  box: {fileID: 1894346058258269852, guid: ed33bb15ec42e394cb4d50644589369e, type: 3}
   EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
@@ -249,25 +248,5 @@ MonoBehaviour:
   ddist: 0
   charging: 0
   charging2: 0
-  alt_speed: 18
+  alt_speed: 8
   canseemysexybooty: 0
---- !u!95 &286535096734906924
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284451541892325387}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 75bc6f7e918ac0d44822c8d1b22856b3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0

@@ -483,6 +483,7 @@ public class NavMeshEntity : MonoBehaviour
                                 timer2 = 0;
                                 StartCoroutine(SpiterSex());
                                 break;
+                            case "Snail":
                             case "EyeOrb":
                                 timer2 = 0;
                                 StartCoroutine(SnormSex());
