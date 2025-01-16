@@ -228,7 +228,7 @@ public class EntityOXS : MonoBehaviour
                             ef.storefloat = 1f;
                             if (tt2 > 0) AddEffect(ef);
                         }
-                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Freeze") * 0.5f;
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Freeze") * 0.3f;
                         if (arr > 0 && hit.controller != null)
                         {
                             int tt2 = hit.WeaponOfAttack.RollLuck(arr);

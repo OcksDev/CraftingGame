@@ -140,9 +140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 10
+  Health: 100
   Shield: 0
-  Max_Health: 10
+  Max_Health: 100
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -202,8 +202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2d2ecf164b9d42848a24a19fc5cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Bat
-  EnemyType: Bat
+  Name: Zoglis
+  EnemyType: Elec
   AttackType: Ranged
   ImagePixelSize: 56
   FlipImage: 1

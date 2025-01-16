@@ -11,6 +11,7 @@ public class EnemyHitShit : MonoBehaviour
     float time = 10f;
     public NavMeshEntity sexballs;
     public MoverSexBalls moversexballs;
+    public GameObject SpawnOnDeath;
     List<PlayerController> hits = new List<PlayerController>(); 
     private void Update()
     {
@@ -40,6 +41,7 @@ public class EnemyHitShit : MonoBehaviour
         switch (type)
         {
             case "ball":
+            case "elec":
             case "orb":
                 if (nono <= 0)
                 {
@@ -56,6 +58,7 @@ public class EnemyHitShit : MonoBehaviour
         switch (type)
         {
             case "ball":
+            case "elec":
             case "orb":
                 if (nono <= 0)
                 {
@@ -105,6 +108,7 @@ public class EnemyHitShit : MonoBehaviour
             switch (type)
             {
                 case "ball":
+                case "elec":
                 case "orb":
                     nono = 0.20f;
                     break;
@@ -120,7 +124,19 @@ public class EnemyHitShit : MonoBehaviour
     bool isdea = false;
     public IEnumerator sexdie()
     {
-        if(subtype=="realbullet")
+
+        if (SpawnOnDeath != null)
+        {
+            var x = Instantiate(SpawnOnDeath, transform.position, transform.rotation, Gamer.Instance.balls);
+            var ehs = x.GetComponent<EnemyHitShit>();
+            if (ehs != null)
+            {
+                ehs.Damage = Damage;
+                ehs.sexballs = sexballs;
+                ehs.overridedamage = overridedamage;
+            }
+        }
+        if (subtype=="realbullet")
         {
             var wanks = GetComponentInChildren<SpriteRenderer>();
             if (wanks != null) wanks.gameObject.SetActive(false);
@@ -128,6 +144,7 @@ public class EnemyHitShit : MonoBehaviour
             if (TryGetComponent(out CircleCollider2D wankw)) wankw.enabled = false;
             if (TryGetComponent(out MoverSexBalls wankww)) wankww.enabled = false;
             var g = Gamer.Instance;
+
             switch (type)
             {
                 case "cloak":

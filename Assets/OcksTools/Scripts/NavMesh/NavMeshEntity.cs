@@ -505,11 +505,14 @@ public class NavMeshEntity : MonoBehaviour
                                 break;
                             default:
                                 timer2 = 0;
-                                var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
+                                var wank = PointAtPoint2D(target.transform.position, 0);
+                                var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
                                 var e = wenis.GetComponent<EnemyHitShit>();
                                 e.Damage = Damage;
                                 e.balling = transform;
                                 e.sexballs = this;
+                                var w2 = wank * new Vector3(-5, 0, 0);
+                                sex.velocity += (Vector2)w2;
                                 break;
                         }
 
@@ -566,6 +569,7 @@ public class NavMeshEntity : MonoBehaviour
                             beans.speed *= 1.5f;
                         }
                         break;
+                    case "Elec":
                     case "Spitter":
                         if (canseemysexybooty)
                         {
