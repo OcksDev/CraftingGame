@@ -23,29 +23,12 @@ public class QuestNerdBoi : MonoBehaviour
 
         //this code is retarded
         // 0
-        Func<string> res = () => {
-            switch (quest.Data["Name"])
-            {
-                case "Collect": return $"Collect {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
-                case "Kill": return $"Kill {quest.Data["Target_Amount"]} enemies using {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()} weapons.";
-                case "Craft": return $"Craft {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()} weapons, (Rock disqualifies craft)";
-                case "Room":
-                    switch (quest.Data["Target_Data"])
-                    {
-                        case "Chest":
-                            return $"Pay to open {quest.Data["Target_Amount"]} Dungeon Chests";
-                        default:
-                        return $"Clear {quest.Data["Target_Amount"]} \"{quest.Data["Target_Data"]}\" rooms";
-                    }
-                default: return "";
-            }
-        };
-        Title.text = res();
+        Title.text = GetTitle(q);
         if (quest.Data["Completed"] == "True")
         {
             Title.text = $"<color=#{ColorUtility.ToHtmlStringRGBA(Cols[0])}>" + Title.text;
         }
-        res = () => {
+        Func<string> res = () => {
             switch (quest.Data["Name"])
             {
                 default: return $"Reward: {quest.Data["Reward_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Reward_Data"]].GetDisplayName()}";
@@ -78,6 +61,26 @@ public class QuestNerdBoi : MonoBehaviour
         SetImageOnGISD(Icon2, "Reward");
 
     }
+
+    public static string GetTitle(QuestProgress quest)
+    {
+        switch (quest.Data["Name"])
+        {
+            case "Collect": return $"Collect {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
+            case "Kill": return $"Kill {quest.Data["Target_Amount"]} enemies using {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()} weapons.";
+            case "Craft": return $"Craft {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()} weapons, (Rock disqualifies craft)";
+            case "Room":
+                switch (quest.Data["Target_Data"])
+                {
+                    case "Chest":
+                        return $"Pay to open {quest.Data["Target_Amount"]} Dungeon Chests";
+                    default:
+                        return $"Clear {quest.Data["Target_Amount"]} \"{quest.Data["Target_Data"]}\" rooms";
+                }
+            default: return "";
+        }
+    }
+
     public void SetImageOnGISD(GISDisplay Icon, string boner)
     {
         if (quest.Data["Completed"] == "True")

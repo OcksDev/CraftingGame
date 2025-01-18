@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Gamer : MonoBehaviour
 {
@@ -733,6 +734,11 @@ public class Gamer : MonoBehaviour
         if (!GISLol.Instance.LogbookDiscoveries.ContainsKey(item))
         {
             GISLol.Instance.LogbookDiscoveries.Add(item, "");
+            var notif = new OXNotif();
+            notif.Title = "Item Discovered";
+            notif.Description = item;
+            notif.BackgroundColor1 = new Color32(50, 230, 227, 255);
+            NotificationSystem.Instance.AddNotif(notif);
         }
     }
 
@@ -1503,6 +1509,11 @@ public class Gamer : MonoBehaviour
         {
             hascorrupted = true;
             CorruptionCode.Instance.CorruptTile(new Vector3Int((int)playerstpos.x, (int)playerstpos.y));
+
+            var notif = new OXNotif();
+            notif.Title = "It Spreads...";
+            notif.BackgroundColor1 = new Color32(143, 52, 235, 255);
+            NotificationSystem.Instance.AddNotif(notif);
         }
 
         SpawnCoins(lastkillpos, 1, PlayerController.Instance);

@@ -939,6 +939,11 @@ public class QuestProgress
                     }
                     break;
             }
+            var notif = new OXNotif();
+            notif.Title = "Quest Complete";
+            notif.Description = QuestNerdBoi.GetTitle(this);
+            notif.BackgroundColor1 = new Color32(0, 255, 0, 255);
+            NotificationSystem.Instance.AddNotif(notif);
         }
     }
 }
