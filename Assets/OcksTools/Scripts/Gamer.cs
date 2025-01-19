@@ -734,6 +734,7 @@ public class Gamer : MonoBehaviour
         if (!GISLol.Instance.LogbookDiscoveries.ContainsKey(item))
         {
             GISLol.Instance.LogbookDiscoveries.Add(item, "");
+            if (item == "Rock") return;
             var notif = new OXNotif();
             notif.Title = "Item Discovered";
             notif.Description = GISLol.Instance.ItemsDict[item].GetDisplayName();
