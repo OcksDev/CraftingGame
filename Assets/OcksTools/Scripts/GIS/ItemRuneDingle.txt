@@ -25,6 +25,7 @@ Infused Rock:: Gives off an ominous aura
 Plastic:: Seems hollow, feels smooth
 Bone:: Disturbingly warm
 Diamond:: I CAN SWING MY SWORD!
+Piss:: Smells tasty
 Rune Of Self:: <g>+25%</> chance to Heal 1 on Hit
 Rune Of Missile:: <g>+10%</> chance on Hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: <g>+35%</> chance on Heal to deal<br>x2 the amount as Damage to the nearest <e>Enemy</>

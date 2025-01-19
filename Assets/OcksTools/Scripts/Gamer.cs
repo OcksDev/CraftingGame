@@ -736,7 +736,7 @@ public class Gamer : MonoBehaviour
             GISLol.Instance.LogbookDiscoveries.Add(item, "");
             var notif = new OXNotif();
             notif.Title = "Item Discovered";
-            notif.Description = item;
+            notif.Description = GISLol.Instance.ItemsDict[item].GetDisplayName();
             notif.BackgroundColor1 = new Color32(50, 230, 227, 255);
             NotificationSystem.Instance.AddNotif(notif);
         }
@@ -1505,7 +1505,7 @@ public class Gamer : MonoBehaviour
             PlayerController.Instance.Skills[i].Timer = 0;
         }
         InRoom = false;
-        if (!hascorrupted && CurrentFloor > 1)
+        if (!hascorrupted && CurrentFloor > 1 && PlayerController.Instance.entit.Health > 0)
         {
             hascorrupted = true;
             CorruptionCode.Instance.CorruptTile(new Vector3Int((int)playerstpos.x, (int)playerstpos.y));

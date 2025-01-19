@@ -783,7 +783,7 @@ public class GISItem_Data
     //this is what holds all of the base data for a general item of it's type.
     //EX: All "coal" items refer back to this for things like icon and name
     public string Name;
-    public string NameOverride;
+    public string NameOverride = "";
     public Sprite Sprite;
     public string Description;
     public string EXTRADescription;

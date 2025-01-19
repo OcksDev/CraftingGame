@@ -11,7 +11,7 @@ X Morkite: +10% movement speed
 - Jade: +25% shield gain
 X Aquart: +10% all healing
 X Amethyst: +25% attack speed, -10% move speed
-- Diamond: +35% damage, -20% (hyperbolic) attack speed
+X Diamond: +35% damage, -20% (hyperbolic) attack speed
 - Red Stone: slight attack speed increase, +1 healing on hit, -5 max heath
 - Quartz: +10% chance to proc lightning on hit
 X Emerald: +3 damage

@@ -140,9 +140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 100
+  Health: 120
   Shield: 0
-  Max_Health: 100
+  Max_Health: 120
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -209,6 +209,7 @@ MonoBehaviour:
   FlipImage: 1
   SpawnOverlapRadius: 1
   movespeed: 6.5
+  MeleeRange: 2.5
   SightRange: 15
   AttackCooldown: 2.2
   randommovetimer: 0

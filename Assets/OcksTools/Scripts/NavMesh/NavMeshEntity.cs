@@ -16,6 +16,7 @@ public class NavMeshEntity : MonoBehaviour
     public bool FlipImage= false;
     public float SpawnOverlapRadius = 1;
     public float movespeed = 5f;
+    public float MeleeRange = 2.5f;
     public float SightRange = 15f;
     public float AttackCooldown = 1.5f;
     public float randommovetimer = 0f;
@@ -104,6 +105,7 @@ public class NavMeshEntity : MonoBehaviour
             case "Charger":
                 CLearShit += box.GetComponent<EnemyHitShit>().OnSpawn;
                 break;
+            case "Crab":
             case "Rat":
                 CLearShit += box.GetComponentInChildren<EnemyHitShit>().OnSpawn;
                 break;
@@ -398,18 +400,27 @@ public class NavMeshEntity : MonoBehaviour
             switch (AttackType)
             {
                 case "Melee":
-                    if (target != null && dist <= 2.5f)
+                    if (target != null && dist <= MeleeRange)
                     {
                         timer2 += Time.deltaTime;
                     }
-                    box.SetActive(false);
+                    if(canmeleereset)box.SetActive(false);
                     if (timer2 > AttackCooldown)
                     {
                         timer2 = 0;
-                        //Debug.Log("SHONK");
-                        box.transform.rotation = Point2D(-180, 0);
-                        CLearShit?.Invoke();
-                        box.SetActive(true);
+                        switch (EnemyType)
+                        {
+                            case "Crab":
+                                StartCoroutine(CrabSex());
+                                break;
+                            default:
+                                //Debug.Log("SHONK");
+                                box.transform.rotation = Point2D(-180, 0);
+                                CLearShit?.Invoke();
+                                box.SetActive(true);
+                                break;
+                        }
+
                     }
                     break;
                 case "Forever":
@@ -694,6 +705,18 @@ public class NavMeshEntity : MonoBehaviour
         charging2 = false;
         timer2 = Random.Range(-0.25f, 0.25f);
         box.SetActive(false);
+    }
+    bool canmeleereset = true;
+    public IEnumerator CrabSex()
+    {
+        canmeleereset = false;
+        box.transform.rotation = Point2D(-180, 0);
+        Instantiate(Gamer.Instance.ParticleSpawns[32], transform.position, box.transform.rotation, Tags.refs["ParticleHolder"].transform);
+        yield return new WaitForSeconds(0.1f);
+        CLearShit?.Invoke();
+        box.SetActive(true);
+        yield return new WaitForFixedUpdate();
+        canmeleereset = true;
     }
     public Vector3 GetDir()
     {

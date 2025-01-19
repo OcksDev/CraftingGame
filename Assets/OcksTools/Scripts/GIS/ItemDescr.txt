@@ -17,3 +17,4 @@ Infused Rock:: <g>x1.15</> Attack Damage<br><b>-1</> Health On Attack (can't kil
 Plastic:: <g>x1.15</> Max Health<br><b>-10%</> Crit Chance
 Bone:: <g>x1.2</> Max Health<br><b>+15%</> Skill Cooldown
 Diamond:: <g>x1.2</> Max Health<br><g>+20%</> Attack Damage<br><b>x0.8</> Movement Speed<br><b>x0.9</> Attack Speed
+Piss:: <g>+20%</> Attack Speed<br><b>x0.9</> Attack Damage

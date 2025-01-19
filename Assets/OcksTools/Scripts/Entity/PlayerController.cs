@@ -443,6 +443,10 @@ public class PlayerController : MonoBehaviour
                 WeaponDamageMod += 0.2f;
                 working_move_speed *= 0.90f;
                 break;
+            case "Piss":
+                WeaponDamageMod *= 0.9f;
+                AttacksPerSecondMod += 0.2f;
+                break;
             case "Demonic Ingot":
                 CritChance += 0.20f;
                 WeaponDamageMod *= 0.90f;

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2284451541892325397}
-  - component: {fileID: -3262192874125570601}
+  - component: {fileID: 6364516869219245182}
   - component: {fileID: 2284451541892325386}
   - component: {fileID: 2284451541892325396}
   - component: {fileID: 2284451541892325398}
@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2284451541892325395}
   - component: {fileID: 2284451541892325392}
   m_Layer: 0
-  m_Name: Snail
+  m_Name: Crab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,11 +34,12 @@ Transform:
   m_LocalPosition: {x: 12.25, y: -0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1571466318679433024}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3262192874125570601
+--- !u!114 &6364516869219245182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,12 +95,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0d8b560e1fd9fb34586d312df4966066, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e8c6b0a5916e532438eec7fa93d12da0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -139,9 +140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 125
+  Health: 160
   Shield: 0
-  Max_Health: 125
+  Max_Health: 160
   Max_Shield: 0
   DamageTimer: 0.1
   col:
@@ -166,7 +167,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.83
+  m_Radius: 0.33
 --- !u!195 &2284451541892325395
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -176,8 +177,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 2284451541892325387}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.83
-  m_Speed: 5
+  m_Radius: 0.33
+  m_Speed: 7
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -201,31 +202,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2d2ecf164b9d42848a24a19fc5cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Snail
-  EnemyType: Snail
-  AttackType: Ranged
-  ImagePixelSize: 32
+  Name: Crabious
+  EnemyType: Crab
+  AttackType: Melee
+  ImagePixelSize: 18
   FlipImage: 0
   SpawnOverlapRadius: 1
-  movespeed: 3
-  MeleeRange: 2.5
+  movespeed: 5.5
+  MeleeRange: 4.5
   SightRange: 15
-  AttackCooldown: 1.8
+  AttackCooldown: 1
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 15
+  Damage: 20
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
-  - {fileID: 21300000, guid: 0d8b560e1fd9fb34586d312df4966066, type: 3}
+  - {fileID: 21300000, guid: e8c6b0a5916e532438eec7fa93d12da0, type: 3}
   SpriteMiscRefs: []
   EnableOnTrueSpawn: []
-  box: {fileID: 1894346058258269852, guid: ed33bb15ec42e394cb4d50644589369e, type: 3}
+  box: {fileID: 8352162098967844404}
   EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
-  sex2: {fileID: 0}
+  sex2: {fileID: 4879188297316090174}
   HasSpawned: 0
   EliteType: 
   EnemyHolder:
@@ -249,5 +250,117 @@ MonoBehaviour:
   ddist: 0
   charging: 0
   charging2: 0
-  alt_speed: 8
+  alt_speed: 10
   canseemysexybooty: 0
+--- !u!1 &8352162098967844404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1571466318679433024}
+  m_Layer: 0
+  m_Name: THing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1571466318679433024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8352162098967844404}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2781208519775804449}
+  m_Father: {fileID: 2284451541892325397}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8995759446059404531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2781208519775804449}
+  - component: {fileID: 889184068140113086}
+  - component: {fileID: 4879188297316090174}
+  m_Layer: 0
+  m_Name: Square
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2781208519775804449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995759446059404531}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 2.32, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1571466318679433024}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &889184068140113086
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995759446059404531}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &4879188297316090174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995759446059404531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db827c8bd003e974fbabd1313a7b55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: rat
+  subtype: buy
+  Damage: 10
+  overridedamage: -1
+  sexballs: {fileID: 2284451541892325392}
+  moversexballs: {fileID: 0}
+  SpawnOnDeath: {fileID: 0}
+  balling: {fileID: 0}
+  nono: 0
