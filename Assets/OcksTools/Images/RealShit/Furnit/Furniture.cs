@@ -46,9 +46,10 @@ public class Furniture : MonoBehaviour
         }
         if (self.sprite == null) Destroy(gameObject);
     }
-
+    bool hadsexed = false;
     public void OnTouch()
     {
+        if (hadsexed) return;
         switch (type)
         {
             case "Barrel":
@@ -71,6 +72,7 @@ public class Furniture : MonoBehaviour
                     Gamer.Instance.SpawnHealers(transform.position, 2, PlayerController.Instance);
                     Instantiate(Gamer.Instance.ParticleSpawns[17], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 }
+                hadsexed = true;
                 Destroy(gameObject);
                 break;
         }

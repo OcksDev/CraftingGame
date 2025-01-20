@@ -26,6 +26,10 @@ Plastic:: Seems hollow, feels smooth
 Bone:: Disturbingly warm
 Diamond:: I CAN SWING MY SWORD!
 Piss:: Smells tasty
+Grappling:: Launch a <o>Grappling Hook</> which pulls you toward itself when it lands.
+Capitalism:: Spend 1 <o>Coin</> to instantly kill the 3 nearest <e>Enemies</>. 
+SoulDrain:: All nearby <e>Enemies</> drop x2 their kill reward, but become <o>Soulless</>.<br><o>Soulless</> <e>Enemies</> do not drop a kill reward on death.
+ArrowStorm:: Shoot an arc of <o>Arrows</> with 50% Damage.
 Rune Of Self:: <g>+25%</> chance to Heal 1 on Hit
 Rune Of Missile:: <g>+10%</> chance on Hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: <g>+35%</> chance on Heal to deal<br>x2 the amount as Damage to the nearest <e>Enemy</>

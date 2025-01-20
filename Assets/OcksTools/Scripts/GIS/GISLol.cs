@@ -96,9 +96,11 @@ public class GISLol : MonoBehaviour
         {
             SkillsDict.Add(a.Name, a);
             if (a.Name == "Empty") continue;
+            if(!a.CanSpawn) continue;
             var newitem = new GISItem_Data();
             newitem.Name = a.Name;
-            newitem.NameOverride = a.Name;
+            newitem.NameOverride = a.NameOverride;
+            newitem.Description = "AA"; //this will get overritten by the txt files
             newitem.Sprite = a.Image;
             newitem.LogbookOverride = true;
             //newitem.IsRune = true;
@@ -140,6 +142,15 @@ public class GISLol : MonoBehaviour
             if (ItemsDict.ContainsKey(we.Key))
             {
                 ItemsDict[we.Key].Description = we.Value;
+            }
+            if (SkillsDict.ContainsKey(we.Key))
+            {
+                var bana = SkillsDict[we.Key];
+                ItemsDict[we.Key].Description += $"<br>Cooldown: {bana.Cooldown}s";
+                if(bana.MaxStacks > 1)
+                {
+                    ItemsDict[we.Key].Description += $"<br>Max Stock: {bana.MaxStacks}";
+                }
             }
         }
         e = Converter.StringToDictionary(EXTRADescriptionSussyBacons.text.Replace("\r", ""), "\n", ":: ");
@@ -953,7 +964,9 @@ public class QuestProgress
 public class Skill_Data
 {
     public string Name = "Null";
+    public string NameOverride = "";
     public Sprite Image;
+    public bool CanSpawn = true;
     public float Cooldown = 5f;
     public int MaxStacks = 1;
     public bool CanHold = false;
