@@ -12,8 +12,10 @@ public class GISDisplay : MonoBehaviour
     public TextMeshProUGUI amnt;
     public bool AutoUpdate = true;
     private GISItem olditem;
+    private Vector3 initsize = Vector3.zero;
     private void Awake()
     {
+        initsize = transform.localScale;
         if (item == null) item = new GISItem();
     }
 
@@ -68,7 +70,7 @@ public class GISDisplay : MonoBehaviour
         displays[3].color = b.colormods[3];
         displays[4].color = b.colormods[4];
         displays[5].color = b.colormods[5];
-        transform.localScale = Vector3.one * g.GetSizeMulty();
+        if(initsize != Vector3.zero) transform.localScale = initsize * g.GetSizeMulty();
     }
     public static SpriteReturn GetSprites(GISItem ITEM)
     {

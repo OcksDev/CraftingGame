@@ -364,7 +364,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Dagger":
                     AttacksPerSecond = 2.5f;
-                    Damage = 4f;
+                    Damage = 3f;
                     break;
                 case "Boomerang":
                     AttacksPerSecond = 2f;

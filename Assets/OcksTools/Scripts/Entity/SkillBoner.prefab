@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 6423589338199387752}
   - component: {fileID: 6423589338199387753}
   - component: {fileID: 1216094320095788105}
+  - component: {fileID: 2078328222316120341}
   m_Layer: 26
   m_Name: SkillBoner
   m_TagString: Untagged
@@ -447,6 +448,23 @@ MonoBehaviour:
   Counter: {fileID: 0}
   Charges: {fileID: 6858856596164975052}
   Keybindn: {fileID: 8682261237914134045}
+--- !u!114 &2078328222316120341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6423589338199387755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7056e5324e21a1246822ed0588362476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: skilly
+  guny: {fileID: 0}
+  vuny: {fileID: 0}
+  iuny: {fileID: 0}
+  wunty: {fileID: 1216094320095788105}
 --- !u!1 &8005722554090221344
 GameObject:
   m_ObjectHideFlags: 0

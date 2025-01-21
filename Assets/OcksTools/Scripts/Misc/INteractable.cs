@@ -109,6 +109,9 @@ public class INteractable : MonoBehaviour
             case "Quest":
                 Gamer.Instance.ToggleQuests();
                 break;
+            case "Skilledman":
+                Gamer.Instance.ToggleSkillMenu();
+                break;
             case "NextShop":
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextShop"));
                 break;

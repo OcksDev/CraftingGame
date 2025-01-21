@@ -8,6 +8,7 @@ public class HoverDingle : MonoBehaviour
     public GISDisplay guny;
     public VaultitemDisplay vuny;
     public ItemHolder iuny;
+    public SkillCum wunty;
     void Update()
     {
         var g = GISLol.Instance;
@@ -26,6 +27,10 @@ public class HoverDingle : MonoBehaviour
                 case "weenor":
                     g.HoverDohicky(new HoverType(vuny.item));
                     break;
+                case "skilly":
+                    var b = new GISItem(PlayerController.Instance.Skills[wunty.SkillIndex].Name);
+                    g.HoverDohicky(new HoverType(b));
+                    break;
                 case "logbook":
                     if (Gamer.Instance.checks[13]) return;
                     if (g.LogbookDiscoveries.ContainsKey(guny.item.ItemIndex))
@@ -39,6 +44,9 @@ public class HoverDingle : MonoBehaviour
                         hv.data2 = "Discover this item in a run to unlock";
                         g.HoverDohicky(hv);
                     }
+                    break;
+                case "coollol":
+                    g.HoverDohicky(new HoverType(guny.item));
                     break;
                 default:
                     hv.type = "TitleAndDesc";

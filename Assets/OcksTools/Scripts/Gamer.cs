@@ -73,6 +73,7 @@ public class Gamer : MonoBehaviour
     public GameObject EffectThing;
     public Volume volume;
 
+    public List<Skill_Data> SkillOffers = new List<Skill_Data>();
     public double TimeOfQuest = 0;
 
 
@@ -111,6 +112,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["Logbook"].SetActive(checks[12]);
         Tags.refs["LogbookSubmenu"].SetActive(checks[13]);
         Tags.refs["QuestMenu"].SetActive(checks[14]);
+        Tags.refs["SkillBuyMenu"].SetActive(checks[15]);
 
         Tags.refs["GameUI"].SetActive(GameState == "Game");
         Tags.refs["EnemiesRemaining"].SetActive(!IsInShop);
@@ -539,6 +541,10 @@ public class Gamer : MonoBehaviour
             {
                 ToggleFuckPause();
             }
+            else if (checks[15])
+            {
+                ToggleSkillMenu();
+            }
             else if (checks[5])
             {
                 if(!anim)
@@ -726,6 +732,22 @@ public class Gamer : MonoBehaviour
             ReloadLogbookItems();
         }
 
+        UpdateMenus();
+    }
+    
+    public void ToggleSkillMenu()
+    {
+        checks[15] = !checks[15];
+        if (checks[15])
+        {
+            var ggg = Tags.refs["SkillBuyMenu"].GetComponent<GAMBLING>();
+            ggg.displays[0].item = new GISItem(SkillOffers[0].Name);
+            ggg.displays[1].item = new GISItem(SkillOffers[1].Name);
+            ggg.displays[2].item = new GISItem(SkillOffers[2].Name);
+            ggg.displays[0].UpdateDisplay();
+            ggg.displays[1].UpdateDisplay();
+            ggg.displays[2].UpdateDisplay();
+        }
         UpdateMenus();
     }
 
@@ -1256,8 +1278,22 @@ public class Gamer : MonoBehaviour
             spawnedchests.Add(c);
         }
 
-
-
+        SkillOffers.Clear();
+        var sk = new List<Skill_Data>(GISLol.Instance.Skills);
+        for(int i = 0; i < sk.Count; i++)
+        {
+            if (!sk[i].CanSpawn)
+            {
+                sk.RemoveAt(i);
+                i--;
+            }
+        }
+        for(int i = 0; i < 3; i++)
+        {
+            var index = Random.Range(0, sk.Count);
+            SkillOffers.Add(sk[index]);
+            sk.RemoveAt(index);
+        }
 
         UpdateMenus();
         Tags.refs["NextFloor"].transform.position = new Vector3(11.5100002f, 0, -4.4000001f);
