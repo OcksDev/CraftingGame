@@ -68,6 +68,7 @@ public class GISDisplay : MonoBehaviour
         displays[3].color = b.colormods[3];
         displays[4].color = b.colormods[4];
         displays[5].color = b.colormods[5];
+        transform.localScale = Vector3.one * g.GetSizeMulty();
     }
     public static SpriteReturn GetSprites(GISItem ITEM)
     {

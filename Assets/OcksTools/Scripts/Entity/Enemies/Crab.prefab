@@ -205,7 +205,7 @@ MonoBehaviour:
   Name: Crabious
   EnemyType: Crab
   AttackType: Melee
-  ImagePixelSize: 18
+  ImagePixelSize: 38
   FlipImage: 0
   SpawnOverlapRadius: 1
   movespeed: 5.5

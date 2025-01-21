@@ -107,6 +107,28 @@ public class GISLol : MonoBehaviour
             newitem.IsSkill = true;
             Items.Add(newitem);
         }
+        Dictionary<string, EnemyHolder> banana = new Dictionary<string, EnemyHolder>();
+        foreach (var a in Gamer.Instance.EnemiesDos)
+        {
+            var newitem = new GISItem_Data();
+            var weenor = a.EnemyObject.GetComponent<NavMeshEntity>();
+            newitem.Name = weenor.EnemyType;
+            newitem.NameOverride = weenor.Name;
+            banana.Add(newitem.Name, a);
+            newitem.Description = "AA"; //this will get overritten by the txt files
+            newitem.Sprite = weenor.SpriteVarients[0];
+            newitem.LogbookOverride = true;
+            switch(weenor.EnemyType)
+            {
+                case "Handless":
+                    newitem.SetSizeMulty(1.33f);
+                    break;
+            }
+            //newitem.IsRune = true;
+            newitem.IsEnemy = true;
+            Items.Add(newitem);
+
+        }
 
 
         foreach (var a in Items)
@@ -139,7 +161,7 @@ public class GISLol : MonoBehaviour
         e = Converter.StringToDictionary(GeneralDesciptionOverrides.text.Replace("\r", ""), "\n", ":: ");
         foreach (var we in e)
         {
-            if (ItemsDict.ContainsKey(we.Key))
+            if (ItemsDict.ContainsKey(we.Key) && !banana.ContainsKey(we.Key))
             {
                 ItemsDict[we.Key].Description = we.Value;
             }
@@ -153,6 +175,17 @@ public class GISLol : MonoBehaviour
                 }
             }
         }
+        foreach(var banaew in banana)
+        {
+            var bana = banaew.Value;
+            var bana2 = bana.EnemyObject.GetComponent<NavMeshEntity>();
+            var bana3 = bana.EnemyObject.GetComponent<EntityOXS>();
+
+            ItemsDict[bana2.EnemyType].Description = $"Health: {bana3.Max_Health}";
+            ItemsDict[bana2.EnemyType].Description += $"<br>Damage: {bana2.Damage}";
+            if (bana.MinFloor > 1) ItemsDict[bana2.EnemyType].Description += $"<br>Min Floor: {bana.MinFloor}";
+        }
+
         e = Converter.StringToDictionary(EXTRADescriptionSussyBacons.text.Replace("\r", ""), "\n", ":: ");
         foreach (var we in e)
         {
@@ -802,11 +835,16 @@ public class GISItem_Data
     public bool IsWeapon = false;
     public bool IsCraftable = false;
     public bool IsRune = false;
+    [HideInInspector]
     public bool IsSkill = false;
+    [HideInInspector]
+    public bool IsEnemy = false;
     public bool CanSpawn = true;
     public bool LogbookOverride = false;
+    private float LogbookSizeMult = 1;
     public GISItem_Data()
     {
+        LogbookSizeMult = 1;
         Sprite = null;
         Name = "Void";
         Description = "Nothing";
@@ -822,6 +860,14 @@ public class GISItem_Data
     public string GetDisplayName()
     {
         return NameOverride == "" ? Name : NameOverride;
+    }
+    public void SetSizeMulty(float x)
+    {
+        LogbookSizeMult = x;
+    }
+    public float GetSizeMulty()
+    {
+        return LogbookSizeMult;
     }
 }
 [Serializable]

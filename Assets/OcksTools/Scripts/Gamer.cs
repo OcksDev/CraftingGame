@@ -743,12 +743,15 @@ public class Gamer : MonoBehaviour
         }
     }
 
-    List<I_penis> spawnsofmyballs = new List<I_penis>();
+    List<I_penis> spawnsofmyballs1 = new List<I_penis>();
+    List<I_penis> spawnsofmyballs2 = new List<I_penis>();
+    List<I_penis> spawnsofmyballs3 = new List<I_penis>();
     public void ReloadLogbookItems()
     {
         List<string> items1 = new List<string>();
         List<string> items2 = new List<string>();
         List<string> skills = new List<string>();
+        List<string> enems = new List<string>();
 
         foreach (var a in GISLol.Instance.Items)
         {
@@ -757,26 +760,56 @@ public class Gamer : MonoBehaviour
                 if (a.IsCraftable) items1.Add(a.Name);
                 else if (a.IsRune) items2.Add(a.Name);
                 else if (a.IsSkill) skills.Add(a.Name);
+                else if (a.IsEnemy) enems.Add(a.Name);
             }
         }
         items1 = RandomFunctions.CombineLists(items1, items2);
-        items1 = RandomFunctions.CombineLists(items1, skills);
-
-
-        int diff = items1.Count - spawnsofmyballs.Count;
+        int diff = items1.Count - spawnsofmyballs1.Count;
         for(int i = 0; i < diff; i++)
         {
-            spawnsofmyballs.Add(Instantiate(LogbookThing, transform.position, transform.rotation, Tags.refs["LogbookParent"].transform).GetComponent<I_penis>());
+            spawnsofmyballs1.Add(Instantiate(LogbookThing, transform.position, transform.rotation, Tags.refs["LogbookParent1"].transform).GetComponent<I_penis>());
         }
         for(int i = 0; i < -diff; i++)
         {
-            Destroy(spawnsofmyballs[0].gameObject);
-            spawnsofmyballs.RemoveAt(0);
+            Destroy(spawnsofmyballs1[0].gameObject);
+            spawnsofmyballs1.RemoveAt(0);
         }
         for(int i = 0; i < items1.Count; i++)
         {
-            spawnsofmyballs[i].GISDisplay.item = new GISItem(items1[i]);
-            spawnsofmyballs[i].GISDisplay.UpdateDisplay("logbook");
+            spawnsofmyballs1[i].GISDisplay.item = new GISItem(items1[i]);
+            spawnsofmyballs1[i].GISDisplay.UpdateDisplay("logbook");
+        }
+
+        diff = skills.Count - spawnsofmyballs2.Count;
+        for(int i = 0; i < diff; i++)
+        {
+            spawnsofmyballs2.Add(Instantiate(LogbookThing, transform.position, transform.rotation, Tags.refs["LogbookParent2"].transform).GetComponent<I_penis>());
+        }
+        for(int i = 0; i < -diff; i++)
+        {
+            Destroy(spawnsofmyballs2[0].gameObject);
+            spawnsofmyballs2.RemoveAt(0);
+        }
+        for(int i = 0; i < skills.Count; i++)
+        {
+            spawnsofmyballs2[i].GISDisplay.item = new GISItem(skills[i]);
+            spawnsofmyballs2[i].GISDisplay.UpdateDisplay("logbook");
+        }
+
+        diff = enems.Count - spawnsofmyballs3.Count;
+        for(int i = 0; i < diff; i++)
+        {
+            spawnsofmyballs3.Add(Instantiate(LogbookThing, transform.position, transform.rotation, Tags.refs["LogbookParent3"].transform).GetComponent<I_penis>());
+        }
+        for(int i = 0; i < -diff; i++)
+        {
+            Destroy(spawnsofmyballs3[0].gameObject);
+            spawnsofmyballs3.RemoveAt(0);
+        }
+        for(int i = 0; i < enems.Count; i++)
+        {
+            spawnsofmyballs3[i].GISDisplay.item = new GISItem(enems[i]);
+            spawnsofmyballs3[i].GISDisplay.UpdateDisplay("logbook");
         }
     }
 
