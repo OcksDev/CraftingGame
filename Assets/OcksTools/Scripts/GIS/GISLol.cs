@@ -1016,6 +1016,15 @@ public class Skill_Data
     public float Cooldown = 5f;
     public int MaxStacks = 1;
     public bool CanHold = false;
+    public int GetCost()
+    {
+        int x = 10;
+        switch (Name)
+        {
+            case "Empty": x = -1; break;
+        }
+        return x;
+    }
 }
 
 [Serializable]

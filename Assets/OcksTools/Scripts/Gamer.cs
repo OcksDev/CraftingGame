@@ -740,16 +740,50 @@ public class Gamer : MonoBehaviour
         checks[15] = !checks[15];
         if (checks[15])
         {
-            var ggg = Tags.refs["SkillBuyMenu"].GetComponent<GAMBLING>();
-            ggg.displays[0].item = new GISItem(SkillOffers[0].Name);
-            ggg.displays[1].item = new GISItem(SkillOffers[1].Name);
-            ggg.displays[2].item = new GISItem(SkillOffers[2].Name);
-            ggg.displays[0].UpdateDisplay();
-            ggg.displays[1].UpdateDisplay();
-            ggg.displays[2].UpdateDisplay();
+            REFSkillOfferDisplay();
         }
         UpdateMenus();
     }
+
+    public void REFSkillOfferDisplay()
+    {
+        var ggg = Tags.refs["SkillBuyMenu"].GetComponent<GAMBLING>();
+        ggg.displays[0].item = new GISItem(SkillOffers[0].Name);
+        ggg.displays[1].item = new GISItem(SkillOffers[1].Name);
+        ggg.displays[2].item = new GISItem(SkillOffers[2].Name);
+        ggg.displays[0].UpdateDisplay();
+        ggg.displays[1].UpdateDisplay();
+        ggg.displays[2].UpdateDisplay();
+        ggg.texts[0].text = $"{SkillOffers[0].GetCost()} Coins";
+        ggg.texts[1].text = $"{SkillOffers[1].GetCost()} Coins";
+        ggg.texts[2].text = $"{SkillOffers[2].GetCost()} Coins";
+        ggg.texts[3].text = $"{skillrollamnt * 3} Coins";
+    }
+    int skillrollamnt = 0;
+    public void RollNewSkillSex()
+    {
+        if (PlayerController.Instance.Coins < skillrollamnt * 3) return;
+        PlayerController.Instance.Coins -= skillrollamnt * 3;
+        skillrollamnt++;
+        SkillOffers.Clear();
+        var sk = new List<Skill_Data>(GISLol.Instance.Skills);
+        for (int i = 0; i < sk.Count; i++)
+        {
+            if (!sk[i].CanSpawn)
+            {
+                sk.RemoveAt(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            var index = Random.Range(0, sk.Count);
+            SkillOffers.Add(sk[index]);
+            sk.RemoveAt(index);
+        }
+        REFSkillOfferDisplay();
+    }
+
 
     public void AttemptAddLogbookItem(string item)
     {
@@ -1240,6 +1274,7 @@ public class Gamer : MonoBehaviour
         lastkillpos = Vector3.zero;
         hascorrupted = false;
         OldCurrentRoom = null;
+        skillrollamnt = 0;
         GameState = "Game";
         Tags.refs["Lobby"].SetActive(false);
         Tags.refs["ShopArea"].SetActive(false);
@@ -1278,22 +1313,7 @@ public class Gamer : MonoBehaviour
             spawnedchests.Add(c);
         }
 
-        SkillOffers.Clear();
-        var sk = new List<Skill_Data>(GISLol.Instance.Skills);
-        for(int i = 0; i < sk.Count; i++)
-        {
-            if (!sk[i].CanSpawn)
-            {
-                sk.RemoveAt(i);
-                i--;
-            }
-        }
-        for(int i = 0; i < 3; i++)
-        {
-            var index = Random.Range(0, sk.Count);
-            SkillOffers.Add(sk[index]);
-            sk.RemoveAt(index);
-        }
+        RollNewSkillSex();
 
         UpdateMenus();
         Tags.refs["NextFloor"].transform.position = new Vector3(11.5100002f, 0, -4.4000001f);
