@@ -738,6 +738,7 @@ public class PlayerController : MonoBehaviour
                 var xx = GISLol.Instance.SkillsDict[Skills[i].Name].MaxStacks;
                 if (Skills[i].Stacks == xx) continue;
                 if (Skills[i].IsHeld && GISLol.Instance.SkillsDict[Skills[i].Name].CanHold) continue;
+                if (GISLol.Instance.SkillsDict[Skills[i].Name].OnlyFillInCombat && Gamer.Instance.CurrentRoom == null) continue;
 
 
                 Skills[i].Timer = Mathf.Max(Skills[i].Timer - (sex / SkillCooldownMult), 0);
@@ -836,6 +837,9 @@ public class PlayerController : MonoBehaviour
             case "Capitalism":
                 if (Coins <= 0 || Gamer.Instance.EnemiesExisting.Count <= 0) return;
                 break;
+            case "SwordDance":
+                if (AllocatedSwords + 8 > 32) return;
+                break;
         }
 
 
@@ -883,6 +887,9 @@ public class PlayerController : MonoBehaviour
             case "ArrowStorm":
                 StartCoroutine(StartArrowStorm());
                 break;
+            case "SwordDance":
+                StartCoroutine(StartSwordDance(8));
+                break;
             case "Grappling":
                 LaunchGrapple(wank);
                 break;
@@ -891,6 +898,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case "SoulDrain":
                 SoulDrain();
+                break;
+            case "Soulsplosion":
+                Soulsplosion();
                 break;
             default:
                 Debug.Log("ruh roh");
@@ -973,6 +983,34 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    public int AllocatedSwords = 0;
+    public IEnumerator StartSwordDance(int amnt)
+    {
+
+        var Shart = GetDamageProfile();
+        Func<int, int> wanker = (i) =>
+        {
+            var offshart = new DamageProfile(Shart);
+            offshart.DamageMod *= 0.5;
+            var ff = UnityEngine.Random.Range(0f, 1f);
+            var tt = Mathf.FloorToInt(CritChance);
+            Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+            var s = Instantiate(SlashEffect[7], transform.position, Quaternion.identity, Gamer.Instance.balls);
+            var s3 = s.GetComponent<HitBalls>();
+            s3.playerController = this;
+            s3.attackProfile = offshart;
+            var s4 = s.GetComponent<Rotato>();
+            s4.controller = this;
+            return 0;
+        };
+        AllocatedSwords += amnt;
+        for (int i = 0; i < amnt; i++)
+        {
+            wanker(0);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+    }
     public void LaunchGrapple(Skill sk)
     {
         var cd = Instantiate(SlashEffect[5], transform.position, Point2D(0, 0)).GetComponent<GrappHook>();
@@ -1013,6 +1051,18 @@ public class PlayerController : MonoBehaviour
                 n.EntityOXS.DropKillReward(true);
                 var w = new EffectProfile("Soulless", 999999999, 1, 1);
                 n.EntityOXS.AddEffect(w);
+            }
+        }
+    }
+    public void Soulsplosion()
+    {
+        foreach (var n in Gamer.Instance.AllHealers)
+        {
+            if (n == null || n.isused) continue;
+            if(n.SexChaser == this)
+            {
+                entit.SpawnExplosion(5, n.transform.position, GetDamageProfile(), 10);
+                Destroy(n.gameObject);
             }
         }
     }

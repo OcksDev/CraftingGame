@@ -1997,6 +1997,7 @@ public class Gamer : MonoBehaviour
 
     [HideInInspector]
     public Vector3 lastkillpos = new Vector3();
+    public List<HealerFollower> AllHealers = new List<HealerFollower>();
     public void SpawnHealers(Vector3 pos, int amount, PlayerController target)
     {
         List<GameObject> others = new List<GameObject>();
@@ -2005,7 +2006,9 @@ public class Gamer : MonoBehaviour
             var wen = Instantiate(Gamer.Instance.HealerGFooFO, pos, transform.rotation, balls);
             others.Add(wen);
             OXComponent.StoreComponent<HealerFollower>(wen);
-            OXComponent.GetComponent<HealerFollower>(wen).SexChaser = target;
+            var waa = OXComponent.GetComponent<HealerFollower>(wen);
+            waa.SexChaser = target;
+            AllHealers.Add(waa);
         }
         foreach (var other in others)
         {

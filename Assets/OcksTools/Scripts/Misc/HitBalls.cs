@@ -214,28 +214,40 @@ public class HitBalls : MonoBehaviour
 
 
     bool NO = false;
-    
+    public bool ISDEAD=false;
     public IEnumerator WaitForDIe(bool fart = false)
     {
+        if(ISDEAD) yield break;
+        ISDEAD = true;
         var e = GetComponent<Projectile>();
         if (fart && e != null) e.speed = 0;
         var e2 = GetComponent<BallScrip>();
         if (fart && e2 != null) e2.speed = 0;
         var f = GetComponent<SpriteRenderer>();
-        if (type == "Dagger")
+        int steps = 50;
+        switch (type)
         {
-            var c = trail.emission;
-            c.rateOverTime = 0;
-            if (fart)
-            {
-                foreach (var cc in spriteballs)
+            case "Dagger":
+                var c = trail.emission;
+                c.rateOverTime = 0;
+                if (fart)
                 {
-                    var c2 = cc.color;
-                    c2.a = 0;
-                    cc.color = c2;
+                    foreach (var cc in spriteballs)
+                    {
+                        var c2 = cc.color;
+                        c2.a = 0;
+                        cc.color = c2;
+                    }
                 }
-            }
+                break;
+            case "FLYSW":
+                var c3 = trail.emission;
+                c3.rateOverTime = 0;
+                f = spriteballs[0];
+                steps = 5;
+                break;
         }
+        float dick = 1f / steps;
         for (int i = 0; i < 50; i++)
         {
             switch (type)
@@ -243,22 +255,22 @@ public class HitBalls : MonoBehaviour
                 case "Dagger":
                 case "Boomerang":
                     var c2 = spriteballs[0].color;
-                    c2.a -= 0.02f;
+                    c2.a -= dick;
                     spriteballs[0].color = c2;
                     c2 = spriteballs[1].color;
-                    c2.a -= 0.02f;
+                    c2.a -= dick;
                     spriteballs[1].color = c2;
                     c2 = spriteballs[2].color;
-                    c2.a -= 0.02f;
+                    c2.a -= dick;
                     spriteballs[2].color = c2;
                     c2 = spriteballs[3].color;
-                    c2.a -= 0.02f;
+                    c2.a -= dick;
                     spriteballs[3].color = c2;
                     c2 = spriteballs[4].color;
-                    c2.a -= 0.02f;
+                    c2.a -= dick;
                     spriteballs[4].color = c2;
                     c2 = spriteballs[5].color;
-                    c2.a -= 0.02f;
+                    c2.a -= dick;
                     spriteballs[5].color = c2;
                     break;
                 case "Missile":
@@ -270,7 +282,7 @@ public class HitBalls : MonoBehaviour
                     if (f != null)
                     {
                         var c = f.color;
-                        c.a -= 0.02f;
+                        c.a -= dick;
                         f.color = c;
                     }
                     break;
@@ -335,5 +347,13 @@ public class HitBalls : MonoBehaviour
         var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);
         return sex;
     }
-
+    private void OnDestroy()
+    {
+        switch (type)
+        {
+            case "FLYSW":
+                if (playerController != null) playerController.AllocatedSwords--;
+                break;
+        }
+    }
 }

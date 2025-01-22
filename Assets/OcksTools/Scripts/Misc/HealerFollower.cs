@@ -10,6 +10,7 @@ public class HealerFollower : MonoBehaviour
     public Vector3 vel;
     public float sexer;
     public bool IsCoin =false;
+    public bool isused =false;
     // Update is called once per frame
 
     private void Start()
@@ -78,7 +79,11 @@ public class HealerFollower : MonoBehaviour
         }
         sexer = 0f;
         hadsexualencounterwithplayerandwasrapedfrombehindthensenttocounselingfortraumaandlackofballs = true;
-        sex2.enabled = false;
         Gamer.Instance.healers.Remove(gameObject);
+        Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        Gamer.Instance.AllHealers.Remove(this);
     }
 }

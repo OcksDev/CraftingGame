@@ -338,9 +338,9 @@ public class EntityOXS : MonoBehaviour
     }
 
 
-    public void SpawnExplosion(float size, Vector3 pos, DamageProfile dam, double damage = 15)
+    public void SpawnExplosion(float size, Vector3 pos, DamageProfile dam, double damage = 15, int particleid= 16)
     {
-        var weenis = Instantiate(Gamer.Instance.ParticleSpawns[16], pos, Quaternion.identity).GetComponent<partShitBall>();
+        var weenis = Instantiate(Gamer.Instance.ParticleSpawns[particleid], pos, Quaternion.identity).GetComponent<partShitBall>();
         float truesz = size / 5;
         weenis.Particicic.localScale = new Vector3(truesz, truesz, 1);
         var we = Physics2D.OverlapCircleAll((Vector2)pos, size/2);

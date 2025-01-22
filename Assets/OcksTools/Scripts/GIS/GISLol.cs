@@ -1016,6 +1016,7 @@ public class Skill_Data
     public float Cooldown = 5f;
     public int MaxStacks = 1;
     public bool CanHold = false;
+    public bool OnlyFillInCombat = false;
     public int GetCost()
     {
         int x = 10;
