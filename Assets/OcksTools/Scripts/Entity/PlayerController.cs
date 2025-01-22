@@ -991,7 +991,7 @@ public class PlayerController : MonoBehaviour
         Func<int, int> wanker = (i) =>
         {
             var offshart = new DamageProfile(Shart);
-            offshart.DamageMod *= 0.5;
+            //offshart.DamageMod *= 0.5;
             var ff = UnityEngine.Random.Range(0f, 1f);
             var tt = Mathf.FloorToInt(CritChance);
             Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);

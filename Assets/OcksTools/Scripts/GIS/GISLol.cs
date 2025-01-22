@@ -173,6 +173,10 @@ public class GISLol : MonoBehaviour
                 {
                     ItemsDict[we.Key].Description += $"<br>Max Stock: {bana.MaxStacks}";
                 }
+                if(bana.OnlyFillInCombat)
+                {
+                    ItemsDict[we.Key].Description += $"<br>Only Charges While In Combat";
+                }
             }
         }
         foreach(var banaew in banana)

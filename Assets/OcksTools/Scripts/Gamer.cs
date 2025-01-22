@@ -1591,6 +1591,7 @@ public class Gamer : MonoBehaviour
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         for(int i = 1; i < PlayerController.Instance.Skills.Count; i++)
         {
+            //if (GISLol.Instance.SkillsDict[PlayerController.Instance.Skills[i].Name].OnlyFillInCombat) continue;
             PlayerController.Instance.Skills[i].Stacks = GISLol.Instance.SkillsDict[PlayerController.Instance.Skills[i].Name].MaxStacks;
             PlayerController.Instance.Skills[i].Timer = 0;
         }
