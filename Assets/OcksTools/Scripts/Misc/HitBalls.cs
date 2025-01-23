@@ -217,14 +217,14 @@ public class HitBalls : MonoBehaviour
     public bool ISDEAD=false;
     public IEnumerator WaitForDIe(bool fart = false)
     {
-        if(ISDEAD) yield break;
-        ISDEAD = true;
         var e = GetComponent<Projectile>();
         if (fart && e != null) e.speed = 0;
         var e2 = GetComponent<BallScrip>();
         if (fart && e2 != null) e2.speed = 0;
         var f = GetComponent<SpriteRenderer>();
         int steps = 50;
+        /*if (ISDEAD) yield break;
+        ISDEAD = true;*/
         switch (type)
         {
             case "Dagger":
