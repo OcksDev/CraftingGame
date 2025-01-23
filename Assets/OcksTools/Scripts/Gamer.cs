@@ -1955,12 +1955,13 @@ public class Gamer : MonoBehaviour
         }
         else if (shart.tag == "Enemy")
         {
-            if (!noget)
+            var wankwan = shart.GetComponent<NavMeshEntity>();
+            if (wankwan.HasSpawned)
             {
-                e.entity = OXComponent.GetComponent<NavMeshEntity>(shart);
+                e.entity = wankwan;
                 e.entityoxs = e.entity.EntityOXS;
+                e.type = "Enemy";
             }
-            e.type = "Enemy";
         }
         else if (shart.tag == "Furniture")
         {

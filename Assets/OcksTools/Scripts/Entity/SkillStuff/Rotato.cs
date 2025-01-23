@@ -16,13 +16,13 @@ public class Rotato : MonoBehaviour
     {
         rotund = (Random.Range(0,2)*2)-1;
         rot = Random.Range(0, 360f);
-        rotunddist = Random.Range(4, 10f);
+        rotunddist = Random.Range(3, 6f);
         var ww = Quaternion.Euler(0, 0, rot);
         Update();
     }
     private void Update()
     {
-        rot += Time.deltaTime * 90 * rotund;
+        rot += Time.deltaTime * 120 * rotund;
         life += Time.deltaTime;
         if(controller == null)
         {
