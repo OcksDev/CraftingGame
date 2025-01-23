@@ -81010,7 +81010,7 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Skills.Array.data[9].Image
       value: 
-      objectReference: {fileID: 21300000, guid: 6002ce0e4903e2e488b4107d0ec2cfe0, type: 3}
+      objectReference: {fileID: 21300000, guid: 4e0d749819428e942a50fd3979e4530d, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: attributecolors.Array.size
       value: 5
