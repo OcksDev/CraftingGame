@@ -22,6 +22,7 @@ public class EntityOXS : MonoBehaviour
     public int healerstospawn = 1;
     public bool AntiDieJuice = false;
     private DamageProfile lasthit;
+    private DamageProfile lasthitfromplayer;
     [HideInInspector]
     public List<DamageProfile> ricks = new List<DamageProfile>();
     public List<SpriteRenderer> additionalnerds = new List<SpriteRenderer>();
@@ -221,11 +222,13 @@ public class EntityOXS : MonoBehaviour
                             damagefromhit *= ((double)arr * hit.controller.Coins)/100 + 1;
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Bleed") * 0.2f;
-                        if (arr > 0 && hit.controller != null)
+                        if (arr > 0 && hit.controller != null && !hit.Procs.Contains("Bleed"))
                         {
+                            hit.Procs.Add("Bleed");
                             int tt2 = hit.WeaponOfAttack.RollLuck(arr);
                             var ef = new EffectProfile("Bleed", 3, 7, tt2);
                             ef.storefloat = 1f;
+                            ef.damprof = hit;
                             if (tt2 > 0) AddEffect(ef);
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Freeze") * 0.3f;
@@ -626,7 +629,8 @@ public class EntityOXS : MonoBehaviour
                         if((cd.susser.storefloat -= Time.deltaTime) < 0)
                         {
                             cd.susser.storefloat = 0.98f;
-                            var dmg = new DamageProfile("Bleed", (double)3 * cd.susser.Stack);
+                            var dmg = new DamageProfile(cd.susser.damprof);
+                            dmg.Damage = (double)3 * cd.susser.Stack;
                             Hit(dmg);
                         }
                     }
@@ -858,6 +862,7 @@ public class EffectProfile
     public int storeint;
     public double storedouble;
     public float storefloat;
+    public DamageProfile damprof;
     public EffectProfile(string type, float time, int add_method, int stacks = 1)
     {
         SetData();
@@ -893,6 +898,7 @@ public class EffectProfile
         storedouble = pp.storedouble;
         storeint = pp.storeint;
         storefloat = pp.storefloat;
+        damprof = new DamageProfile(pp.damprof);
         SetData();
     }
 
