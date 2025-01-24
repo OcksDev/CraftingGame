@@ -176,6 +176,7 @@ public class SaveSystem : MonoBehaviour
     {
         string dict = "current_run";
         SetString("Floor", Gamer.CurrentFloor.ToString(), dict);
+        SetString("Shoope", Gamer.Instance.IsInShop.ToString(), dict);
         SetString("Health", (PlayerController.Instance.entit.Health/ PlayerController.Instance.entit.Max_Health).ToString(), dict);
         SetString("Seed", Gamer.Seed.ToString(), dict);
         SetString("Coins", PlayerController.Instance.Coins.ToString(), dict);
@@ -200,7 +201,7 @@ public class SaveSystem : MonoBehaviour
         {
             Gamer.CurrentFloor = int.Parse(GetString("Floor", "1", dict)) - 1;
             Gamer.Seed = int.Parse(GetString("Seed", "0", dict));
-
+            Gamer.Instance.IsInShop = bool.Parse(GetString("Shoope", "False", dict));
             Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor2"));
         }
         else

@@ -1296,6 +1296,7 @@ public class Gamer : MonoBehaviour
     {
         GeneralFloorChange();
         IsInShop = true;
+        SaveSystem.Instance.SaveCurrentRun();
         Tags.refs["ShopArea"].SetActive(true);
         PlayerController.Instance.transform.position = new Vector3(0,0,0);
         var e2 = CameraLol.Instance.transform.position;
@@ -1318,6 +1319,8 @@ public class Gamer : MonoBehaviour
         UpdateMenus();
         Tags.refs["NextFloor"].transform.position = new Vector3(11.5100002f, 0, -4.4000001f);
         Tags.refs["NextShop"].transform.position = new Vector3(100000, 100000, 0);
+
+        completetetge = true;
         yield return new WaitForSeconds(0.5f);
 
         titlething = StartCoroutine(TitleText("Shop"));
@@ -2069,7 +2072,15 @@ public class Gamer : MonoBehaviour
                 break;
             case "NextFloor2":
                 completetetge = false;
-                NextFloorBall = StartCoroutine(NextFloor(Seed));
+                if (IsInShop)
+                {
+                    CurrentFloor++;
+                    NextFloorBall = StartCoroutine(NextShopLevel());
+                }
+                else
+                {
+                    NextFloorBall = StartCoroutine(NextFloor(Seed));
+                }
                 SaveSystem.Instance.LoadCurRun2();
                 yield return new WaitUntil(() => { return completetetge; });
                 break;
