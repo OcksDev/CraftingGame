@@ -47,7 +47,13 @@ public class HitBalls : MonoBehaviour
 
     private void FixedUpdate()
     {
-        EnemeisPenis.Clear();
+        switch (type)
+        {
+            case "Wave": break;
+            default:
+                EnemeisPenis.Clear();
+                break;
+        }
         //
         switch (type)
         {
@@ -153,7 +159,7 @@ public class HitBalls : MonoBehaviour
                     dam.attacker = playerController.gameObject;
                     dam.IsSpecificPointOfDamage = true;
                     dam.SpecificPointOfDamage = collision.offset;
-                    if (type == "Arrow" || type == "Shuriken" || type == "Boomerang"|| type == "Missile"|| type == "Dagger")
+                    if (type == "Arrow" || type == "Shuriken" || type == "Boomerang"|| type == "Missile"|| type == "Dagger"|| type == "Wave")
                     {
                         dam.SpecificLocation = true;
                         dam.AttackerPos = type == "Arrow"?(transform.position + transform.rotation*Vector3.up*-1) : transform.position;
@@ -195,6 +201,10 @@ public class HitBalls : MonoBehaviour
                             break;
                         case "Shuriken":
                             hitdict.Add(collision.gameObject, 35);
+                            break;
+                        case "Wave":
+                            if(e != null && e.sexy != null)
+                            e.sexy.sex.velocity += (Vector2)(transform.rotation * new Vector3(0, 70,0));
                             break;
                         default:
                             break;

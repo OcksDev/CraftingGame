@@ -669,6 +669,7 @@ MonoBehaviour:
   - {fileID: 8780374519178872503, guid: 1bc7b2b87fd3d20498a6ee3ca771eee0, type: 3}
   - {fileID: 2278403275201244645, guid: 240c8c3c8d9c0a148828f3a142beb480, type: 3}
   - {fileID: 5373761497609868699, guid: c6d1172698019844a9c7d82337ab293e, type: 3}
+  - {fileID: 2278403275201244645, guid: 1a44f9ec0ebeafc45ad32b175daa9a6d, type: 3}
   HitCollider: {fileID: 8591088333642842602}
   HitColliders:
   - {fileID: 8591088333642842602}
@@ -705,6 +706,7 @@ MonoBehaviour:
   moveintent: {x: 0, y: 0, z: 0}
   timersincedamage: 0
   MaxTimeSinceDamageDealt: 0
+  AllocatedSwords: 0
   momentum: {x: 0, y: 0}
 --- !u!114 &6584350868192443160
 MonoBehaviour:
@@ -786,7 +788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1873435979
+  GlobalObjectIdHash: 4157409539
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0

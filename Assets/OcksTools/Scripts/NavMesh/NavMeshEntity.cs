@@ -29,7 +29,7 @@ public class NavMeshEntity : MonoBehaviour
     public List<Sprite> SpriteVarients = new List<Sprite> ();
     public List<Sprite> SpriteMiscRefs = new List<Sprite> ();
     public List<GameObject> EnableOnTrueSpawn = new List<GameObject> ();
-    private Rigidbody2D sex;
+    public Rigidbody2D sex;
     public GameObject box;
     public EntityOXS EntityOXS;
     float timer = 0f;

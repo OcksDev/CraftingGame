@@ -26,6 +26,10 @@ public class Projectile : MonoBehaviour
             case "Dagger":
                 targetlife = 0.5f;
                 break;
+            case "Wave":
+                targetlife = 1f;
+                speed = 0.45f;
+                break;
             default:
                 targetlife = 0.2f;
                 break;

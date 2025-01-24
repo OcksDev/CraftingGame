@@ -890,6 +890,9 @@ public class PlayerController : MonoBehaviour
             case "SwordDance":
                 StartCoroutine(StartSwordDance(8));
                 break;
+            case "Wave":
+                WaveSex();
+                break;
             case "Grappling":
                 LaunchGrapple(wank);
                 break;
@@ -1011,6 +1014,28 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public void WaveSex()
+    {
+        var Shart = GetDamageProfile();
+        var wankerpos = transform.rotation;
+        Func<int, int> wanker = (i) =>
+        {
+            var offshart = new DamageProfile(Shart);
+            offshart.Damage = 3;
+            //offshart.DamageMod *= 0.5;
+            var ff = UnityEngine.Random.Range(0f, 1f);
+            var tt = Mathf.FloorToInt(CritChance);
+            Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+            var s = Instantiate(SlashEffect[8], transform.position, wankerpos, Gamer.Instance.balls);
+            var s3 = s.GetComponent<HitBalls>();
+            s3.playerController = this;
+            s3.attackProfile = offshart;
+            return 0;
+        };
+        wanker(0);
+    }
+
     public void LaunchGrapple(Skill sk)
     {
         var cd = Instantiate(SlashEffect[5], transform.position, Point2D(0, 0)).GetComponent<GrappHook>();
