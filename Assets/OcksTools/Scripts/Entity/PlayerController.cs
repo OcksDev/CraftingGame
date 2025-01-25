@@ -902,6 +902,9 @@ public class PlayerController : MonoBehaviour
             case "SoulDrain":
                 SoulDrain();
                 break;
+            case "Vortex":
+                Vortex();
+                break;
             case "Soulsplosion":
                 Soulsplosion();
                 break;
@@ -919,6 +922,8 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
+
+
     }
 
     private bool sexed = false;
@@ -1031,6 +1036,16 @@ public class PlayerController : MonoBehaviour
             var s3 = s.GetComponent<HitBalls>();
             s3.playerController = this;
             s3.attackProfile = offshart;
+            return 0;
+        };
+        wanker(0);
+    }
+    public void Vortex()
+    {
+        var wankerpos = transform.rotation;
+        Func<int, int> wanker = (i) =>
+        {
+            var s = Instantiate(SlashEffect[9], transform.position, wankerpos, Gamer.Instance.balls);
             return 0;
         };
         wanker(0);

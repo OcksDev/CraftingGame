@@ -83174,6 +83174,10 @@ PrefabInstance:
       value: 4282335039
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Skills.Array.data[10].OnlyFillInCombat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Skills.Array.data[11].OnlyFillInCombat
       value: 1
       objectReference: {fileID: 0}

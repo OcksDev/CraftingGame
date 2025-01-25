@@ -123,6 +123,12 @@ public class GISLol : MonoBehaviour
                 case "Handless":
                     newitem.SetSizeMulty(1.33f);
                     break;
+                case "Wraith":
+                    newitem.SetSizeMulty(1.13f);
+                    break;
+                case "Fwog":
+                    newitem.SetSizeMulty(1.1f);
+                    break;
             }
             //newitem.IsRune = true;
             newitem.IsEnemy = true;
