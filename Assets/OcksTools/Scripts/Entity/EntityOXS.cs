@@ -341,7 +341,7 @@ public class EntityOXS : MonoBehaviour
     }
 
 
-    public void SpawnExplosion(float size, Vector3 pos, DamageProfile dam, double damage = 15, int particleid= 16)
+    public static void SpawnExplosion(float size, Vector3 pos, DamageProfile dam, double damage = 15, int particleid= 16)
     {
         var weenis = Instantiate(Gamer.Instance.ParticleSpawns[particleid], pos, Quaternion.identity).GetComponent<partShitBall>();
         float truesz = size / 5;
@@ -349,7 +349,7 @@ public class EntityOXS : MonoBehaviour
         var we = Physics2D.OverlapCircleAll((Vector2)pos, size/2);
         foreach(var nerd in we)
         {
-            if (nerd.gameObject == gameObject || nerd.gameObject == null) continue;
+            if (nerd.gameObject == null) continue;
             var ob = Gamer.Instance.GetObjectType(nerd.gameObject);
             if(ob != null && ob.gm != null && ob.type == "Enemy" && ob.entityoxs != null && ob.entityoxs.Health > 0.5f)
             {

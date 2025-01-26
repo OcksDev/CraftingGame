@@ -671,6 +671,7 @@ MonoBehaviour:
   - {fileID: 5373761497609868699, guid: c6d1172698019844a9c7d82337ab293e, type: 3}
   - {fileID: 2278403275201244645, guid: 1a44f9ec0ebeafc45ad32b175daa9a6d, type: 3}
   - {fileID: 819779555498870401, guid: abc19386bc7970d458c0cd1156507aea, type: 3}
+  - {fileID: 3322044403729835623, guid: fb19ddca38cccd04d852e947fe3ba85b, type: 3}
   HitCollider: {fileID: 8591088333642842602}
   HitColliders:
   - {fileID: 8591088333642842602}

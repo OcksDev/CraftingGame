@@ -893,6 +893,9 @@ public class PlayerController : MonoBehaviour
             case "Wave":
                 WaveSex();
                 break;
+            case "Strike":
+                OrbitalStrike();
+                break;
             case "Grappling":
                 LaunchGrapple(wank);
                 break;
@@ -1040,6 +1043,26 @@ public class PlayerController : MonoBehaviour
         };
         wanker(0);
     }
+    public void OrbitalStrike()
+    {
+        var Shart = GetDamageProfile();
+        var wankerpos = transform.rotation;
+        Func<int, int> wanker = (i) =>
+        {
+            var offshart = new DamageProfile(Shart);
+            offshart.Damage = 50;
+            //offshart.DamageMod *= 0.5;
+            var ff = UnityEngine.Random.Range(0f, 1f);
+            var tt = Mathf.FloorToInt(CritChance);
+            Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+            var s = Instantiate(SlashEffect[10], RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition)), wankerpos, Gamer.Instance.balls);
+            var s3 = s.GetComponent<StrikeStuff>();
+            s3.playerController = this;
+            s3.attackProfile = offshart;
+            return 0;
+        };
+        wanker(0);
+    }
     public void Vortex()
     {
         var wankerpos = transform.rotation;
@@ -1101,7 +1124,7 @@ public class PlayerController : MonoBehaviour
             if (n == null || n.isused) continue;
             if(n.SexChaser == this)
             {
-                entit.SpawnExplosion(5, n.transform.position, GetDamageProfile(), 10);
+                EntityOXS.SpawnExplosion(5, n.transform.position, GetDamageProfile(), 10);
                 Destroy(n.gameObject);
             }
         }
