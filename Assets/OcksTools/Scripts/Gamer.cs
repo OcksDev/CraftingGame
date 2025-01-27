@@ -1290,6 +1290,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["NextShop"].SetActive(true);
         if (titlething != null) StopCoroutine(titlething);
         if(PlayerController.Instance != null)PlayerController.Instance.SetData();
+        Tags.refs["NextFloor"].GetComponent<INteractable>().UpdateText();
     }
     public bool IsInShop = false;
     public IEnumerator NextShopLevel()
@@ -1440,6 +1441,13 @@ public class Gamer : MonoBehaviour
         //compile end list
         yield return new WaitForSeconds(0.7f);
         titlething = StartCoroutine(TitleText());
+        if (!WasInShop && CurrentFloor > 1)
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                SpawnCoins(PlayerController.Instance.transform.position + (Quaternion.Euler(0,0,i*36) * Vector3.up*10), 1, PlayerController.Instance);
+            }
+        }
     }
     [HideInInspector]
     public Vector3 playerstpos;
@@ -2046,6 +2054,8 @@ public class Gamer : MonoBehaviour
 
     private Coroutine NextFloorBall;
     public bool IsFading = false;
+    [HideInInspector]
+    public bool WasInShop = false;
     public IEnumerator StartFade(string type, int steps = 50, bool startfake = false)
     {
         IsFading = true;
@@ -2067,6 +2077,7 @@ public class Gamer : MonoBehaviour
         {
             case "NextFloor":
                 completetetge = false;
+                WasInShop = IsInShop;
                 NextFloorBall = StartCoroutine(NextFloor());
                 yield return new WaitUntil(() => { return completetetge; });
                 break;

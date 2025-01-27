@@ -1396,6 +1396,7 @@ public class PlayerController : MonoBehaviour
         var ff = UnityEngine.Random.Range(0f, 1f);
         int tt = Mathf.FloorToInt(CritChance);
         Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+        Shart.TotalDamageMod = TotalDamageMod;
         return Shart;
     }
 

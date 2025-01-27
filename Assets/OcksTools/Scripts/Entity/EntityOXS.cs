@@ -773,6 +773,7 @@ public class DamageProfile
     public int PreCritted = -1;
     public int WasCrit = -1;
     public double DamageMod = 1;
+    public double TotalDamageMod = 1;
     public GISItem WeaponOfAttack;
     public GISItem storeditem;
     public int storedticks = -69;
@@ -811,6 +812,7 @@ public class DamageProfile
         controller = pp.controller;
         NerdType = pp.NerdType;
         DamageMod = pp.DamageMod;
+        TotalDamageMod = pp.TotalDamageMod;
     }
 
 
@@ -841,7 +843,7 @@ public class DamageProfile
         }
         if(controller != null)
         {
-            x *= controller.TotalDamageMod;
+            x *= TotalDamageMod;
         }
 
         return x * DamageMod;

@@ -8,6 +8,7 @@ public class INteractable : MonoBehaviour
     public string Type = "Crafter";
     public float IneteractDistance = 3;
     public float TextOffsetDist = 3;
+    private float workingtextoff = 3;
     public TextMeshProUGUI DisplaySegsmcnugget;
     public GameObject Parente;
     public bool CanInteract = true;
@@ -34,7 +35,7 @@ public class INteractable : MonoBehaviour
             DisplaySegsmcnugget.gameObject.SetActive(CanInteract && wanker);
             if (wanker)
             {
-                DisplaySegsmcnugget.transform.position = transform.position + new Vector3(0, TextOffsetDist, 0);
+                DisplaySegsmcnugget.transform.position = transform.position + new Vector3(0, workingtextoff, 0);
                 if (CanInteract && InputManager.IsKeyDown("interact", "player"))
                 {
                     Interact();
@@ -54,6 +55,13 @@ public class INteractable : MonoBehaviour
         if (Time.time < 0.2f) return;
         var w = Instantiate(Gamer.Instance.textShuingite, transform.position, Quaternion.identity, Tags.refs["DIC"].transform);
         var e = w.GetComponent<TextMeshProUGUI>();
+        DisplaySegsmcnugget = e;
+        UpdateText();
+    }
+    public void UpdateText()
+    {
+        var e = DisplaySegsmcnugget;
+        workingtextoff = TextOffsetDist;
         string pon = InputManager.keynames[InputManager.gamekeys["interact"][0]];
         switch (Type)
         {
@@ -67,14 +75,23 @@ public class INteractable : MonoBehaviour
                     e.text = $"5 Coins  [ {pon} ]";
                 }
                 break;
+            case "StartGame":
+                if (!Gamer.Instance.IsInShop && Gamer.CurrentFloor >= 1)
+                {
+                    e.text = $"Gain 10 Coins<br>[ {pon} ]";
+                    workingtextoff += 0.5f;
+                }
+                else
+                {
+                    e.text = $"[ {pon} ]";
+                }
+                break;
             default:
-                wank:
+            wank:
                 e.text = $"[ {pon} ]";
                 break;
         }
-        DisplaySegsmcnugget = e;
     }
-
     public GISItem cuum;
     public void Interact()
     {
