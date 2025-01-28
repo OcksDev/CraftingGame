@@ -76,7 +76,7 @@ public class INteractable : MonoBehaviour
                 }
                 break;
             case "StartGame":
-                if (!Gamer.Instance.IsInShop && Gamer.CurrentFloor >= 1)
+                if (!Gamer.Instance.WasInShop && Gamer.CurrentFloor >= 1)
                 {
                     e.text = $"Gain 10 Coins<br>[ {pon} ]";
                     workingtextoff += 0.5f;

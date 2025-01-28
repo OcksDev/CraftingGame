@@ -199,7 +199,7 @@ public class EntityOXS : MonoBehaviour
                     PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown / 10f;
                     if (hit.WeaponOfAttack != null)
                     {
-                        var arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Self") * 0.25f;
+                        var arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Self") * 0.15f;
                         if (arr > 0 && !hit.Procs.Contains("HOH"))
                         {
                             int tt2 = hit.WeaponOfAttack.RollLuck(arr);

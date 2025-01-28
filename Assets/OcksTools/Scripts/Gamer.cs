@@ -2096,6 +2096,7 @@ public class Gamer : MonoBehaviour
                 yield return new WaitUntil(() => { return completetetge; });
                 break;
             case "NextShop":
+                WasInShop = IsInShop;
                 NextFloorBall = StartCoroutine(NextShopLevel());
                 break;
             case "LobDingle":

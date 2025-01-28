@@ -35,7 +35,7 @@ Soulsplosion:: All <o>Souls</> you have harvested explode for 10 Damage<br>5m Ex
 Wave:: Launch a <o>Wave</> that pushes all enemies back.<br>Additionally, deals 3 Damage.
 Strike:: Call down a <o>Strike</> deals 50 Damage to all <e>Enemies</> in an area.
 Vortex:: Pull all nearby <e>Enemies</> into a <o>Vortex</>.
-Rune Of Self:: <g>+25%</> chance to Heal 1 on Hit
+Rune Of Self:: <g>+15%</> chance on Hit to Heal 1
 Rune Of Missile:: <g>+10%</> chance on Hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: <g>+35%</> chance on Heal to deal<br>x2 the amount as Damage to the nearest <e>Enemy</>
 Rune Of Arrow:: <g>+20%</> chance on Attack to shoot an <o>Arrow</> with 100% Damage
