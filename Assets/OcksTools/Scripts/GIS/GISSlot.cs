@@ -80,6 +80,7 @@ public class GISSlot : MonoBehaviour
         }
         if (Gamer.Instance.checks[5])
         {
+            Shungite();
         }
     }
     public static void Shungite()
