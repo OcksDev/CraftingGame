@@ -9,6 +9,7 @@ public class NotifOb : MonoBehaviour
     public Image Background1;
     public Image Background2;
     public Image Icon;
+    public GISDisplay GISD;
     public RectTransform SubObjectParent;
     public List<TextMeshProUGUI> CalcSizeOfTexts = new List<TextMeshProUGUI>();
     public List<RectTransform> CalcSizeOf = new List<RectTransform>();
@@ -33,6 +34,14 @@ public class NotifOb : MonoBehaviour
         imageset = true;
         Icon.sprite = st;
     }
+    bool itemset = false;
+    public void SetItem(GISItem st)
+    {
+        if (st == null) return;
+        itemset = true;
+        GISD.item = st;
+        GISD.UpdateDisplay();
+    }
     public BANNA CalcSizeDelta()
     {
         float bordersize = 10;
@@ -51,6 +60,7 @@ public class NotifOb : MonoBehaviour
 
         Icon.gameObject.SetActive(imageset);
         CalcSizeOfTexts[1].gameObject.SetActive(descset);
+        GISD.gameObject.SetActive(itemset);
 
         initpos = CalcSizeOf[0].anchoredPosition;
         size = CalcSizeOf[0].sizeDelta;

@@ -312,9 +312,6 @@ public class PlayerController : MonoBehaviour
         c.slots[1 - selecteditem].Held_Item.CompileItems();
         mainweapon.CompileBalance(c.slots[1-selecteditem].Held_Item);
 
-        Debug.Log("Other WEapon: " + c.slots[1 - selecteditem].Held_Item.GetTotalItemCount());
-        Debug.Log("ME WEapon: " + mainweapon.GetTotalItemCount());
-
         var OLDPERC = entit.Health / entit.Max_Health;
         var OLDPERCDASH = DashCoolDown / MaxDashCooldown;
         CritChance = 0.01f;

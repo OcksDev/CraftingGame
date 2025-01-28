@@ -41,7 +41,7 @@ public class HoverDingle : MonoBehaviour
                     {
                         hv.type = "TitleAndDesc";
                         hv.data = "???";
-                        hv.data2 = "Discover this item in a run to unlock";
+                        hv.data2 = "Discover this in a run to unlock";
                         g.HoverDohicky(hv);
                     }
                     break;

@@ -791,10 +791,25 @@ public class Gamer : MonoBehaviour
         {
             GISLol.Instance.LogbookDiscoveries.Add(item, "");
             if (item == "Rock") return;
+
+            var ww = GISLol.Instance.ItemsDict[item];
             var notif = new OXNotif();
-            notif.Title = "Item Discovered";
-            notif.Description = GISLol.Instance.ItemsDict[item].GetDisplayName();
+            if (ww.IsSkill)
+            {
+                notif.Title = "Skill Discovered";
+            }
+            else if (ww.IsEnemy)
+            {
+                notif.Title = "Enemy Discovered";
+            }
+            else
+            {
+                notif.Title = "Item Discovered";
+            }
+            notif.Item = new GISItem(item);
+            //notif.Description = ww.GetDisplayName();
             notif.BackgroundColor1 = new Color32(50, 230, 227, 255);
+            //notif.BackgroundColor2 = new Color32(50, 230, 227, 255);
             NotificationSystem.Instance.AddNotif(notif);
         }
     }

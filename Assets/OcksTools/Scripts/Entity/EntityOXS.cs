@@ -410,7 +410,7 @@ public class EntityOXS : MonoBehaviour
                         {
                             var we = currentprof == null ? playerdaddy.GetDamageProfile() : currentprof;
                             we.Damage = amount * (tt2 * 2);
-                            we.DamageMod = 1;
+                            //we.DamageMod = 1;
                             cuumer.EntityOXS.Hit(we);
                         }
                     }
@@ -505,6 +505,7 @@ public class EntityOXS : MonoBehaviour
                 PlayerController.Instance.DashCoolDown += PlayerController.BaseDashCooldown;
                 if (effect>-1)Instantiate(Gamer.Instance.ParticleSpawns[effect], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 CameraLol.Instance.Shake(0.25f, 0.80f);
+                if(sexy != null) Gamer.Instance.AttemptAddLogbookItem(sexy.EnemyType);
                 if (!ContainsEffect("Soulless").hasthing) DropKillReward(false);
                 if(lasthit != null && lasthit.WeaponOfAttack != null) Gamer.QuestProgressIncrease("Kill", lasthit.WeaponOfAttack.ItemIndex);
                 break;

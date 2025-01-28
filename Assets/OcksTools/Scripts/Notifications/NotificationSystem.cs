@@ -129,6 +129,7 @@ public class NotificationSystem : MonoBehaviour
         thing.SetTitle(notif.Title);
         thing.SetDesc(notif.Description);
         thing.SetIMG(notif.Image);
+        thing.SetItem(notif.Item);
         thing.Background1.color = notif.BackgroundColor1;
         thing.Background2.color = notif.BackgroundColor2;
 
@@ -173,6 +174,7 @@ public class OXNotif
     public string Title = "Notification";
     public string Description = "";
     public Sprite Image = null;
+    public GISItem Item = null;
     public Color32 BackgroundColor1;
     public Color32 BackgroundColor2;
     // dont touch the following variables
