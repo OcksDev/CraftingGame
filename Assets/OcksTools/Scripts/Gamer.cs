@@ -2056,6 +2056,8 @@ public class Gamer : MonoBehaviour
     public bool IsFading = false;
     [HideInInspector]
     public bool WasInShop = false;
+    [HideInInspector]
+    public bool Skipper = false;
     public IEnumerator StartFade(string type, int steps = 50, bool startfake = false)
     {
         IsFading = true;
@@ -2076,6 +2078,7 @@ public class Gamer : MonoBehaviour
         switch (type)
         {
             case "NextFloor":
+                Skipper = true;
                 completetetge = false;
                 WasInShop = IsInShop;
                 NextFloorBall = StartCoroutine(NextFloor());
@@ -2083,6 +2086,7 @@ public class Gamer : MonoBehaviour
                 break;
             case "NextFloor2":
                 completetetge = false;
+                Skipper = true;
                 if (IsInShop)
                 {
                     CurrentFloor++;
@@ -2096,6 +2100,7 @@ public class Gamer : MonoBehaviour
                 yield return new WaitUntil(() => { return completetetge; });
                 break;
             case "NextShop":
+                Skipper = false;
                 WasInShop = IsInShop;
                 NextFloorBall = StartCoroutine(NextShopLevel());
                 break;
