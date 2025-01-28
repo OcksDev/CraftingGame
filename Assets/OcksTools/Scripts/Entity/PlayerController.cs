@@ -275,11 +275,11 @@ public class PlayerController : MonoBehaviour
     }
     public void SetData()
     {
+        var c = GISLol.Instance.All_Containers["Equips"];
         if (GISLol.Instance.All_Containers.ContainsKey("Equips"))
         {
             if (isrealowner)
             {
-                var c = GISLol.Instance.All_Containers["Equips"];
                 mainweapon = c.slots[selecteditem].Held_Item;
                 c.slots[0].Held_Item.Player = this;
                 c.slots[1].Held_Item.Player = this;
@@ -309,6 +309,12 @@ public class PlayerController : MonoBehaviour
             }
         }
         mainweapon.CompileItems();
+        c.slots[1 - selecteditem].Held_Item.CompileItems();
+        mainweapon.CompileBalance(c.slots[1-selecteditem].Held_Item);
+
+        Debug.Log("Other WEapon: " + c.slots[1 - selecteditem].Held_Item.GetTotalItemCount());
+        Debug.Log("ME WEapon: " + mainweapon.GetTotalItemCount());
+
         var OLDPERC = entit.Health / entit.Max_Health;
         var OLDPERCDASH = DashCoolDown / MaxDashCooldown;
         CritChance = 0.01f;
@@ -396,7 +402,7 @@ public class PlayerController : MonoBehaviour
 
         MaxDashCooldown *= SkillCooldownMult;
 
-
+        TotalDamageMod *= mainweapon.Balance;
 
 
         DamageTickTime = sexcummersofthegigashit > 0? (3f / sexcummersofthegigashit):3f;

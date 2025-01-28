@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class GISSlot : MonoBehaviour
@@ -77,7 +78,44 @@ public class GISSlot : MonoBehaviour
             if (PlayerController.Instance != null)
             PlayerController.Instance.SetData();
         }
+        if (Gamer.Instance.checks[5])
+        {
+        }
     }
+    public static void Shungite()
+    {
+
+        int me = GISLol.Instance.All_Containers["LeftNut"].TotalAmountOfItems();
+        int you = GISLol.Instance.All_Containers["RightNut"].TotalAmountOfItems();
+        var x = GISItem.CalcBalance(me, you);
+        var ww = Tags.refs["Balance1"].GetComponent<TextMeshProUGUI>();
+        SetFunnyShingle(x, ww);
+        x = GISItem.CalcBalance(you, me);
+        ww = Tags.refs["Balance2"].GetComponent<TextMeshProUGUI>();
+        SetFunnyShingle(x, ww);
+    }
+    private static void SetFunnyShingle(float x, TextMeshProUGUI ww)
+    {
+        if (x != 1f)
+        {
+            if (x > 1f)
+            {
+                ww.text = $"Unbalanced: Under<br>x{x} Total Damage";
+                ww.color = new Color32(0, 212, 30, 255);
+            }
+            else
+            {
+                ww.text = $"Unbalanced: Over<br>x{x} Total Damage";
+                ww.color = new Color32(231, 0, 0, 255);
+            }
+        }
+        else
+        {
+            ww.text = "";
+        }
+    }
+
+
     float size = 1f;
     public bool IsHovering()
     {

@@ -505,6 +505,7 @@ public class GISItem
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
     public Dictionary<string, int> AmountOfItems = new Dictionary<string, int>();
     public float Luck = -1;
+    public float Balance = 1;
     public float BlockChance = 0;
     public PlayerController Player;
     public GISItem()
@@ -546,6 +547,35 @@ public class GISItem
             }
         }
     }
+
+    public void CompileBalance(GISItem com)
+    {
+        var me = GetTotalItemCount();
+        var you = com.GetTotalItemCount();
+        Balance = CalcBalance(me, you);
+    }
+    public static float CalcBalance(int me, int you)
+    {
+        var x = Mathf.Abs(me - you) - 3;
+        var y = x;
+        if (x > 0)
+        {
+            if (me > you) y *= -1;
+            return Mathf.Max(1 + (0.2f * y), 0);
+        }
+        return 1;
+    }
+    public int GetTotalItemCount()
+    {
+        int x = 0;
+        foreach(var a in AmountOfItems)
+        {
+            if (a.Key == "" || a.Key == "Empty") continue;
+            x += a.Value;
+        }
+        return x;
+    }
+
     public int ReadItemAmount(string weenor)
     {
         if (AmountOfItems.ContainsKey(weenor))
@@ -587,6 +617,7 @@ public class GISItem
         Materials = new List<GISMaterial>(sexnut.Materials);
         Run_Materials = new List<GISMaterial>(sexnut.Run_Materials);
         Luck = sexnut.Luck;
+        Balance = sexnut.Balance;
         CompileItems();
         Player = sexnut.Player;
     }

@@ -1044,11 +1044,17 @@ public class Gamer : MonoBehaviour
                     leftnut.slots[i].Held_Item = new GISItem(name);
                 }
             }
-
+            StartCoroutine(FUCKYOU());
         }
         UpdateMenus();
     }
     bool anim = false;
+
+    public IEnumerator FUCKYOU()
+    {
+        yield return new WaitUntil(() => { return GISLol.Instance.All_Containers.ContainsKey("LeftNut"); });
+        GISSlot.Shungite();
+    }
 
     private bool AmIVeryFuckableToday()
     {
@@ -1088,7 +1094,7 @@ public class Gamer : MonoBehaviour
             }
         }
         leftnutitem.item.CompileItems();
-
+        var oldn = leftnutitem.item;
         leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
         leftnutitem = Tags.refs["RightItemNut"].GetComponent<GISDisplay>();
         leftnutitem.item.Run_Materials.Clear();
@@ -1114,6 +1120,10 @@ public class Gamer : MonoBehaviour
             }
         }
         leftnutitem.item.CompileItems();
+
+        oldn.CompileBalance(leftnutitem.item);
+        leftnutitem.item.CompileBalance(oldn);
+
         Destroy(itemshite);
         PlayerController.Instance.SetData();
         StartCoroutine(ConfirmAnimation());

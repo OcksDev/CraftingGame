@@ -400,6 +400,16 @@ public class GISContainer : MonoBehaviour
         return -1;
     }
 
+    public int TotalAmountOfItems()
+    {
+        int x = 0;
+        foreach(var a in slots)
+        {
+            x += a.Held_Item.Amount;
+        }
+        return x;
+    }
+
     public int BoolToInt(bool a)
     {
         return a ? 1 : 0;
