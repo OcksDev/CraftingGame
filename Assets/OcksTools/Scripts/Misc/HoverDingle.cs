@@ -46,7 +46,7 @@ public class HoverDingle : MonoBehaviour
                     }
                     break;
                 case "coollol":
-                    g.HoverDohicky(new HoverType(guny.item));
+                    if(guny.item != null && guny.item.ItemIndex != "Empty") g.HoverDohicky(new HoverType(guny.item));
                     break;
                 default:
                     hv.type = "TitleAndDesc";

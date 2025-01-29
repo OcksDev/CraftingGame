@@ -113,6 +113,10 @@ public class Gamer : MonoBehaviour
         Tags.refs["LogbookSubmenu"].SetActive(checks[13]);
         Tags.refs["QuestMenu"].SetActive(checks[14]);
         Tags.refs["SkillBuyMenu"].SetActive(checks[15]);
+        Tags.refs["SkillSubBuy"].SetActive(checks[16]);
+
+        Tags.refs["ItemeR"].SetActive(checks[17]);
+        Tags.refs["Iteme"].SetActive(!checks[17]);
 
         Tags.refs["GameUI"].SetActive(GameState == "Game");
         Tags.refs["EnemiesRemaining"].SetActive(!IsInShop);
@@ -541,11 +545,15 @@ public class Gamer : MonoBehaviour
             {
                 ToggleFuckPause();
             }
+            else if (checks[16])
+            {
+                ToggleSkillSubMenu();
+            }
             else if (checks[15])
             {
                 ToggleSkillMenu();
             }
-            else if (checks[5])
+            else if (checks[5] || checks[17])
             {
                 if(!anim)
                 ToggleItemPickup();
@@ -738,9 +746,62 @@ public class Gamer : MonoBehaviour
     public void ToggleSkillMenu()
     {
         checks[15] = !checks[15];
+        checks[16]= false;  
         if (checks[15])
         {
+            var ggg = Tags.refs["SkillBuyMenu"].GetComponent<GAMBLING>();
+            foreach (var item in ggg.displays)
+            {
+                item.transform.parent.gameObject.SetActive(true);
+            }
             REFSkillOfferDisplay();
+        }
+        UpdateMenus();
+    }
+    public void ToggleRefreshMenu()
+    {
+        checks[5] = !checks[5];
+        checks[17] = true;
+        Ubdatebananasexballsfucucucuc();
+        Shanana();
+    }
+    
+    public void AttemptSKillBuy(int index)
+    {
+        if(PlayerController.Instance.Coins >= 10)
+        {
+            var ggg = Tags.refs["SkillBuyMenu"].GetComponent<GAMBLING>();
+            var ggg2 = Tags.refs["SkillSubBuy"].GetComponent<SkillThingbb>();
+            if(ggg.displays[index].item.ItemIndex != "Empty")
+            {
+                ggg2.gup.item = ggg.displays[index].item;
+                ggg2.gup.UpdateDisplay();
+                ggg2.inititem = ggg2.gup.item;
+                ggg2.initindex = index;
+                for (int i = 0; i < 3; i++)
+                {
+                    ggg2.skills[i].item = new GISItem(PlayerController.Instance.Skills[i + 1].Name);
+                }
+                ToggleSkillSubMenu();
+
+                foreach (var item in ggg.displays)
+                {
+                    item.transform.parent.gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+
+    public void ToggleSkillSubMenu()
+    {
+        checks[16] = !checks[16];
+        if (!checks[16])
+        {
+            var ggg = Tags.refs["SkillBuyMenu"].GetComponent<GAMBLING>();
+            foreach (var item in ggg.displays)
+            {
+                item.transform.parent.gameObject.SetActive(true);
+            }
         }
         UpdateMenus();
     }
@@ -760,6 +821,7 @@ public class Gamer : MonoBehaviour
         ggg.texts[3].text = $"{skillrollamnt * 3} Coins";
     }
     int skillrollamnt = 0;
+    int itemrollamnt = 0;
     public void RollNewSkillSex()
     {
         if (PlayerController.Instance.Coins < skillrollamnt * 3) return;
@@ -1017,19 +1079,33 @@ public class Gamer : MonoBehaviour
     public void ToggleItemPickup()
     {
         checks[5] = !checks[5];
+        checks[17] = false;
+        Shanana();
+    }
+
+    public void Shanana()
+    {
         if (checks[5])
         {
             var c = GISLol.Instance.All_Containers["Equips"];
 
             var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
-            poopy.slots[0].Held_Item = PickupItemCrossover;
-            poopy.slots[0].Displayer.UpdateDisplay();
-            AttemptAddLogbookItem(PickupItemCrossover.ItemIndex);
+            if (!checks[17])
+            {
+                poopy.slots[0].Held_Item = PickupItemCrossover;
+                poopy.slots[0].Displayer.UpdateDisplay();
+                AttemptAddLogbookItem(PickupItemCrossover.ItemIndex);
+            }
+            else
+            {
+                poopy.slots[0].Held_Item = new GISItem();
+                poopy.slots[0].Displayer.UpdateDisplay();
+            }
 
             var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
             leftnut.ClearSlots();
             leftnut.slots.Clear();
-            leftnut.GenerateSlots(System.Math.Clamp(CurrentFloor*2,2,32));
+            leftnut.GenerateSlots(System.Math.Clamp(CurrentFloor * 2, 2, 32));
             var leftnutitem = Tags.refs["LeftItemNut"].GetComponent<GISDisplay>();
             leftnutitem.item = c.slots[0].Held_Item;
             leftnutitem.UpdateDisplay();
@@ -1046,7 +1122,7 @@ public class Gamer : MonoBehaviour
 
             leftnut = Tags.refs["RightItemItems"].GetComponent<GISContainer>();
             leftnut.ClearSlots();
-            leftnut.GenerateSlots(System.Math.Clamp(CurrentFloor *2, 2, 32));
+            leftnut.GenerateSlots(System.Math.Clamp(CurrentFloor * 2, 2, 32));
             leftnutitem = Tags.refs["RightItemNut"].GetComponent<GISDisplay>();
             leftnutitem.item = c.slots[1].Held_Item;
             leftnutitem.UpdateDisplay();
@@ -1063,12 +1139,40 @@ public class Gamer : MonoBehaviour
         }
         UpdateMenus();
     }
+
     bool anim = false;
 
     public IEnumerator FUCKYOU()
     {
         yield return new WaitUntil(() => { return GISLol.Instance.All_Containers.ContainsKey("LeftNut"); });
         GISSlot.Shungite();
+    }
+
+    public void ReroolIteme()
+    {
+        var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
+        if (poopy.slots[0].Held_Item.ItemIndex != "Empty")
+        {
+            int x = itemrollamnt * 2;
+            if(PlayerController.Instance.Coins >= x)
+            {
+                PlayerController.Instance.Coins -= x;
+                var y = GetItemForLevel();
+                poopy.slots[0].Held_Item = y;
+                poopy.slots[0].Displayer.item = y;
+                AttemptAddLogbookItem(y.ItemIndex);
+                itemrollamnt++;
+                poopy.slots[0].Displayer.UpdateDisplay();
+                Ubdatebananasexballsfucucucuc();
+            }
+        }
+    }
+    public void Ubdatebananasexballsfucucucuc()
+    {
+        var poopy = Tags.refs["ItemeR"].GetComponent<Quicky>();
+        var x = itemrollamnt * 2;
+        poopy.costy.text = $"{x} Coins";
+        poopy.buyer.interactable = PlayerController.Instance.Coins >= x;
     }
 
     private bool AmIVeryFuckableToday()
@@ -1139,7 +1243,7 @@ public class Gamer : MonoBehaviour
         oldn.CompileBalance(leftnutitem.item);
         leftnutitem.item.CompileBalance(oldn);
 
-        Destroy(itemshite);
+        if (!checks[17])Destroy(itemshite);
         PlayerController.Instance.SetData();
         StartCoroutine(ConfirmAnimation());
     }
@@ -1211,6 +1315,7 @@ public class Gamer : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         anim = false;
         checks[5] = false;
+        checks[17] = false;
         UpdateMenus();
     }
 
@@ -1300,6 +1405,7 @@ public class Gamer : MonoBehaviour
         hascorrupted = false;
         OldCurrentRoom = null;
         skillrollamnt = 0;
+        itemrollamnt = 1;
         GameState = "Game";
         Tags.refs["Lobby"].SetActive(false);
         Tags.refs["ShopArea"].SetActive(false);
