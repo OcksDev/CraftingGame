@@ -257,8 +257,6 @@ public class ConsoleLol : MonoBehaviour
                                 "<br> - settimescale" +
                                 "<br> - test" +
                                 "<br> - dialog" +
-                                "<br> - data" +
-                                "<br> - screenshot" +
                                 "<br> - clear"
 
                             ), "#bdbdbdff");
@@ -421,7 +419,7 @@ public class ConsoleLol : MonoBehaviour
                 case "clear":
                     BackLog = "";
                     break;
-                    
+#if UNITY_EDITOR
                 case "corrupt":
                     CorruptionCode.Instance.CorruptTile(new Vector3Int((int)PlayerController.Instance.transform.position.x, (int)PlayerController.Instance.transform.position.y));
                     break;
@@ -487,6 +485,7 @@ public class ConsoleLol : MonoBehaviour
                             break;
                     }
                     break;
+#endif
                 default:
                     ConsoleLog(lang.IndexValuePairs["Error_UnknownCommand"] + command[0], "#ff0000ff");
 
