@@ -435,7 +435,7 @@ public class PlayerController : MonoBehaviour
                 helth *= 0.85f;
                 break;
             case "Infused Rock":
-                WeaponDamageMod *= 1.15f;
+                TotalDamageMod *= 1.15f;
                 DamageOnAttack += 1;
                 break;
             case "Amethyst":
@@ -1181,9 +1181,10 @@ public class PlayerController : MonoBehaviour
 
         fardedonhand = false;
 
-        if(DamageOnAttack > 0 && (entit.Health + 1 > DamageOnAttack))
+        if(DamageOnAttack > 0)
         {
             entit.Health -= DamageOnAttack;
+            if (entit.Health <= 1) entit.Health = 1;
         }
 
         DamageProfile Shart = GetDamageProfile();
