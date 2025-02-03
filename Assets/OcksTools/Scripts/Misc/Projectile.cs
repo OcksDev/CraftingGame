@@ -48,7 +48,7 @@ public class Projectile : MonoBehaviour
             if (iswank)
             {
                 RaycastHit2D[] results = new RaycastHit2D[10];
-                var x = cic.Cast(transform.up, results, speed);
+                var x = cic.Cast(transform.up, results, speed, true);
 
                 var dir = transform.up;
                 int realx = 0;

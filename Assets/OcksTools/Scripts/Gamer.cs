@@ -1506,6 +1506,7 @@ public class Gamer : MonoBehaviour
         }
         else if(CurrentFloor <= 1)
         {
+            PlayerController.Instance.Coins = 0;
             SaveCurrentWeapons();
         }
         List<I_Room> enders = new List<I_Room>();

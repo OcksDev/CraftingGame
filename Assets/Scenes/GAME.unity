@@ -56586,7 +56586,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Alpha 2
+  m_text: Alpha 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 463e5bcc1c1cd614391048e498f9050f, type: 2}
   m_sharedMaterial: {fileID: -1956410111767903133, guid: 463e5bcc1c1cd614391048e498f9050f, type: 2}
@@ -84524,7 +84524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Skills.Array.data[12].CanSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Skills.Array.data[12].Cooldown

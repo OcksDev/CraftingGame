@@ -118,9 +118,11 @@ public class INteractable : MonoBehaviour
                 Gamer.Instance.LoadVaultPage(0);
                 break;
             case "StartGame":
+                if (PlayerFailsWeaponCheck()) return;
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor"));
                 break;
             case "ContinueRun":
+                if (PlayerFailsWeaponCheck()) return;
                 SaveSystem.Instance.LoadCurrentRun();
                 break;
             case "Quest":
@@ -133,6 +135,7 @@ public class INteractable : MonoBehaviour
                 Gamer.Instance.ToggleRefreshMenu();
                 break;
             case "NextShop":
+                if (PlayerFailsWeaponCheck()) return;
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextShop"));
                 break;
             case "Item":
@@ -160,4 +163,11 @@ public class INteractable : MonoBehaviour
                 break;
         }
     }
+
+    public static bool PlayerFailsWeaponCheck()
+    {
+        var c = GISLol.Instance.All_Containers["Equips"];
+        return c.slots[0].Held_Item.ItemIndex == "Empty" || c.slots[1].Held_Item.ItemIndex == "Empty";
+    }
 }
+

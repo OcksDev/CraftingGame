@@ -141,8 +141,8 @@ public class GISLol : MonoBehaviour
         {
             ItemsDict.Add(a.Name, a);
             if(a.IsWeapon) AllWeaponNames.Add(a.Name);
-            if(a.IsCraftable) AllCraftables.Add(a.Name);
-            if(a.IsRune) AllRunes.Add(a.Name);
+            if(a.IsCraftable && (a.CanSpawn || a.LogbookOverride)) AllCraftables.Add(a.Name);
+            if(a.IsRune && a.CanSpawn) AllRunes.Add(a.Name);
         }
         AllWeaponNames.Remove("Bow");
         foreach (var a in Materials)
