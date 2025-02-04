@@ -1738,18 +1738,21 @@ public class Gamer : MonoBehaviour
             PlayerController.Instance.Skills[i].Timer = 0;
         }
         InRoom = false;
-        if (!hascorrupted && CurrentFloor > 1 && PlayerController.Instance.entit.Health > 0)
+        if(GameState == "Game")
         {
-            hascorrupted = true;
-            CorruptionCode.Instance.CorruptTile(new Vector3Int((int)playerstpos.x, (int)playerstpos.y));
+            if (!hascorrupted && CurrentFloor > 1 && PlayerController.Instance.entit.Health > 0)
+            {
+                hascorrupted = true;
+                CorruptionCode.Instance.CorruptTile(new Vector3Int((int)playerstpos.x, (int)playerstpos.y));
 
-            var notif = new OXNotif();
-            notif.Title = "It Spreads...";
-            notif.BackgroundColor1 = new Color32(143, 52, 235, 255);
-            NotificationSystem.Instance.AddNotif(notif);
+                var notif = new OXNotif();
+                notif.Title = "It Spreads...";
+                notif.BackgroundColor1 = new Color32(143, 52, 235, 255);
+                NotificationSystem.Instance.AddNotif(notif);
+            }
+
+            SpawnCoins(lastkillpos, 1, PlayerController.Instance);
         }
-
-        SpawnCoins(lastkillpos, 1, PlayerController.Instance);
 
         //test
     }
