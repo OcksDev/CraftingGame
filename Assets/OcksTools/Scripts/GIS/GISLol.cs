@@ -276,36 +276,51 @@ public class GISLol : MonoBehaviour
     }
     //public static event Gamer.JustFuckingRunTheMethods checkforhover;
     public GISItem hoverballer;
+    public GISItem oldhoverballer;
+    float tim = -1;
     private void Update()
     {
         Mouse_Displayer.item = Mouse_Held_Item;
         var za = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         za.z = 0;
         MouseFollower.transform.position = za;
-        hoverballer = null;
         CanHover = true;
+        hoverballer = null;
         foreach (var boner in All_Containers)
         {
             if (boner.Value.gameObject.activeInHierarchy)
             {
-                foreach(var bone in boner.Value.slots)
+                foreach (var bone in boner.Value.slots)
                 {
-                    if(bone != null && IsHoveringReal(bone.gameObject)){
+                    if (bone != null && IsHoveringReal(bone.gameObject))
+                    {
                         hoverballer = bone.Held_Item;
                     }
                 }
             }
             if (hoverballer != null) break;
         }
-
         //event call?
+        bool didhoverfindsex = false;
         if (!founddaddy && hoverballer != null && hoverballer.ItemIndex != "Empty")
         {
-            HoverDohicky(new HoverType(hoverballer));
+            oldhoverballer = hoverballer;
+            HoverDohicky(new HoverType(hoverballer), true);
+            didhoverfindsex = true;
         }
-        if (!founddaddy)
+        if (!didhoverfindsex && oldhoverballer != null)
         {
-            hovercummer.gameObject.SetActive(false);
+            HoverDohicky(new HoverType(oldhoverballer), false);
+        }
+
+        if (founddaddy)
+        {
+            tim = 0.05f;
+        }
+        if (!founddaddy || tim > 0)
+        {
+            hovercummer.gameObject.SetActive(tim > 0);
+            tim -= Time.deltaTime;
         }
         founddaddy = false;
 #if UNITY_EDITOR
@@ -387,9 +402,10 @@ public class GISLol : MonoBehaviour
 #endif
     }
     bool founddaddy = false;
-    public void HoverDohicky(HoverType hv)
+    public void HoverDohicky(HoverType hv, bool foundc = true)
     {
         if (founddaddy) return;
+        if (hv.type != "Item" || hv.item != oldhoverballer) oldhoverballer = null;
         var hoverballer = hv.item;
         hovercummer.gameObject.SetActive(true);
         if (true)
@@ -422,7 +438,7 @@ public class GISLol : MonoBehaviour
             }
             BallFondler.anchoredPosition = wank;
         }
-        founddaddy = true;
+        if(foundc)founddaddy = true;
     }
 
     public string GetDescription(GISItem baller, bool EXTRA = false)
@@ -432,6 +448,7 @@ public class GISLol : MonoBehaviour
         if (wank.IsWeapon)
         {
             e = $"{MaterialsDict[baller.Materials[0].index].Description}<br>{MaterialsDict[baller.Materials[1].index].Description}<br>{MaterialsDict[baller.Materials[2].index].Description}";
+            if (baller.GraftedMaterial.IsSet()) e += $"<br>{MaterialsDict[baller.GraftedMaterial.index].Description}";
         }
         if (wank.IsCraftable)
         {
@@ -945,6 +962,10 @@ public class GISMaterial
     public string GetName()
     {
         return index==""?itemindex:index;
+    }
+    public bool IsSet()
+    {
+        return GetName() != "" && GetName() != "Empty";
     }
 }
 [Serializable]

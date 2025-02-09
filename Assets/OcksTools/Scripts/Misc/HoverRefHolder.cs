@@ -13,6 +13,7 @@ public class HoverRefHolder : MonoBehaviour
     public RectTransform ParentTransform;
     public RectTransform LineTransform;
     public RectTransform LineTransform2;
+    public RectTransform LineTransform3;
     public TextMeshProUGUI DescMesh;
     public RectTransform DescTransform;
     public RectTransform OutlineTransform;
@@ -42,13 +43,14 @@ public class HoverRefHolder : MonoBehaviour
                 break;
             default:
                 oldsex = null;
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     MaterialDisplays[i].gameObject.SetActive(false);
                     MaterialDisplayBackgrounds[i].gameObject.SetActive(false);
                 }
                 LineTransform.gameObject.SetActive(false);
                 LineTransform2.gameObject.SetActive(false);
+                LineTransform3.gameObject.SetActive(false);
                 break;
         }
         switch (hoverr.type)
@@ -83,7 +85,6 @@ public class HoverRefHolder : MonoBehaviour
                 totalYchange -= DescTransform.sizeDelta.y;
                 break;
             default:
-                LineTransform.gameObject.SetActive(true);
                 LineTransform2.gameObject.SetActive(true);
                 if (oldsex == hover) return;
                 oldsex = hover;
@@ -101,7 +102,8 @@ public class HoverRefHolder : MonoBehaviour
                 }
 
 
-                DescMesh.text = GISLol.Instance.GetDescription(hover);
+                LineTransform3.gameObject.SetActive(itembase.IsWeapon);
+
                 var layoutr = ItemName.GetComponent<ContentSizeFitter>();
                 layoutr.SetLayoutHorizontal();
                 layoutr.SetLayoutVertical();
@@ -113,24 +115,35 @@ public class HoverRefHolder : MonoBehaviour
                 totalYchange = -NameTransform.sizeDelta.y - edgespace;
 
                 totalYchange -= 5 + 3f;
-                LineTransform.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
 
+                if (!itembase.IsWeapon)
+                {
+                    LineTransform.gameObject.SetActive(true);
+                    LineTransform.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
+                    DescMesh.gameObject.SetActive(true);
+                    DescMesh.text = GISLol.Instance.GetDescription(hover);
+                    layoutr = DescMesh.GetComponent<ContentSizeFitter>();
+                    layoutr.SetLayoutHorizontal();
+                    layoutr.SetLayoutVertical();
 
-                layoutr = DescMesh.GetComponent<ContentSizeFitter>();
-                layoutr.SetLayoutHorizontal();
-                layoutr.SetLayoutVertical();
-                totalYchange -= 10;
-                var halftdesc = DescTransform.sizeDelta / 2;
-                x = halftdesc.x + edgespace;
-                DescTransform.anchoredPosition = new Vector2(x, totalYchange - halftdesc.y);
-                if (DescTransform.sizeDelta.x > xexpand) xexpand = DescTransform.sizeDelta.x;
-                totalYchange -= DescTransform.sizeDelta.y;
+                    totalYchange -= 10;
+                    var halftdesc = DescTransform.sizeDelta / 2;
+                    x = halftdesc.x + edgespace;
+                    DescTransform.anchoredPosition = new Vector2(x, totalYchange - halftdesc.y);
+                    if (DescTransform.sizeDelta.x > xexpand) xexpand = DescTransform.sizeDelta.x;
+                    totalYchange -= DescTransform.sizeDelta.y;
 
-                totalYchange -= 10 + 3f;
+                    totalYchange -= 10 + 3f;
+                }
+                else
+                {
+                    DescMesh.gameObject.SetActive(false);
+                    LineTransform.gameObject.SetActive(false);
+                }
                 LineTransform2.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
 
 
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     MaterialDisplays[i].gameObject.SetActive(itembase.IsWeapon);
                     MaterialDisplayBackgrounds[i].gameObject.SetActive(itembase.IsWeapon);
@@ -156,7 +169,32 @@ public class HoverRefHolder : MonoBehaviour
                     xadd += halfsize;
                     totalYchange -= halfsize;
                     if (xadd > xexpand) xexpand = xadd;
+
+                    bool wawa = hover.GraftedMaterial.IsSet();
+
+                    MaterialDisplays[3].gameObject.SetActive(wawa);
+                    MaterialDisplayBackgrounds[3].gameObject.SetActive(wawa);
+                    if (wawa)
+                    {
+                        totalYchange -= 10;
+                        totalYchange -= halfsize;
+
+
+                        var dic = MaterialDisplays[3].GetComponent<GISDisplay>();
+                        dic.item = new GISItem(hover.GraftedMaterial.index);
+                        dic.UpdateDisplay();
+                        var wanksex = new Vector2(edgespace + halfsize + size + halfedge, totalYchange);
+                        MaterialDisplays[3].anchoredPosition = wanksex;
+                        MaterialDisplayBackgrounds[3].anchoredPosition = wanksex;
+
+
+                        totalYchange -= halfsize;
+                    }
+
+                    totalYchange -= 10;
+                    LineTransform3.anchoredPosition = new Vector2(0, totalYchange - 1.5f);
                 }
+
 
                 break;
         }
@@ -166,6 +204,8 @@ public class HoverRefHolder : MonoBehaviour
         LineTransform.anchoredPosition = new Vector2(wanksize, LineTransform.anchoredPosition.y);
         LineTransform2.sizeDelta = new Vector2(xexpand, 3);
         LineTransform2.anchoredPosition = new Vector2(wanksize, LineTransform2.anchoredPosition.y);
+        LineTransform3.sizeDelta = new Vector2(xexpand, 3);
+        LineTransform3.anchoredPosition = new Vector2(wanksize, LineTransform3.anchoredPosition.y);
 
         //the end, do not put new elements below this
         ParentTransform.sizeDelta = new Vector2((edgespace * 2) + xexpand, edgespace - totalYchange);
