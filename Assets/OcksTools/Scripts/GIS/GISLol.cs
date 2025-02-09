@@ -276,7 +276,7 @@ public class GISLol : MonoBehaviour
     }
     //public static event Gamer.JustFuckingRunTheMethods checkforhover;
     public GISItem hoverballer;
-    public GISItem oldhoverballer;
+    public HoverType oldhoverr;
     float tim = -1;
     private void Update()
     {
@@ -304,13 +304,12 @@ public class GISLol : MonoBehaviour
         bool didhoverfindsex = false;
         if (!founddaddy && hoverballer != null && hoverballer.ItemIndex != "Empty")
         {
-            oldhoverballer = hoverballer;
-            HoverDohicky(new HoverType(hoverballer), true);
+            HoverDohicky(new HoverType(hoverballer));
             didhoverfindsex = true;
         }
-        if (!didhoverfindsex && oldhoverballer != null)
+        if (!didhoverfindsex && oldhoverr != null)
         {
-            HoverDohicky(new HoverType(oldhoverballer), false);
+            HoverDohicky(oldhoverr, false, false);
         }
 
         if (founddaddy)
@@ -320,7 +319,7 @@ public class GISLol : MonoBehaviour
         if (!founddaddy || tim > 0)
         {
             hovercummer.gameObject.SetActive(tim > 0);
-            tim -= Time.deltaTime;
+            tim -= Time.unscaledDeltaTime;
         }
         founddaddy = false;
 #if UNITY_EDITOR
@@ -402,10 +401,11 @@ public class GISLol : MonoBehaviour
 #endif
     }
     bool founddaddy = false;
-    public void HoverDohicky(HoverType hv, bool foundc = true)
+    public void HoverDohicky(HoverType hv, bool foundc = true, bool cansex = true)
     {
         if (founddaddy) return;
-        if (hv.type != "Item" || hv.item != oldhoverballer) oldhoverballer = null;
+        if (cansex) oldhoverr = hv;
+        if (hv != oldhoverr) oldhoverr = null;
         var hoverballer = hv.item;
         hovercummer.gameObject.SetActive(true);
         if (true)
