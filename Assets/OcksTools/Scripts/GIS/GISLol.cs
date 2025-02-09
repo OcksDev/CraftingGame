@@ -380,6 +380,10 @@ public class GISLol : MonoBehaviour
         {
             Debug.LogError("Fuck you, pause the game");
         }
+        if (InputManager.IsKeyDown(KeyCode.I, "menu"))
+        {
+            Mouse_Held_Item.GraftedMaterial = new GISMaterial("Glass");
+        }
 #endif
     }
     bool founddaddy = false;
@@ -501,6 +505,7 @@ public class GISItem
     public string CustomName;  
     public GISContainer Container;
     public List<GISMaterial> Materials = new List<GISMaterial>();
+    public GISMaterial GraftedMaterial = null;
     public List<GISMaterial> Run_Materials = new List<GISMaterial>();
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
     public Dictionary<string, int> AmountOfItems = new Dictionary<string, int>();
@@ -524,8 +529,10 @@ public class GISItem
     public void CompileItems()
     {
         AmountOfItems.Clear();
-        foreach (var a in Materials)
+
+        Func<GISMaterial, int> segsadd = (a) =>
         {
+            if (a.GetName() == "") return 1;
             if (AmountOfItems.ContainsKey(a.GetName()))
             {
                 AmountOfItems[a.GetName()]++;
@@ -534,18 +541,18 @@ public class GISItem
             {
                 AmountOfItems.Add(a.GetName(), 1);
             }
+            return 0;
+        };
+
+        foreach (var a in Materials)
+        {
+            segsadd(a);
         }
         foreach (var a in Run_Materials)
         {
-            if (AmountOfItems.ContainsKey(a.GetName()))
-            {
-                AmountOfItems[a.GetName()]++;
-            }
-            else
-            {
-                AmountOfItems.Add(a.GetName(), 1);
-            }
+            segsadd(a);
         }
+        segsadd(GraftedMaterial);
     }
 
     public void CompileBalance(GISItem com)
@@ -616,6 +623,7 @@ public class GISItem
         CustomName = sexnut.CustomName;
         Materials = new List<GISMaterial>(sexnut.Materials);
         Run_Materials = new List<GISMaterial>(sexnut.Run_Materials);
+        GraftedMaterial = new GISMaterial(sexnut.GraftedMaterial);
         Luck = sexnut.Luck;
         Balance = sexnut.Balance;
         CompileItems();
@@ -630,6 +638,7 @@ public class GISItem
         CustomName = "";
         Materials = new List<GISMaterial>();
         Run_Materials = new List<GISMaterial>();
+        GraftedMaterial = new GISMaterial();
     }
     public void Solidify()
     {
@@ -729,6 +738,7 @@ public class GISItem
             { "Name", "" },
             { "Mats", "" },
             { "RunMats", "" },
+            { "Graft", "" },
         };
         return e;
     }
@@ -764,9 +774,8 @@ public class GISItem
             if (mats2.Count > 0)
                 Data["RunMats"] = Converter.ListToString(mats2, "(q]");
         }
-
-
-
+        if(Data.ContainsKey("Graft2"))Data.Remove("Graft2");
+        Data["Graft"] = GraftedMaterial.GetName();
         Dictionary<string, string> bb = new Dictionary<string, string>();
         foreach(var dat in Data)
         {
@@ -829,6 +838,10 @@ public class GISItem
             {
                 if (pp != "") Materials.Add(new GISMaterial(pp));
             }
+        }
+        if (wanker.ContainsKey("Graft"))
+        {
+            GraftedMaterial = new GISMaterial(Data["Graft"]);
         }
         if (wanker.ContainsKey("RunMats"))
         {
@@ -922,6 +935,11 @@ public class GISMaterial
     }
     public GISMaterial()
     {
+    }
+    public GISMaterial(GISMaterial dd)
+    {
+        index = dd.index;
+        itemindex = dd.itemindex;
     }
 
     public string GetName()

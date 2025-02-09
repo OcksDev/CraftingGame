@@ -88,6 +88,18 @@ public class GISSlot : MonoBehaviour
 
         int me = GISLol.Instance.All_Containers["LeftNut"].TotalAmountOfItems();
         int you = GISLol.Instance.All_Containers["RightNut"].TotalAmountOfItems();
+
+        var c = GISLol.Instance.All_Containers["Equips"];
+        var c1 = c.slots[0].Held_Item;
+        var c2 = c.slots[1].Held_Item;
+        if(c1.GraftedMaterial.GetName() != "" && c1.GraftedMaterial.GetName() != "Empty")
+        {
+            me++;
+        }
+        if(c2.GraftedMaterial.GetName() != "" && c2.GraftedMaterial.GetName() != "Empty")
+        {
+            you++;
+        }
         var x = GISItem.CalcBalance(me, you);
         var ww = Tags.refs["Balance1"].GetComponent<TextMeshProUGUI>();
         SetFunnyShingle(x, ww);

@@ -395,6 +395,7 @@ public class PlayerController : MonoBehaviour
             {
                 ParseMaterial(m);
             }
+            ParseMaterial(mainweapon.GraftedMaterial);
         }
 
         MaxDashCooldown *= SkillCooldownMult;
