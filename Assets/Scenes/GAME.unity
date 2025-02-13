@@ -188,6 +188,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
@@ -16305,6 +16308,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
@@ -17439,7 +17445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &534248435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18405,7 +18411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &612968258
 RectTransform:
   m_ObjectHideFlags: 0
@@ -44675,6 +44681,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
@@ -57505,6 +57514,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
@@ -64231,6 +64243,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
@@ -68738,6 +68753,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
@@ -69511,6 +69529,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
@@ -70442,6 +70463,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
@@ -78961,7 +78985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1913219550
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88029,6 +88053,9 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1

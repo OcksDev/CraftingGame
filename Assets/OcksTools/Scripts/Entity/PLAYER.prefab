@@ -683,9 +683,13 @@ MonoBehaviour:
     CustomName: 
     Container: {fileID: 0}
     Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
+    Balance: 1
     BlockChance: 0
     Player: {fileID: 0}
   entit: {fileID: 0}
