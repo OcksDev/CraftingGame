@@ -454,6 +454,13 @@ public class GISLol : MonoBehaviour
         {
             e += $"<br><br>{MaterialsDict[baller.Materials[0].index].Description}";
         }
+        if (wank.IsAspect)
+        {
+            if(!(EXTRA || Gamer.GameState == "Lobby" || Gamer.Instance.checks[12]))
+            {
+                e = $"This item has no effect until brought back to base.<br><br>{wank.Description}";
+            }
+        }
         if (EXTRA)
         {
             e += $"<br><br>{ItemsDict[baller.ItemIndex].EXTRADescription}";
@@ -625,6 +632,10 @@ public class GISItem
                 Amount = 1;
             }
             else if (doingus.IsRune)
+            {
+                Amount = 1;
+            }
+            else if (doingus.IsAspect)
             {
                 Amount = 1;
             }
@@ -906,6 +917,7 @@ public class GISItem_Data
     public bool IsWeapon = false;
     public bool IsCraftable = false;
     public bool IsRune = false;
+    public bool IsAspect = false;
     [HideInInspector]
     public bool IsSkill = false;
     [HideInInspector]

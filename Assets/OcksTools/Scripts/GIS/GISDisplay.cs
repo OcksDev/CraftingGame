@@ -51,12 +51,12 @@ public class GISDisplay : MonoBehaviour
                 }
                 else
                 {
-                    displays[0].material = Gamer.Instance.sexex[0];
-                    displays[1].material = Gamer.Instance.sexex[0];
-                    displays[2].material = Gamer.Instance.sexex[0];
-                    displays[3].material = Gamer.Instance.sexex[0];
-                    displays[4].material = Gamer.Instance.sexex[0];
-                    displays[5].material = Gamer.Instance.sexex[0];
+                    displays[0].material = Gamer.Instance.sexex[5];
+                    displays[1].material = Gamer.Instance.sexex[5];
+                    displays[2].material = Gamer.Instance.sexex[5];
+                    displays[3].material = Gamer.Instance.sexex[5];
+                    displays[4].material = Gamer.Instance.sexex[5];
+                    displays[5].material = Gamer.Instance.sexex[5];
                 }
                 break;
         }

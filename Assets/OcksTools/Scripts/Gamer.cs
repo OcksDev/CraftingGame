@@ -882,6 +882,7 @@ public class Gamer : MonoBehaviour
     {
         List<string> items1 = new List<string>();
         List<string> items2 = new List<string>();
+        List<string> items3 = new List<string>();
         List<string> skills = new List<string>();
         List<string> enems = new List<string>();
 
@@ -893,9 +894,11 @@ public class Gamer : MonoBehaviour
                 else if (a.IsRune) items2.Add(a.Name);
                 else if (a.IsSkill) skills.Add(a.Name);
                 else if (a.IsEnemy) enems.Add(a.Name);
+                else if (a.IsAspect) items3.Add(a.Name);
             }
         }
         items1 = RandomFunctions.CombineLists(items1, items2);
+        items1 = RandomFunctions.CombineLists(items1, items3);
         int diff = items1.Count - spawnsofmyballs1.Count;
         for(int i = 0; i < diff; i++)
         {
