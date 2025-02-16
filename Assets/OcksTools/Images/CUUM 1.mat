@@ -65,6 +65,11 @@ Material:
     - _NoiseMult: 1
     - _PixelSize: 16
     - _Size: 1
+    - _Stencil: 0
+    - _StencilComp: 0
+    - _StencilOp: 0
+    - _StencilReadMask: 0.5
+    - _StencilWriteMask: 0.5
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _Color_1: {r: 1, g: 1, b: 1, a: 0}
