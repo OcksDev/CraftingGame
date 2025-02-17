@@ -152,12 +152,12 @@ public class INteractable : MonoBehaviour
                 if (!pass && PlayerController.Instance.Coins >= 5)
                 {
                     PlayerController.Instance.SpendCoin(5);
+                    Gamer.QuestProgressIncrease("Room", "Chest");
                     pass = true;
                 }
                 if (pass)
                 {
                     Gamer.Instance.SpawnGroundItem(transform.position, cuum);
-                    Gamer.QuestProgressIncrease("Room", "Chest");
                     Destroy(gameObject);
                 }
                 break;

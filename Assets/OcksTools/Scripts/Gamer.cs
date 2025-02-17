@@ -575,10 +575,6 @@ public class Gamer : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        if (InputManager.IsKeyDown(KeyCode.U, "menu"))
-        {
-            ToggleItemTrans();
-        }
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
             //SaveSystem.Instance.SaveGame();
@@ -972,17 +968,16 @@ public class Gamer : MonoBehaviour
         else
         {
             checks[9] = false;
-            ToggleItemTrans();
+            ToggleItemTrans(strings);
         }
     }
 
-    public void ToggleItemTrans()
+    public void ToggleItemTrans(List<string> strings)
     {
         checks[9] = !checks[9];
         checks[6] = false;
         if (checks[9])
         {
-            var strings = GetRunItems();
             foreach (var a in oldnerds)
             {
                 try
@@ -1041,7 +1036,7 @@ public class Gamer : MonoBehaviour
             if (a == null) continue;
             if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
             {
-                if (v.IsCraftable)
+                if (v.IsCraftable || v.IsAspect)
                 {
                     strings.Add(v.Name);
                 }

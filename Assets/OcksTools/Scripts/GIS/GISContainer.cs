@@ -405,6 +405,7 @@ public class GISContainer : MonoBehaviour
         int x = 0;
         foreach(var a in slots)
         {
+            if (GISItem.DontCount(a.Held_Item.ItemIndex)) continue;
             x += a.Held_Item.Amount;
         }
         return x;

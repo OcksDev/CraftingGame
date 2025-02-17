@@ -458,7 +458,7 @@ public class GISLol : MonoBehaviour
         {
             if(!(EXTRA || Gamer.GameState == "Lobby" || Gamer.Instance.checks[12]))
             {
-                e = $"This item has no effect until brought back to base.<br><br>{wank.Description}";
+                e = $"This item has no effect until it is brought back to base.<br>This item does not count toward weapon balance.<br><br>{wank.Description}";
             }
         }
         if (EXTRA)
@@ -530,6 +530,7 @@ public class GISItem
     public GISContainer Container;
     public List<GISMaterial> Materials = new List<GISMaterial>();
     public GISMaterial GraftedMaterial = null;
+    public GISMaterial AspectMaterial = null;
     public List<GISMaterial> Run_Materials = new List<GISMaterial>();
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
     public Dictionary<string, int> AmountOfItems = new Dictionary<string, int>();
@@ -577,6 +578,7 @@ public class GISItem
             segsadd(a);
         }
         segsadd(GraftedMaterial);
+        segsadd(AspectMaterial);
     }
 
     public void CompileBalance(GISItem com)
@@ -587,7 +589,7 @@ public class GISItem
     }
     public static float CalcBalance(int me, int you)
     {
-        var x = Mathf.Abs(me - you) - 3;
+        var x = Mathf.Abs(me - you) - 2;
         var y = x;
         if (x > 0)
         {
@@ -601,12 +603,20 @@ public class GISItem
         int x = 0;
         foreach(var a in AmountOfItems)
         {
-            if (a.Key == "" || a.Key == "Empty") continue;
+            if (DontCount(a.Key)) continue;
             x += a.Value;
         }
         return x;
     }
 
+    public static bool DontCount(string name)
+    {
+        //true = doesn't count
+        if (name == "" || name == "Empty") return true;
+        var dd = GISLol.Instance.ItemsDict[name];
+        if (dd.IsAspect) return true;
+        return false;
+    }
     public int ReadItemAmount(string weenor)
     {
         if (AmountOfItems.ContainsKey(weenor))
@@ -652,6 +662,7 @@ public class GISItem
         Materials = new List<GISMaterial>(sexnut.Materials);
         Run_Materials = new List<GISMaterial>(sexnut.Run_Materials);
         GraftedMaterial = new GISMaterial(sexnut.GraftedMaterial);
+        AspectMaterial = new GISMaterial(sexnut.AspectMaterial);
         Luck = sexnut.Luck;
         Balance = sexnut.Balance;
         CompileItems();
@@ -667,6 +678,7 @@ public class GISItem
         Materials = new List<GISMaterial>();
         Run_Materials = new List<GISMaterial>();
         GraftedMaterial = new GISMaterial();
+        AspectMaterial = new GISMaterial();
     }
     public void Solidify()
     {
@@ -767,6 +779,7 @@ public class GISItem
             { "Mats", "" },
             { "RunMats", "" },
             { "Graft", "" },
+            { "Aspect", "" },
         };
         return e;
     }
@@ -802,8 +815,8 @@ public class GISItem
             if (mats2.Count > 0)
                 Data["RunMats"] = Converter.ListToString(mats2, "(q]");
         }
-        if(Data.ContainsKey("Graft2"))Data.Remove("Graft2");
         Data["Graft"] = GraftedMaterial.GetName();
+        Data["Aspect"] = AspectMaterial.GetName();
         Dictionary<string, string> bb = new Dictionary<string, string>();
         foreach(var dat in Data)
         {
@@ -870,6 +883,11 @@ public class GISItem
         if (wanker.ContainsKey("Graft"))
         {
             GraftedMaterial = new GISMaterial(Data["Graft"]);
+        }
+        if (wanker.ContainsKey("Aspect"))
+        {
+            AspectMaterial = new GISMaterial();
+            AspectMaterial.itemindex = Data["Aspect"];
         }
         if (wanker.ContainsKey("RunMats"))
         {
