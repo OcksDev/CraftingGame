@@ -41,6 +41,15 @@ public class RandomFunctions : MonoBehaviour
         }
         return tea;
     }
+    
+    public static List<T> CombineListsNoDupe<T>(List<T> ti, List<T> tee)
+    {
+        foreach (T t in tee)
+        {
+            ti.Add(t);
+        }
+        return ti;
+    }
 
     private void OnApplicationQuit()
     {

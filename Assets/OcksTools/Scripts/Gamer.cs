@@ -189,8 +189,9 @@ public class Gamer : MonoBehaviour
             new RoomTypeHolder("Chase The Orb"),
             //new RoomTypeHolder("Bullet Dodge"),
             new RoomTypeHolder("Passcode"),
-            //new RoomTypeHolder("Monster Crystal"),
+            //new RoomTypeHolder("Monster Crystal"), //pendants?
             //new RoomTypeHolder("Shrine"),
+            //new RoomTypeHolder("Cursed Item"),
         };
     }
 
@@ -573,6 +574,11 @@ public class Gamer : MonoBehaviour
         {
             ToggleInventory();
         }
+        if (checks[11])
+        {
+            if (InputManager.IsKeyDown(KeyCode.RightArrow, "menu")) VaultIncrease();
+            if (InputManager.IsKeyDown(KeyCode.LeftArrow, "menu")) VaultDecrease();
+        }
 
 #if UNITY_EDITOR
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
@@ -591,18 +597,49 @@ public class Gamer : MonoBehaviour
     [HideInInspector]
     public List<VaultitemDisplay> prespawnednerds = new List<VaultitemDisplay>();
     public int SortMethod = 0;
+
+    public TMP_InputField VaultSearch;
+    public void OpenVault()
+    {
+        VaultSearch.text = "";
+    }
+    private Dictionary<GISItem, int> memesex;
     public void LoadVaultPage(int page)
     {
         currentvault = page;
         int amount = 63;
         List<KeyValuePair<GISItem, int>> penis = new List<KeyValuePair<GISItem, int>>();
         List<KeyValuePair<GISItem, int>> penis2 = new List<KeyValuePair<GISItem, int>>();
-        bool shungite = GISLol.Instance.VaultItems.Count > 0;
+        List<KeyValuePair<GISItem, int>> penis3 = new List<KeyValuePair<GISItem, int>>();
+
+        memesex = new Dictionary<GISItem, int>(GISLol.Instance.VaultItems);
+        if(VaultSearch.text != "")
+        for(int i = 0; i < memesex.Count; i++)
+        {
+            var x = memesex.ElementAt(i);
+            bool rem = false;
+            if(x.Key.CustomName != "")
+            {
+                if(!x.Key.CustomName.Contains(VaultSearch.text)) rem = true;
+            }
+            else
+            {
+                if (!x.Key.ItemIndex.Contains(VaultSearch.text)) rem = true;
+            }
+            if (rem)
+            {
+                memesex.Remove(x.Key);
+                i--;
+            }
+        }
+
+
+        bool shungite = memesex.Count > 0;
         while (shungite)
         {
             try
             {
-                var wenor = GISLol.Instance.VaultItems.ElementAt(amount * page);
+                var wenor = memesex.ElementAt(amount * page);
                 shungite = false;
             }
             catch
@@ -611,43 +648,28 @@ public class Gamer : MonoBehaviour
             }
         }
 
-        Tags.refs["VaultButt1"].SetActive(GISLol.Instance.VaultItems.Count > (currentvault + 1) * 63);
+        Tags.refs["VaultButt1"].SetActive(memesex.Count > (currentvault + 1) * 63);
         Tags.refs["VaultButt2"].SetActive(currentvault > 0);
 
-        for (int i = 0; i < GISLol.Instance.VaultItems.Count; i++)
+        for (int i = 0; i < memesex.Count; i++)
         {
-            var wenor = GISLol.Instance.VaultItems.ElementAt(i);
-            switch (SortMethod)
+            var wenor = memesex.ElementAt(i);
+            var rx = GISLol.Instance.ItemsDict[wenor.Key.ItemIndex];
+            if (rx.IsCraftable)
             {
-                case 0:
-                    if (GISLol.Instance.ItemsDict[wenor.Key.ItemIndex].IsCraftable)
-                    {
-                        penis.Add(wenor);
-                    }
-                    else
-                    {
-                        penis2.Add(wenor);
-                    }
-                    break;
-                case 1:
-                    if (GISLol.Instance.ItemsDict[wenor.Key.ItemIndex].IsWeapon)
-                    {
-                        penis.Add(wenor);
-                    }
-                    else
-                    {
-                        penis2.Add(wenor);
-                    }
-                    break;
-                default:
-                    penis.Add(wenor);
-                    break;
+                penis.Add(wenor);
+            }
+            else if(rx.IsAspect)
+            {
+                penis3.Add(wenor);
+            }
+            else
+            {
+                penis2.Add(wenor);
             }
         }
-        foreach(var a in penis2)
-        {
-            penis.Add(a);
-        }
+        RandomFunctions.CombineListsNoDupe(penis, penis3);
+        RandomFunctions.CombineListsNoDupe(penis, penis2);
         int offset = (penis.Count - (page*amount)) - spawnednerds.Count;
         if (offset > 0)
         {
@@ -657,26 +679,30 @@ public class Gamer : MonoBehaviour
         {
             offset = Mathf.Max(offset, -amount);
         }
-        for(int i = 0; i < offset && spawnednerds.Count < amount; i++)
+        int jjj = prespawnednerds.Count;
+        for (int i = 0; i < offset && spawnednerds.Count < amount; i++)
         {
             //var weenor = Instantiate(VaultThing, transform.position, Quaternion.identity, Tags.refs["VaultParent"].transform).GetComponent<VaultitemDisplay>();
-            var weenor = prespawnednerds[0];
+            var weenor = prespawnednerds[jjj-i-1];
             weenor.gameObject.SetActive(true);
             spawnednerds.Add(weenor);
             prespawnednerds.Remove(weenor);
         }
+        int jj = spawnednerds.Count;
         for(int i = 0; i < -offset && i < amount; i++)
         {
-            var weenor = spawnednerds[0];
+            int j = jj - i - 1;
+            var weenor = spawnednerds[j];
             weenor.gameObject.SetActive(false);
             prespawnednerds.Add(weenor);
-            spawnednerds.RemoveAt(0);
+            spawnednerds.RemoveAt(j);
 
         }
+        jj = spawnednerds.Count-1;
         for (int i = 0; i < (penis.Count - (page * amount)) && i < amount; i++)
         {
-            spawnednerds[i].item = penis[i + (page*amount)].Key;
-            spawnednerds[i].UpdateDisplay();
+            spawnednerds[jj - i].item = penis[i + (page*amount)].Key;
+            spawnednerds[jj - i].UpdateDisplay();
         }
     }
     public float Highlights;
@@ -691,7 +717,7 @@ public class Gamer : MonoBehaviour
     }
     public void VaultIncrease()
     {
-        if(GISLol.Instance.VaultItems.Count > (currentvault+1) * 63 )
+        if(memesex.Count > (currentvault+1) * 63 )
         LoadVaultPage(currentvault + 1);
     }
     public void VaultDecrease()

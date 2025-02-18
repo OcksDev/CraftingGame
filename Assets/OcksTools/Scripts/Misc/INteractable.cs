@@ -115,6 +115,7 @@ public class INteractable : MonoBehaviour
                 g.checks[0] = true;
                 g.checks[2] = false;
                 g.UpdateMenus();
+                g.OpenVault();
                 Gamer.Instance.LoadVaultPage(0);
                 break;
             case "StartGame":
