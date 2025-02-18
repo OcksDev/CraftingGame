@@ -118,6 +118,12 @@ public class INteractable : MonoBehaviour
                 g.OpenVault();
                 Gamer.Instance.LoadVaultPage(0);
                 break;
+            case "Grafter":
+                g.ToggleInventory();
+                g.checks[2] = false;
+                g.checks[18] = true;
+                g.UpdateMenus();
+                break;
             case "StartGame":
                 if (PlayerFailsWeaponCheck()) return;
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor"));

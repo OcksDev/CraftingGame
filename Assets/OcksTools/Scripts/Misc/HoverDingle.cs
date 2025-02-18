@@ -54,6 +54,12 @@ public class HoverDingle : MonoBehaviour
                     hv.data2 = "A weapon requires<br>three materials and a name";
                     g.HoverDohicky(hv);
                     break;
+                case "Graft":
+                    hv.type = "TitleAndDesc";
+                    hv.data = "Graft";
+                    hv.data2 = "Requires three of the same material and a central weapon";
+                    g.HoverDohicky(hv);
+                    break;
             }
         }
     }

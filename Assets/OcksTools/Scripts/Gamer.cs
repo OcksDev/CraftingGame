@@ -113,6 +113,8 @@ public class Gamer : MonoBehaviour
         Tags.refs["QuestMenu"].SetActive(checks[14]);
         Tags.refs["SkillBuyMenu"].SetActive(checks[15]);
         Tags.refs["SkillSubBuy"].SetActive(checks[16]);
+        Tags.refs["GrafterMenu"].SetActive(checks[18]);
+        //Tags.refs["AspectMenu"].SetActive(checks[19]);
 
         Tags.refs["ItemeR"].SetActive(checks[17]);
         Tags.refs["Iteme"].SetActive(!checks[17]);
@@ -734,10 +736,25 @@ public class Gamer : MonoBehaviour
             GISLol.Instance.GrantItem(GISLol.Instance.Mouse_Held_Item);
             GISLol.Instance.Mouse_Held_Item = new GISItem();
         }
+
+        if (checks[18])
+        {
+            foreach (var a in GISLol.Instance.All_Containers["Grafter"].slots)
+            {
+                if (a.Held_Item.ItemIndex != "Empty")
+                {
+                    GISLol.Instance.GrantItem(a.Held_Item);
+                    a.Held_Item = new GISItem();
+                }
+            }
+        }
+
         if (checks[1] && !overrides) return;
         checks[0] = !checks[0];
         checks[1] = false;
         checks[11] = false;
+        checks[18] = false;
+        checks[19] = false;
         checks[2] = checks[0];
         UpdateMenus();
     }
