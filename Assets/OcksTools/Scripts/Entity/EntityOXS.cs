@@ -374,6 +374,11 @@ public class EntityOXS : MonoBehaviour
                     int tt2 = playerdaddy.mainweapon.RollLuck(0.25f);
                     if (tt2 > 0) amount += arr;
                 }
+                arr = playerdaddy.mainweapon.ReadItemAmount("Aspect Of Healing");
+                if (arr > 0)
+                {
+                    amount *= 2;
+                }
                 break;
         }
         var oldh = Health;
@@ -556,10 +561,50 @@ public class EntityOXS : MonoBehaviour
                     }
                 }
             }
+            arr2 = inpu.ReadItemAmount("Aspect Of Plague");
+            if (arr2 > 0)
+            {
+                NavMeshEntity near = null;
+                float nr = 100000000;
+                foreach(var a in Gamer.Instance.EnemiesExisting)
+                {
+                    if(a != null && a != sexy && a.HasSpawned)
+                    {
+                        var de = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
+                        if(de < nr)
+                        {
+                            nr = de;
+                            near = a;
+                        }
+                    }
+                }
+                if(near != null)
+                {
+                    foreach(var a in Effects)
+                    {
+                        var x = near.EntityOXS.ContainsEffect(a);
+                        if (x.hasthing)
+                        {
+                            if(x.susser.Stack < a.Stack)
+                            {
+                                x.susser.Stack = a.Stack;
+                            }
+                            if(x.susser.Duration < a.Duration)
+                            {
+                                x.susser.Duration = a.Duration;
+                            }
+                        }
+                        else
+                        {
+                            near.EntityOXS.AddEffect(a, true);
+                        }
+                    }
+                }
+            }
+
         }
         Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
     }
-
 
     bool oldstatus = false;
     bool curstatus = false;
@@ -683,7 +728,7 @@ public class EntityOXS : MonoBehaviour
         return ee;
     }
 
-    public void AddEffect(EffectProfile eff)
+    public void AddEffect(EffectProfile eff, bool ignore = false)
     {
         eff.TimeRemaining = eff.Duration;
         bool alreadyhaseffect = false;
@@ -697,6 +742,13 @@ public class EntityOXS : MonoBehaviour
                 break;
             }
         }
+
+        if (!ignore && eff.ItemOfInit != null)
+        {
+            var a = eff.ItemOfInit.ReadItemAmount("Aspect Of Plague");
+            if (a > 0) eff.Duration /= 2;
+        }
+
         if (alreadyhaseffect)
         {
             switch (eff.CombineMethod)

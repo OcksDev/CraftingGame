@@ -43,7 +43,7 @@ public class HoverRefHolder : MonoBehaviour
                 break;
             default:
                 oldsex = null;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     MaterialDisplays[i].gameObject.SetActive(false);
                     MaterialDisplayBackgrounds[i].gameObject.SetActive(false);
@@ -143,7 +143,7 @@ public class HoverRefHolder : MonoBehaviour
                 LineTransform2.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
 
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     MaterialDisplays[i].gameObject.SetActive(itembase.IsWeapon);
                     MaterialDisplayBackgrounds[i].gameObject.SetActive(itembase.IsWeapon);
@@ -171,12 +171,13 @@ public class HoverRefHolder : MonoBehaviour
                     if (xadd > xexpand) xexpand = xadd;
 
                     bool wawa = hover.GraftedMaterial.IsSet();
+                    bool wawa2 = hover.AspectMaterial.IsSet();
 
                     MaterialDisplays[3].gameObject.SetActive(wawa);
                     MaterialDisplayBackgrounds[3].gameObject.SetActive(wawa);
                     if (wawa)
                     {
-                        totalYchange -= 10;
+                        totalYchange -= halfedge;
                         totalYchange -= halfsize;
 
 
@@ -186,6 +187,25 @@ public class HoverRefHolder : MonoBehaviour
                         var wanksex = new Vector2(edgespace + halfsize + size + halfedge, totalYchange);
                         MaterialDisplays[3].anchoredPosition = wanksex;
                         MaterialDisplayBackgrounds[3].anchoredPosition = wanksex;
+
+
+                        totalYchange -= halfsize;
+                    }
+
+                    MaterialDisplays[4].gameObject.SetActive(wawa2);
+                    MaterialDisplayBackgrounds[4].gameObject.SetActive(wawa2);
+                    if (wawa2)
+                    {
+                        totalYchange -= halfedge;
+                        totalYchange -= halfsize;
+
+
+                        var dic = MaterialDisplays[4].GetComponent<GISDisplay>();
+                        dic.item = new GISItem(hover.AspectMaterial.itemindex);
+                        dic.UpdateDisplay();
+                        var wanksex = new Vector2(edgespace + halfsize + size + halfedge, totalYchange);
+                        MaterialDisplays[4].anchoredPosition = wanksex;
+                        MaterialDisplayBackgrounds[4].anchoredPosition = wanksex;
 
 
                         totalYchange -= halfsize;

@@ -396,6 +396,7 @@ public class PlayerController : MonoBehaviour
                 ParseMaterial(m);
             }
             ParseMaterial(mainweapon.GraftedMaterial);
+            ParseMaterial(mainweapon.AspectMaterial, true);
         }
 
         MaxDashCooldown *= SkillCooldownMult;
@@ -420,106 +421,131 @@ public class PlayerController : MonoBehaviour
         SetMoveSpeed();
         if (CritChance < 0) CritChance = 0;
     }
-    public void ParseMaterial(GISMaterial matty)
+    public void ParseMaterial(GISMaterial matty, bool aspect = false)
     {
-        switch (matty.index)
+        if (!aspect)
         {
-            case "Emerald":
-                AttacksPerSecondMod *= 1.15f;
-                break;
-            case "Gold":
-                WeaponDamageMod += 0.15f;
-                AttacksPerSecondMod *= 0.95f;
-                break;
-            case "Glass":
-                WeaponDamageMod *= 1.2f;
-                helth *= 0.85f;
-                break;
-            case "Infused Rock":
-                TotalDamageMod *= 1.15f;
-                DamageOnAttack += 1;
-                break;
-            case "Amethyst":
-                SkillCooldownMult *= 0.85f;
-                working_move_speed *= 1.1f;
-                break;
-            case "Slime":
-                WeaponDamageMod += 0.2f;
-                working_move_speed *= 0.90f;
-                break;
-            case "Piss":
-                WeaponDamageMod *= 0.9f;
-                AttacksPerSecondMod += 0.2f;
-                break;
-            case "Demonic Ingot":
-                CritChance += 0.20f;
-                WeaponDamageMod *= 0.90f;
-                break;
-            case "Angelic Ingot":
-                CritChance -= 0.15f;
-                WeaponDamageMod += 0.15f;
-                break;
-            case "Morkite":
-                TotalDamageMod *= 1.15;
-                WeaponDamageMod *= 0.85f;
-                break;
-            case "Aquarq":
-                working_move_speed *= 1.25f;
-                helth *= 0.9;
-                break;
-            case "Zebrium":
-                AttacksPerSecondMod += 0.10f;
-                CritChance += 0.1f;
-                break;
-            case "Shungite":
-                //WeaponDamageMod = System.Math.Max((WeaponDamageMod * Damage) - 1, 1d)/Damage;
-                working_move_speed *= 0.9f;
-                break;
-            case "Void":
-                TotalDamageMod *= 1.1;
-                break;
-            case "Branch":
-                AttacksPerSecondMod *= 0.9f;
-                mainweapon.Luck += 0.5f;
-                break;
-            case "Plastic":
-                helth *= 1.15f;
-                CritChance -= 0.1f;
-                break;
-            case "Bone":
-                helth *= 1.2f;
-                SkillCooldownMult += 0.15f;
-                break;
-            case "Diamond":
-                helth *= 1.2f;
-                WeaponDamageMod += 0.2;
-                AttacksPerSecond *= 0.9f;
-                working_move_speed *= 0.8f;
-                break;
+            switch (matty.index)
+            {
+                case "Emerald":
+                    AttacksPerSecondMod *= 1.15f;
+                    break;
+                case "Gold":
+                    WeaponDamageMod += 0.15f;
+                    AttacksPerSecondMod *= 0.95f;
+                    break;
+                case "Glass":
+                    WeaponDamageMod *= 1.2f;
+                    helth *= 0.85f;
+                    break;
+                case "Infused Rock":
+                    TotalDamageMod *= 1.15f;
+                    DamageOnAttack += 1;
+                    break;
+                case "Amethyst":
+                    SkillCooldownMult *= 0.85f;
+                    working_move_speed *= 1.1f;
+                    break;
+                case "Slime":
+                    WeaponDamageMod += 0.2f;
+                    working_move_speed *= 0.90f;
+                    break;
+                case "Piss":
+                    WeaponDamageMod *= 0.9f;
+                    AttacksPerSecondMod += 0.2f;
+                    break;
+                case "Demonic Ingot":
+                    CritChance += 0.20f;
+                    WeaponDamageMod *= 0.90f;
+                    break;
+                case "Angelic Ingot":
+                    CritChance -= 0.15f;
+                    WeaponDamageMod += 0.15f;
+                    break;
+                case "Morkite":
+                    TotalDamageMod *= 1.15;
+                    WeaponDamageMod *= 0.85f;
+                    break;
+                case "Aquarq":
+                    working_move_speed *= 1.25f;
+                    helth *= 0.9;
+                    break;
+                case "Zebrium":
+                    AttacksPerSecondMod += 0.10f;
+                    CritChance += 0.1f;
+                    break;
+                case "Shungite":
+                    //WeaponDamageMod = System.Math.Max((WeaponDamageMod * Damage) - 1, 1d)/Damage;
+                    working_move_speed *= 0.9f;
+                    break;
+                case "Void":
+                    TotalDamageMod *= 1.1;
+                    break;
+                case "Branch":
+                    AttacksPerSecondMod *= 0.9f;
+                    mainweapon.Luck += 0.5f;
+                    break;
+                case "Plastic":
+                    helth *= 1.15f;
+                    CritChance -= 0.1f;
+                    break;
+                case "Bone":
+                    helth *= 1.2f;
+                    SkillCooldownMult += 0.15f;
+                    break;
+                case "Diamond":
+                    helth *= 1.2f;
+                    WeaponDamageMod += 0.2;
+                    AttacksPerSecond *= 0.9f;
+                    working_move_speed *= 0.8f;
+                    break;
+            }
+            switch (matty.itemindex)
+            {
+                case "Rune Of Splitting":
+                    sexcummersofthegigashit++;
+                    break;
+                case "Rune Of Luck":
+                    mainweapon.Luck += 0.35f;
+                    break;
+                case "Rune Of Excitation":
+                    MaxTimeSinceDamageDealt += 0.5f;
+                    break;
+                case "Rune Of Barrier":
+                    BarrierBlockChance *= 0.8f;
+                    break;
+                case "DieBitch":
+                    switch (mainweapon.ItemIndex)
+                    {
+                        default:
+                            AttacksPerSecond *= 1.15f;
+                            break;
+                    }
+                    break;
+            }
         }
-        switch (matty.itemindex)
+        else
         {
-            case "Rune Of Splitting":
-                sexcummersofthegigashit++;
-                break;
-            case "Rune Of Luck":
-                mainweapon.Luck += 0.35f;
-                break;
-            case "Rune Of Excitation":
-                MaxTimeSinceDamageDealt += 0.5f;
-                break;
-            case "Rune Of Barrier":
-                BarrierBlockChance *= 0.8f;
-                break;
-            case "DieBitch":
-                switch (mainweapon.ItemIndex)
-                {
-                    default:
-                        AttacksPerSecond *= 1.15f;
-                        break;
-                }
-                break;
+            switch (matty.itemindex)
+            {
+                case "Aspect Of Damage":
+                    WeaponDamageMod *= 2;
+                    working_move_speed /= 2;
+                    break;
+                case "Aspect Of Speed":
+                    AttacksPerSecondMod *= 2;
+                    WeaponDamageMod /= 2;
+                    break;
+                case "Aspect Of Movement":
+                    working_move_speed *= 2;
+                    helth /= 2;
+                    break;
+                case "Aspect Of Healing":
+                    helth /= 2;
+                    break;
+            }
         }
+        
     }
     private void Update()
     {

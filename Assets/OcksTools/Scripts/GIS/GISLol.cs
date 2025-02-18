@@ -398,6 +398,11 @@ public class GISLol : MonoBehaviour
         {
             Mouse_Held_Item.GraftedMaterial = new GISMaterial("Glass");
         }
+        if (InputManager.IsKeyDown(KeyCode.U, "menu"))
+        {
+            Mouse_Held_Item.AspectMaterial = new GISMaterial();
+            Mouse_Held_Item.AspectMaterial.itemindex = "Aspect Of Plague";
+        }
 #endif
     }
     bool founddaddy = false;
@@ -555,30 +560,36 @@ public class GISItem
     {
         AmountOfItems.Clear();
 
-        Func<GISMaterial, int> segsadd = (a) =>
+        Func<GISMaterial, bool, int> segsadd = (a, b) =>
         {
-            if (a.GetName() == "") return 1;
-            if (AmountOfItems.ContainsKey(a.GetName()))
+            var nm = a.GetName();
+            if (nm == "") return 1;
+            if (b)
             {
-                AmountOfItems[a.GetName()]++;
+                var it = GISLol.Instance.ItemsDict[nm];
+                if(it.IsAspect) return 2;
+            }
+            if (AmountOfItems.ContainsKey(nm))
+            {
+                AmountOfItems[nm]++;
             }
             else
             {
-                AmountOfItems.Add(a.GetName(), 1);
+                AmountOfItems.Add(nm, 1);
             }
             return 0;
         };
 
         foreach (var a in Materials)
         {
-            segsadd(a);
+            segsadd(a, false);
         }
         foreach (var a in Run_Materials)
         {
-            segsadd(a);
+            segsadd(a, true);
         }
-        segsadd(GraftedMaterial);
-        segsadd(AspectMaterial);
+        segsadd(GraftedMaterial, false);
+        segsadd(AspectMaterial, false);
     }
 
     public void CompileBalance(GISItem com)

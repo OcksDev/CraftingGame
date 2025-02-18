@@ -1047,7 +1047,7 @@ public class Gamer : MonoBehaviour
             if (a == null) continue;
             if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
             {
-                if (v.IsCraftable)
+                if (v.IsCraftable || v.IsAspect)
                 {
                     strings.Add(v.Name);
                 }
@@ -1133,6 +1133,10 @@ public class Gamer : MonoBehaviour
                 }
             }
             StartCoroutine(FUCKYOU());
+        }
+        else
+        {
+            GISLol.Instance.Mouse_Held_Item = new GISItem();
         }
         UpdateMenus();
     }
