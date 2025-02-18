@@ -57,6 +57,8 @@ public class HoverRefHolder : MonoBehaviour
         {
             case "TitleAndDesc":
                 LineTransform.gameObject.SetActive(true);
+                DescMesh.gameObject.SetActive(true);
+                //LineTransform2.gameObject.SetActive(true);
                 if (ItemName.text == hoverr.data && DescMesh.text == hoverr.data2) return;
                 ItemName.text = hoverr.data;
                 DescMesh.text = hoverr.data2;
@@ -86,10 +88,10 @@ public class HoverRefHolder : MonoBehaviour
                 break;
             default:
                 LineTransform2.gameObject.SetActive(true);
-                if (oldsex == hover) return;
-                oldsex = hover;
+                if (oldsex != null && oldsex.Compare(hover)) return;
+                oldsex = new GISItem( hover);
 
-
+                Debug.Log("NMEW ITREMEE!!!!! " + hover.ItemIndex);
 
                 var itembase = GISLol.Instance.ItemsDict[hover.ItemIndex];
                 if (hover.CustomName != "")

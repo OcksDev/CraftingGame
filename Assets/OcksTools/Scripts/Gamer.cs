@@ -2331,11 +2331,27 @@ public class Gamer : MonoBehaviour
         if (anim) return false;
         return ItemNameInput.text != "" && con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft() && con.slots[3].Held_Item.ItemIndex == "Empty";
     }
+    public bool CanCurrentGraft()
+    {
+        var con = GISLol.Instance.All_Containers["Grafter"];
+        if (anim) return false;
+        if (con.slots[0].Held_Item.ItemIndex == "Rock") return false;
+        if(con.slots[0].Held_Item.ItemIndex != con.slots[1].Held_Item.ItemIndex || con.slots[1].Held_Item.ItemIndex != con.slots[2].Held_Item.ItemIndex) return false;
+
+        return con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft() && con.slots[3].Held_Item.ItemIndex != "Empty";
+    }
     public void AttemptCraft()
     {
         if (CanCurrentCraft())
         {
             StartCoroutine(CraftAnim());
+        }
+    }
+    public void AttemptGraft()
+    {
+        if (CanCurrentGraft())
+        {
+            StartCoroutine(GraftAnim());
         }
     }
     List<GISItem> mattertyeysys = new List<GISItem>();
@@ -2345,6 +2361,25 @@ public class Gamer : MonoBehaviour
         string a = ItemNameInput.text;
         mattertyeysys.Clear();
         anim = true;
+
+        System.Func<int,int> SpawnAnim = (i) =>
+        {
+            var weenor = Instantiate(ItemAnimThing, con.slots[i].transform.position, Quaternion.identity, Tags.refs["CrafterAnimHolder"].transform);
+            dienerds.Add(weenor);
+            var w2 = weenor.GetComponent<MeWhenYourMom>();
+            w2.target = con.slots[3].transform;
+            w2.speed = 9f;
+            if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
+            {
+                w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].ColorMod;
+            }
+            var aa = con.slots[i].Held_Item;
+            mattertyeysys.Add(aa);
+            con.slots[i].Held_Item = new GISItem();
+            return i;
+        };
+
+
         SpawnAnim(0);
         SpawnAnim(1);
         SpawnAnim(2);
@@ -2372,22 +2407,41 @@ public class Gamer : MonoBehaviour
             QuestProgressIncrease("Craft", e.ItemIndex);
         }
         anim = false;
-    }
-    public void SpawnAnim(int i)
+    }public IEnumerator GraftAnim()
     {
-        var con = GISLol.Instance.All_Containers["Crafting"];
-        var weenor = Instantiate(ItemAnimThing, con.slots[i].transform.position, Quaternion.identity, Tags.refs["CrafterAnimHolder"].transform);
-        dienerds.Add(weenor);
-        var w2 = weenor.GetComponent<MeWhenYourMom>();
-        w2.target = con.slots[3].transform;
-        w2.speed = 9f;
-        if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
+        var con = GISLol.Instance.All_Containers["Grafter"];
+        mattertyeysys.Clear();
+        anim = true;
+
+
+        System.Func<int, int> SpawnAnim = (i) =>
         {
-            w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].ColorMod;
-        }
-        var aa = con.slots[i].Held_Item;
-        mattertyeysys.Add(aa);
-        con.slots[i].Held_Item = new GISItem();
+            var weenor = Instantiate(ItemAnimThing, con.slots[i].transform.position, Quaternion.identity, Tags.refs["GrafterAnimHolder"].transform);
+            dienerds.Add(weenor);
+            var w2 = weenor.GetComponent<MeWhenYourMom>();
+            w2.target = con.slots[3].transform;
+            w2.speed = 9f;
+            if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
+            {
+                w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].ColorMod;
+            }
+            var aa = con.slots[i].Held_Item;
+            mattertyeysys.Add(aa);
+            con.slots[i].Held_Item = new GISItem();
+            return i;
+        };
+
+
+        SpawnAnim(0);
+        SpawnAnim(1);
+        SpawnAnim(2);
+        yield return new WaitForSeconds(0.6f);
+        con.slots[3].Held_Item.GraftedMaterial = mattertyeysys[0].Materials[0];
+        /*if()
+        {
+            QuestProgressIncrease("Craft", );
+        }*/
+        anim = false;
     }
     public void InitCraftMenu()
     {

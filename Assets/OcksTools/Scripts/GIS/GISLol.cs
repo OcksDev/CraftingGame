@@ -758,6 +758,8 @@ public class GISItem
         if (!usebase && comp)
         {
             //code to further compare goes here
+            if(sexnut.GraftedMaterial.GetName() != GraftedMaterial.GetName()) return false;
+            if(sexnut.AspectMaterial.GetName() != AspectMaterial.GetName()) return false;
         }
         return comp;
     }

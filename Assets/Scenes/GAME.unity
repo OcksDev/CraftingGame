@@ -2535,7 +2535,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 697863479}
         m_TargetAssemblyTypeName: Gamer, Assembly-CSharp
-        m_MethodName: AttemptCraft
+        m_MethodName: AttemptGraft
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2558,7 +2558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3300107, g: 0.6792453, b: 0.43046108, a: 1}
+  m_Color: {r: 0.6413736, g: 0.6784314, b: 0.32941177, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14440,6 +14440,7 @@ GameObject:
   - component: {fileID: 360917682}
   - component: {fileID: 360917681}
   - component: {fileID: 360917683}
+  - component: {fileID: 360917684}
   m_Layer: 26
   m_Name: NormalRender
   m_TagString: Untagged
@@ -15214,6 +15215,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   namer: 
   nerd: {fileID: 1476030697}
+--- !u!114 &360917684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360917632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d17eddebf196574daf74b9ee36952e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namer: GrafterAnimHolder
+  nerd: {fileID: 1098176981}
 --- !u!224 &366118863 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4933656227016282864, guid: 283bb50cdbd4db74bbeedb431bd2ab0f, type: 3}
@@ -64954,6 +64969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31943b88d738fa8488688ba5a24d77d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: Graft
   CumCraft: {fileID: 70615857}
 --- !u!224 &1476030699
 RectTransform:
@@ -70929,6 +70945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31943b88d738fa8488688ba5a24d77d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: Craft
   CumCraft: {fileID: 389961328}
 --- !u!1 &1760184639
 GameObject:
