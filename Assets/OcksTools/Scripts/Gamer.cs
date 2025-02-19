@@ -2337,8 +2337,16 @@ public class Gamer : MonoBehaviour
         if (anim) return false;
         if (con.slots[0].Held_Item.ItemIndex == "Rock") return false;
         if(con.slots[0].Held_Item.ItemIndex != con.slots[1].Held_Item.ItemIndex || con.slots[1].Held_Item.ItemIndex != con.slots[2].Held_Item.ItemIndex) return false;
-
+        if(con.slots[3].Held_Item.GraftedMaterial.IsSet()) return false;
         return con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft() && con.slots[3].Held_Item.ItemIndex != "Empty";
+    }
+    public bool CanCurrentAspect()
+    {
+        var con = GISLol.Instance.All_Containers["Aspecter"];
+        if (anim) return false;
+        if (con.slots[1].Held_Item.AspectMaterial.IsSet()) return false;
+
+        return con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft();
     }
     public void AttemptCraft()
     {
