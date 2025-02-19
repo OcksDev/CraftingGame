@@ -9,6 +9,17 @@ public class HoverDingle : MonoBehaviour
     public VaultitemDisplay vuny;
     public ItemHolder iuny;
     public SkillCum wunty;
+
+    private void Start()
+    {
+        switch (type)
+        {
+            case "Specifc":
+                guny.Type = "Specific";
+                break;
+        }
+    }
+
     void Update()
     {
         var g = GISLol.Instance;
@@ -47,6 +58,28 @@ public class HoverDingle : MonoBehaviour
                     break;
                 case "coollol":
                     if(guny.item != null && guny.item.ItemIndex != "Empty") g.HoverDohicky(new HoverType(guny.item));
+                    break;
+                case "Specifc":
+                    if (guny.item == null || guny.item.ItemIndex == "Empty")
+                    {
+                        hv.type = "Title";
+                        switch (guny.GetSwitch())
+                        {
+                            case 0:
+                                hv.data = "Requires a Weapon";
+                                break;
+                            case 1:
+                                hv.data = "Requires a Material";
+                                break;
+                            case 2:
+                                hv.data = "Requires an Aspect";
+                                break;
+                            case 3:
+                                hv.data = "Output";
+                                break;
+                        }
+                        g.HoverDohicky(hv);
+                    }
                     break;
                 default:
                     hv.type = "TitleAndDesc";

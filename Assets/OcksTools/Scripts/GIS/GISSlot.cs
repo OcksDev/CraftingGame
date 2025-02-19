@@ -26,6 +26,7 @@ public class GISSlot : MonoBehaviour
             Held_Item= new GISItem();
         }
         balls = GetComponent<RectTransform>();
+        Displayer.memeparent = this;
         //GISLol.checkforhover += HoverCheckerData;
     }
     private void Start()

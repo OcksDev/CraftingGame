@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class GISDisplay : MonoBehaviour
 {
+    public string Type = "";
     public GISItem item;
+    public GISSlot memeparent;
     public Image[] displays;
     public TextMeshProUGUI amnt;
     public bool AutoUpdate = true;
@@ -60,7 +62,34 @@ public class GISDisplay : MonoBehaviour
                 }
                 break;
         }
+        switch (Type)
+        {
+            case "Specific":
+                if(item.ItemIndex == "Empty")
+                {
+                    Sprite a = null;
+                    b.colormods[0] = new Color32(255, 255, 255, 35);
+                    switch (GetSwitch())
+                    {
+                        case 0:
+                            a = GISLol.Instance.MaterialsDict["Empty"].SwordParts[0];
+                            break;
+                        case 1:
+                            a = GISLol.Instance.MaterialsDict["Empty"].SwordParts[1];
+                            break;
+                        case 2:
+                            a = GISLol.Instance.MaterialsDict["Empty"].SwordParts[2];
+                            break;
+                        case 3:
+                            a = GISLol.Instance.MaterialsDict["Empty"].SwordParts[3];
+                            break;
+                    }
 
+                    b.sprites[0] = a;
+
+                }
+                break;
+        }
         displays[0].sprite = b.sprites[0];
         displays[1].sprite = b.sprites[1];
         displays[2].sprite = b.sprites[2];
@@ -84,6 +113,22 @@ public class GISDisplay : MonoBehaviour
         }
         
     }
+
+    public int GetSwitch()
+    {
+        switch (memeparent.InteractFilter)
+        {
+            default:
+                return 0;
+            case "Craftable":
+                return 1;
+            case "Aspect":
+                return 2;
+            case "Empty":
+                return 3;
+        }
+    }
+
     public static SpriteReturn GetSprites(GISItem ITEM)
     {
         List<Sprite> boner = new List<Sprite>();

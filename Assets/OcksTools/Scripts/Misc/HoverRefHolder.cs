@@ -55,13 +55,22 @@ public class HoverRefHolder : MonoBehaviour
         }
         switch (hoverr.type)
         {
+            case "Title":
             case "TitleAndDesc":
-                LineTransform.gameObject.SetActive(true);
-                DescMesh.gameObject.SetActive(true);
+                bool weeneeen = hoverr.type == "TitleAndDesc";
+                LineTransform.gameObject.SetActive(weeneeen);
+                DescMesh.gameObject.SetActive(weeneeen);
                 //LineTransform2.gameObject.SetActive(true);
-                if (ItemName.text == hoverr.data && DescMesh.text == hoverr.data2) return;
+                if(weeneeen)
+                {
+                    if (ItemName.text == hoverr.data && DescMesh.text == hoverr.data2) return;
+                }
+                else
+                {
+                    if (ItemName.text == hoverr.data) return;
+                }
                 ItemName.text = hoverr.data;
-                DescMesh.text = hoverr.data2;
+                if(weeneeen)DescMesh.text = hoverr.data2;
                 var layoutr2 = ItemName.GetComponent<ContentSizeFitter>();
                 layoutr2.SetLayoutHorizontal();
                 layoutr2.SetLayoutVertical();
@@ -72,19 +81,25 @@ public class HoverRefHolder : MonoBehaviour
 
                 totalYchange = -NameTransform.sizeDelta.y - edgespace;
 
-                totalYchange -= 5 + 3f;
-                LineTransform.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
 
+                if (weeneeen)
+                {
+                    totalYchange -= 5 + 3f;
+                    LineTransform.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
+                    layoutr2 = DescMesh.GetComponent<ContentSizeFitter>();
+                    layoutr2.SetLayoutHorizontal();
+                    layoutr2.SetLayoutVertical();
+                    totalYchange -= 10;
+                    var halftdesc2 = DescTransform.sizeDelta / 2;
+                    x2 = halftdesc2.x + edgespace;
+                    DescTransform.anchoredPosition = new Vector2(x2, totalYchange - halftdesc2.y);
+                    if (DescTransform.sizeDelta.x > xexpand) xexpand = DescTransform.sizeDelta.x;
+                    totalYchange -= DescTransform.sizeDelta.y;
+                }
+                else
+                {
 
-                layoutr2 = DescMesh.GetComponent<ContentSizeFitter>();
-                layoutr2.SetLayoutHorizontal();
-                layoutr2.SetLayoutVertical();
-                totalYchange -= 10;
-                var halftdesc2 = DescTransform.sizeDelta / 2;
-                x2 = halftdesc2.x + edgespace;
-                DescTransform.anchoredPosition = new Vector2(x2, totalYchange - halftdesc2.y);
-                if (DescTransform.sizeDelta.x > xexpand) xexpand = DescTransform.sizeDelta.x;
-                totalYchange -= DescTransform.sizeDelta.y;
+                }
                 break;
             default:
                 LineTransform2.gameObject.SetActive(true);
