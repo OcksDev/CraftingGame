@@ -1045,31 +1045,35 @@ public class PlayerController : MonoBehaviour
     public IEnumerator StartSwordDance(int amnt)
     {
 
-        var Shart = GetDamageProfile();
-        Func<int, int> wanker = (i) =>
-        {
-            var offshart = new DamageProfile(Shart);
-            //offshart.DamageMod *= 0.5;
-            var ff = UnityEngine.Random.Range(0f, 1f);
-            var tt = Mathf.FloorToInt(CritChance);
-            Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
-            var s = Instantiate(SlashEffect[7], transform.position, Quaternion.identity, Gamer.Instance.balls);
-            var s3 = s.GetComponent<HitBalls>();
-            s3.playerController = this;
-            s3.attackProfile = offshart;
-            var s4 = s.GetComponent<Rotato>();
-            s4.controller = this;
-            return 0;
-        };
         AllocatedSwords += amnt;
         for (int i = 0; i < amnt; i++)
         {
-            wanker(0);
+            SpawnSword(-1, true);
             yield return new WaitForSeconds(0.1f);
         }
 
     }
+    public void SpawnSword(double dam = -1, bool ingorecount = false)
+    {
+        if (AllocatedSwords + 1 > 32) return;
+        var Shart = GetDamageProfile();
+        if(dam > 0)
+        {
 
+            Shart.Damage = dam;
+        }
+        if (!ingorecount) AllocatedSwords++;
+        //offshart.DamageMod *= 0.5;
+        var ff = UnityEngine.Random.Range(0f, 1f);
+        var tt = Mathf.FloorToInt(CritChance);
+        Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+        var s = Instantiate(SlashEffect[7], transform.position, Quaternion.identity, Gamer.Instance.balls);
+        var s3 = s.GetComponent<HitBalls>();
+        s3.playerController = this;
+        s3.attackProfile = Shart;
+        var s4 = s.GetComponent<Rotato>();
+        s4.controller = this;
+    }
     public void WaveSex()
     {
         var Shart = GetDamageProfile();

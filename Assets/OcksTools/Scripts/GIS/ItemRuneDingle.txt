@@ -58,6 +58,7 @@ Rune Of Life:: 25% chance on Heal to increase amount healed by <g>+1</>
 Rune Of Death:: 25% chance on Hit to increase Damage dealt by <g>+3</>
 Rune Of Ballistics:: On Skill shoot a <o>Missile</> with <g>+50%</> Damage
 Rune Of Electricity:: On Skill shoot <o>Lightning</> with <g>+20%</> Damage (max of 4 bounces)
+Rune Of Swords:: On Kill spawn a <o>Flying Sword</> with <g>+5</> Damage.<br>Max of 32 simultaneous <o>Flying Swords</>.
 Aspect Of Plague:: On kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health
