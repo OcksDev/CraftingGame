@@ -1088,7 +1088,7 @@ public class Gamer : MonoBehaviour
         foreach (var a in c.slots[0].Held_Item.Run_Materials)
         {
             if (a == null) continue;
-            if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
+            if (GISLol.Instance.ItemsDict.TryGetValue(a.GetName(), out GISItem_Data v))
             {
                 if (v.IsCraftable || v.IsAspect)
                 {
@@ -1099,7 +1099,7 @@ public class Gamer : MonoBehaviour
         foreach (var a in c.slots[1].Held_Item.Run_Materials)
         {
             if (a == null) continue;
-            if (GISLol.Instance.ItemsDict.TryGetValue(a.index, out GISItem_Data v))
+            if (GISLol.Instance.ItemsDict.TryGetValue(a.GetName(), out GISItem_Data v))
             {
                 if (v.IsCraftable || v.IsAspect)
                 {

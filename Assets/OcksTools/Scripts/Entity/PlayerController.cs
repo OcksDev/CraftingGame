@@ -550,6 +550,10 @@ public class PlayerController : MonoBehaviour
                     TotalDamageMod *= 2;
                     WeaponDamageMod /= 4;
                     break;
+                case "Aspect Of Critical":
+                    CritChance *= 2;
+                    SkillCooldownMult *= 2;
+                    break;
             }
         }
         
