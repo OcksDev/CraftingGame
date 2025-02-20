@@ -18,6 +18,9 @@ public class CrafterWeenorUsus : MonoBehaviour
             case "Graft":
                 CumCraft.interactable = Gamer.Instance.CanCurrentGraft();
                 break;
+            case "Aspect":
+                CumCraft.interactable = Gamer.Instance.CanCurrentAspect();
+                break;
         }
         
     }

@@ -28,6 +28,7 @@ public class GISLol : MonoBehaviour
     public Dictionary<string, Skill_Data> SkillsDict = new Dictionary<string, Skill_Data>();
     public List<string> AllWeaponNames = new List<string>();
     public List<string> AllCraftables = new List<string>();
+    public List<string> AllAspects = new List<string>();
     public List<string> AllRunes = new List<string>();
     private RectTransform ballingsexnut;
     private HoverRefHolder hovercummer;
@@ -143,6 +144,7 @@ public class GISLol : MonoBehaviour
             if(a.IsWeapon) AllWeaponNames.Add(a.Name);
             if(a.IsCraftable && (a.CanSpawn || a.LogbookOverride)) AllCraftables.Add(a.Name);
             if(a.IsRune && a.CanSpawn) AllRunes.Add(a.Name);
+            if(a.IsAspect && a.CanSpawn) AllAspects.Add(a.Name);
         }
         AllWeaponNames.Remove("Bow");
         foreach (var a in Materials)

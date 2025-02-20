@@ -53,6 +53,9 @@ public class GISSlot : MonoBehaviour
             case "Craftable":
                 if (!GISLol.Instance.AllCraftables.Contains(pp.ItemIndex)) return true;
                 break;
+            case "Aspect":
+                if (!GISLol.Instance.AllAspects.Contains(pp.ItemIndex)) return true;
+                break;
             case "RockGive":
             case "Empty":
                 if (pp.ItemIndex != "Empty") return true;

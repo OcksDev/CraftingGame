@@ -124,6 +124,12 @@ public class INteractable : MonoBehaviour
                 g.checks[18] = true;
                 g.UpdateMenus();
                 break;
+            case "Aspect":
+                g.ToggleInventory();
+                g.checks[2] = false;
+                g.checks[19] = true;
+                g.UpdateMenus();
+                break;
             case "StartGame":
                 if (PlayerFailsWeaponCheck()) return;
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor"));

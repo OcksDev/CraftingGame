@@ -106,7 +106,7 @@ public class HoverRefHolder : MonoBehaviour
                 if (oldsex != null && oldsex.Compare(hover)) return;
                 oldsex = new GISItem( hover);
 
-                Debug.Log("NMEW ITREMEE!!!!! " + hover.ItemIndex);
+                //Debug.Log("NMEW ITREMEE!!!!! " + hover.ItemIndex);
 
                 var itembase = GISLol.Instance.ItemsDict[hover.ItemIndex];
                 if (hover.CustomName != "")

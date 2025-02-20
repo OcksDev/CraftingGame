@@ -114,7 +114,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["SkillBuyMenu"].SetActive(checks[15]);
         Tags.refs["SkillSubBuy"].SetActive(checks[16]);
         Tags.refs["GrafterMenu"].SetActive(checks[18]);
-        //Tags.refs["AspectMenu"].SetActive(checks[19]);
+        Tags.refs["AspectMenu"].SetActive(checks[19]);
 
         Tags.refs["ItemeR"].SetActive(checks[17]);
         Tags.refs["Iteme"].SetActive(!checks[17]);
@@ -740,6 +740,17 @@ public class Gamer : MonoBehaviour
         if (checks[18])
         {
             foreach (var a in GISLol.Instance.All_Containers["Grafter"].slots)
+            {
+                if (a.Held_Item.ItemIndex != "Empty")
+                {
+                    GISLol.Instance.GrantItem(a.Held_Item);
+                    a.Held_Item = new GISItem();
+                }
+            }
+        }
+        if (checks[19])
+        {
+            foreach (var a in GISLol.Instance.All_Containers["Aspecter"].slots)
             {
                 if (a.Held_Item.ItemIndex != "Empty")
                 {
@@ -2362,6 +2373,13 @@ public class Gamer : MonoBehaviour
             StartCoroutine(GraftAnim());
         }
     }
+    public void AttemptAspect()
+    {
+        if (CanCurrentAspect())
+        {
+            StartCoroutine(AspectAnim());
+        }
+    }
     List<GISItem> mattertyeysys = new List<GISItem>();
     public IEnumerator CraftAnim()
     {
@@ -2447,7 +2465,40 @@ public class Gamer : MonoBehaviour
         con.slots[3].Held_Item.GraftedMaterial = mattertyeysys[0].Materials[0];
         /*if()
         {
-            QuestProgressIncrease("Craft", );
+            QuestProgressIncrease("Graft", );
+        }*/
+        anim = false;
+    }public IEnumerator AspectAnim()
+    {
+        var con = GISLol.Instance.All_Containers["Aspecter"];
+        mattertyeysys.Clear();
+        anim = true;
+
+
+        System.Func<int, int> SpawnAnim = (i) =>
+        {
+            var weenor = Instantiate(ItemAnimThing, con.slots[i].transform.position, Quaternion.identity, Tags.refs["AspectAnimHolder"].transform);
+            dienerds.Add(weenor);
+            var w2 = weenor.GetComponent<MeWhenYourMom>();
+            w2.target = con.slots[1].transform;
+            w2.speed = 9f;
+            //if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
+            //{
+            //    w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].ColorMod;
+            //}
+            var aa = con.slots[i].Held_Item;
+            mattertyeysys.Add(aa);
+            con.slots[i].Held_Item = new GISItem();
+            return i;
+        };
+        SpawnAnim(0);
+        yield return new WaitForSeconds(0.6f);
+        var cd = new GISMaterial();
+        cd.itemindex = mattertyeysys[0].ItemIndex;
+        con.slots[1].Held_Item.AspectMaterial = cd;
+        /*if()
+        {
+            QuestProgressIncrease("Aspect", );
         }*/
         anim = false;
     }
