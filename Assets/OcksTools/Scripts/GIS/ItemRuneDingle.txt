@@ -64,3 +64,5 @@ Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health
 Aspect Of Speed:: <g>x2</> Attack Speed<br><b>x0.5</> Attack Damage
 Aspect Of Movement:: <g>x2</> Movement Speed<br><b>x0.5</> Max Health
 Aspect Of Skill:: <g>x0.5</> Skill Cooldown<br><b>x0.5</> Attack Damage
+Aspect Of Lightning:: <g>50%</> chance on hit to shoot <o>Lightning</><br>with 50% Damage (max of 4 bounces)<br><b>x0.5</> Attack Damage
+Aspect Of Unscalability:: <g>x2</> Total Damage<br><b>x0.25</> Attack Damage

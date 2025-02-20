@@ -35,7 +35,7 @@ public class GISDisplay : MonoBehaviour
     {
         olditem = item;
         var g = GISLol.Instance.ItemsDict[item.ItemIndex];
-        amnt.text = item.Amount > 0 && g.MaxAmount != 1 ? "x" + item.Amount : "";
+        amnt.text = item.Amount > 0 && g.MaxAmount != 1 && item.ItemIndex != "Empty" ? "x" + item.Amount : "";
         var b = GetSprites(item);
 
         switch (extra)

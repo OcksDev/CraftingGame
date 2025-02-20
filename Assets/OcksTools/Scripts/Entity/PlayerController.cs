@@ -543,6 +543,13 @@ public class PlayerController : MonoBehaviour
                 case "Aspect Of Healing":
                     helth /= 2;
                     break;
+                case "Aspect Of Lightning":
+                    WeaponDamageMod /= 2;
+                    break;
+                case "Aspect Of Unscalability":
+                    TotalDamageMod *= 2;
+                    WeaponDamageMod /= 4;
+                    break;
             }
         }
         
@@ -885,11 +892,7 @@ public class PlayerController : MonoBehaviour
         arr = mainweapon.ReadItemAmount("Rune Of Electricity");
         if (arr > 0)
         {
-            var attack = GetDamageProfile();
-            attack.DamageMod *= 0.2 * arr;
-            var weenis = transform;
-            var we = Instantiate(SlashEffect[6], weenis.position, Quaternion.identity, Gamer.Instance.balls).GetComponent<Lightning>();
-            we.profile = attack;
+            ShootLightning(arr, transform.position);
         }
 
 
@@ -958,7 +961,17 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
+    public Lightning ShootLightning(double arr, Vector3 pos, DamageProfile attack = null)
+    {
+        if (attack == null)
+        {
+            attack = GetDamageProfile();
+            attack.DamageMod *= 0.2 * arr;
+        }
+        var we = Instantiate(SlashEffect[6], pos, Quaternion.identity, Gamer.Instance.balls).GetComponent<Lightning>();
+        we.profile = attack;
+        return we;
+    }
     private bool sexed = false;
     public void SetMoveSpeed()
     {

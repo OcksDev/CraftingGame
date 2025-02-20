@@ -229,13 +229,16 @@ public class EntityOXS : MonoBehaviour
                             var ef = new EffectProfile("Bleed", 3, 7, tt2);
                             ef.storefloat = 1f;
                             ef.damprof = hit;
+                            ef.ItemOfInit = hit.WeaponOfAttack;
                             if (tt2 > 0) AddEffect(ef);
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Freeze") * 0.3f;
                         if (arr > 0 && hit.controller != null)
                         {
                             int tt2 = hit.WeaponOfAttack.RollLuck(arr);
-                            if (tt2 > 0) AddEffect(new EffectProfile("Freeze", 5, 7, tt2));
+                            var ef = new EffectProfile("Freeze", 5, 7, tt2);
+                            ef.ItemOfInit = hit.WeaponOfAttack;
+                            if (tt2 > 0) AddEffect(ef);
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Missile") * 0.1f;
                         if (arr > 0 && !hit.Procs.Contains("Missile"))
@@ -250,6 +253,18 @@ public class EntityOXS : MonoBehaviour
                                 var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], weenis.position, PointFromTo2D(hit.attacker.transform.position, transform.position, 90 + Random.Range(-90f, 90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
                                 we.hitbal.attackProfile = attack;
                                 we.target = gameObject;
+                            }
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Aspect Of Lightning");
+                        if (arr > 0 && !hit.Procs.Contains("LightningA"))
+                        {
+                            int tt2 = hit.WeaponOfAttack.RollLuck(0.5f);
+                            for (int i = 0; i < tt2; i++)
+                            {
+                                var attack = new DamageProfile(hit);
+                                attack.Procs.Add("LightningA");
+                                attack.DamageMod *= 0.5;
+                                aaaaa.playerController.ShootLightning(1, transform.position, attack);
                             }
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Excitation");
@@ -268,6 +283,7 @@ public class EntityOXS : MonoBehaviour
                             weenor.storeint = aaaaa.playerController.selecteditem;
                             weenor.storedouble = hit.Damage;
                             weenor.storefloat = arr;
+                            weenor.ItemOfInit = hit.WeaponOfAttack;
                             AddEffect(weenor);
                         }
                         var ee = ContainsEffect("Collapse");

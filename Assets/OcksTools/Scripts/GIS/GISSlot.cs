@@ -65,6 +65,11 @@ public class GISSlot : MonoBehaviour
                 if (!GISLol.Instance.AllWeaponNames.Contains(pp.ItemIndex)) return true;
                 if(pp.GraftedMaterial.IsSet()) return true; 
                 break;
+            case "AspectWeapon":
+                if (pp.ItemIndex == "Empty") return false;
+                if (!GISLol.Instance.AllWeaponNames.Contains(pp.ItemIndex)) return true;
+                if(pp.AspectMaterial.IsSet()) return true; 
+                break;
             case "VaultInput":
             case "Trash":
                 if (pp.ItemIndex == "Empty") return true;
