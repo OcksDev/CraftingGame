@@ -1598,8 +1598,17 @@ public class Gamer : MonoBehaviour
         Tags.refs["NextFloor"].transform.position = new Vector3(100000, 100000, 0);
         if(CurrentFloor > 1)
         {
-            Tags.refs["NextShop"].transform.position = rm2.transform.position + new Vector3(5,0,0);
-            Tags.refs["NextFloor"].transform.position = rm2.transform.position + new Vector3(-5, 0, 0);
+            var meme = new Vector3(5, 0, 0);
+            var meme2 = new Vector3(-5, 0, 0);
+
+            if (rm2.room.HasLeftDoor || rm2.room.HasRightDoor)
+            {
+                meme = new Vector3(0, -5, 0);
+                meme2 = new Vector3(0, 5, 0);
+            }
+
+            Tags.refs["NextShop"].transform.position = rm2.transform.position + meme;
+            Tags.refs["NextFloor"].transform.position = rm2.transform.position + meme2;
         }
         enders.Remove(rm2);
         endos.Remove(rm2);
