@@ -309,7 +309,7 @@ public class EntityOXS : MonoBehaviour
                                 {
                                     hit.Procs.Add("Fire");
                                     var ef = new EffectProfile("Fire", 3, 7, (int)arr);
-                                    ef.storefloat = 0.33f;
+                                    ef.storefloat = 0.3f;
                                     ef.damprof = hit;
                                     ef.ItemOfInit = hit.WeaponOfAttack;
                                     AddEffect(ef);
@@ -795,9 +795,7 @@ public class EntityOXS : MonoBehaviour
         {
             var a = eff.ItemOfInit.ReadItemAmount("Aspect Of Plague");
             if (a > 0) eff.Duration /= 2;
-            Debug.Log($"Multed {eff.Duration} to {eff.Duration * eff.ItemOfInit.Player.DebuffDurationMod}");
             eff.Duration *= eff.ItemOfInit.Player.DebuffDurationMod;
-            Debug.Log($"I AM {eff.Duration}");
         }
 
         eff.TimeRemaining = eff.Duration;
@@ -842,7 +840,6 @@ public class EntityOXS : MonoBehaviour
                     //increase stack count, refresh time remaining
                     s.Stack += eff.Stack;
                     s.TimeRemaining = eff.Duration;
-                    Debug.Log($"I AM NOW {s.TimeRemaining}");
                     break;
             }
         }
