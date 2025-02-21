@@ -81,6 +81,7 @@ public class GISLol : MonoBehaviour
         if(x > -1)
         {
             All_Containers["Inventory"].slots[x].Held_Item = item;
+            All_Containers["Inventory"].SaveTempContents();
         }
         else
         {

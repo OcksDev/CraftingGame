@@ -354,7 +354,7 @@ public class PlayerController : MonoBehaviour
                     Damage = 10;
                     break;
                 case "Crossbow":
-                    AttacksPerSecond = 4f;
+                    AttacksPerSecond = 4.5f;
                     Damage = 4;
                     Spread = 15f;
                     break;
