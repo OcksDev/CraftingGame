@@ -92,6 +92,41 @@ public class GISSlot : MonoBehaviour
             if (PlayerController.Instance != null)
             PlayerController.Instance.SetData();
         }
+
+        if(Conte.Name == "LeftNut" || Conte.Name == "RightNut")
+        {
+            List<int> mimics = new List<int>();
+            List<GISItem> Valids = new List<GISItem>();
+            for(int i = 0; i < Conte.slots.Count; i++)
+            {
+                if (Conte.slots[i].Held_Item.ItemIndex== "Rune Of Mimicry") mimics.Add(i);
+            }
+            if(mimics.Count > 0)
+            {
+                for (int i = 0; i < Conte.slots.Count; i++)
+                {
+                    if (!Conte.slots[i].Held_Item.CanMimic()) continue;
+                    Valids.Add(Conte.slots[i].Held_Item);
+                }
+                if(Valids.Count > 0)
+                {
+                    foreach(var i in mimics)
+                    {
+                        var meme = Valids[Random.Range(0, Valids.Count)];
+                        var picked = new GISItem(meme);
+                        var me = Conte.slots[i].Held_Item;
+                        Conte.slots[i].Held_Item = picked;
+                        if(me.IAMSPECIL != null)
+                        {
+                            me.IAMSPECIL.sexyballer = picked;
+                            me.IAMSPECIL.FixMe();
+                        }
+                    }
+                }
+            }
+
+        }
+
         if (Gamer.Instance.checks[5])
         {
             Shungite();

@@ -573,7 +573,7 @@ public class EntityOXS : MonoBehaviour
             arr2 += 3;
             if (arr2 > 4)
             {
-                SpawnExplosion(arr2, transform.position, lasthit);
+                SpawnExplosion(arr2, transform.position, lasthit==null?inpu.Player.GetDamageProfile():lasthit);
             }
             arr2 = inpu.ReadItemAmount("Rune Of Swords");
             if (arr2 > 0)

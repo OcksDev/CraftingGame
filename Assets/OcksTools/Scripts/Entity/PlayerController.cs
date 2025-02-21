@@ -149,10 +149,12 @@ public class PlayerController : MonoBehaviour
     public void AddCoin(int coins)
     {
         Coins += coins;
+        SetData();
     }
     public void SpendCoin(int coins)
     {
         Coins -= coins;
+        SetData();
     }
     public IEnumerator AidsFix()
     {
@@ -433,8 +435,8 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecondMod *= 1.15f;
                     break;
                 case "Gold":
-                    WeaponDamageMod += 0.15f;
-                    AttacksPerSecondMod *= 0.95f;
+                    WeaponDamageMod += 0.25f;
+                    AttacksPerSecondMod *= 0.9f;
                     break;
                 case "Glass":
                     WeaponDamageMod *= 1.2f;
@@ -481,7 +483,7 @@ public class PlayerController : MonoBehaviour
                     working_move_speed *= 0.9f;
                     break;
                 case "Void":
-                    TotalDamageMod *= 1.1;
+                    TotalDamageMod *= 1.15;
                     break;
                 case "Branch":
                     AttacksPerSecondMod *= 0.9f;
@@ -490,6 +492,14 @@ public class PlayerController : MonoBehaviour
                 case "Plastic":
                     helth *= 1.15f;
                     CritChance -= 0.1f;
+                    break;
+                case "Focus":
+                    CritChance += 0.15f;
+                    DebuffDurationMod *= 0.85f;
+                    break;
+                case "Dollar":
+                    AttacksPerSecondMod += (Coins * 0.01f);
+                    SkillCooldownMult += (Coins * 0.01f);
                     break;
                 case "Bone":
                     helth *= 1.2f;
@@ -1416,7 +1426,7 @@ public class PlayerController : MonoBehaviour
                 epe /= x;
             }
             rigid.velocity += new Vector2(epe.x, epe.y);
-            var arr = mainweapon.ReadItemAmount("Rune Of Arrow")*0.2f;
+            var arr = mainweapon.ReadItemAmount("Rune Of Arrow")*0.35f;
             if (arr > 0)
             {
                 int tt2 = mainweapon.RollLuck(arr);

@@ -546,6 +546,7 @@ public class GISItem
     public float Balance = 1;
     public float BlockChance = 0;
     public PlayerController Player;
+    public GroundItem IAMSPECIL = null;
     public GISItem()
     {
         setdefaultvals();
@@ -694,6 +695,12 @@ public class GISItem
         GraftedMaterial = new GISMaterial();
         AspectMaterial = new GISMaterial();
     }
+    public bool CanMimic()
+    {
+        if(ItemIndex == "Empty" || ItemIndex == "Rune Of Mimicry") return false;
+        return true;
+    }
+
     public void Solidify()
     {
         AddConnection(Container);

@@ -1191,6 +1191,7 @@ public class Gamer : MonoBehaviour
         else
         {
             GISLol.Instance.Mouse_Held_Item = new GISItem();
+            PickupItemCrossover.IAMSPECIL = null;
         }
         UpdateMenus();
     }

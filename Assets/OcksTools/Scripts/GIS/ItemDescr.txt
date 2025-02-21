@@ -1,13 +1,13 @@
 Amethyst:: <g>x0.85</> Skill Cooldown<br><g>x1.1</> Movement Speed
 Rock:: (no modifier)
 Emerald:: <g>x1.15</> Attack Speed
-Gold:: <g>+15%</> Attack Damage<br><b>x0.95</> Attack Speed
+Gold:: <g>+25%</> Attack Damage<br><b>x0.90</> Attack Speed
 Slime:: <g>+20%</> Attack Damage<br><b>x0.9</> Movement Speed
 Glass:: <g>x1.2</> Attack Damage<br><b>x0.85</> Max Health
 Angelic Ingot:: <g>+15%</> Attack Damage<br><b>-15%</> Crit Chance
 Demonic Ingot:: <g>+20%</> Crit Chance<br><b>x0.9</> Attack Damage
 Morkite:: <g>x1.15</> Total Damage<br><b>x0.85</> Attack Damage
-Void:: <g>x1.1</> Total Damage<br><b>+1%</> chance on hit to <c>Corrupt</> <e>Enemies</>
+Void:: <g>x1.15</> Total Damage<br><b>+1%</> chance on hit to <c>Corrupt</> <e>Enemies</>
 Zebrium:: <g>+10%</> Crit Chance<br><g>+10%</> Attack Speed
 Aquarq:: <g>x1.25</> Movement Speed<br><b>x0.9</> Max Health
 Shungite:: <g>-1</> Damage Taken (can not reduce below 1)<br><b>x0.9</> Movement Speed
@@ -18,3 +18,5 @@ Bone:: <g>x1.2</> Max Health<br><b>+15%</> Skill Cooldown
 Diamond:: <g>x1.2</> Max Health<br><g>+20%</> Attack Damage<br><b>x0.8</> Movement Speed<br><b>x0.9</> Attack Speed
 Piss:: <g>+20%</> Attack Speed<br><b>x0.9</> Attack Damage
 Brick:: <g>x1.15</> Debuff Duration<br><b>+15%</> Skill Cooldown
+Focus:: <g>+15%</> Crit Chance<br><b>x0.85</> Debuff Duration
+Dollar:: <g>+1%</> Attack Speed per <o>Coin</><br><b>+1%</> Skill Cooldown per <o>Coin</>
