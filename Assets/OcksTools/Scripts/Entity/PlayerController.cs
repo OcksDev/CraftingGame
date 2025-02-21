@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public float DamageTickTime = 3f;
     public float BarrierBlockChance = 1f;
     public float SkillCooldownMult = 1f;
+    public float DebuffDurationMod = 1f;
     public double DamageOnAttack = 0;
     public long Coins = 0;
     public bool RotationOverride = false;
@@ -329,6 +330,7 @@ public class PlayerController : MonoBehaviour
         MaxDashCooldown = BaseDashCooldown;
         RotationOverride = false;
         DamageOnAttack = 0;
+        DebuffDurationMod = 1;
         helth = 100.0;
         sheldmult = 1;
         //deprecated
@@ -491,6 +493,10 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Bone":
                     helth *= 1.2f;
+                    SkillCooldownMult += 0.15f;
+                    break;
+                case "Brick":
+                    DebuffDurationMod *= 1.15f;
                     SkillCooldownMult += 0.15f;
                     break;
                 case "Diamond":

@@ -227,7 +227,7 @@ public class EntityOXS : MonoBehaviour
                             hit.Procs.Add("Bleed");
                             int tt2 = hit.WeaponOfAttack.RollLuck(arr);
                             var ef = new EffectProfile("Bleed", 3, 7, tt2);
-                            ef.storefloat = 1f;
+                            ef.storefloat = 0.95f;
                             ef.damprof = hit;
                             ef.ItemOfInit = hit.WeaponOfAttack;
                             if (tt2 > 0) AddEffect(ef);
@@ -301,6 +301,21 @@ public class EntityOXS : MonoBehaviour
                             attack.Damage = (ee.susser.Stack * ee.susser.storedouble) * ee.susser.storefloat;
                             stored_hits.Add(attack);
                         }
+                        switch (hit.DType)
+                        {
+                            case DamageProfile.DamageType.Explosion:
+                                arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Combustion");
+                                if (arr > 0 && !hit.Procs.Contains("Fire"))
+                                {
+                                    hit.Procs.Add("Fire");
+                                    var ef = new EffectProfile("Fire", 3, 7, (int)arr);
+                                    ef.storefloat = 0.33f;
+                                    ef.damprof = hit;
+                                    ef.ItemOfInit = hit.WeaponOfAttack;
+                                    AddEffect(ef);
+                                }
+                                break;
+                        }
                     }
                 }
                 Shield -= damagefromhit;
@@ -370,6 +385,7 @@ public class EntityOXS : MonoBehaviour
             if(ob != null && ob.gm != null && ob.type == "Enemy" && ob.entityoxs != null && ob.entityoxs.Health > 0.5f)
             {
                 var wank = new DamageProfile(dam);
+                wank.DType = DamageProfile.DamageType.Explosion;
                 wank.Damage = damage;
                 wank.DamageMod = 1;
                 ob.entityoxs.Hit(wank);
@@ -701,6 +717,17 @@ public class EntityOXS : MonoBehaviour
                             Hit(dmg);
                         }
                     }
+                    cd= ContainsEffect("Fire");
+                    if (cd.hasthing)
+                    {
+                        if((cd.susser.storefloat -= Time.deltaTime) < 0)
+                        {
+                            cd.susser.storefloat = 0.325f;
+                            var dmg = new DamageProfile(cd.susser.damprof);
+                            dmg.Damage = (double)cd.susser.Stack;
+                            Hit(dmg);
+                        }
+                    }
                 }
                 break;
         }
@@ -751,7 +778,6 @@ public class EntityOXS : MonoBehaviour
 
     public void AddEffect(EffectProfile eff, bool ignore = false)
     {
-        eff.TimeRemaining = eff.Duration;
         bool alreadyhaseffect = false;
         EffectProfile s = null;
         foreach(var ef in Effects)
@@ -764,12 +790,17 @@ public class EntityOXS : MonoBehaviour
             }
         }
 
+
         if (!ignore && eff.ItemOfInit != null)
         {
             var a = eff.ItemOfInit.ReadItemAmount("Aspect Of Plague");
             if (a > 0) eff.Duration /= 2;
+            Debug.Log($"Multed {eff.Duration} to {eff.Duration * eff.ItemOfInit.Player.DebuffDurationMod}");
+            eff.Duration *= eff.ItemOfInit.Player.DebuffDurationMod;
+            Debug.Log($"I AM {eff.Duration}");
         }
 
+        eff.TimeRemaining = eff.Duration;
         if (alreadyhaseffect)
         {
             switch (eff.CombineMethod)
@@ -811,6 +842,7 @@ public class EntityOXS : MonoBehaviour
                     //increase stack count, refresh time remaining
                     s.Stack += eff.Stack;
                     s.TimeRemaining = eff.Duration;
+                    Debug.Log($"I AM NOW {s.TimeRemaining}");
                     break;
             }
         }
@@ -854,6 +886,7 @@ public class DamageProfile
     public float ticktimer = 0;
     public bool IsSpecificPointOfDamage = false;
     public Vector3 SpecificPointOfDamage = Vector3.zero;
+    public DamageType DType = DamageType.Misc;
     public DamageProfile(string name, double damage)
     {
         Damage = damage;
@@ -922,8 +955,18 @@ public class DamageProfile
 
         return x * DamageMod;
     }
+    public enum DamageType
+    {
+        Misc,
+        Explosion,
+        Lightning,
+        Fire,
+        Ice,
+        Missile,
+        Arrow,
+    }
 }
-
+[System.Serializable]
 public class EffectProfile
 {
     //data you pass in

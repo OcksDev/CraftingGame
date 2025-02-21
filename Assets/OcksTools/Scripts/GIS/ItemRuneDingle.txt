@@ -26,6 +26,7 @@ Plastic:: Seems hollow, feels smooth
 Bone:: Disturbingly warm
 Diamond:: I CAN SWING MY SWORD!
 Piss:: Smells tasty
+Brick:: "I'm all bricked up!"
 Grappling:: Launch a <o>Grappling Hook</> which pulls you toward itself when it lands.
 Capitalism:: Spend 1 <o>Coin</> to instantly kill the 3 nearest <e>Enemies</>. 
 SoulDrain:: All nearby <e>Enemies</> drop x2 their kill reward, but become <o>Soulless</>.<br><o>Soulless</> <e>Enemies</> do not drop a kill reward on death.
@@ -59,6 +60,7 @@ Rune Of Death:: 25% chance on Hit to increase Damage dealt by <g>+3</>
 Rune Of Ballistics:: On Skill shoot a <o>Missile</> with <g>+50%</> Damage
 Rune Of Electricity:: On Skill shoot <o>Lightning</> with <g>+20%</> Damage (max of 4 bounces)
 Rune Of Swords:: On Kill spawn a <o>Flying Sword</> with <g>+5</> Damage.<br>Max of 32 simultaneous <o>Flying Swords</>.
+Rune Of Combustion:: All explosions apply <g>+1</> stack of <o>Fire<br>Fire</> deals 1 (+1 per stack) Damage every 0.33s for 3s
 Aspect Of Plague:: On kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health
