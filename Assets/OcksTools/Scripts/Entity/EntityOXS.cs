@@ -210,6 +210,16 @@ public class EntityOXS : MonoBehaviour
                                 s.entit.Heal(tt2);
                             }
                         }
+
+                        var memesex = ContainsEffect("Brittle");
+                        if (memesex.hasthing)
+                        {
+                            damagefromhit *= 1 + (0.5 * memesex.susser.Stack);
+                            Effects.Remove(memesex.susser);
+                        }
+
+
+
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Death");
                         if (arr > 0 && hit.controller != null)
                         {
@@ -635,9 +645,9 @@ public class EntityOXS : MonoBehaviour
                             {
                                 x.susser.Stack = a.Stack;
                             }
-                            if(x.susser.Duration < a.Duration)
+                            if(x.susser.TimeRemaining < a.TimeRemaining)
                             {
-                                x.susser.Duration = a.Duration;
+                                x.susser.TimeRemaining = a.TimeRemaining;
                             }
                         }
                         else

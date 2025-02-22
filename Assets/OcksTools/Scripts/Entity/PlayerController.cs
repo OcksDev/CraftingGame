@@ -958,11 +958,17 @@ public class PlayerController : MonoBehaviour
             case "SoulDrain":
                 SoulDrain();
                 break;
+            case "Convert":
+                Conversion();
+                break;
             case "Vortex":
                 Vortex();
                 break;
             case "Soulsplosion":
                 Soulsplosion();
+                break;
+            case "Backup":
+                Backup();
                 break;
             default:
                 Debug.Log("ruh roh");
@@ -1199,6 +1205,33 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void Conversion()
+    {
+        Instantiate(Gamer.Instance.ParticleSpawns[34], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+        float maxdist = 13;
+        foreach (var n in Gamer.Instance.EnemiesExisting)
+        {
+            var x = (n.transform.position - transform.position).magnitude;
+            if (x <= maxdist && n.EntityOXS != null)
+            {
+                var m = n.EntityOXS.ContainsEffect("Freeze");
+                if (m.hasthing)
+                {
+                    var m2 = n.EntityOXS.ContainsEffect("Brittle");
+                    if (m2.hasthing)
+                    {
+                        m2.susser.Stack += m.susser.Stack;
+                        if (m.susser.TimeRemaining > m2.susser.TimeRemaining) m2.susser.TimeRemaining = m.susser.TimeRemaining;
+                        n.EntityOXS.Effects.Remove(m.susser);
+                    }
+                    else
+                    {
+                        m.susser.Type = "Brittle";
+                    }
+                }
+            }
+        }
+    }
     public void Soulsplosion()
     {
         foreach (var n in Gamer.Instance.AllHealers)
@@ -1210,6 +1243,15 @@ public class PlayerController : MonoBehaviour
                 Destroy(n.gameObject);
             }
         }
+    }
+    public void Backup()
+    {
+        var nn = GetDamageProfile();
+        nn.Damage = 2;
+        SpawnTurret(new DamageProfile(nn), transform.position + new Vector3(1, 1, 0)*2);
+        SpawnTurret(new DamageProfile(nn), transform.position + new Vector3(-1, 1, 0)*2);
+        SpawnTurret(new DamageProfile(nn), transform.position + new Vector3(1, -1, 0)*2);
+        SpawnTurret(new DamageProfile(nn), transform.position + new Vector3(-1, -1, 0)*2);
     }
     public Vector2 momentum = Vector2.zero;
     public void CorruptTim(Collider2D collision)
