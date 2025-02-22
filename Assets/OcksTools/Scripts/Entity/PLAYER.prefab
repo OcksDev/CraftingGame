@@ -614,6 +614,7 @@ MonoBehaviour:
   Shield: 100
   Max_Health: 100
   Max_Shield: 100
+  Effects: []
   DamageTimer: 0.1
   col:
     serializedVersion: 2
@@ -649,6 +650,7 @@ MonoBehaviour:
   DamageTickTime: 3
   BarrierBlockChance: 1
   SkillCooldownMult: 1
+  DebuffDurationMod: 1
   DamageOnAttack: 0
   Coins: 0
   RotationOverride: 0
@@ -672,6 +674,7 @@ MonoBehaviour:
   - {fileID: 2278403275201244645, guid: 1a44f9ec0ebeafc45ad32b175daa9a6d, type: 3}
   - {fileID: 819779555498870401, guid: abc19386bc7970d458c0cd1156507aea, type: 3}
   - {fileID: 3322044403729835623, guid: fb19ddca38cccd04d852e947fe3ba85b, type: 3}
+  - {fileID: 2312784775626904013, guid: 2d8fee9afef5e344ba14d5c71eb36468, type: 3}
   HitCollider: {fileID: 8591088333642842602}
   HitColliders:
   - {fileID: 8591088333642842602}
@@ -686,12 +689,16 @@ MonoBehaviour:
     GraftedMaterial:
       index: 
       itemindex: 
+    AspectMaterial:
+      index: 
+      itemindex: 
     Run_Materials: []
     Interacted_Containers: []
     Luck: -1
     Balance: 1
     BlockChance: 0
     Player: {fileID: 0}
+    IAMSPECIL: {fileID: 0}
   entit: {fileID: 0}
   sexer: {fileID: 0}
   selecteditem: 0

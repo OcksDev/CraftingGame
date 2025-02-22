@@ -262,6 +262,10 @@ public class Gamer : MonoBehaviour
         {
             Destroy(sex.gameObject);
         }
+        foreach (var sex in balls.GetComponentsInChildren<Transform>())
+        {
+            if (sex != balls) Destroy(sex.gameObject);
+        }
         foreach (var sex in OXComponent.GetComponentsInChildren<HitBalls>(balls.gameObject))
         {
             Destroy(sex.gameObject);

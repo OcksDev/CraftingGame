@@ -249,8 +249,7 @@ public class EntityOXS : MonoBehaviour
                                 var attack = new DamageProfile(hit);
                                 attack.Procs.Add("Missile");
                                 attack.DamageMod *= 2;
-                                var weenis = hit.attacker.transform;
-                                var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], weenis.position, PointFromTo2D(hit.attacker.transform.position, transform.position, 90 + Random.Range(-90f, 90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
+                                var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], hit.HijackaleTransform.position, PointFromTo2D(hit.HijackaleTransform.position, transform.position, 90 + Random.Range(-90f, 90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
                                 we.hitbal.attackProfile = attack;
                                 we.target = gameObject;
                             }
@@ -553,7 +552,7 @@ public class EntityOXS : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void DropKillReward(bool useplayermainweapon)
+    public void DropKillReward(bool useplayermainweapon, int amnt = 1)
     {
         int he = healerstospawn;
 
@@ -566,19 +565,29 @@ public class EntityOXS : MonoBehaviour
         {
             inpu = PlayerController.Instance.mainweapon;
         }
-
+        var absthing = lasthit == null ? inpu.Player.GetDamageProfile() : lasthit;
         if (inpu != null)
         {
             var arr2 = inpu.ReadItemAmount("Rune Of Kaboom") * 2;
             arr2 += 3;
             if (arr2 > 4)
             {
-                SpawnExplosion(arr2, transform.position, lasthit==null?inpu.Player.GetDamageProfile():lasthit);
+                SpawnExplosion(arr2, transform.position, absthing);
             }
             arr2 = inpu.ReadItemAmount("Rune Of Swords");
             if (arr2 > 0)
             {
                 inpu.Player.SpawnSword(arr2*5);
+            }
+            arr2 = inpu.ReadItemAmount("Rune Of Turret");
+            if (arr2 > 0)
+            {
+                if (inpu.RollLuck(0.2f) > 0)
+                {
+                    var nn = new DamageProfile(absthing);
+                    nn.Damage = 5 * arr2;
+                    inpu.Player.SpawnTurret(nn, transform.position);
+                }
             }
             var arr = inpu.ReadItemAmount("Rune Of Soul") * 0.15f;
             if (arr > 0)
@@ -640,7 +649,10 @@ public class EntityOXS : MonoBehaviour
             }
 
         }
-        Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+        for(int i = 0; i < amnt; i++)
+        {
+            Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+        }
     }
 
     bool oldstatus = false;
@@ -884,6 +896,7 @@ public class DamageProfile
     public bool IsSpecificPointOfDamage = false;
     public Vector3 SpecificPointOfDamage = Vector3.zero;
     public DamageType DType = DamageType.Misc;
+    public Transform HijackaleTransform = null;
     public DamageProfile(string name, double damage)
     {
         Damage = damage;
@@ -917,6 +930,7 @@ public class DamageProfile
         NerdType = pp.NerdType;
         DamageMod = pp.DamageMod;
         TotalDamageMod = pp.TotalDamageMod;
+        HijackaleTransform = pp.HijackaleTransform;
     }
 
 

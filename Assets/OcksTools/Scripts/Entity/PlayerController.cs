@@ -1037,26 +1037,42 @@ public class PlayerController : MonoBehaviour
         var wankerpos = transform.rotation;
         Func<int, int> wanker = (i) =>
         {
-            var offshart = new DamageProfile(Shart);
-            offshart.DamageMod *= 0.5;
-            var ff = UnityEngine.Random.Range(0f, 1f);
-            var tt = Mathf.FloorToInt(CritChance);
-            Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
-            var s = Instantiate(SlashEffect[2], transform.position, wankerpos * Quaternion.Euler(new Vector3(0, 0, (120 / amnt) * i)), Gamer.Instance.balls);
-            var s3 = s.GetComponent<HitBalls>();
-            s3.playerController = this;
-            s3.attackProfile = offshart;
             return 0;
         };
         wanker(0);
         for (int i = 1; i < amnt; i++)
         {
             yield return new WaitForSeconds(0.035f);
-            wanker(i);
-            wanker(-i);
+
+            SpawnArrow(Shart, transform.position, wankerpos * Quaternion.Euler(new Vector3(0, 0, (120 / amnt) * i)));
+            SpawnArrow(Shart, transform.position, wankerpos * Quaternion.Euler(new Vector3(0, 0, (120 / amnt) * -i)));
         }
 
     }
+
+    public void SpawnArrow(DamageProfile Shart, Vector3 pos, Quaternion rot, double dammod = 0.5)
+    {
+        var offshart = new DamageProfile(Shart);
+        offshart.DamageMod *= dammod;
+        var ff = UnityEngine.Random.Range(0f, 1f);
+        var tt = Mathf.FloorToInt(CritChance);
+        Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
+        var s = Instantiate(SlashEffect[2], pos, rot, Gamer.Instance.balls);
+        var s3 = s.GetComponent<HitBalls>();
+        s3.playerController = this;
+        s3.attackProfile = offshart;
+    }
+    public void SpawnTurret(DamageProfile nn, Vector3 pos)
+    {
+        nn.DamageMod = 1;
+        nn.Procs.Clear();
+        var s = Instantiate(SlashEffect[11], pos, Quaternion.identity, Gamer.Instance.balls);
+        var s3 = s.GetComponent<TurretCode>();
+        nn.HijackaleTransform = s.transform;
+        s3.Damprof = nn;
+    }
+
+
     public int AllocatedSwords = 0;
     public IEnumerator StartSwordDance(int amnt)
     {
@@ -1177,8 +1193,7 @@ public class PlayerController : MonoBehaviour
             if (x <= maxdist && n.EntityOXS != null)
             {
                 if (n.EntityOXS.ContainsEffect("Soulless").hasthing) continue;
-                n.EntityOXS.DropKillReward(true);
-                n.EntityOXS.DropKillReward(true);
+                n.EntityOXS.DropKillReward(true, 2);
                 var w = new EffectProfile("Soulless", 999999999, 1, 1);
                 n.EntityOXS.AddEffect(w);
             }
@@ -1461,6 +1476,7 @@ public class PlayerController : MonoBehaviour
         Shart.controller = this;
         Shart.WeaponOfAttack = new GISItem(mainweapon);
         Shart.attacker = gameObject;
+        Shart.HijackaleTransform = transform;
         var ff = UnityEngine.Random.Range(0f, 1f);
         int tt = Mathf.FloorToInt(CritChance);
         Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);

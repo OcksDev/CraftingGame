@@ -30,6 +30,7 @@ public class Lightning : MonoBehaviour
             z.z = 0;
             foreach (var e in Gamer.Instance.EnemiesExisting)
             {
+                if(!e.HasSpawned) continue;
                 var z2 = e.transform.position;
                 z2.z = 0;
                 var x = RandomFunctions.Instance.DistNoSQRT(z, z2);
