@@ -71,7 +71,7 @@ public class Gamer : MonoBehaviour
     public GameObject LogbookThing;
     public GameObject EffectThing;
     public Volume volume;
-
+    public Button FUCKYOUOHMYGOD;
     public List<Skill_Data> SkillOffers = new List<Skill_Data>();
     public double TimeOfQuest = 0;
 
@@ -163,6 +163,10 @@ public class Gamer : MonoBehaviour
         {
             InputManager.SetLockLevel("item_menu");
         }
+        InputManager.RemoveLockLevel("TextEntry");
+
+        FUCKYOUOHMYGOD.Select();
+
         UpdateShaders();
         RefreshUIPos?.Invoke();
         wasincraft = checks[1];
@@ -576,7 +580,7 @@ public class Gamer : MonoBehaviour
                 SetPauseMenu(!checks[4]);
             }
         }
-        if ((InputManager.IsKeyDown("inven", "player") && GameState == "Lobby") || (checks[0] && InputManager.IsKeyDown("inven")))
+        if ((InputManager.IsKeyDown("inven", "player") && GameState == "Lobby") || (checks[0] && InputManager.IsKeyDown("inven", "menu")))
         {
             ToggleInventory();
         }
@@ -1385,13 +1389,22 @@ public class Gamer : MonoBehaviour
     string a = "wank";
     public void TextModeEnter()
     {
+        Debug.Log("TextEntry");
         InputManager.AddLockLevel("TextEntry");
         InputManager.RemoveLockLevel("menu");
+
+        string a = "";
+        foreach(var b in InputManager.locklevel)
+        {
+            a += b + ", ";
+        }
+        Debug.Log("LL: " + a);
     }
     public void TextModeExit()
     {
         InputManager.RemoveLockLevel("TextEntry");
         InputManager.AddLockLevel("menu");
+        Debug.Log("ExitedText");
     }
 
     public void ConfirmItemTrans()

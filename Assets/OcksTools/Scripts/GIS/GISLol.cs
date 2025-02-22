@@ -337,6 +337,13 @@ public class GISLol : MonoBehaviour
         if (InputManager.IsKeyDown(KeyCode.V, "menu"))
         {
             Mouse_Held_Item = new GISItem("Emerald");
+
+            string a = "";
+            foreach (var b in InputManager.locklevel)
+            {
+                a += b + ", ";
+            }
+            Debug.Log("FUCK: " + a);
         }
         if (InputManager.IsKeyDown(KeyCode.B, "menu"))
         {
