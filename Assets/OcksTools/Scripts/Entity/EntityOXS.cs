@@ -259,9 +259,20 @@ public class EntityOXS : MonoBehaviour
                                 var attack = new DamageProfile(hit);
                                 attack.Procs.Add("Missile");
                                 attack.DamageMod *= 2;
-                                var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], hit.HijackaleTransform.position, PointFromTo2D(hit.HijackaleTransform.position, transform.position, 90 + Random.Range(-90f, 90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
+                                var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], hit.GetTransform().position, PointFromTo2D(hit.GetTransform().position, transform.position, 90 + Random.Range(-90f, 90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
                                 we.hitbal.attackProfile = attack;
                                 we.target = gameObject;
+                            }
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Conduction");
+                        if (arr > 0 && !hit.Procs.Contains("Conduct"))
+                        {
+                            if (hit.WeaponOfAttack.RollLuck(0.15f) > 0)
+                            {
+                                var attack = new DamageProfile(hit);
+                                attack.Procs.Add("Conduct");
+                                attack.DamageMod *= arr * 0.5;
+                                hit.WeaponOfAttack.Player.ShootLightning(0, hit.GetTransform().position, attack);
                             }
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Aspect Of Lightning");
@@ -380,6 +391,14 @@ public class EntityOXS : MonoBehaviour
         }
     }
 
+
+    public void SpawnMissile(GameObject target, Vector3 pos, Quaternion rot, DamageProfile attack)
+    {
+        var atk = new DamageProfile(attack);
+        var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], pos, rot, Gamer.Instance.balls).GetComponent<MissileMover>();
+        we.hitbal.attackProfile = atk;
+        we.target = target;
+    }
 
     public static void SpawnExplosion(float size, Vector3 pos, DamageProfile dam, double damage = 15, int particleid= 16)
     {
@@ -907,6 +926,7 @@ public class DamageProfile
     public Vector3 SpecificPointOfDamage = Vector3.zero;
     public DamageType DType = DamageType.Misc;
     public Transform HijackaleTransform = null;
+    public Transform OriginalTransform = null;
     public DamageProfile(string name, double damage)
     {
         Damage = damage;
@@ -941,8 +961,13 @@ public class DamageProfile
         DamageMod = pp.DamageMod;
         TotalDamageMod = pp.TotalDamageMod;
         HijackaleTransform = pp.HijackaleTransform;
+        OriginalTransform = pp.OriginalTransform;
     }
-
+    public Transform GetTransform()
+    {
+        if (HijackaleTransform != null) return HijackaleTransform;
+        return OriginalTransform;
+    }
 
 
     public double CalcDamage()

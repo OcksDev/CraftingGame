@@ -970,6 +970,9 @@ public class PlayerController : MonoBehaviour
             case "Backup":
                 Backup();
                 break;
+            case "Barrage":
+                StartCoroutine(StartBarrage());
+                break;
             default:
                 Debug.Log("ruh roh");
                 break;
@@ -1013,7 +1016,8 @@ public class PlayerController : MonoBehaviour
         }
         if (timersincedamage > 0)
         {
-            move_speed *= ((mainweapon.ReadItemAmount("Rune Of Excitation") * 0.30f)*(timersincedamage/MaxTimeSinceDamageDealt)) + 1;
+            var cc = mainweapon.ReadItemAmount("Rune Of Excitation")-1;
+            if(cc > -1) move_speed *= (((cc* 0.10f) + 0.5f)*(timersincedamage/MaxTimeSinceDamageDealt)) + 1;
             timersincedamage -= Time.deltaTime;
         }
     }
@@ -1052,6 +1056,18 @@ public class PlayerController : MonoBehaviour
 
             SpawnArrow(Shart, transform.position, wankerpos * Quaternion.Euler(new Vector3(0, 0, (120 / amnt) * i)));
             SpawnArrow(Shart, transform.position, wankerpos * Quaternion.Euler(new Vector3(0, 0, (120 / amnt) * -i)));
+        }
+
+    }
+    public IEnumerator StartBarrage()
+    {
+        float amnt = 15;
+        var Shart = GetDamageProfile();
+        Shart.DamageMod *= 0.25;
+        for (int i = 1; i < amnt; i++)
+        {
+            yield return new WaitForSeconds(0.07f);
+            entit.SpawnMissile(null, transform.position, Quaternion.Euler(0,0, UnityEngine.Random.Range(0, 360)), Shart);
         }
 
     }
@@ -1097,8 +1113,11 @@ public class PlayerController : MonoBehaviour
         var Shart = GetDamageProfile();
         if(dam > 0)
         {
-
             Shart.Damage = dam;
+        }
+        else
+        {
+            Shart.DamageMod *= 0.75;
         }
         if (!ingorecount) AllocatedSwords++;
         //offshart.DamageMod *= 0.5;
@@ -1519,6 +1538,7 @@ public class PlayerController : MonoBehaviour
         Shart.WeaponOfAttack = new GISItem(mainweapon);
         Shart.attacker = gameObject;
         Shart.HijackaleTransform = transform;
+        Shart.OriginalTransform = transform;
         var ff = UnityEngine.Random.Range(0f, 1f);
         int tt = Mathf.FloorToInt(CritChance);
         Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);

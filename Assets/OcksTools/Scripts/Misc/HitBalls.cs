@@ -165,6 +165,18 @@ public class HitBalls : MonoBehaviour
                         dam.AttackerPos = type == "Arrow"?(transform.position + transform.rotation*Vector3.up*-1) : transform.position;
                     }
                     playerController.HitEnemy(e, dam);
+
+                    if (type == "Missile" && dam.WeaponOfAttack != null)
+                    {
+                        var arr = dam.WeaponOfAttack.ReadItemAmount("Rune Of Demolition") * 2;
+                        arr += 3;
+                        if(arr > 4)
+                        {
+                            EntityOXS.SpawnExplosion(arr, transform.position, new DamageProfile(dam), dam.CalcDamage()*0.3);
+                        }
+                    }
+
+
                     EnemeisPenis.Add(e);
                     switch (type)
                     {
