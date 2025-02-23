@@ -32,7 +32,7 @@ Capitalism:: Spend 1 <o>Coin</> to instantly kill the 3 nearest <e>Enemies</>.
 SoulDrain:: All nearby <e>Enemies</> drop x2 their kill reward, but become <o>Soulless</>.<br><o>Soulless</> <e>Enemies</> do not drop a kill reward on death.
 ArrowStorm:: Shoot an arc of <o>Arrows</> with 50% Damage.
 SwordDance:: Surround yourself with 8 <o>Flying Swords</>, each with 75% Damage.<br>Max of 32 simultaneous <o>Flying Swords</>.
-Soulsplosion:: All <o>Souls</> you have harvested explode for 10 Damage<br>5m Explosion Size
+Soulsplosion:: All uncollected <o>Souls</> you have harvested explode for 10 Damage<br>5m Explosion Size
 Wave:: Launch a <o>Wave</> that pushes all enemies back.<br>Additionally, deals 3 Damage.
 Strike:: Call down a <o>Strike</> deals 50 Damage to all <e>Enemies</> in an area.
 Vortex:: Pull all nearby <e>Enemies</> into a <o>Vortex</>.
