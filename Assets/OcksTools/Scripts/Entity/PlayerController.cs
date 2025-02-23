@@ -27,8 +27,12 @@ public class PlayerController : MonoBehaviour
     public float MaxDashCooldown = 3f;
     public float DamageTickTime = 3f;
     public float BarrierBlockChance = 1f;
+    public double BarrierDecayMod = 1f;
     public float SkillCooldownMult = 1f;
     public float DebuffDurationMod = 1f;
+    public double DirectShieldHeal = 0;
+    public double ShieldHealingMod = 0;
+    public double DamageTakenMod = 0;
     public double DamageOnAttack = 0;
     public long Coins = 0;
     public bool RotationOverride = false;
@@ -327,12 +331,16 @@ public class PlayerController : MonoBehaviour
         mainweapon.Luck = 0f;
         Spread = 15f;
         BarrierBlockChance = 1f;
+        BarrierDecayMod = 1f;
         SkillCooldownMult = 1f;
         MaxTimeSinceDamageDealt = 1f;
         MaxDashCooldown = BaseDashCooldown;
         RotationOverride = false;
         DamageOnAttack = 0;
         DebuffDurationMod = 1;
+        DirectShieldHeal = 1; // 0 = full shield healing
+        DamageTakenMod = 1;
+        ShieldHealingMod = 1;
         helth = 100.0;
         sheldmult = 1;
         //deprecated
@@ -509,6 +517,10 @@ public class PlayerController : MonoBehaviour
                     DebuffDurationMod *= 1.15f;
                     SkillCooldownMult += 0.15f;
                     break;
+                case "Shieldium":
+                    DamageTakenMod *= 0.85;
+                    DirectShieldHeal *= 0.85;
+                    break;
                 case "Diamond":
                     helth *= 1.2f;
                     WeaponDamageMod += 0.2;
@@ -529,6 +541,12 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Rune Of Barrier":
                     BarrierBlockChance *= 0.8f;
+                    break;
+                case "Rune Of Steady Shielding":
+                    BarrierDecayMod *= 0.75f;
+                    break;
+                case "Rune Of Advanced Shielding":
+                    ShieldHealingMod += 0.25;
                     break;
                 case "DieBitch":
                     switch (mainweapon.ItemIndex)
@@ -731,7 +749,7 @@ public class PlayerController : MonoBehaviour
             oldval = network_helditem.GetValue();
             SetData();
         }
-        if (entit.Shield > 0) entit.Shield -= 0.1;
+        if (entit.Shield > 0) entit.Shield -= 0.1 * BarrierDecayMod;
         if (HitCollider != null)
         {
             switch (mainweapon.ItemIndex)

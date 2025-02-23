@@ -50,7 +50,7 @@ Rune Of Splitting:: Damage taken is split evenly between <g>2 (+1 per stack)</> 
 Rune Of Retribution:: Explode on taking Damage for 10 Damage<br><g>6m (+2m per stack)</> Explosion Size
 Rune Of Luck:: <g>+0.35</> Luck
 Rune Of Excitation:: Dealing damage grants you <g>50% (+10% per stack)</><br>Movement Speed<br>This boost decays over <g>1s (+0.5s per stack)</>
-Rune Of Barrier:: While in Barrier, gain <g>+20% (asymptotic stacking)</> Block Chance<br>This is unaffected by Luck
+Rune Of Barrier:: While in <o>Barrier</>, gain <g>+20% (asymptotic stacking)</> Block Chance<br>This is unaffected by Luck
 Rune Of Collapse:: Damaging an <e>Enemy</> applies <o>Collapse</> which stores <g>+50%</> of Damage dealt<br>Damage the same <e>Enemy</> with the other equipped <o>Weapon</> to deal all <br> stored Damage from <o>Collapse</><br><o>Collapse</> stacks are cleared on release
 Rune Of Freeze:: <g>+30%</> chance on Hit to apply a stack of <o>Freeze</><br><o>Freeze</> reduces Movement Speed by 50% per stack for 5s
 Rune Of Bleed:: <g>+20%</> chance on Hit to apply a stack of <o>Bleed</><br><o>Bleed</> deals 3 (+3 per stack) Damage every 1s for 3s
@@ -69,6 +69,9 @@ Rune Of Turret:: 20% chance on kill to place a <o>Turret</> which deals <g>+5</>
 Rune Of Conduction:: 15% chance on hit to shoot <o>Lightning</> with <g>+50%</> Damage (max of 4 bounces)
 Rune Of Demolition:: <o>Missiles</> will explode for 30% Damage<br><g>5m (+2m per stack)</> Explosion Size
 Rune Of Agitation:: When collecting a <o>Soul</>, Gain <g>+1</> stacks of <o>Swift</> for 2.5s.<br><o>Swift</> increases Movement Speed by +5% per stack
+Rune Of Steady Shielding:: <g>x0.75</> <o>Barrier</> Decay Rate
+Rune Of Advanced Shielding:: <g>+25%</> Healing when applied as <o>Barrier</> 
+Rune Of Weaponized Shielding:: While at full Health or in <o>Barrier</><br><g>+20%</> Total Damage
 Aspect Of Plague:: On kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health

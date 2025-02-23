@@ -150,6 +150,7 @@ public class EntityOXS : MonoBehaviour
                             CameraLol.Instance.Shake(wasticked || hit.Name == "nono" ? 0.1f:0.4f, 0.87f);
                             Gamer.Instance.ShartPoop += wasticked || hit.Name == "nono" ? 0.1f:0.4f;
                         }
+                        damagefromhit *= s2.DamageTakenMod;
                         Shield -= damagefromhit;
                         if (Shield < 0)
                         {
@@ -230,6 +231,11 @@ public class EntityOXS : MonoBehaviour
                         if (arr > 0 && hit.controller != null)
                         {
                             damagefromhit *= ((double)arr * hit.controller.Coins)/100 + 1;
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Weaponized Shielding");
+                        if (arr > 0 && (hit.WeaponOfAttack.Player.entit.Shield > 0.01 || hit.WeaponOfAttack.Player.entit.Health == hit.WeaponOfAttack.Player.entit.Max_Health))
+                        {
+                            damagefromhit *= 1 + (arr*0.2);
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Bleed") * 0.2f;
                         if (arr > 0 && hit.controller != null && !hit.Procs.Contains("Bleed"))
@@ -425,6 +431,8 @@ public class EntityOXS : MonoBehaviour
 
     public void Heal(double amount)
     {
+        double DirectShieldPercent = 0;
+        double ShieldChangeMult = 1;
         switch (EnemyType)
         {
             case "Player":
@@ -439,14 +447,26 @@ public class EntityOXS : MonoBehaviour
                 {
                     amount *= 2;
                 }
+                DirectShieldPercent = 1-playerdaddy.DirectShieldHeal;
+                ShieldChangeMult = playerdaddy.ShieldHealingMod;
                 break;
         }
         var oldh = Health;
-        Health = System.Math.Clamp(Health + amount, 0, Max_Health);
-        var change = amount-( Health - oldh);
+        var direct = amount * DirectShieldPercent;
+        var realamount = amount * (1-DirectShieldPercent);
+        Health = System.Math.Clamp(Health + realamount, 0, Max_Health);
+        var change = amount - ( Health - oldh);
         var olds = Shield;
+
+        if(ShieldChangeMult != 1d)
+        {
+            amount -= change;
+            change *= ShieldChangeMult;
+            amount += change;
+        }
+
         Shield = System.Math.Clamp(Shield + change, 0, Max_Shield);
-        var change2 = change - (Shield - olds);
+        var change2 = (change) - (Shield - olds);
         if (Health != oldh || Shield != olds)
         {
             var xx = (transform.localScale.x / 2) - 0.25f;
