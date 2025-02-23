@@ -77,21 +77,6 @@ public class INteractable : MonoBehaviour
                 }
                 break;
             case "Item":
-                if(BananaMan == null)
-                {
-                    e.text = "null banana";
-                    break;
-                }
-                if(BananaMan.sexyballer == null)
-                {
-                    e.text = "null sexy";
-                    break;
-                }
-                if(BananaMan.sexyballer != null)
-                {
-                    e.text = $"Coin Cost: {BananaMan.sexyballer.CoinCost}";
-                    break;
-                }
                 if (BananaMan == null || BananaMan.sexyballer.CoinCost <= 0)
                 {
                     goto wank;

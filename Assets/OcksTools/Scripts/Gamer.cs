@@ -57,6 +57,7 @@ public class Gamer : MonoBehaviour
     public EnemyBarOfAids enemybar;
     public GameObject enemybaroutline;
     public TMP_InputField ItemNameInput;
+    public TextMeshProUGUI CoinCostDisplay;
     public List<string> ItemPool = new List<string>();
     public bool CanInteractThisFrame;
     public int EnemySpawnNumber = 0;
@@ -1161,6 +1162,16 @@ public class Gamer : MonoBehaviour
                 poopy.slots[0].Held_Item = new GISItem();
                 poopy.slots[0].Displayer.UpdateDisplay();
             }
+
+            if(PickupItemCrossover.CoinCost > 0)
+            {
+                CoinCostDisplay.text = $"{PickupItemCrossover.CoinCost} Coins";
+            }
+            else
+            {
+                CoinCostDisplay.text = "";
+            }
+
 
             var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
             leftnut.ClearSlots();
@@ -2269,7 +2280,9 @@ public class Gamer : MonoBehaviour
         itema.sexyballer = cuum;
         itema.sexyballer.SPEC2 = itema;
         Gamer.Instance.spawneditemsformymassivesexyballs.Add(itema);
-        itema.GetComponent<INteractable>().BananaMan = itema;
+        var aa = itema.GetComponent<INteractable>();
+        aa.BananaMan = itema;
+        aa.UpdateText();
     }
 
     [HideInInspector]
