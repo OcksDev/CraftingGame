@@ -195,6 +195,7 @@ public class Gamer : MonoBehaviour
             new RoomTypeHolder("Chase The Orb"),
             //new RoomTypeHolder("Bullet Dodge"),
             new RoomTypeHolder("Passcode"),
+            new RoomTypeHolder("Pick Three"),
             //new RoomTypeHolder("Monster Crystal"), //pendants?
             //new RoomTypeHolder("Shrine"),
             //new RoomTypeHolder("Cursed Item"),
@@ -1252,6 +1253,17 @@ public class Gamer : MonoBehaviour
     {
         if (AmIVeryFuckableToday()) return;
 
+        PlayerController.Instance.Coins -= PickupItemCrossover.CoinCost;
+        if(PickupItemCrossover.PickItems != null)
+        {
+            foreach(var a in PickupItemCrossover.PickItems)
+            {
+                if (a == PickupItemCrossover) continue;
+                Destroy(a.SPEC2.gameObject);
+            }
+            Gamer.QuestProgressIncrease("Room", "Pick Three");
+        }
+
         var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
         var leftnutitem = Tags.refs["LeftItemNut"].GetComponent<GISDisplay>();
         leftnutitem.item.Run_Materials.Clear();
@@ -1688,6 +1700,39 @@ public class Gamer : MonoBehaviour
                 var c3 = Instantiate(PasscodeSex, e.transform.position, Quaternion.identity, Tags.refs["NavMesh"].transform);
                 e.isused = "Passcode";
                 KillMeOnRoomSex.Add(c3);
+                break;
+            case "Pick Three":
+
+                Vector3[] memes = new Vector3[]
+                {
+                    new Vector3(0,0,0),
+                    new Vector3(0,-5,0),
+                    new Vector3(0,5,0),
+                };
+
+                if (!(e.room.HasLeftDoor || e.room.HasRightDoor))
+                {
+                    memes = new Vector3[]
+                    {
+                        new Vector3(0,0,0),
+                        new Vector3(-5,0,0),
+                        new Vector3(5,0,0),
+                    };
+                }
+
+                GISItem[] items = new GISItem[]
+                {
+                    GetItemForLevel(),
+                    GetItemForLevel(),
+                    GetItemForLevel(),
+                };
+                for(int i = 0; i < 3; i++)
+                {
+                    items[i].CoinCost = 6;
+                    items[i].PickItems = items;
+                    SpawnGroundItem(memes[i] + e.transform.position, items[i]);
+                }
+                e.isused = "Pick3";
                 break;
             default:
                 var c = Instantiate(GetChest(), e.transform.position, Quaternion.identity).GetComponent<INteractable>();
@@ -2222,7 +2267,9 @@ public class Gamer : MonoBehaviour
     {
         var itema = Instantiate(Gamer.Instance.GroundItemShit, pos, transform.rotation).GetComponent<GroundItem>();
         itema.sexyballer = cuum;
+        itema.sexyballer.SPEC2 = itema;
         Gamer.Instance.spawneditemsformymassivesexyballs.Add(itema);
+        itema.GetComponent<INteractable>().BananaMan = itema;
     }
 
     [HideInInspector]

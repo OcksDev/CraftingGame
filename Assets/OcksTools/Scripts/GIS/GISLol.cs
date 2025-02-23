@@ -554,6 +554,9 @@ public class GISItem
     public float BlockChance = 0;
     public PlayerController Player;
     public GroundItem IAMSPECIL = null;
+    public GroundItem SPEC2 = null;
+    public long CoinCost = 0;
+    public GISItem[] PickItems = null;
     public GISItem()
     {
         setdefaultvals();
@@ -689,6 +692,9 @@ public class GISItem
         Balance = sexnut.Balance;
         CompileItems();
         Player = sexnut.Player;
+        CoinCost = sexnut.CoinCost;
+        PickItems = sexnut.PickItems;
+        SPEC2 = sexnut.SPEC2;
     }
     private void setdefaultvals()
     {
@@ -697,6 +703,7 @@ public class GISItem
         ItemIndex = "Empty";
         Container = null;
         CustomName = "";
+        CoinCost = 0;
         Materials = new List<GISMaterial>();
         Run_Materials = new List<GISMaterial>();
         GraftedMaterial = new GISMaterial();

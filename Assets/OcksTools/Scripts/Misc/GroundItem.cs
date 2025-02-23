@@ -37,6 +37,7 @@ public class GroundItem : MonoBehaviour
     public void AttemptPickup()
     {
         if (Gamer.Instance.checks[5]) return;
+        if (sexyballer.CoinCost > 0 && PlayerController.Instance.Coins < sexyballer.CoinCost) return;
         Gamer.Instance.PickupItemCrossover = sexyballer;
         sexyballer.IAMSPECIL = this;
         Gamer.Instance.itemshite = gameObject;

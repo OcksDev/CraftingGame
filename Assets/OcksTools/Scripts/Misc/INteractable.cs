@@ -12,6 +12,7 @@ public class INteractable : MonoBehaviour
     public TextMeshProUGUI DisplaySegsmcnugget;
     public GameObject Parente;
     public bool CanInteract = true;
+    public GroundItem BananaMan = null;
 
     private void OnDisable()
     {
@@ -72,7 +73,32 @@ public class INteractable : MonoBehaviour
                 }
                 else
                 {
-                    e.text = $"5 Coins  [ {pon} ]";
+                    e.text = $"3 Coins  [ {pon} ]";
+                }
+                break;
+            case "Item":
+                if(BananaMan == null)
+                {
+                    e.text = "null banana";
+                    break;
+                }
+                if(BananaMan.sexyballer == null)
+                {
+                    e.text = "null sexy";
+                    break;
+                }
+                if(BananaMan.sexyballer != null)
+                {
+                    e.text = $"Coin Cost: {BananaMan.sexyballer.CoinCost}";
+                    break;
+                }
+                if (BananaMan == null || BananaMan.sexyballer.CoinCost <= 0)
+                {
+                    goto wank;
+                }
+                else
+                {
+                    e.text = $"{BananaMan.sexyballer.CoinCost} Coins  [ {pon} ]";
                 }
                 break;
             case "StartGame":
@@ -162,9 +188,9 @@ public class INteractable : MonoBehaviour
                 break;
             case "Chest":
                 bool pass = Gamer.Instance.IsInShop;
-                if (!pass && PlayerController.Instance.Coins >= 5)
+                if (!pass && PlayerController.Instance.Coins >= 3)
                 {
-                    PlayerController.Instance.SpendCoin(5);
+                    PlayerController.Instance.SpendCoin(3);
                     Gamer.QuestProgressIncrease("Room", "Chest");
                     pass = true;
                 }
