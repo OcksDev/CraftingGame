@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3389730304900025259}
   - component: {fileID: 3389730304900025256}
   - component: {fileID: 4422758619084538788}
+  - component: {fileID: 2878924856446054991}
   m_Layer: 5
   m_Name: EFFECTOR
   m_TagString: Untagged
@@ -92,6 +93,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rem: {fileID: 3389730304900025256}
   Suckytoes: {fileID: 3949469443143019946}
+  sussyl:
+    Type: 
+    Duration: 0
+    CombineMethod: 0
+    Stack: 1
+    TimeRemaining: 0
+    MaxStack: 0
+    ItemOfInit:
+      ItemIndex: Empty
+      Amount: 0
+      CustomName: 
+      Container: {fileID: 0}
+      Materials: []
+      GraftedMaterial:
+        index: 
+        itemindex: 
+      AspectMaterial:
+        index: 
+        itemindex: 
+      Run_Materials: []
+      Interacted_Containers: []
+      Luck: -1
+      Balance: 1
+      BlockChance: 0
+      Player: {fileID: 0}
+      IAMSPECIL: {fileID: 0}
+      SPEC2: {fileID: 0}
+      CoinCost: 0
+      PickItems: []
+    storeint: 0
+    storedouble: 0
+    storefloat: 0
+--- !u!114 &2878924856446054991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3389730304900025262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7056e5324e21a1246822ed0588362476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: Effect
+  guny: {fileID: 0}
+  vuny: {fileID: 0}
+  iuny: {fileID: 0}
+  wunty: {fileID: 0}
+  ounty: {fileID: 4422758619084538788}
 --- !u!1 &4356443039897459623
 GameObject:
   m_ObjectHideFlags: 0

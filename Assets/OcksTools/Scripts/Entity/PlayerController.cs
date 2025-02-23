@@ -1020,6 +1020,11 @@ public class PlayerController : MonoBehaviour
             if(cc > -1) move_speed *= (((cc* 0.10f) + 0.5f)*(timersincedamage/MaxTimeSinceDamageDealt)) + 1;
             timersincedamage -= Time.deltaTime;
         }
+        var aa = entit.ContainsEffect("Swift");
+        if (aa.hasthing)
+        {
+            move_speed *= 1 + (0.05f * aa.susser.Stack);
+        }
     }
     [HideInInspector]
     public float timersincedamage = 0;

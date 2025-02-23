@@ -9,7 +9,7 @@ public class HoverDingle : MonoBehaviour
     public VaultitemDisplay vuny;
     public ItemHolder iuny;
     public SkillCum wunty;
-
+    public EffectorSexyBallzungussy ounty;
     private void Start()
     {
         switch (type)
@@ -80,6 +80,11 @@ public class HoverDingle : MonoBehaviour
                         }
                         g.HoverDohicky(hv);
                     }
+                    break;
+                case "Effect":
+                    hv.type = "Title";
+                    hv.data = ounty.sussyl.Type;
+                    g.HoverDohicky(hv);
                     break;
                 default:
                     hv.type = "TitleAndDesc";

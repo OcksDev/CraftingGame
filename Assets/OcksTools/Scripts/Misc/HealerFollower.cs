@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class HealerFollower : MonoBehaviour
@@ -74,6 +75,14 @@ public class HealerFollower : MonoBehaviour
             else
             {
                 SexChaser.entit.Heal(5);
+                var arr = SexChaser.mainweapon.ReadItemAmount("Rune Of Agitation");
+                if(arr > 0)
+                {
+
+                    var ef = new EffectProfile("Swift", 2.5f, 7, arr);
+                    ef.ItemOfInit = SexChaser.mainweapon;
+                    SexChaser.entit.AddEffect(ef);
+                }
                 SoundSystem.Instance.PlaySound(5, true, 0.3f);
             }
         }
