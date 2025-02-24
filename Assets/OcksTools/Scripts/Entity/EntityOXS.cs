@@ -50,6 +50,7 @@ public class EntityOXS : MonoBehaviour
     public void Hit(DamageProfile hit)
     {
         List<DamageProfile> stored_hits = new List<DamageProfile>();
+        List<System.Func<int, int>> stored_funcs = new List<System.Func<int, int>>();
         damagefromhit = hit.CalcDamage();
         if (AntiDieJuice) return;
         if (Gamer.GameState == "Dead") return;
@@ -237,6 +238,18 @@ public class EntityOXS : MonoBehaviour
                         {
                             damagefromhit *= 1 + (arr*0.2);
                         }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Criticality");
+                        if (arr > 0 && hit.DType != DamageProfile.DamageType.Explosion && hit.WasCrit >= 0)
+                        {
+                            var nm = new DamageProfile(hit);
+                            nm.DamageMod *= 0.3;
+                            System.Func<int, int> me = (x) =>
+                            {
+                                SpawnExplosion((arr * 2) + 3, transform.position, nm, -1);
+                                return x;
+                            };
+                            stored_funcs.Add(me);
+                        }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Bleed") * 0.2f;
                         if (arr > 0 && hit.controller != null && !hit.Procs.Contains("Bleed"))
                         {
@@ -371,7 +384,7 @@ public class EntityOXS : MonoBehaviour
             }
             else
             {
-                fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(damagefromhit )).ToString());
+                fard.sex.text = RandomFunctions.Instance.NumToRead(((System.Numerics.BigInteger)System.Math.Round(damagefromhit)).ToString());
                 fard.critlevel = hit.WasCrit;
                 DamageTimer = 0.1f;
             }
@@ -394,6 +407,10 @@ public class EntityOXS : MonoBehaviour
         foreach(var asexy in stored_hits)
         {
             Hit(asexy);
+        }
+        foreach(var asexy in stored_funcs)
+        {
+            asexy(0);
         }
     }
 
@@ -420,8 +437,11 @@ public class EntityOXS : MonoBehaviour
             {
                 var wank = new DamageProfile(dam);
                 wank.DType = DamageProfile.DamageType.Explosion;
-                wank.Damage = damage;
-                wank.DamageMod = 1;
+                if (damage > 0)
+                {
+                    wank.Damage = damage;
+                    wank.DamageMod = 1;
+                }
                 ob.entityoxs.Hit(wank);
             }
         }
@@ -634,7 +654,7 @@ public class EntityOXS : MonoBehaviour
                 if (inpu.RollLuck(0.2f) > 0)
                 {
                     var nn = new DamageProfile(absthing);
-                    nn.Damage = 5 * arr2;
+                    nn.Damage = 3 * arr2;
                     inpu.Player.SpawnTurret(nn, transform.position);
                 }
             }
@@ -775,6 +795,7 @@ public class EntityOXS : MonoBehaviour
                             cd.susser.storefloat = 0.98f;
                             var dmg = new DamageProfile(cd.susser.damprof);
                             dmg.Damage = (double)3 * cd.susser.Stack;
+                            dmg.DamageMod = 1;
                             Hit(dmg);
                         }
                     }
@@ -786,6 +807,7 @@ public class EntityOXS : MonoBehaviour
                             cd.susser.storefloat = 0.325f;
                             var dmg = new DamageProfile(cd.susser.damprof);
                             dmg.Damage = (double)cd.susser.Stack;
+                            dmg.DamageMod = 1;
                             Hit(dmg);
                         }
                     }

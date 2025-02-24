@@ -548,6 +548,9 @@ public class PlayerController : MonoBehaviour
                 case "Rune Of Advanced Shielding":
                     ShieldHealingMod += 0.25;
                     break;
+                case "Rune Of Criticality":
+                    CritChance += 0.05f;
+                    break;
                 case "DieBitch":
                     switch (mainweapon.ItemIndex)
                     {
@@ -1085,11 +1088,11 @@ public class PlayerController : MonoBehaviour
     public IEnumerator StartBarrage()
     {
         float amnt = 15;
-        var Shart = GetDamageProfile();
-        Shart.DamageMod *= 0.25;
         for (int i = 1; i < amnt; i++)
         {
             yield return new WaitForSeconds(0.07f);
+            var Shart = GetDamageProfile();
+            Shart.DamageMod *= 0.25;
             entit.SpawnMissile(null, transform.position, Quaternion.Euler(0,0, UnityEngine.Random.Range(0, 360)), Shart);
         }
 

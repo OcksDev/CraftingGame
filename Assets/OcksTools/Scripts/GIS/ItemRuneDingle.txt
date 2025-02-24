@@ -65,13 +65,14 @@ Rune Of Electricity:: On Skill shoot <o>Lightning</> with <g>+20%</> Damage (max
 Rune Of Swords:: On Kill spawn a <o>Flying Sword</> with <g>+5</> Damage.<br>Max of 32 simultaneous <o>Flying Swords</>.
 Rune Of Combustion:: All explosions apply <g>+1</> stack of <o>Fire<br>Fire</> deals 1 (+1 per stack) Damage every 0.33s for 3s
 Rune Of Mimicry:: When placed on a <o>Weapon</>, becomes one of the<br><o>Items</> already equipped on the <o>Weapon</> randomly.
-Rune Of Turret:: 20% chance on kill to place a <o>Turret</> which deals <g>+5</> Damage.<br><o>Turret</> Attack Speed scales based on your Attack Speed 
+Rune Of Turret:: 20% chance on kill to place a <o>Turret</> which deals <g>+3</> Damage.<br><o>Turret</> Attack Speed scales based on your Attack Speed 
 Rune Of Conduction:: 15% chance on hit to shoot <o>Lightning</> with <g>+50%</> Damage (max of 4 bounces)
 Rune Of Demolition:: <o>Missiles</> will explode for 30% Damage<br><g>5m (+2m per stack)</> Explosion Size
 Rune Of Agitation:: When collecting a <o>Soul</>, Gain <g>+1</> stacks of <o>Swift</> for 2.5s.<br><o>Swift</> increases Movement Speed by +5% per stack
 Rune Of Steady Shielding:: <g>x0.75</> <o>Barrier</> Decay Rate
 Rune Of Advanced Shielding:: <g>+25%</> Healing when applied as <o>Barrier</> 
 Rune Of Weaponized Shielding:: While at full Health or in <o>Barrier</><br><g>+20%</> Total Damage
+Rune Of Criticality:: <g>+5%</> Crit Chance<br>Critial Hits will explode for 30% Damage<br><g>5m (+2m per stack)</> Explosion Size
 Aspect Of Plague:: On kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health
