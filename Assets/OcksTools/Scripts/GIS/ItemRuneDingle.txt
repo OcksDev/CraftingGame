@@ -73,6 +73,7 @@ Rune Of Steady Shielding:: <g>x0.75</> <o>Barrier</> Decay Rate
 Rune Of Advanced Shielding:: <g>+25%</> Healing when applied as <o>Barrier</> 
 Rune Of Weaponized Shielding:: While at full Health or in <o>Barrier</><br><g>+20%</> Total Damage
 Rune Of Criticality:: <g>+5%</> Crit Chance<br>Critial Hits will explode for 30% Damage<br><g>5m (+2m per stack)</> Explosion Size
+Rune Of Drain:: On kill, Heal for <g>+1</> per unique Debuff on the slain <e>Enemy</>.
 Aspect Of Plague:: On kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health

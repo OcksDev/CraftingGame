@@ -658,6 +658,11 @@ public class EntityOXS : MonoBehaviour
                     inpu.Player.SpawnTurret(nn, transform.position);
                 }
             }
+            arr2 = inpu.ReadItemAmount("Rune Of Drain");
+            if (arr2 > 0 && Effects.Count > 0)
+            {
+                inpu.Player.entit.Heal(arr2 * Effects.Count);
+            }
             var arr = inpu.ReadItemAmount("Rune Of Soul") * 0.15f;
             if (arr > 0)
             {
