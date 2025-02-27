@@ -13,7 +13,8 @@ public class INteractable : MonoBehaviour
     public GameObject Parente;
     public bool CanInteract = true;
     public GroundItem BananaMan = null;
-
+    public GISItem cuum;
+    public SpriteRenderer[] memes;
     private void OnDisable()
     {
         if (DisplaySegsmcnugget != null && DisplaySegsmcnugget.gameObject != null)
@@ -58,7 +59,19 @@ public class INteractable : MonoBehaviour
         var e = w.GetComponent<TextMeshProUGUI>();
         DisplaySegsmcnugget = e;
         UpdateText();
+
     }
+
+    private void Start()
+    {
+        switch (Type)
+        {
+            case "Printer":
+                PrinterItemSpawn(Gamer.Instance.GetItemForLevel());
+                break;
+        }
+    }
+
     public void UpdateText()
     {
         var e = DisplaySegsmcnugget;
@@ -103,7 +116,6 @@ public class INteractable : MonoBehaviour
                 break;
         }
     }
-    public GISItem cuum;
     public void Interact()
     {
         var g = Gamer.Instance;
@@ -158,6 +170,10 @@ public class INteractable : MonoBehaviour
             case "RetoolBananman":
                 Gamer.Instance.ToggleRefreshMenu();
                 break;
+            case "Printer":
+                Gamer.Instance.PrinterYoinks = cuum;
+                Gamer.Instance.TogglePrinterMenu();
+                break;
             case "NextShop":
                 if (PlayerFailsWeaponCheck()) return;
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextShop"));
@@ -193,5 +209,15 @@ public class INteractable : MonoBehaviour
         var c = GISLol.Instance.All_Containers["Equips"];
         return c.slots[0].Held_Item.ItemIndex == "Empty" || c.slots[1].Held_Item.ItemIndex == "Empty";
     }
+
+    public void PrinterItemSpawn(GISItem item)
+    {
+        cuum = item;
+        var ww = GISDisplay.GetSprites(item);
+        memes[0].sprite = ww.sprites[0];
+        memes[1].sprite = ww.sprites[1];
+        memes[2].sprite = ww.sprites[2];
+    }
+
 }
 

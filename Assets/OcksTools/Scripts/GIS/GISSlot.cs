@@ -130,6 +130,13 @@ public class GISSlot : MonoBehaviour
         if (Gamer.Instance.checks[5])
         {
             Shungite();
+            if(Conte.Name == "ItemPickup" && Gamer.Instance.checks[20])
+            {
+                if(Held_Item.ItemIndex != "Empty")
+                {
+                    Held_Item = new GISItem(Gamer.Instance.PrinterYoinks);
+                }
+            }
         }
     }
     public static void Shungite()

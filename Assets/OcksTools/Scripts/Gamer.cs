@@ -14,7 +14,7 @@ using UnityEngine.UI;
 
 public class Gamer : MonoBehaviour
 {
-    public bool[] checks = new bool[20];
+    public bool[] checks = new bool[30];
     public Material[] sexex = new Material[2];
     public Image fader;
     public Camera mainnerddeingle;
@@ -92,6 +92,7 @@ public class Gamer : MonoBehaviour
     public event JustFuckingRunTheMethods RefreshUIPos;
     public static bool WithinAMenu = false;
     bool wasincraft = false;
+
     public void UpdateMenus()
     {
         Tags.refs["Inventory"].SetActive(checks[0]);
@@ -117,8 +118,9 @@ public class Gamer : MonoBehaviour
         Tags.refs["GrafterMenu"].SetActive(checks[18]);
         Tags.refs["AspectMenu"].SetActive(checks[19]);
 
+        Tags.refs["ItemeP"].SetActive(checks[20]);
         Tags.refs["ItemeR"].SetActive(checks[17]);
-        Tags.refs["Iteme"].SetActive(!checks[17]);
+        Tags.refs["Iteme"].SetActive(!(checks[17] || checks[20]));
 
         Tags.refs["GameUI"].SetActive(GameState == "Game");
         Tags.refs["EnemiesRemaining"].SetActive(!IsInShop);
@@ -177,7 +179,8 @@ public class Gamer : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        foreach(var a in EliteTypes)
+        checks = new bool[30];
+        foreach (var a in EliteTypes)
         {
             EliteTypesDict.Add(a.Name, a);
         }
@@ -824,6 +827,15 @@ public class Gamer : MonoBehaviour
         Ubdatebananasexballsfucucucuc();
         Shanana();
     }
+
+    public GISItem PrinterYoinks;
+    public void TogglePrinterMenu()
+    {
+        checks[5] = !checks[5];
+        checks[20] = true;
+        Shanana();
+        Tags.refs["ItemeP"].GetComponent<PrintRefHold>().ItemDick.item = PrinterYoinks;
+    }
     
     public void AttemptSKillBuy(int index)
     {
@@ -849,6 +861,11 @@ public class Gamer : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SpawnPrinter(Vector3 loc)
+    {
+        Instantiate(RandomFunctions.Instance.SpawnRefs[3], loc, Quaternion.identity, balls);
     }
 
     public void ToggleSkillSubMenu()
@@ -1151,19 +1168,23 @@ public class Gamer : MonoBehaviour
             var c = GISLol.Instance.All_Containers["Equips"];
 
             var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
-            if (!checks[17])
+            if (checks[17])
+            {
+                poopy.slots[0].Held_Item = new GISItem();
+                poopy.slots[0].Displayer.UpdateDisplay();
+            }
+            else if (checks[20])
+            {
+                poopy.slots[0].Held_Item = new GISItem();
+                poopy.slots[0].Displayer.UpdateDisplay();
+            }
+            else
             {
                 poopy.slots[0].Held_Item = PickupItemCrossover;
                 poopy.slots[0].Displayer.UpdateDisplay();
                 AttemptAddLogbookItem(PickupItemCrossover.ItemIndex);
             }
-            else
-            {
-                poopy.slots[0].Held_Item = new GISItem();
-                poopy.slots[0].Displayer.UpdateDisplay();
-            }
-
-            if(PickupItemCrossover.CoinCost > 0)
+            if(PickupItemCrossover != null && PickupItemCrossover.CoinCost > 0)
             {
                 CoinCostDisplay.text = $"{PickupItemCrossover.CoinCost} Coins";
             }
@@ -1212,6 +1233,8 @@ public class Gamer : MonoBehaviour
         {
             GISLol.Instance.Mouse_Held_Item = new GISItem();
             PickupItemCrossover.IAMSPECIL = null;
+            checks[17] = false;
+            checks[20] = false;
         }
         UpdateMenus();
     }
@@ -1403,6 +1426,7 @@ public class Gamer : MonoBehaviour
         anim = false;
         checks[5] = false;
         checks[17] = false;
+        checks[20] = false;
         UpdateMenus();
     }
 
@@ -1660,6 +1684,14 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.ppos = e2;
         CameraLol.Instance.targetpos = e2;
 
+        bool skipped = !WasInShop && CurrentFloor > 1;
+        if (skipped)
+        {
+            SpawnPrinter(rm.transform.position + new Vector3(7,7,0));
+            SpawnPrinter(rm.transform.position + new Vector3(7,-7,0));
+            SpawnPrinter(rm.transform.position + new Vector3(-7,7,0));
+            SpawnPrinter(rm.transform.position + new Vector3(-7,-7,0));
+        }
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         yield return new WaitForFixedUpdate();
 
@@ -1678,7 +1710,7 @@ public class Gamer : MonoBehaviour
         //compile end list
         yield return new WaitForSeconds(0.7f);
         titlething = StartCoroutine(TitleText());
-        if (!WasInShop && CurrentFloor > 1)
+        if (skipped)
         {
             for(int i = 0; i < 10; i++)
             {
