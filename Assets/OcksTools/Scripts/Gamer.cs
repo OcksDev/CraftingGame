@@ -58,7 +58,9 @@ public class Gamer : MonoBehaviour
     public GameObject enemybaroutline;
     public TMP_InputField ItemNameInput;
     public TextMeshProUGUI CoinCostDisplay;
-    public List<string> ItemPool = new List<string>();
+    public List<string> ItemPoolMats = new List<string>();
+    public List<string> ItemPoolRunes = new List<string>();
+    public List<string> ItemPoolAspects = new List<string>();
     public bool CanInteractThisFrame;
     public int EnemySpawnNumber = 0;
     public string EnemySpawnElite = "";
@@ -1580,27 +1582,45 @@ public class Gamer : MonoBehaviour
     Coroutine titlething;
     public GISItem GetItemForLevel()
     {
-        return new GISItem(ItemPool[Random.Range(0, ItemPool.Count)]);
+        if(CurrentFloor >= 5 && Random.Range(0, 101) == 0)
+        {
+            return new GISItem(ItemPoolAspects[Random.Range(0, ItemPoolAspects.Count)]);
+        }
+        if (Random.Range(0, 2) == 0)
+        {
+            return new GISItem(ItemPoolMats[Random.Range(0, ItemPoolMats.Count)]);
+        }
+        else
+        {
+            return new GISItem(ItemPoolRunes[Random.Range(0, ItemPoolRunes.Count)]);
+        }
     }
 
     public void AssembleItemPool()
     {
-        ItemPool.Clear();
+        ItemPoolMats.Clear();
+        ItemPoolRunes.Clear();
+        ItemPoolAspects.Clear();
         foreach(var a in GISLol.Instance.Items)
         {
             if(!a.CanSpawn) continue;
             if (a.IsCraftable)
             {
-                ItemPool.Add(a.Name);
+                ItemPoolMats.Add(a.Name);
                 continue;
             }
             if (a.IsRune)
             {
-                ItemPool.Add(a.Name);
+                ItemPoolRunes.Add(a.Name);
+                continue;
+            }
+            if (a.IsAspect)
+            {
+                ItemPoolAspects.Add(a.Name);
                 continue;
             }
         }
-        ItemPool.Remove("Rock");
+        ItemPoolMats.Remove("Rock");
     }
 
     public static List<RoomTypeHolder> ValidRoomTypes = new List<RoomTypeHolder>();

@@ -704,6 +704,7 @@ public class GISItem
         Container = null;
         CustomName = "";
         CoinCost = 0;
+        Luck = 0;
         Materials = new List<GISMaterial>();
         Run_Materials = new List<GISMaterial>();
         GraftedMaterial = new GISMaterial();
