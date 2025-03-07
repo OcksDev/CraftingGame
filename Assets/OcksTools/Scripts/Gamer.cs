@@ -1469,6 +1469,25 @@ public class Gamer : MonoBehaviour
         }
         FadeToLobby();
     }
+
+    public void CheckWeaponsBreak()
+    {
+        var c = GISLol.Instance.All_Containers["Equips"];
+        Debug.Log("AB: " + c.slots[0].Held_Item.UsesRemaining);
+        if (c.slots[0].Held_Item.UsesRemaining <= 0) c.slots[0].Held_Item = new GISItem();
+        if (c.slots[1].Held_Item.UsesRemaining <= 0) c.slots[1].Held_Item = new GISItem();
+        c.SaveTempContents();
+    }
+    
+    public void DurabilityHit()
+    {
+        var c = GISLol.Instance.All_Containers["Equips"];
+        c.slots[0].Held_Item.UsesRemaining--;
+        c.slots[1].Held_Item.UsesRemaining--;
+        c.SaveTempContents();
+    }
+
+
     public void FadeToLobby()
     {
         StartCoroutine(StartFade("LobDingle", 25));
@@ -1816,7 +1835,7 @@ public class Gamer : MonoBehaviour
         SaveSystem.Instance.SetString("Weapon1", c.slots[0].Held_Item.ItemToString(), dict);
         SaveSystem.Instance.SetString("Weapon2", c.slots[1].Held_Item.ItemToString(), dict);
         SaveSystem.Instance.SaveDataToFile(dict);
-        SaveSystem.Instance.SaveGame();
+        //SaveSystem.Instance.SaveGame();
     }
 
     public IEnumerator TitleText(string ver = "")

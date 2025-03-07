@@ -334,6 +334,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -15996,6 +15998,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -17195,6 +17199,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -34674,7 +34680,6 @@ Transform:
   - {fileID: 1513101856}
   - {fileID: 398606477}
   - {fileID: 958141703}
-  - {fileID: 2106135581}
   m_Father: {fileID: 636545383}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46492,6 +46497,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -46864,6 +46871,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -60379,6 +60388,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -67191,6 +67202,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -68288,63 +68301,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564117029}
   m_CullTransparentMesh: 1
---- !u!1001 &1564965025
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 872685873}
-    m_Modifications:
-    - target: {fileID: 6572824188943781900, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_Name
-      value: Printer
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_RootOrder
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -11.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
 --- !u!114 &1575845533 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7052693858851387953, guid: 6d18e26dcdb1aa742bbe0fb694f660de, type: 3}
@@ -72227,6 +72183,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -73013,6 +72971,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -74102,6 +74062,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -93745,6 +93707,8 @@ MonoBehaviour:
       itemindex: 
     Run_Materials: []
     Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
     Luck: -1
     Balance: 1
     BlockChance: 0
@@ -98785,11 +98749,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aae45c43a2ac7349bd3d742e92d5a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2106135581 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7036041363367210351, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
-  m_PrefabInstance: {fileID: 1564965025}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2106692153 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4933656227016282864, guid: 283bb50cdbd4db74bbeedb431bd2ab0f, type: 3}

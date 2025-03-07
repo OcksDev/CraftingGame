@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
                 cc.slots[1].Held_Item = weenor;
                 SaveSystem.Instance.ResetFile(dict);
             }
-
+            Gamer.Instance.CheckWeaponsBreak();
             StartCoroutine(ArrowSex());
         }
         selecteditem = 0;

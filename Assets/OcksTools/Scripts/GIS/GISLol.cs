@@ -462,8 +462,12 @@ public class GISLol : MonoBehaviour
         string e = wank.Description;
         if (wank.IsWeapon)
         {
+            /*
             e = $"{MaterialsDict[baller.Materials[0].index].Description}<br>{MaterialsDict[baller.Materials[1].index].Description}<br>{MaterialsDict[baller.Materials[2].index].Description}";
-            if (baller.GraftedMaterial.IsSet()) e += $"<br>{MaterialsDict[baller.GraftedMaterial.index].Description}";
+            if (baller.GraftedMaterial.IsSet()) e += $"<br>{MaterialsDict[baller.GraftedMaterial.index].Description}";*/
+
+            e = $"Quality: <o>{QualityName(baller.Quality)}</>";
+            e += $"<br>Uses Remaining: <g>{baller.UsesRemaining}</>";
         }
         if (wank.IsCraftable)
         {
@@ -482,7 +486,28 @@ public class GISLol : MonoBehaviour
         }
         return ColorText(e);
     }
-
+    public static string QualityName(int i)
+    {
+        if (i >= 500) return "Literally Hacking Lol";
+        if (i >= 100) return "Inhuman";
+        if (i >= 50) return "Godly";
+        if (i >= 25) return "Legendary";
+        if (i >= 20) return "Superior";
+        if (i >= 15) return "Awe Inspiring";
+        if (i == 14) return "Astounding";
+        if (i == 13) return "Incredible";
+        if (i == 12) return "Fabulous";
+        if (i == 11) return "Excellent";
+        if (i == 10) return "Exemplary";
+        if (i == 9) return "Noteworthy";
+        if (i == 8) return "Good";
+        if (i == 7) return "Respectable";
+        if (i == 6) return "Decent";
+        if (i == 5) return "Average";
+        if (i == 4) return "Passible";
+        if (i == 3) return "Shoddy";
+        return "Poor";
+    }
     public string ColorText(string e)
     {
         e = e.Replace("<g>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[0])}>"); //good effect
@@ -549,6 +574,8 @@ public class GISItem
     public List<GISMaterial> Run_Materials = new List<GISMaterial>();
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
     public Dictionary<string, int> AmountOfItems = new Dictionary<string, int>();
+    public int UsesRemaining = 5;
+    public int Quality = 5;
     public float Luck = -1;
     public float Balance = 1;
     public float BlockChance = 0;
@@ -695,6 +722,8 @@ public class GISItem
         CoinCost = sexnut.CoinCost;
         PickItems = sexnut.PickItems;
         SPEC2 = sexnut.SPEC2;
+        Quality = sexnut.Quality;
+        UsesRemaining = sexnut.UsesRemaining;
     }
     private void setdefaultvals()
     {
@@ -705,6 +734,8 @@ public class GISItem
         CustomName = "";
         CoinCost = 0;
         Luck = 0;
+        Quality = 5;
+        UsesRemaining = 5;
         Materials = new List<GISMaterial>();
         Run_Materials = new List<GISMaterial>();
         GraftedMaterial = new GISMaterial();
@@ -818,6 +849,8 @@ public class GISItem
             { "RunMats", "" },
             { "Graft", "" },
             { "Aspect", "" },
+            { "Quality", "5" },
+            { "Uses", "5" },
         };
         return e;
     }
@@ -828,10 +861,11 @@ public class GISItem
         string e = "";
         var def = GetDefaultData();
 
-        Data["Index"] = ItemIndex.ToString();
+        Data["Index"] = ItemIndex;
         Data["Count"] = Amount.ToString();
         Data["Name"] = CustomName;
-
+        Data["Quality"] = Quality.ToString();
+        Data["Uses"] = UsesRemaining.ToString();
 
         List<string> mats = new List<string>();
         int x = 0;
@@ -949,7 +983,8 @@ public class GISItem
                 }
             }
         }
-
+        UsesRemaining = int.Parse(Data["Uses"]);
+        Quality = int.Parse(Data["Quality"]);
         CompileItems();
     }
     public bool CanCraft()

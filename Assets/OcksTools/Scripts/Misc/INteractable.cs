@@ -155,6 +155,7 @@ public class INteractable : MonoBehaviour
                 break;
             case "StartGame":
                 if (PlayerFailsWeaponCheck()) return;
+                Gamer.Instance.DurabilityHit();
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor"));
                 break;
             case "ContinueRun":

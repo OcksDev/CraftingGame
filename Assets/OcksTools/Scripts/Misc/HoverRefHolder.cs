@@ -133,30 +133,30 @@ public class HoverRefHolder : MonoBehaviour
 
                 totalYchange -= 5 + 3f;
 
-                if (!itembase.IsWeapon)
+                LineTransform.gameObject.SetActive(true);
+                LineTransform.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
+                DescMesh.gameObject.SetActive(true);
+                DescMesh.text = GISLol.Instance.GetDescription(hover);
+                layoutr = DescMesh.GetComponent<ContentSizeFitter>();
+                layoutr.SetLayoutHorizontal();
+                layoutr.SetLayoutVertical();
+
+                totalYchange -= 10;
+                var halftdesc = DescTransform.sizeDelta / 2;
+                x = halftdesc.x + edgespace;
+                DescTransform.anchoredPosition = new Vector2(x, totalYchange - halftdesc.y);
+                if (DescTransform.sizeDelta.x > xexpand) xexpand = DescTransform.sizeDelta.x;
+                totalYchange -= DescTransform.sizeDelta.y;
+
+                totalYchange -= 10 + 3f;
+                /*if (!itembase.IsWeapon)
                 {
-                    LineTransform.gameObject.SetActive(true);
-                    LineTransform.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
-                    DescMesh.gameObject.SetActive(true);
-                    DescMesh.text = GISLol.Instance.GetDescription(hover);
-                    layoutr = DescMesh.GetComponent<ContentSizeFitter>();
-                    layoutr.SetLayoutHorizontal();
-                    layoutr.SetLayoutVertical();
-
-                    totalYchange -= 10;
-                    var halftdesc = DescTransform.sizeDelta / 2;
-                    x = halftdesc.x + edgespace;
-                    DescTransform.anchoredPosition = new Vector2(x, totalYchange - halftdesc.y);
-                    if (DescTransform.sizeDelta.x > xexpand) xexpand = DescTransform.sizeDelta.x;
-                    totalYchange -= DescTransform.sizeDelta.y;
-
-                    totalYchange -= 10 + 3f;
                 }
                 else
                 {
                     DescMesh.gameObject.SetActive(false);
                     LineTransform.gameObject.SetActive(false);
-                }
+                }*/
                 LineTransform2.anchoredPosition = new Vector2(0, totalYchange + 1.5f);
 
 
