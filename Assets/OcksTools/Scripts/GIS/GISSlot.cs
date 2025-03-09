@@ -217,6 +217,7 @@ public class GISSlot : MonoBehaviour
         bool right = InputManager.IsKeyDown("item_half");
         if (!(right || left)) return;
         if (!IsHovering()) return;
+        if (Gamer.Instance.checks[21]) return;
         switch (InteractFilter)
         {
             case "RockGive":

@@ -23,6 +23,7 @@ public class HoverDingle : MonoBehaviour
     void Update()
     {
         var g = GISLol.Instance;
+        if (Gamer.Instance.checks[21]) return;
         var wan = g.IsHoveringReal(gameObject);
         if (wan)
         {

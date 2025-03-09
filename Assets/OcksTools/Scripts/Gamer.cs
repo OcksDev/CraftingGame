@@ -119,6 +119,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["SkillSubBuy"].SetActive(checks[16]);
         Tags.refs["GrafterMenu"].SetActive(checks[18]);
         Tags.refs["AspectMenu"].SetActive(checks[19]);
+        Tags.refs["Minigame"].SetActive(checks[21]);
 
         Tags.refs["ItemeP"].SetActive(checks[20]);
         Tags.refs["ItemeR"].SetActive(checks[17]);
@@ -540,6 +541,10 @@ public class Gamer : MonoBehaviour
              if (checks[14])
             {
                 ToggleQuests();
+            }
+            else if(checks[21])
+            {
+                StartCoroutine(CloseMinigame());
             }
             else if(checks[0])
             {
@@ -2521,9 +2526,36 @@ public class Gamer : MonoBehaviour
     {
         if (CanCurrentCraft())
         {
-            StartCoroutine(CraftAnim());
+            thingl = StartCoroutine(OpenMinigame());
         }
     }
+    [HideInInspector]
+    public int MinigameScore = 0;
+    [HideInInspector]
+    public bool CompletedMinigame = false;
+    private Coroutine thingl;
+    public IEnumerator OpenMinigame()
+    {
+        checks[21] = true;
+        UpdateMenus();
+        CompletedMinigame = false;
+        var c = Tags.refs["Minigame"].GetComponent<Minigame>();
+        c.StartGame();
+        yield return new WaitUntil(() => { return CompletedMinigame; });
+        checks[21] = false;
+        UpdateMenus();
+        StartCoroutine(CraftAnim());
+    }
+    
+    public IEnumerator CloseMinigame()
+    {
+        if (thingl != null) StopCoroutine(thingl);
+        checks[21] = false;
+        UpdateMenus();
+        yield return null;
+    }
+
+
     public void AttemptGraft()
     {
         if (CanCurrentGraft())
@@ -2572,6 +2604,7 @@ public class Gamer : MonoBehaviour
         e.ItemIndex = CraftSex;
         e.Amount = 1;
         e.CustomName = a;
+        e.Quality = MinigameScore + 2;
         ItemNameInput.text = "";
         foreach (var ep in mattertyeysys[0].Materials)
         {
@@ -2585,6 +2618,7 @@ public class Gamer : MonoBehaviour
         {
             e.Materials.Add(ep);
         }
+        e.UsesRemaining = e.Quality;
         con.slots[3].Held_Item = e;
         if (e.Materials[0].GetName() != "Rock" && e.Materials[1].GetName() != "Rock" && e.Materials[2].GetName() != "Rock")
         {

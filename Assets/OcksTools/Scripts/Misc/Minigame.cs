@@ -12,10 +12,6 @@ public class Minigame : MonoBehaviour
     float rpos = -1;
     float fillperc = 0.15f;
     public int Score = 0;
-    private void Start()
-    {
-        StartGame();
-    }
     public void StartGame()
     {
         mult = 1;
@@ -56,6 +52,9 @@ public class Minigame : MonoBehaviour
     }
     public void Failhit()
     {
+        if (Gamer.Instance.CompletedMinigame) return;
+        Gamer.Instance.CompletedMinigame = true;
+        Gamer.Instance.MinigameScore = Score;
         mult = 0f;
     }
     public void RandomPos()

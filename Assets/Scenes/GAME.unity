@@ -343,7 +343,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &1518953
 MonoBehaviour:
@@ -14605,6 +14604,7 @@ GameObject:
   - component: {fileID: 360917686}
   - component: {fileID: 360917685}
   - component: {fileID: 360917687}
+  - component: {fileID: 360917688}
   m_Layer: 26
   m_Name: NormalRender
   m_TagString: Untagged
@@ -15437,6 +15437,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   namer: ItemeP
   nerd: {fileID: 1644118220}
+--- !u!114 &360917688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360917632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d17eddebf196574daf74b9ee36952e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namer: Minigame
+  nerd: {fileID: 782507077}
 --- !u!224 &366118863 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4933656227016282864, guid: 283bb50cdbd4db74bbeedb431bd2ab0f, type: 3}
@@ -16008,7 +16022,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &398606480
 MonoBehaviour:
@@ -17285,7 +17298,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &474944736
 MonoBehaviour:
@@ -46756,7 +46768,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &958141706
 MonoBehaviour:
@@ -47130,7 +47141,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &969245791
 MonoBehaviour:
@@ -60723,7 +60733,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &1429305080
 MonoBehaviour:
@@ -67614,7 +67623,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &1513101859
 MonoBehaviour:
@@ -72595,7 +72603,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &1749568977
 MonoBehaviour:
@@ -73459,7 +73466,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &1797857204
 MonoBehaviour:
@@ -74626,7 +74632,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   initindex: 0
   gup: {fileID: 1004085663}
   skills:
@@ -94271,7 +94276,6 @@ MonoBehaviour:
     IAMSPECIL: {fileID: 0}
     SPEC2: {fileID: 0}
     CoinCost: 0
-    PickItems: []
   memes: []
 --- !u!114 &2101065592
 MonoBehaviour:

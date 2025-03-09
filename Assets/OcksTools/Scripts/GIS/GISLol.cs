@@ -291,6 +291,7 @@ public class GISLol : MonoBehaviour
         hoverballer = null;
         foreach (var boner in All_Containers)
         {
+            if (Gamer.Instance.checks[21]) break;
             if (boner.Value.gameObject.activeInHierarchy)
             {
                 foreach (var bone in boner.Value.slots)
@@ -583,6 +584,8 @@ public class GISItem
     public GroundItem IAMSPECIL = null;
     public GroundItem SPEC2 = null;
     public long CoinCost = 0;
+    [System.NonSerialized]
+    [HideInInspector]
     public GISItem[] PickItems = null;
     public GISItem()
     {
