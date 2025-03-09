@@ -27,6 +27,7 @@ Bone:: Disturbingly warm
 Diamond:: I CAN SWING MY SWORD!
 Piss:: Smells tasty
 Brick:: "I'm all bricked up!"
+Dash:: Boner
 Grappling:: Launch a <o>Grappling Hook</> which pulls you toward itself when it lands.
 Capitalism:: Spend 1 <o>Coin</> to instantly kill the 3 nearest <e>Enemies</>. 
 SoulDrain:: All nearby <e>Enemies</> drop x2 their kill reward, but become <o>Soulless</>.<br><o>Soulless</> <e>Enemies</> do not drop a kill reward on death.

@@ -98,7 +98,7 @@ public class GISLol : MonoBehaviour
         {
             SkillsDict.Add(a.Name, a);
             if (a.Name == "Empty") continue;
-            if(!a.CanSpawn) continue;
+            if(!a.CanSpawn && a.Name != "Dash") continue;
             var newitem = new GISItem_Data();
             newitem.Name = a.Name;
             newitem.NameOverride = a.NameOverride;
