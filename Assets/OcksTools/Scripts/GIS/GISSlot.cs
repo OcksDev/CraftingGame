@@ -44,9 +44,8 @@ public class GISSlot : MonoBehaviour
                 break;
         }
     }
-    public bool FailToClick()
+    public bool FailToClick(GISItem pp)
     {
-        var pp = GISLol.Instance.Mouse_Held_Item;
         if (pp.ItemIndex == "Empty") return false;
         switch (InteractFilter)
         {
@@ -210,7 +209,7 @@ public class GISSlot : MonoBehaviour
     private void Update()
     {
         if (!CanInteract) return;
-        if (FailToClick()) return;
+        if (FailToClick(GISLol.Instance.Mouse_Held_Item)) return;
         if (balls == null) return;
         bool shift = InputManager.IsKey("item_alt");
         bool left = InputManager.IsKeyDown("item_select");
@@ -320,10 +319,71 @@ public class GISSlot : MonoBehaviour
                     SaveItemContainerData();
                     OnInteract();
                 }
+                else if(Gamer.Instance.checks[0] && Conte.Name != "Inventory")
+                {
+                    GISLol.Instance.GrantItem(Held_Item);
+                    Held_Item = new GISItem();
+                    SaveItemContainerData();
+                    OnInteract();
+                }
+                else if(Gamer.Instance.checks[0] && Conte.Name == "Inventory")
+                {
+                    GISContainer ee = null;
+                    if (Gamer.Instance.checks[2]) ee = GISLol.Instance.All_Containers["Equips"];
+                    if (Gamer.Instance.checks[1]) ee = GISLol.Instance.All_Containers["Crafting"];
+                    if (Gamer.Instance.checks[18]) ee = GISLol.Instance.All_Containers["Grafter"];
+                    if (Gamer.Instance.checks[19]) ee = GISLol.Instance.All_Containers["Aspecter"];
+
+                    if(ee != null)
+                    {
+                        foreach(var c in ee.slots)
+                        {
+                            if (c.Held_Item.ItemIndex != "Empty") continue;
+                            if (!c.FailToClick(Held_Item))
+                            {
+                                c.Held_Item = Held_Item;
+                                c.SaveItemContainerData();
+                                c.OnInteract();
+                                Held_Item = new GISItem();
+                                SaveItemContainerData();
+                                OnInteract();
+                                break;
+                            }
+                        }
+
+                    } 
+                }
+                else if(Gamer.Instance.checks[5] && Conte.Name == "ItemPickup" || Conte.Name == "RightNut")
+                {
+                    GISContainer ee = GISLol.Instance.All_Containers["LeftNut"];
+
+                    foreach (var c in ee.slots)
+                    {
+                        if (c.Held_Item.ItemIndex != "Empty") continue;
+                        c.Held_Item = Held_Item;
+                        c.OnInteract();
+                        Held_Item = new GISItem();
+                        OnInteract();
+                        break;
+                    }
+                }
             }
             else
             {
+                if (Gamer.Instance.checks[5] && Conte.Name == "ItemPickup" || Conte.Name == "LeftNut")
+                {
+                    GISContainer ee = GISLol.Instance.All_Containers["RightNut"];
 
+                    foreach (var c in ee.slots)
+                    {
+                        if (c.Held_Item.ItemIndex != "Empty") continue;
+                        c.Held_Item = Held_Item;
+                        c.OnInteract();
+                        Held_Item = new GISItem();
+                        OnInteract();
+                        break;
+                    }
+                }
             }
         }
         else
