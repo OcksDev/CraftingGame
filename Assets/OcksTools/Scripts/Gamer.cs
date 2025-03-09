@@ -1478,7 +1478,6 @@ public class Gamer : MonoBehaviour
     public void CheckWeaponsBreak()
     {
         var c = GISLol.Instance.All_Containers["Equips"];
-        Debug.Log("AB: " + c.slots[0].Held_Item.UsesRemaining);
         if (c.slots[0].Held_Item.UsesRemaining <= 0) c.slots[0].Held_Item = new GISItem();
         if (c.slots[1].Held_Item.UsesRemaining <= 0) c.slots[1].Held_Item = new GISItem();
         c.SaveTempContents();
@@ -2534,22 +2533,84 @@ public class Gamer : MonoBehaviour
     [HideInInspector]
     public bool CompletedMinigame = false;
     private Coroutine thingl;
+    private Color origcol;
+    private bool alreadyfoundsex = false;
+    [HideInInspector]
+    public bool Reachedtop = false;
     public IEnumerator OpenMinigame()
     {
+        if (animaim) yield break;
+        Reachedtop = false;
         checks[21] = true;
         UpdateMenus();
         CompletedMinigame = false;
         var c = Tags.refs["Minigame"].GetComponent<Minigame>();
         c.StartGame();
+        float x = 0;
+        var cc = c.BG.color;
+        if (alreadyfoundsex)
+        {
+            cc = origcol;
+        }
+        else
+        {
+            alreadyfoundsex = true;
+            origcol = cc;
+        }
+        var origa = cc.a;
+        cc.a = 0;
+        c.BG.color = cc;
+        while(x < 1)
+        {
+            x = Mathf.Clamp(x + (Time.deltaTime*2), 0, 1);
+            cc.a = Mathf.Lerp(0, origa, x);
+            c.BG.color = cc;
+            c.thin.position = Vector3.Lerp(c.tg2.position, c.tg1.position, RandomFunctions.EaseIn(x));
+            yield return null;
+        }
+        Reachedtop = true;
         yield return new WaitUntil(() => { return CompletedMinigame; });
+        animaim = true;
+        yield return new WaitForSeconds(0.25f);
+        x = 0;
+        cc = origcol;
+        while (x < 1)
+        {
+            x = Mathf.Clamp(x + (Time.deltaTime * 2), 0, 1);
+            cc.a = Mathf.Lerp(origa, 0, x);
+            c.BG.color = cc;
+            c.thin.position = Vector3.Lerp(c.tg1.position, c.tg2.position, RandomFunctions.EaseOut(x));
+            yield return null;
+        }
+        animaim = false;
         checks[21] = false;
         UpdateMenus();
         StartCoroutine(CraftAnim());
     }
-    
+    [HideInInspector]
+    public bool animaim=false;
     public IEnumerator CloseMinigame()
     {
+        if (animaim) yield break;
+        var c = Tags.refs["Minigame"].GetComponent<Minigame>();
+        animaim = true;
+        yield return new WaitUntil(() => { return Reachedtop; });
         if (thingl != null) StopCoroutine(thingl);
+        float x = 0;
+        var cc = origcol;
+        var origa = cc.a;
+        while (x < 1)
+        {
+            x = Mathf.Clamp(x + (Time.deltaTime * 2), 0, 1);
+            cc.a = Mathf.Lerp(origa, 0, x);
+            c.BG.color = cc;
+            c.thin.position = Vector3.Lerp(c.tg1.position, c.tg2.position, RandomFunctions.EaseOut(x));
+            yield return null;
+        }
+
+
+
+        animaim = false;
         checks[21] = false;
         UpdateMenus();
         yield return null;

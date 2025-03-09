@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.ParticleSystem;
 
 public class Minigame : MonoBehaviour
 {
     public Transform Rotato;
+    public Transform tg1;
+    public Transform tg2;
+    public Transform thin;
+    public Image BG;
     public Image Area;
     float mult = 1f;
     int rotm = 1;
@@ -22,9 +28,11 @@ public class Minigame : MonoBehaviour
     }
     void Update()
     {
+        if (!Gamer.Instance.Reachedtop) return;
         Rotato.Rotate(0, 0, (180*mult*rotm) * Time.deltaTime);
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            if (Gamer.Instance.animaim) return;
             var ee = Rotato.transform.rotation * Quaternion.Euler(0, 0, -rpos);
             var ww = ee.eulerAngles;
             Debug.Log(ww);
@@ -32,7 +40,8 @@ public class Minigame : MonoBehaviour
 
             float leen = 0.01f; // provides around 1.8 (0.5% of circle) degrees of lenience before and after the actual area 
 
-            if ((1-(ww.z/360))+(leen/2) <= fillperc+leen)
+            var ween = (ww.z / 360);
+            if ((1 - ween) <= fillperc + leen || ween < leen)
             {
                 SuccHit();
             }
@@ -44,7 +53,8 @@ public class Minigame : MonoBehaviour
     }
     public void SuccHit()
     {
-        if(fillperc >= 0.1) fillperc *= 0.9f;
+        var weenis = Instantiate(Gamer.Instance.ParticleSpawns[35], transform.position, Quaternion.identity).GetComponent<partShitBall>();
+        if (fillperc >= 0.1) fillperc *= 0.9f;
         if(mult < 2.9)mult += 0.20f;
         rotm *= -1;
         Score++;
@@ -52,6 +62,7 @@ public class Minigame : MonoBehaviour
     }
     public void Failhit()
     {
+        var weenis = Instantiate(Gamer.Instance.ParticleSpawns[36], transform.position, Quaternion.identity).GetComponent<partShitBall>();
         if (Gamer.Instance.CompletedMinigame) return;
         Gamer.Instance.CompletedMinigame = true;
         Gamer.Instance.MinigameScore = Score;

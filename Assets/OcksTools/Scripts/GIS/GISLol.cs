@@ -467,7 +467,7 @@ public class GISLol : MonoBehaviour
             e = $"{MaterialsDict[baller.Materials[0].index].Description}<br>{MaterialsDict[baller.Materials[1].index].Description}<br>{MaterialsDict[baller.Materials[2].index].Description}";
             if (baller.GraftedMaterial.IsSet()) e += $"<br>{MaterialsDict[baller.GraftedMaterial.index].Description}";*/
 
-            e = $"Quality: <o>{QualityName(baller.Quality)}</>";
+            e = $"Quality: <o>{QualityName(baller.Quality)} ({baller.Quality})</>";
             e += $"<br>Uses Remaining: <g>{baller.UsesRemaining}</>";
         }
         if (wank.IsCraftable)
@@ -819,6 +819,8 @@ public class GISItem
             //code to further compare goes here
             if(sexnut.GraftedMaterial.GetName() != GraftedMaterial.GetName()) return false;
             if(sexnut.AspectMaterial.GetName() != AspectMaterial.GetName()) return false;
+            if(sexnut.Quality != Quality) return false;
+            if(sexnut.UsesRemaining != UsesRemaining) return false;
         }
         return comp;
     }

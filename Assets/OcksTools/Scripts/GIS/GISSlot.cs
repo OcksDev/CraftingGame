@@ -215,6 +215,7 @@ public class GISSlot : MonoBehaviour
         bool shift = InputManager.IsKey("item_alt");
         bool left = InputManager.IsKeyDown("item_select");
         bool right = InputManager.IsKeyDown("item_half");
+        bool ctrl = InputManager.IsKey("item_quick");
         if (!(right || left)) return;
         if (!IsHovering()) return;
         if (Gamer.Instance.checks[21]) return;
@@ -295,6 +296,34 @@ public class GISSlot : MonoBehaviour
                 }
                 SaveItemContainerData();
                 OnInteract();
+            }
+        }
+        else if (ctrl && Held_Item.ItemIndex != "Empty")
+        {
+            if (left)
+            {
+                if (Gamer.Instance.checks[11] && Conte.Name == "Inventory")
+                {
+                    var wee = GISLol.Instance.AddVaultItem(new GISItem(Held_Item));
+                    if (wee)
+                    {
+                        foreach (var d in Gamer.Instance.spawnednerds)
+                        {
+                            d.UpdateDisplay();
+                        }
+                    }
+                    else
+                    {
+                        Gamer.Instance.LoadVaultPage(Gamer.Instance.currentvault);
+                    }
+                    Held_Item = new GISItem();
+                    SaveItemContainerData();
+                    OnInteract();
+                }
+            }
+            else
+            {
+
             }
         }
         else
