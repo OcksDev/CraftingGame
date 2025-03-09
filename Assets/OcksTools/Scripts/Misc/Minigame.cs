@@ -54,7 +54,7 @@ public class Minigame : MonoBehaviour
     public void SuccHit()
     {
         var weenis = Instantiate(Gamer.Instance.ParticleSpawns[35], transform.position, Quaternion.identity).GetComponent<partShitBall>();
-        if (fillperc >= 0.1) fillperc *= 0.9f;
+        if (fillperc >= 0.06) fillperc *= 0.9f;
         if(mult < 2.9)mult += 0.20f;
         rotm *= -1;
         Score++;
