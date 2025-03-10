@@ -611,7 +611,13 @@ public class PlayerController : MonoBehaviour
 
 
     float scrollcool;
+    
     private void LateUpdate()
+    {
+        AAA();
+    }
+
+    public void AAA(bool fu = true)
     {
         if (DeathDisable) return;
         dicksplit.rotation = Quaternion.identity;
@@ -620,7 +626,7 @@ public class PlayerController : MonoBehaviour
             if (InputManager.IsKeyDown(KeyCode.Alpha1, "player")) SwitchWeapon(0);
             else if (InputManager.IsKeyDown(KeyCode.Alpha2, "player")) SwitchWeapon(1);
             //scrollcool -= Time.deltaTime;
-            if(Input.mouseScrollDelta.y != 0 && !SaveSystem.Instance.NoScroll && Time.timeScale > 0.1f)
+            if (Input.mouseScrollDelta.y != 0 && !SaveSystem.Instance.NoScroll && Time.timeScale > 0.1f)
             {
                 scrollcool = 0.075f;
                 SwitchWeapon(selecteditem + (int)Input.mouseScrollDelta.y);
@@ -628,16 +634,19 @@ public class PlayerController : MonoBehaviour
             Gamer.Instance.CanInteractThisFrame = true;
         }
 
-        if (f < 1)
+        if (fu)
         {
-            f += Time.deltaTime * AttacksPerSecond;
-        }
-        if (f >= 1)
-        {
-            f = 1;
-            if (f2 > 0)
+            if (f < 1)
             {
-                f2 -= Time.deltaTime;
+                f += Time.deltaTime * AttacksPerSecond;
+            }
+            if (f >= 1)
+            {
+                f = 1;
+                if (f2 > 0)
+                {
+                    f2 -= Time.deltaTime;
+                }
             }
         }
 
@@ -666,10 +675,10 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Axe":
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, f) * reverse)) * transform.rotation;
-                    SwordFart.localPosition = new Vector3(Mathf.Sin(f * Mathf.PI*2) * -0.5f*reverse, Mathf.Sin(f*Mathf.PI)*6f, 0);
+                    SwordFart.localPosition = new Vector3(Mathf.Sin(f * Mathf.PI * 2) * -0.5f * reverse, Mathf.Sin(f * Mathf.PI) * 6f, 0);
                     var fff = Mathf.Cos(f * Mathf.PI);
                     fff *= fff;
-                    if(f >= 0.5f)
+                    if (f >= 0.5f)
                     {
                         MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (f * 360 * 2) + Mathf.Lerp(0, (70 * -reverse), fff));
                     }
@@ -693,7 +702,7 @@ public class PlayerController : MonoBehaviour
                         wankf *= wankf;
                     }
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 100 * wankf * reverse)) * transform.rotation;
-                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (Mathf.Sin(f*Mathf.PI/2) * 360*2));
+                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (Mathf.Sin(f * Mathf.PI / 2) * 360 * 2));
                     break;
                 case "Spear":
                     if (!sexed && g <= 0.5f)
@@ -717,6 +726,11 @@ public class PlayerController : MonoBehaviour
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 11 * reverse)) * transform.rotation;
                     SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g) * -reverse, Mathf.Lerp(0.3f, -2f, g), 0);
                     break;
+                case "Wand":
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-100, 100, g) * reverse)) * transform.rotation;
+                    MyAssHurts.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(80, -80, g) * reverse)) * SwordFart.rotation;
+                    SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, 0.5f, g) * reverse, 0, 0);
+                    break;
             }
             if (!Gamer.WithinAMenu)
             {
@@ -729,12 +743,15 @@ public class PlayerController : MonoBehaviour
                     case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
                     case "Axe": SwordFart.localScale = new Vector3(1, 1, 1); break;
                     case "Blowdart": SwordFart.localScale = new Vector3(1, 1, 1); break;
+                    case "Wand":
                     case "Knife": SwordFart.localScale = new Vector3(-reverse, 1, 1); break;
                     default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
                 }
             }
         }
     }
+
+
     private bool NoNoSwitchyBazungus = false;
     public void SwitchWeapon(int s3x)
     {
@@ -1383,6 +1400,15 @@ public class PlayerController : MonoBehaviour
                 Shart.PreCritted = -1;
                 SoundSystem.Instance.PlaySound(11, true, 0.15f, 1f);
                 break;
+            case "Wand":
+                s = Instantiate(SlashEffect[0], transform.position + transform.up * 2.3f, transform.rotation);
+                s.GetComponent<SpriteRenderer>().flipX = reverse > 0;
+                s.GetComponent<Slasher>().wait = (0.1f * 3) / AttacksPerSecond;
+                reverse *= -1;
+                HitCollider = HitColliders[0];
+                Shart.PreCritted = -1;
+                SoundSystem.Instance.PlaySound(11, true, 0.15f, 1f);
+                break;
             case "Axe":
                 reverse *= -1;
                 HitCollider = HitColliders[2];
@@ -1580,6 +1606,7 @@ public class PlayerController : MonoBehaviour
 
         if (isrealowner && Gamer.IsMultiplayer)ServerGamer.Instance.MessageServerRpc(RandomFunctions.Instance.ClientID, "PAtt", spawnData.Hidden_Data[0]);
         bowsextimer = 0;
+        AAA(false);
     }
 
     public DamageProfile GetDamageProfile()
