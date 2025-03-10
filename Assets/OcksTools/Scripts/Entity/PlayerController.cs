@@ -363,6 +363,10 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond = 2f;
                     Damage = 10;
                     break;
+                case "Knife":
+                    AttacksPerSecond = 4.5f;
+                    Damage = 5;
+                    break;
                 case "Crossbow":
                     AttacksPerSecond = 4.5f;
                     Damage = 4;
@@ -702,6 +706,17 @@ public class PlayerController : MonoBehaviour
                     SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 11 * reverse)) * transform.rotation;
                     SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g) * -reverse, Mathf.Lerp(0.5f, -2.5f, g), 0);
                     break;
+                case "Knife":
+                    if (!sexed && g <= 0.5f)
+                    {
+                        reverse *= -1;
+                        sexed = true;
+                    }
+                    g = Mathf.Sin(g * Mathf.PI);
+                    g = 1 - g;
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, 11 * reverse)) * transform.rotation;
+                    SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, -1.5f, g) * -reverse, Mathf.Lerp(0.3f, -2f, g), 0);
+                    break;
             }
             if (!Gamer.WithinAMenu)
             {
@@ -714,6 +729,7 @@ public class PlayerController : MonoBehaviour
                     case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
                     case "Axe": SwordFart.localScale = new Vector3(1, 1, 1); break;
                     case "Blowdart": SwordFart.localScale = new Vector3(1, 1, 1); break;
+                    case "Knife": SwordFart.localScale = new Vector3(-reverse, 1, 1); break;
                     default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
                 }
             }
@@ -1382,6 +1398,16 @@ public class PlayerController : MonoBehaviour
                 s2.wait = (0.05f * 1.5f) / AttacksPerSecond;
                 s2.speedmult = 8f;
                 HitCollider = HitColliders[1];
+                Shart.PreCritted = -1;
+                SoundSystem.Instance.PlaySound(12, true, 0.15f, 1f);
+                break;
+            case "Knife":
+                s = Instantiate(SlashEffect[1], transform.position + transform.up * 1f, transform.rotation);
+                s.GetComponent<SpriteRenderer>().flipX = reverse > 0;
+                s2 = s.GetComponent<Slasher>();
+                s2.wait = (0.05f * 1.5f) / AttacksPerSecond;
+                s2.speedmult = 8f;
+                HitCollider = HitColliders[3];
                 Shart.PreCritted = -1;
                 SoundSystem.Instance.PlaySound(12, true, 0.15f, 1f);
                 break;

@@ -187,6 +187,14 @@ public class GISDisplay : MonoBehaviour
                         mysprites = GISLol.Instance.MaterialsDict[fallmian].TDaggerParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].TDaggerParts;
                         break;
+                    case "Knife":
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].KnifeParts;
+                        defaultsprites = GISLol.Instance.MaterialsDict[fall].KnifeParts;
+                        break;
+                    case "Wand":
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].WandParts;
+                        defaultsprites = GISLol.Instance.MaterialsDict[fall].WandParts;
+                        break;
                 }
 
                 if (index >= mysprites.Length || mysprites[index] == null || e.IsOverlay)
