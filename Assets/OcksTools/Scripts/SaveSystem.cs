@@ -106,6 +106,18 @@ public class SaveSystem : MonoBehaviour
         }
         Gamer.Instance.TimeOfQuest = double.Parse(GetString("questtime", "-1", dict));
 
+
+
+        list = Converter.StringToList(GetString("uniques", "", dict), "<->");
+        GISLol.Instance.UniqueCrafts.Clear();
+        foreach (var a in list)
+        {
+            if (a == "") continue;
+            GISLol.Instance.UniqueCrafts.Add(Converter.StringToList(a));
+        }
+
+
+
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
         Gamer.Instance.UpdateShaders();
         Gamer.Instance.AttemptAddLogbookItem("Rock");
@@ -168,6 +180,12 @@ public class SaveSystem : MonoBehaviour
         SetString("quests", Converter.ListToString(list), dict);
         SetString("questtime", Gamer.Instance.TimeOfQuest.ToString(), dict);
 
+        list.Clear();
+        foreach (var a in GISLol.Instance.UniqueCrafts)
+        {
+            list.Add(Converter.ListToString(a));
+        }
+        SetString("uniques", Converter.ListToString(list, "<->"), dict);
         SaveAllData?.Invoke();
         SaveDataToFile(dict);
     }

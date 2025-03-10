@@ -2681,6 +2681,9 @@ public class Gamer : MonoBehaviour
         }
         e.UsesRemaining = e.Quality;
         con.slots[3].Held_Item = e;
+
+        if(GISLol.Instance.IsUniqueCraft(e)) GISLol.Instance.AddUniqueCraft(e);
+
         if (e.Materials[0].GetName() != "Rock" && e.Materials[1].GetName() != "Rock" && e.Materials[2].GetName() != "Rock")
         {
             QuestProgressIncrease("Craft", e.ItemIndex);

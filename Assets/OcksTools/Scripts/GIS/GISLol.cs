@@ -36,6 +36,7 @@ public class GISLol : MonoBehaviour
     public List<Color32> lorecharcolors = new List<Color32>();
     public List<string> nonowords = new List<string>();
     public Dictionary<GISItem, int> VaultItems = new Dictionary<GISItem, int>();
+    public List<List<string>> UniqueCrafts = new List<List<string>>();
 
     public Dictionary<string,GISContainer> All_Containers = new Dictionary<string, GISContainer>();
     public Dictionary<string, string> LogbookDiscoveries = new Dictionary<string, string>();
@@ -456,6 +457,36 @@ public class GISLol : MonoBehaviour
         }
         if(foundc)founddaddy = true;
     }
+
+
+    public bool IsUniqueCraft(GISItem item)
+    {
+        HashSet<string> mats = new HashSet<string>();
+        mats.Add(item.Materials[0].GetName());
+        mats.Add(item.Materials[1].GetName());
+        mats.Add(item.Materials[2].GetName());
+        if (mats.Contains("Rock")) return false;
+        foreach(var a in UniqueCrafts)
+        {
+            if (mats.Contains(a[0]) && mats.Contains(a[1]) && mats.Contains(a[2])) return false;
+        }
+        return true;
+    }
+    public void AddUniqueCraft(GISItem item)
+    {
+        UniqueCrafts.Add(new List<string>()
+        {
+            item.Materials[0].GetName(),
+            item.Materials[1].GetName(),
+            item.Materials[2].GetName(),
+        });
+        var notif = new OXNotif();
+        notif.Time = 3;
+        notif.Title = "New Unique Craft";
+        notif.BackgroundColor1 = new Color32(3, 123, 252, 255);
+        NotificationSystem.Instance.AddNotif(notif);
+    }
+
 
     public string GetDescription(GISItem baller, bool EXTRA = false)
     {
