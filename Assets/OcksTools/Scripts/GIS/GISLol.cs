@@ -461,14 +461,26 @@ public class GISLol : MonoBehaviour
 
     public bool IsUniqueCraft(GISItem item)
     {
-        HashSet<string> mats = new HashSet<string>();
+        List<string> mats = new List<string>();
         mats.Add(item.Materials[0].GetName());
         mats.Add(item.Materials[1].GetName());
         mats.Add(item.Materials[2].GetName());
         if (mats.Contains("Rock")) return false;
         foreach(var a in UniqueCrafts)
         {
-            if (mats.Contains(a[0]) && mats.Contains(a[1]) && mats.Contains(a[2])) return false;
+            if (mats.Contains(a[0]))
+            {
+                var cc = new List<string>(mats);
+                cc.Remove(a[0]);
+                if (cc.Contains(a[1]))
+                {
+                    cc.Remove(a[1]);
+                    if (cc.Contains(a[2]))
+                    {
+                        return false;
+                    }
+                }
+            }
         }
         return true;
     }
