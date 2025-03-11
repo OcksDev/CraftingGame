@@ -367,6 +367,9 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond = 4.5f;
                     Damage = 5;
                     break;
+                case "Wand":
+                    Damage = 5;
+                    break;
                 case "Crossbow":
                     AttacksPerSecond = 4.5f;
                     Damage = 4;
@@ -1401,13 +1404,29 @@ public class PlayerController : MonoBehaviour
                 SoundSystem.Instance.PlaySound(11, true, 0.15f, 1f);
                 break;
             case "Wand":
-                s = Instantiate(SlashEffect[0], transform.position + transform.up * 2.3f, transform.rotation);
-                s.GetComponent<SpriteRenderer>().flipX = reverse > 0;
-                s.GetComponent<Slasher>().wait = (0.1f * 3) / AttacksPerSecond;
+
+                var wankiwa = RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                var wankiwaa = RandomFunctions.Instance.NoZ(MyAssHurts.position);
+                s = Instantiate(SlashEffect[12], MyAssHurts.position + (wankiwa-wankiwaa).normalized*6, RandomFunctions.PointAtPoint2D(wankiwaa, wankiwa, 0), Gamer.Instance.balls);
+                s3 = s.GetComponent<HitBalls>();
+
+                s3.attackProfile = Shart;
+                s3.hsh *= -reverse;
+                epe *= -0.5f;
+
+                Color fcol = Color.Lerp(GISLol.Instance.MaterialsDict[mainweapon.Materials[0].index].GetVisColor(), GISLol.Instance.MaterialsDict[mainweapon.Materials[1].index].GetVisColor(), 0.5f);
+                fcol = Color.Lerp(fcol, GISLol.Instance.MaterialsDict[mainweapon.Materials[2].index].GetVisColor(), 0.33f);
+
+                fcol.a = 0.7f;
+
+                s3.wandu.sp.color = fcol;
+                var aaaa = s3.wandu.pp.main;
+                aaaa.startColor = fcol;
+
+
+                HitCollider = null;
                 reverse *= -1;
-                HitCollider = HitColliders[0];
-                Shart.PreCritted = -1;
-                SoundSystem.Instance.PlaySound(11, true, 0.15f, 1f);
+                SoundSystem.Instance.PlaySound(9, true, 0.8f, 0.8f);
                 break;
             case "Axe":
                 reverse *= -1;

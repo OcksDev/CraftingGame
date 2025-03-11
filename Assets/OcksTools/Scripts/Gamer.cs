@@ -1406,7 +1406,7 @@ public class Gamer : MonoBehaviour
                 w2.target = Tags.refs["LeftItemNut"].transform;
                 if (GISLol.Instance.ItemsDict[leftnut.slots[i].Held_Item.ItemIndex].IsCraftable)
                 {
-                    w2.img.color = GISLol.Instance.MaterialsDict[leftnut.slots[i].Held_Item.ItemIndex].ColorMod;
+                    w2.img.color = GISLol.Instance.MaterialsDict[leftnut.slots[i].Held_Item.ItemIndex].GetVisColor();
                 }
                 leftnut.slots[i].Held_Item = new GISItem();
                 leftnut.slots[i].GetComponent<Image>().enabled = false;
@@ -1420,7 +1420,7 @@ public class Gamer : MonoBehaviour
                 w2.target = Tags.refs["RightItemNut"].transform;
                 if (GISLol.Instance.ItemsDict[rightnut.slots[i].Held_Item.ItemIndex].IsCraftable)
                 {
-                    w2.img.color = GISLol.Instance.MaterialsDict[rightnut.slots[i].Held_Item.ItemIndex].ColorMod;
+                    w2.img.color = GISLol.Instance.MaterialsDict[rightnut.slots[i].Held_Item.ItemIndex].GetVisColor();
                 }
                 rightnut.slots[i].Held_Item = new GISItem();
                 rightnut.slots[i].GetComponent<Image>().enabled = false;
@@ -2648,7 +2648,7 @@ public class Gamer : MonoBehaviour
             w2.speed = 9f;
             if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
             {
-                w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].ColorMod;
+                w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].GetVisColor();
             }
             var aa = con.slots[i].Held_Item;
             mattertyeysys.Add(aa);
@@ -2705,7 +2705,7 @@ public class Gamer : MonoBehaviour
             w2.speed = 9f;
             if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
             {
-                w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].ColorMod;
+                w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].GetVisColor();
             }
             var aa = con.slots[i].Held_Item;
             mattertyeysys.Add(aa);

@@ -680,6 +680,7 @@ MonoBehaviour:
   - {fileID: 819779555498870401, guid: abc19386bc7970d458c0cd1156507aea, type: 3}
   - {fileID: 3322044403729835623, guid: fb19ddca38cccd04d852e947fe3ba85b, type: 3}
   - {fileID: 2312784775626904013, guid: 2d8fee9afef5e344ba14d5c71eb36468, type: 3}
+  - {fileID: 2278403275201244645, guid: c2e77441f76adeb4ba24c1dd2f148965, type: 3}
   HitCollider: {fileID: 8591088333642842602}
   HitColliders:
   - {fileID: 8591088333642842602}

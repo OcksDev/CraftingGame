@@ -22,6 +22,7 @@ public class HitBalls : MonoBehaviour
     public List<EntityOXS> EnemeisPenis = new List<EntityOXS>();
     public CircleCollider2D coll;
     public Rigidbody2D ridig;
+    public WandBeamSex wandu;
 
     private void Start()
     {
@@ -49,6 +50,7 @@ public class HitBalls : MonoBehaviour
     {
         switch (type)
         {
+            case "Beam":
             case "Wave": break;
             default:
                 EnemeisPenis.Clear();

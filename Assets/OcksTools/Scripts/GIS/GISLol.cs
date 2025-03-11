@@ -1126,7 +1126,8 @@ public class GISMaterial_Data
     public string Name = "Null";
     public string Description;
     public Color32 ColorMod = new Color32(255,255,255,255);
-    public Color32 OverlayColorMod = new Color32(255,255,255,255);
+    public Color32 OverlayColorMod = new Color32(255, 255, 255, 255);
+    public Color32 VisColor = new Color32(255, 255, 255, 255);
     public Sprite[] SwordParts;
     public Sprite[] BowParts;
     public Sprite[] SpearParts;
@@ -1141,7 +1142,15 @@ public class GISMaterial_Data
     public string fallthroughmaterial = "Rock";
     public string fallthroughmaterialmian = "";
     public bool IsOverlay = false;
+    public bool UseVisCol = false;
     public bool ignorecolorforcumimg = true;
+
+
+    public Color GetVisColor()
+    {
+        return UseVisCol ? VisColor : ColorMod;
+    }
+
 }
 [Serializable]
 public class EntityEffect_Data

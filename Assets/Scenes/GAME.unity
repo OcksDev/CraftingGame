@@ -91026,6 +91026,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].UseVisCol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[19].IsOverlay
       value: 1
       objectReference: {fileID: 0}
@@ -91039,6 +91043,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[22].IsOverlay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].UseVisCol
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
@@ -91346,6 +91354,10 @@ PrefabInstance:
       value: 4284743728
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].VisColor.rgba
+      value: 4293340550
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[19].ColorMod.rgba
       value: 4286808963
       objectReference: {fileID: 0}
@@ -91360,6 +91372,10 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[22].ColorMod.rgba
       value: 4278531163
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].VisColor.rgba
+      value: 4281380136
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[23].ColorMod.rgba
@@ -91738,6 +91754,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[12].WandParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[12].ignorecolorforcumimg
       value: 1
       objectReference: {fileID: 0}
@@ -91810,6 +91830,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].WandParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[18].ignorecolorforcumimg
       value: 1
       objectReference: {fileID: 0}
@@ -91820,6 +91844,10 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[19].OverlayColorMod.rgba
       value: 1275068671
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[19].WandParts.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[19].ignorecolorforcumimg
@@ -91854,6 +91882,10 @@ PrefabInstance:
       value: 4281545523
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[21].WandParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[21].ignorecolorforcumimg
       value: 1
       objectReference: {fileID: 0}
@@ -91864,6 +91896,10 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[22].OverlayColorMod.rgba
       value: 4280320026
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].WandParts.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[22].ignorecolorforcumimg
@@ -91990,6 +92026,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[12].KnifeParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[12].SpearParts.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -92038,11 +92078,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].KnifeParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[18].SpearParts.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[18].SwordParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[19].KnifeParts.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
@@ -92078,11 +92126,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[21].KnifeParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[21].SpearParts.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[21].SwordParts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].KnifeParts.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
@@ -92232,7 +92288,7 @@ PrefabInstance:
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[0].WandParts.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 8e613cb1ccef5e345ac463f3bec71719, type: 3}
+      objectReference: {fileID: 21300000, guid: 31f37f569ad921240867972985de634a, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[10].AxeParts.Array.data[0]
       value: 
@@ -92654,6 +92710,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[12].WandParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2e4dc3884450efb44981cae906288811, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[12].WandParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 908be4f3cc7d0184499fb3d1cf597c88, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[12].WandParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 901e27cffb89c1b4ea20f28e8eb12f1f, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[12].fallthroughmaterialmian
       value: 
       objectReference: {fileID: 0}
@@ -92774,6 +92842,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].WandParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: bfd65f18aef5bc447858bcc74c4b9a4c, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].WandParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: fea70a5506a25f24a934452f2f654a1d, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].WandParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 8ad3afb48eced0e45ad028fa8d0492e8, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[18].fallthroughmaterialmian
       value: 
       objectReference: {fileID: 0}
@@ -92793,6 +92873,18 @@ PrefabInstance:
       propertyPath: Materials.Array.data[19].TDaggerParts.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[19].WandParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: f8eda26bc54a6864ba1d1a5f151ea9f7, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[19].WandParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: bd1aa6632a6ef504981f448db5936874, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[19].WandParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: f4f1de056173e8544a4b7365c8c98625, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[19].fallthroughmaterialmian
       value: 
@@ -92866,6 +92958,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[21].WandParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 781dea77b3c935246b4469dbe0ac4268, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[21].WandParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 090f0d766d40c77489f070b842edf53e, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[21].WandParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: dd7c642bccde3824ca98c00ebb2cc39f, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[21].fallthroughmaterialmian
       value: 
       objectReference: {fileID: 0}
@@ -92885,6 +92989,18 @@ PrefabInstance:
       propertyPath: Materials.Array.data[22].TDaggerParts.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].WandParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 351acbba4f9f54246b965768a7c078c0, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].WandParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 294715aa6a39d864b998a7e84607d695, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].WandParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 54a6880433408854496913f8fac08914, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[22].fallthroughmaterialmian
       value: 
@@ -93198,6 +93314,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[12].KnifeParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: b17df4e95f8022e45b152dcb961a1fce, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[12].KnifeParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: c2d5f91dd2b7e564aa533bd4b67940dd, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[12].KnifeParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1c1d24b143ab68c45874712f38b54d27, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[12].SawbladeParts.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -93390,6 +93518,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].KnifeParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e5ff11de8356c04782aa34ff84cf0d4, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].KnifeParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: aa5652180313edd4cb193e4704ae4a9e, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[18].KnifeParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 4a453fbbb800a434f9058b9e81dec12f, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[18].SawbladeParts.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -93421,6 +93561,18 @@ PrefabInstance:
       propertyPath: Materials.Array.data[19].CrossbowParts.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[19].KnifeParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0cbd9288c7408884ab679eb7f642409a, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[19].KnifeParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0264572cdebd7bc449fafa485dd48823, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[19].KnifeParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 40454247c9c3f15478e4e50417b11717, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[19].SawbladeParts.Array.size
       value: 3
@@ -93498,6 +93650,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[21].KnifeParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f6382ff9ccceba49bd3dce76b67e587, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[21].KnifeParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 582b27e7342c1e34b9d9971715eed20e, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[21].KnifeParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 5dbef31115aa5704aa11481444835316, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[21].SawbladeParts.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -93529,6 +93693,18 @@ PrefabInstance:
       propertyPath: Materials.Array.data[22].CrossbowParts.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].KnifeParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: a595ed1f3ea2f2744b9e3580f0a30bef, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].KnifeParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 63889aab49a139c40b100a5890cdcc83, type: 3}
+    - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: Materials.Array.data[22].KnifeParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 442b8e626d1ef5b40ab20b39125e33c6, type: 3}
     - target: {fileID: 6570595859471956945, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: Materials.Array.data[22].SawbladeParts.Array.size
       value: 3
