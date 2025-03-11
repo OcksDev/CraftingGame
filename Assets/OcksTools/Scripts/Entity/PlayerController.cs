@@ -280,6 +280,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => { return curfloor != Gamer.CurrentFloor; });
         goto boner;
     }
+    public const float BaseMoveSpeed = 1.5f;
     public void SetData()
     {
         var c = GISLol.Instance.All_Containers["Equips"];
@@ -322,7 +323,7 @@ public class PlayerController : MonoBehaviour
         var OLDPERC = entit.Health / entit.Max_Health;
         var OLDPERCDASH = DashCoolDown / MaxDashCooldown;
         CritChance = 0.01f;
-        working_move_speed = 1.5f;
+        working_move_speed = BaseMoveSpeed; //1.5f
         Damage = 7;
         WeaponDamageMod = 1;
         TotalDamageMod = 1;
@@ -368,7 +369,7 @@ public class PlayerController : MonoBehaviour
                     Damage = 5;
                     break;
                 case "Wand":
-                    Damage = 5;
+                    Damage = 6;
                     break;
                 case "Crossbow":
                     AttacksPerSecond = 4.5f;
@@ -597,6 +598,9 @@ public class PlayerController : MonoBehaviour
                 case "Aspect Of Critical":
                     CritChance *= 2;
                     SkillCooldownMult *= 2;
+                    break;
+                case "Aspect Of Fission":
+                    working_move_speed *= 0.7f;
                     break;
             }
         }
@@ -831,6 +835,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        float jj = 1;
+        if (mainweapon.ReadItemAmount("Aspect Of Fission") > 0)
+        {
+            jj = move_speed / BaseMoveSpeed;
+        }
         if (isrealowner)
         {
             SetMoveSpeed();
@@ -853,9 +862,7 @@ public class PlayerController : MonoBehaviour
                 if (Skills[i].Stacks == xx) continue;
                 if (Skills[i].IsHeld && GISLol.Instance.SkillsDict[Skills[i].Name].CanHold) continue;
                 if (GISLol.Instance.SkillsDict[Skills[i].Name].OnlyFillInCombat && Gamer.Instance.CurrentRoom == null) continue;
-
-
-                Skills[i].Timer = Mathf.Max(Skills[i].Timer - (sex / SkillCooldownMult), 0);
+                Skills[i].Timer = Mathf.Max(Skills[i].Timer - ((sex / SkillCooldownMult)*jj), 0);
                 Skills[i].usecool = Mathf.Max(Skills[i].usecool - Time.deltaTime, 0);
                 if(Skills[i].Timer <= 0)
                 {
@@ -902,7 +909,7 @@ public class PlayerController : MonoBehaviour
             rigid.velocity += momentum;
             if (isrealowner)
             {
-                DashCoolDown = Mathf.Clamp(DashCoolDown + sex, 0, MaxDashCooldown * 3);
+                DashCoolDown = Mathf.Clamp(DashCoolDown + sex * jj, 0, MaxDashCooldown * 3);
                 bool candash = DashCoolDown >= MaxDashCooldown && !IsDashing;
                 if (candash && InputBuffer.Instance.GetBuffer("Dash"))
                 {
@@ -1454,6 +1461,7 @@ public class PlayerController : MonoBehaviour
                 s2.speedmult = 8f;
                 HitCollider = HitColliders[3];
                 Shart.PreCritted = -1;
+                epe *= 0.6f;
                 SoundSystem.Instance.PlaySound(12, true, 0.15f, 1f);
                 break;
             case "Crossbow":

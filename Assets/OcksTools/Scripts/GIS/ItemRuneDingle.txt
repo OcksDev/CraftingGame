@@ -84,3 +84,4 @@ Aspect Of Skill:: <g>x0.5</> Skill Cooldown<br><b>x0.5</> Attack Damage
 Aspect Of Lightning:: <g>50%</> chance on hit to shoot <o>Lightning</><br>with 50% Damage (max of 4 bounces)<br><b>x0.5</> Attack Damage
 Aspect Of Unscalability:: <g>x2</> Total Damage<br><b>x0.25</> Attack Damage
 Aspect Of Critical:: <g>x2</> Crit Chance<br><b>x2</> Skill Cooldown
+Aspect Of Fission:: All <g>Movement Speed Changes</> apply to Skill Cooldown<br><b>x0.7</> Movement Speed
