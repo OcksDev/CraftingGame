@@ -1407,7 +1407,7 @@ public class PlayerController : MonoBehaviour
 
                 var wankiwa = RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 var wankiwaa = RandomFunctions.Instance.NoZ(MyAssHurts.position);
-                s = Instantiate(SlashEffect[12], MyAssHurts.position + (wankiwa-wankiwaa).normalized*6, RandomFunctions.PointAtPoint2D(wankiwaa, wankiwa, 0), Gamer.Instance.balls);
+                s = Instantiate(SlashEffect[12], MyAssHurts.position + (wankiwa-wankiwaa).normalized*5.5f, RandomFunctions.PointAtPoint2D(wankiwaa, wankiwa, 0), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
 
                 s3.attackProfile = Shart;
