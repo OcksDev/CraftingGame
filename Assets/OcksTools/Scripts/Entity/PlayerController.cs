@@ -367,6 +367,7 @@ public class PlayerController : MonoBehaviour
                 case "Knife":
                     AttacksPerSecond = 4.5f;
                     Damage = 5;
+                    working_move_speed *= 1.2f;
                     break;
                 case "Wand":
                     Damage = 6;
@@ -909,7 +910,7 @@ public class PlayerController : MonoBehaviour
             rigid.velocity += momentum;
             if (isrealowner)
             {
-                DashCoolDown = Mathf.Clamp(DashCoolDown + sex * jj, 0, MaxDashCooldown * 3);
+                DashCoolDown = Mathf.Clamp(DashCoolDown + (sex * jj), 0, MaxDashCooldown * 3);
                 bool candash = DashCoolDown >= MaxDashCooldown && !IsDashing;
                 if (candash && InputBuffer.Instance.GetBuffer("Dash"))
                 {
@@ -1421,8 +1422,7 @@ public class PlayerController : MonoBehaviour
                 s3.hsh *= -reverse;
                 epe *= -0.5f;
 
-                Color fcol = Color.Lerp(GISLol.Instance.MaterialsDict[mainweapon.Materials[0].index].GetVisColor(), GISLol.Instance.MaterialsDict[mainweapon.Materials[1].index].GetVisColor(), 0.5f);
-                fcol = Color.Lerp(fcol, GISLol.Instance.MaterialsDict[mainweapon.Materials[2].index].GetVisColor(), 0.33f);
+                Color fcol = GISLol.Instance.MaterialsDict[mainweapon.Materials[2].index].GetVisColor();
 
                 fcol.a = 0.7f;
 
@@ -1458,7 +1458,7 @@ public class PlayerController : MonoBehaviour
                 s.GetComponent<SpriteRenderer>().flipX = reverse > 0;
                 s2 = s.GetComponent<Slasher>();
                 s2.wait = (0.05f * 1.5f) / AttacksPerSecond;
-                s2.speedmult = 8f;
+                s2.speedmult = 3f;
                 HitCollider = HitColliders[3];
                 Shart.PreCritted = -1;
                 epe *= 0.6f;
