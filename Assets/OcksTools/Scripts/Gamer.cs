@@ -2326,7 +2326,7 @@ public class Gamer : MonoBehaviour
         {
             if (!noget)
             {
-                e.furniture = OXComponent.GetComponent<Furniture>(shart);
+                e.furniture = shart.GetComponent<Furniture>();
                 e.DoOnTouch += e.furniture.OnTouch;
             }
             e.type = "Furniture";
