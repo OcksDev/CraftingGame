@@ -73,6 +73,18 @@ public class HitBalls : MonoBehaviour
                     }
                 }
                 break;
+            case "Acid":
+                for (int i = 0; i < hitdict.Count; i++)
+                {
+                    var x = hitdict.ElementAt(i);
+                    hitdict[x.Key] = hitdict[x.Key] - 1;
+                    if (x.Value <= 0)
+                    {
+                        hitdict.Remove(x.Key);
+                        i--;
+                    }
+                }
+                break;
             case "Boomerang":
                 specialsharts[0].transform.rotation *= Quaternion.Euler(0, 0, hsh);
                 hsh *= 0.99f;
@@ -81,15 +93,18 @@ public class HitBalls : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (type == "Shuriken")
+        switch (type)
         {
-            if (!hitdict.ContainsKey(collision.gameObject))
-            {
-                Collisonsns(collision);
-            }
+            case "Shuriken":
+            case "Acid":
+                if (!hitdict.ContainsKey(collision.gameObject))
+                {
+                    Collisonsns(collision);
+                }
+                break;
+            default: Collisonsns(collision); break;
         }
-        else
-            Collisonsns(collision);
+           
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -215,6 +230,9 @@ public class HitBalls : MonoBehaviour
                             break;
                         case "Shuriken":
                             hitdict.Add(collision.gameObject, 35);
+                            break;
+                        case "Acid":
+                            hitdict.Add(collision.gameObject, 50);
                             break;
                         case "Wave":
                             if(e != null && e.sexy != null)

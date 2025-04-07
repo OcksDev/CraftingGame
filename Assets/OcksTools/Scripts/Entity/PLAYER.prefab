@@ -310,6 +310,7 @@ MonoBehaviour:
   EnemeisPenis: []
   coll: {fileID: 0}
   ridig: {fileID: 0}
+  wandu: {fileID: 0}
   ISDEAD: 0
 --- !u!58 &2048564359178978501
 CircleCollider2D:
@@ -681,6 +682,7 @@ MonoBehaviour:
   - {fileID: 3322044403729835623, guid: fb19ddca38cccd04d852e947fe3ba85b, type: 3}
   - {fileID: 2312784775626904013, guid: 2d8fee9afef5e344ba14d5c71eb36468, type: 3}
   - {fileID: 2278403275201244645, guid: c2e77441f76adeb4ba24c1dd2f148965, type: 3}
+  - {fileID: 1801772180691668262, guid: 022d927ab593d0348b98ad44537d5fa6, type: 3}
   HitCollider: {fileID: 8591088333642842602}
   HitColliders:
   - {fileID: 8591088333642842602}
@@ -812,7 +814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4157409539
+  GlobalObjectIdHash: 1873435979
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -1192,6 +1194,7 @@ MonoBehaviour:
   EnemeisPenis: []
   coll: {fileID: 0}
   ridig: {fileID: 0}
+  wandu: {fileID: 0}
   ISDEAD: 0
 --- !u!1 &4766788666912466603
 GameObject:
@@ -1309,6 +1312,7 @@ MonoBehaviour:
   EnemeisPenis: []
   coll: {fileID: 0}
   ridig: {fileID: 0}
+  wandu: {fileID: 0}
   ISDEAD: 0
 --- !u!1 &7118059998714274347
 GameObject:
@@ -1625,6 +1629,7 @@ MonoBehaviour:
   EnemeisPenis: []
   coll: {fileID: 0}
   ridig: {fileID: 0}
+  wandu: {fileID: 0}
   ISDEAD: 0
 --- !u!1 &9067443756659564030
 GameObject:

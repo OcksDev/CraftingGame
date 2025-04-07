@@ -1163,6 +1163,15 @@ public class PlayerController : MonoBehaviour
         nn.HijackaleTransform = s.transform;
         s3.Damprof = nn;
     }
+    public void SpawnAcidPool(DamageProfile offshart, Vector3 pos)
+    {
+        offshart.DamageMod = 1;
+        offshart.Procs.Clear();
+        var s = Instantiate(SlashEffect[13], pos, Quaternion.identity, Gamer.Instance.balls);
+        var s3 = s.GetComponent<HitBalls>();
+        s3.playerController = this;
+        s3.attackProfile = offshart;
+    }
 
 
     public int AllocatedSwords = 0;

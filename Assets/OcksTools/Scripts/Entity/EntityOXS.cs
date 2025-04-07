@@ -658,6 +658,16 @@ public class EntityOXS : MonoBehaviour
                     inpu.Player.SpawnTurret(nn, transform.position);
                 }
             }
+            arr2 = inpu.ReadItemAmount("Rune Of Acid");
+            if (arr2 > 0)
+            {
+                if (inpu.RollLuck(0.2f) > 0)
+                {
+                    var nn = new DamageProfile(absthing);
+                    nn.Damage = 3 * arr2;
+                    inpu.Player.SpawnAcidPool(nn, transform.position);
+                }
+            }
             arr2 = inpu.ReadItemAmount("Rune Of Drain");
             if (arr2 > 0 && Effects.Count > 0)
             {
