@@ -29,8 +29,9 @@ public class CorruptionCode : MonoBehaviour
         for (int i = exi; i < activenerds.Count; i+=revs)
         {
             var tingle = activenerds.ElementAt(i).Value;
-
-            if ((tingle.timer -= timtim) <= 0)
+            var timy = timtim;
+            if (PlayerController.Instance != null && RandomFunctions.Instance.DistNoSQRT(tingle.pos, PlayerController.Instance.transform.position) >= 3000) timy *= 1.3f;
+            if ((tingle.timer -= timy) <= 0)
             {
                 switch (tingle.stage)
                 {
