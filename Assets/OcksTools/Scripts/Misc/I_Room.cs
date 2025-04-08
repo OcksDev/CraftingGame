@@ -14,6 +14,7 @@ public class I_Room : MonoBehaviour
     public string isused = "";
     public int level = 0;
     public bool hasbeensexed = false;
+    public float CreditMod = 1;
     public void Start()
     {
         transform.rotation = Quaternion.identity;

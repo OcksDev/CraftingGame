@@ -132,6 +132,12 @@ public class Furniture : MonoBehaviour
                 hadsexed = true;
                 Destroy(gameObject);
                 break;
+            case "Bed":
+                SoundSystem.Instance.PlaySound(8, true, 0.4f, 0.8f);
+                Instantiate(Gamer.Instance.ParticleSpawns[2], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                hadsexed = true;
+                Destroy(gameObject);
+                break;
             case "Torch":
                 SoundSystem.Instance.PlaySound(20, true, 0.4f);
                 hadsexed = true;

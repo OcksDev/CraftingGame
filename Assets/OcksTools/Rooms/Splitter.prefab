@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 4907181321737109002}
   - component: {fileID: -336216809160072555}
   m_Layer: 0
-  m_Name: RoomSizeRef
+  m_Name: Splitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
