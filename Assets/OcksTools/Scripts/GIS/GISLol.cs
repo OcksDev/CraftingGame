@@ -1139,6 +1139,7 @@ public class GISMaterial_Data
     public Sprite[] TDaggerParts;
     public Sprite[] KnifeParts;
     public Sprite[] WandParts;
+    public Sprite[] ScytheParts;
     public string fallthroughmaterial = "Rock";
     public string fallthroughmaterialmian = "";
     public bool IsOverlay = false;

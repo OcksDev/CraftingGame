@@ -195,6 +195,10 @@ public class GISDisplay : MonoBehaviour
                         mysprites = GISLol.Instance.MaterialsDict[fallmian].WandParts;
                         defaultsprites = GISLol.Instance.MaterialsDict[fall].WandParts;
                         break;
+                    case "Scythe":
+                        mysprites = GISLol.Instance.MaterialsDict[fallmian].ScytheParts;
+                        defaultsprites = GISLol.Instance.MaterialsDict[fall].ScytheParts;
+                        break;
                 }
 
                 if (index >= mysprites.Length || mysprites[index] == null || e.IsOverlay)

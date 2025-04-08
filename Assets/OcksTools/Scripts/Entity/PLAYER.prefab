@@ -466,6 +466,92 @@ MonoBehaviour:
   - {fileID: 865569532626421122}
   - {fileID: 7009636281469371745}
   - {fileID: 6826616895971273442}
+--- !u!1 &3101502912637588473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8394518351639408094}
+  - component: {fileID: 288938391438105869}
+  - component: {fileID: 6144081914759936652}
+  m_Layer: 7
+  m_Name: ButtSex (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8394518351639408094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101502912637588473}
+  m_LocalRotation: {x: -0, y: -0, z: 0.20560671, w: 0.9786347}
+  m_LocalPosition: {x: -0.146, y: 0.372, z: 0}
+  m_LocalScale: {x: 1.67, y: 1.09, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1066387814657488983}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 23.73}
+--- !u!114 &288938391438105869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101502912637588473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025378506e3c82841b848089224f82b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: 0
+  playerController: {fileID: 3786093809242686097}
+  type: Scythe
+  OnlyHitOne: 0
+  NoStay: 1
+  hitlist: []
+  spriteballs: []
+  specialsharts: []
+  trail: {fileID: 0}
+  hsh: 26.3
+  EnemeisPenis: []
+  coll: {fileID: 0}
+  ridig: {fileID: 0}
+  wandu: {fileID: 0}
+  ISDEAD: 0
+--- !u!61 &6144081914759936652
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101502912637588473}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &3112285486678960361
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +775,7 @@ MonoBehaviour:
   - {fileID: 5069659872662987114}
   - {fileID: 2052472435261323937}
   - {fileID: 4686178413108064444}
+  - {fileID: 3101502912637588473}
   mainweapon:
     ItemIndex: Empty
     Amount: 0
@@ -814,7 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1873435979
+  GlobalObjectIdHash: 4157409539
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -899,6 +986,7 @@ Transform:
   - {fileID: 1309187176620668485}
   - {fileID: 8539565843489604063}
   - {fileID: 5515716160804105177}
+  - {fileID: 8394518351639408094}
   m_Father: {fileID: 4699981174079926565}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1068,7 +1156,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 2d886ad0e85196748b172576ccea2179, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8dbbe8584920d244d86773bff1624cd7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

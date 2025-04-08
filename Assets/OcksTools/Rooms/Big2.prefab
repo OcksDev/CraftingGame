@@ -361,7 +361,7 @@ MonoBehaviour:
   isused: 0
   level: 0
   hasbeensexed: 0
-  CreditMod: 0.7
+  CreditMod: 0.75
 --- !u!1001 &124247755523743964
 PrefabInstance:
   m_ObjectHideFlags: 0

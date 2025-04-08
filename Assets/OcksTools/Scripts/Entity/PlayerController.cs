@@ -401,6 +401,13 @@ public class PlayerController : MonoBehaviour
                     fardedonhand = true;
                     f2 = 0.06f;
                     break;
+                case "Scythe":
+                    AttacksPerSecond = 2f;
+                    Damage = 10f;
+                    f = 1f;
+                    fardedonhand = true;
+                    f2 = 0.06f;
+                    break;
                 case "Blowdart":
                     AttacksPerSecond = 1.3f;
                     Damage = 12f;
@@ -695,6 +702,14 @@ public class PlayerController : MonoBehaviour
                         MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, reverse * (f * 360 * 2) + Mathf.Lerp(0, (70 * reverse), fff));
                     }
                     break;
+                case "Scythe":
+                    SwordFart.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(-121, 121, f) * reverse)) * transform.rotation;
+                    MyAssHurts.rotation = SwordFart.rotation * Quaternion.Euler(0, 0, -reverse*Mathf.Sin(f*MathF.PI)*35f);
+                    //SwordFart.localPosition = new Vector3(Mathf.Sin(f * Mathf.PI * 2) * -0.5f * reverse, Mathf.Sin(f * Mathf.PI) * 6f, 0);
+
+                    var fff2 = Mathf.Cos(f * Mathf.PI);
+                    fff2 *= fff2;
+                    break;
                 case "Crossbow":
                     SwordFart.rotation = transform.rotation;
                     break;
@@ -750,6 +765,7 @@ public class PlayerController : MonoBehaviour
                     case "Dagger": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
                     case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
                     case "Axe": SwordFart.localScale = new Vector3(1, 1, 1); break;
+                    case "Scythe": SwordFart.localScale = new Vector3(reverse*((Mathf.Sin(f*Mathf.PI)*1.3f)+1)*(f<1f?1:-1), 1* ((Mathf.Sin(f * Mathf.PI) * 1.3f) + 1), 1); break;
                     case "Blowdart": SwordFart.localScale = new Vector3(1, 1, 1); break;
                     case "Wand":
                     case "Knife": SwordFart.localScale = new Vector3(-reverse, 1, 1); break;
@@ -799,6 +815,21 @@ public class PlayerController : MonoBehaviour
             switch (mainweapon.ItemIndex)
             {
                 case "Axe":
+                    if(f >= 1)
+                    {
+                        HitCollider.SetActive(false);
+                    }
+                    if(f >= (1-(0.07f*(AttacksPerSecond/ 1.3f))))
+                    {
+                        if (!fardedonhand)
+                        {
+                            fardedonhand = true;
+                            //Debug.LogError("wee");
+                            SoundSystem.Instance.PlaySound(15, false, 0.12f);
+                        }
+                    }
+                    break;
+                case "Scythe":
                     if(f >= 1)
                     {
                         HitCollider.SetActive(false);
@@ -1447,6 +1478,14 @@ public class PlayerController : MonoBehaviour
             case "Axe":
                 reverse *= -1;
                 HitCollider = HitColliders[2];
+                Shart.PreCritted = -1;
+                epe *= -0.5f;
+                f2 = (0.2f) / AttacksPerSecond;
+                SoundSystem.Instance.PlaySound(13, true, 0.8f, 0.8f);
+                break;
+            case "Scythe":
+                reverse *= -1;
+                HitCollider = HitColliders[4];
                 Shart.PreCritted = -1;
                 epe *= -0.5f;
                 f2 = (0.2f) / AttacksPerSecond;
