@@ -1487,7 +1487,7 @@ public class PlayerController : MonoBehaviour
                 reverse *= -1;
                 HitCollider = HitColliders[4];
                 Shart.PreCritted = -1;
-                epe *= -0.5f;
+                //epe *= -0.5f;
                 f2 = (0.2f) / AttacksPerSecond;
                 SoundSystem.Instance.PlaySound(13, true, 0.8f, 0.8f);
                 break;
