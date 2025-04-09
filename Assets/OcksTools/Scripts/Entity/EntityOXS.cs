@@ -395,7 +395,7 @@ public class EntityOXS : MonoBehaviour
             if(s.mainweapon.RollLuck(arr, true) > 0)
             {
                 var weenor = OXComponent.GetComponent<NavMeshEntity>(gameObject);
-                if(weenor != null && weenor.EliteType != "Corrupted")
+                if(weenor != null && weenor.EliteType != "Corrupted" && !weenor.IsBoss)
                 {
                     Health = 1;
                     weenor.EliteType = "Corrupted";

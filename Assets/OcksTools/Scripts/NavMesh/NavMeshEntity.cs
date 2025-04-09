@@ -12,6 +12,7 @@ public class NavMeshEntity : MonoBehaviour
     public string Name = "Booty";
     public string EnemyType = "Rat";
     public string AttackType = "Melee";
+    public bool IsBoss = false;
     public int ImagePixelSize = 18;
     public bool FlipImage= false;
     public float SpawnOverlapRadius = 1;
@@ -55,6 +56,7 @@ public class NavMeshEntity : MonoBehaviour
     private Animator anime;
     public float TurnSpeen = 0f;
     bool CanChangeIMg = false;
+    public Sprite CustomLogbookSprite = null;
     // Start is called before the first frame update
     public void Start()
     {
@@ -177,13 +179,35 @@ public class NavMeshEntity : MonoBehaviour
         a.material = Gamer.Instance.sexex[1];
         var c = (Color)new Color32(120, 0, 255, 0);
         a.color = c;
+        List<SpriteRenderer> aaaa = new List<SpriteRenderer>() { a};
+        if(EntityOXS.additionalnerds.Count > 0)
+        {
+            foreach(var aa in EntityOXS.additionalnerds)
+            {
+                aa.color = c;
+                aa.material = Gamer.Instance.sexex[1];
+                aaaa.Add(aa);
+            }
+        }
+
         WantASpriteCranberry.enabled = false;
         for (int i = 0; i < 80; i++)
         {
             yield return new WaitForFixedUpdate();
             c.a += 0.0125f;
-            a.color = c;
+            foreach(var aa in aaaa)
+            {
+                aa.color = c;
+            }
         }
+
+        aaaa.Remove(a);
+        foreach(var aa in aaaa)
+        {
+            aa.color = Color.white;
+            aa.material = Gamer.Instance.sexex[0];
+        }
+
         //yield return new WaitForSeconds(10f);
         Destroy(a.gameObject);
         balls:

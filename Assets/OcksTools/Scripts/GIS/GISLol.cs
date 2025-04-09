@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Burst.CompilerServices;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -111,6 +112,7 @@ public class GISLol : MonoBehaviour
             Items.Add(newitem);
         }
         Dictionary<string, EnemyHolder> banana = new Dictionary<string, EnemyHolder>();
+        List< GISItem_Data > WAIT = new List< GISItem_Data >();
         foreach (var a in Gamer.Instance.EnemiesDos)
         {
             var newitem = new GISItem_Data();
@@ -120,6 +122,7 @@ public class GISLol : MonoBehaviour
             banana.Add(newitem.Name, a);
             newitem.Description = "AA"; //this will get overritten by the txt files
             newitem.Sprite = weenor.SpriteVarients[0];
+            if (weenor.CustomLogbookSprite != null) newitem.Sprite = weenor.CustomLogbookSprite;
             newitem.LogbookOverride = true;
             switch(weenor.EnemyType)
             {
@@ -135,10 +138,20 @@ public class GISLol : MonoBehaviour
             }
             //newitem.IsRune = true;
             newitem.IsEnemy = true;
-            Items.Add(newitem);
+            if (weenor.IsBoss)
+            {
+                WAIT.Add(newitem);
+            }
+            else
+            {
+                Items.Add(newitem);
+            }
 
         }
-
+        foreach(var a in WAIT)
+        {
+            Items.Add(a);
+        }
 
         foreach (var a in Items)
         {
@@ -195,7 +208,9 @@ public class GISLol : MonoBehaviour
             var bana2 = bana.EnemyObject.GetComponent<NavMeshEntity>();
             var bana3 = bana.EnemyObject.GetComponent<EntityOXS>();
 
-            ItemsDict[bana2.EnemyType].Description = $"Health: {bana3.Max_Health}";
+            ItemsDict[bana2.EnemyType].Description = "";
+            if(bana2.IsBoss) ItemsDict[bana2.EnemyType].Description += $"<bold><color=red>Boss</b></color><br>";
+            ItemsDict[bana2.EnemyType].Description += $"Health: {bana3.Max_Health}";
             ItemsDict[bana2.EnemyType].Description += $"<br>Damage: {bana2.Damage}";
             if (bana.MinFloor > 1) ItemsDict[bana2.EnemyType].Description += $"<br>Min Floor: {bana.MinFloor}";
         }

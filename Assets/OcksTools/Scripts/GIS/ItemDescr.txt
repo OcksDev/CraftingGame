@@ -7,7 +7,7 @@ Glass:: <g>x1.2</> Attack Damage<br><b>x0.85</> Max Health
 Angelic Ingot:: <g>+15%</> Attack Damage<br><b>-15%</> Crit Chance
 Demonic Ingot:: <g>+20%</> Crit Chance<br><b>x0.9</> Attack Damage
 Morkite:: <g>x1.15</> Total Damage<br><b>x0.85</> Attack Damage
-Void:: <g>x1.15</> Total Damage<br><b>+1%</> chance on hit to <c>Corrupt</> <e>Enemies</>
+Void:: <g>x1.15</> Total Damage<br><b>+1%</> chance on hit to <c>Corrupt</> <e>Enemies</><br>Can't <c>Corrupt</> <o>Bosses</>
 Zebrium:: <g>+10%</> Crit Chance<br><g>+10%</> Attack Speed
 Aquarq:: <g>x1.25</> Movement Speed<br><b>x0.9</> Max Health
 Shungite:: <g>-1</> Damage Taken (can not reduce below 1)<br><b>x0.9</> Movement Speed

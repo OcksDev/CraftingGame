@@ -86486,7 +86486,7 @@ PrefabInstance:
       objectReference: {fileID: 903983146}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemySpawnElite
-      value: Hasty
+      value: Corrupted
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: enemybaroutline
@@ -86498,7 +86498,7 @@ PrefabInstance:
       objectReference: {fileID: 547125997}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemySpawnNumber
-      value: 11
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: InitFloorHeadPos
@@ -86574,7 +86574,7 @@ PrefabInstance:
       objectReference: {fileID: 2284451541892325387, guid: 3bbaf0e94e998e44aaf73a02a41c7943, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.size
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.size
@@ -87025,6 +87025,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[18].MinFloor
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EliteTypes.Array.data[0].color.rgba
       value: 4278190335
       objectReference: {fileID: 0}
@@ -87281,6 +87285,18 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[18].CanBeElite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[18].CreditCost
+      value: 70000000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[18].PickChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[1].EnemyObject
       value: 
       objectReference: {fileID: 2284451541892325387, guid: 86440816167bb624ab3e4127a2c06af9, type: 3}
@@ -87352,6 +87368,10 @@ PrefabInstance:
       propertyPath: EnemiesDos.Array.data[17].EnemyObject
       value: 
       objectReference: {fileID: 2284451541892325387, guid: 22ebdbaa9c0d29b4e9352fe8f0e2ae81, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[18].EnemyObject
+      value: 
+      objectReference: {fileID: 2284451541892325387, guid: 04817cee8a158fa4da0ae833b75a912e, type: 3}
     - target: {fileID: 733915574832352348, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: AudioClips.Array.size
       value: 21
