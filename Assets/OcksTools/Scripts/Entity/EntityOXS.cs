@@ -470,6 +470,9 @@ public class EntityOXS : MonoBehaviour
                 DirectShieldPercent = 1-playerdaddy.DirectShieldHeal;
                 ShieldChangeMult = playerdaddy.ShieldHealingMod;
                 break;
+            case "Enemy":
+                if(sexy != null && sexy.IsBoss) amount /= 4;
+                break;
         }
         var oldh = Health;
         var direct = amount * DirectShieldPercent;

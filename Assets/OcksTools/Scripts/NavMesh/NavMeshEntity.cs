@@ -962,10 +962,10 @@ public class NavMeshEntity : MonoBehaviour
 
 
         yield return new WaitForSeconds(0.15f);
-        int i = Random.Range(2, 3);
+        int i = Random.Range(1, 3);
         Vector3 pos = transform.position + new Vector3(0, 1.15f, 0);
         
-        if(RandomFunctions.Instance.Dist(transform.position, target.transform.position) <= 8.5 && Random.Range(0, 1f) <= 1f)
+        if(RandomFunctions.Instance.Dist(transform.position, target.transform.position) <= 8.5 && Random.Range(0, 1f) <= 0.5f)
         {
             var orig = new Vector3(-3.08699989f, 1.05999994f, 0);
             var newn = new Vector3(-3.32999992f, 2.24000001f, 0);
