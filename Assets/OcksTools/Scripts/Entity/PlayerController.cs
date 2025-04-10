@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer Underlay;
     public WeaponDisplay weewee;
     public bool DeathDisable = false;
+    public Collider2D mecollider;
     public List<Skill> Skills = new List<Skill>();
     private void Awake()
     {

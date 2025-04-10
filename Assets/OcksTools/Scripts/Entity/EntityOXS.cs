@@ -579,6 +579,9 @@ public class EntityOXS : MonoBehaviour
                     case "Cannon":
                         effect = 20;
                         break;
+                    case "Bossrocks":
+                        effect = 39;
+                        break;
                     case "Worm":
                         effect = 23;
                         break;
@@ -593,6 +596,13 @@ public class EntityOXS : MonoBehaviour
                         effect = 0;
                         break;
                 }
+
+                if (aa.IsBoss)
+                {
+                    string zaza = GISLol.Instance.AllAspects[Random.Range(0, GISLol.Instance.AllAspects.Count)];
+                    Gamer.Instance.SpawnGroundItem(transform.position, new GISItem(zaza));
+                }
+
                 switch (aa.EliteType)
                 {
                     case "Splitting":

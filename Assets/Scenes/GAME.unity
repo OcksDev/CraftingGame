@@ -86486,7 +86486,7 @@ PrefabInstance:
       objectReference: {fileID: 903983146}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemySpawnElite
-      value: Corrupted
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: enemybaroutline
@@ -86606,7 +86606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.size
-      value: 37
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: SkillCumSexers.Array.size
@@ -86816,6 +86816,18 @@ PrefabInstance:
       propertyPath: ParticleSpawns.Array.data[36]
       value: 
       objectReference: {fileID: 3653482439093956654, guid: 59eff3d0a778987428e55ad31358a65f, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[37]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: 04c1357df49c2cf4a87dae8c180923e5, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[38]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: 891b7749a12bfeb42bb9285cfc68e489, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[39]
+      value: 
+      objectReference: {fileID: 3653482439093956654, guid: 02816d37da14eb145936a61635c7f87a, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].Image
       value: 

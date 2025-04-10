@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeathBeamScript : MonoBehaviour
 {
     public bool IsFrog = false;
+    public bool IsBossrock = false;
     public Transform Player;
     public Transform SorceNerd;
     public Vector3 offset = Vector3.zero;
@@ -14,8 +15,11 @@ public class DeathBeamScript : MonoBehaviour
     public Color32 sexl;
     public Transform yongle;
     float maxlive = 3f;
+    Color ocolor;
+    public int multdir = 1;
     private void Start()
     {
+        ocolor = fardd.color;
         if (IsFrog) maxlive = 0.7f;
     }
 
@@ -27,15 +31,23 @@ public class DeathBeamScript : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        if (IsFrog)
+        if (IsBossrock)
         {
-            farddingle.enabled = true;
-            fardd.color = sexl;
+            farddingle.enabled = timealive >= 1.2f;
+            fardd.color = timealive >= 1.2f ? ocolor : sexl;
         }
         else
         {
-            farddingle.enabled = timealive >= 1.2f;
-            fardd.color = timealive >= 1.2f ? Color.white : sexl;
+            if (IsFrog)
+            {
+                farddingle.enabled = true;
+                fardd.color = sexl;
+            }
+            else
+            {
+                farddingle.enabled = timealive >= 1.2f;
+                fardd.color = timealive >= 1.2f ? Color.white : sexl;
+            }
         }
         UpdatePos();
         if(timealive >= maxlive+1)
@@ -62,11 +74,21 @@ public class DeathBeamScript : MonoBehaviour
         }
         transform.localScale = new Vector3(IsFrog?size:1, size, 1);
         transform.position = sex;
-        if (timealive >= 1.2f || IsFrog)
+        if (IsBossrock)
         {
-            if(Player == null) return;
-            transform.rotation = RotateLock(transform.rotation, PointAtPoint2D(Player.position, 0), IsFrog? 0.4f * RandomFunctions.EaseIn(timealive/maxlive): 0.25f);
-            if(!IsFrog)transform.position += new Vector3(Random.Range(-sz, sz), Random.Range(-sz, sz), 0);
+            if (timealive >= 1.2f)
+            {
+                transform.rotation = transform.rotation * Quaternion.Euler(0,0,30*Time.deltaTime*multdir);
+            }
+        }
+        else
+        {
+            if (timealive >= 1.2f || IsFrog)
+            {
+                if (Player == null) return;
+                transform.rotation = RotateLock(transform.rotation, PointAtPoint2D(Player.position, 0), IsFrog ? 0.4f * RandomFunctions.EaseIn(timealive / maxlive) : 0.25f);
+                if (!IsFrog) transform.position += new Vector3(Random.Range(-sz, sz), Random.Range(-sz, sz), 0);
+            }
         }
 
     }

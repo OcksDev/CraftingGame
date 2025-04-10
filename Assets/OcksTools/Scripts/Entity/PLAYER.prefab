@@ -812,6 +812,7 @@ MonoBehaviour:
   Underlay: {fileID: 401543440080684480}
   weewee: {fileID: 5711173659826320584}
   DeathDisable: 0
+  mecollider: {fileID: 4992820261010608327}
   Skills: []
   hasaids: 0
   IsDashing: 0

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Analytics;
@@ -30,6 +31,7 @@ public class NavMeshEntity : MonoBehaviour
     public List<Sprite> SpriteVarients = new List<Sprite> ();
     public List<Sprite> SpriteMiscRefs = new List<Sprite> ();
     public List<GameObject> EnableOnTrueSpawn = new List<GameObject> ();
+    public List<GameObject> Miscrefs = new List<GameObject> ();
     public Rigidbody2D sex;
     public GameObject box;
     public EntityOXS EntityOXS;
@@ -57,6 +59,7 @@ public class NavMeshEntity : MonoBehaviour
     public float TurnSpeen = 0f;
     bool CanChangeIMg = false;
     public Sprite CustomLogbookSprite = null;
+    public EnemyHolder HolderRef = null;
     // Start is called before the first frame update
     public void Start()
     {
@@ -320,7 +323,7 @@ public class NavMeshEntity : MonoBehaviour
     private Vector3 TotalVelocity = Vector3.zero;
     bool canrunattacktimer = true;
     const float sexcum = 180 / Mathf.PI;
-
+    public float movemult = 1;
     public void SetMoveSpeeds()
     {
         float mult = 1;
@@ -335,7 +338,7 @@ public class NavMeshEntity : MonoBehaviour
                 mult /= bigG;
             }
         }
-
+        mult *= movemult;
 
         movespeed = BaldMoveSpeed * mult;
         alt_speed = BaldAltMoveSpeed * mult;
@@ -531,6 +534,10 @@ public class NavMeshEntity : MonoBehaviour
                                 timer2 = 0;
                                 StartCoroutine(CloakSex());
                                 break;
+                            case "Bossrocks":
+                                timer2 = 0;
+                                StartCoroutine(BossrockSex());
+                                break;
                             case "Handless":
                                 timer2 = 0;
                                 StartCoroutine(HandlessSex());
@@ -704,14 +711,14 @@ public class NavMeshEntity : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         ANTICHARGEFART = true;
         chargedir = (GetDir() - NoZ(transform.position)).normalized;
-        movespeed = 0;
+        movemult = 0;
         charging2 = true;
         CLearShit?.Invoke();
         box.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         charging = false;
         charging2 = false;
-        movespeed = premove;
+        movemult = 1;
         timer2 = Random.Range(-0.25f, 0.25f);
         box.SetActive(false);
         yield return new WaitForSeconds(0.13f);
@@ -749,8 +756,7 @@ public class NavMeshEntity : MonoBehaviour
     public IEnumerator SpiterSex()
     {
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
-        float f = movespeed;
-        movespeed = 0;
+        movemult = 0;
         yield return new WaitForSeconds(0.25f);
         SoundSystem.Instance.PlaySound(16, true, 0.1f);
         yield return new WaitForSeconds(0.07f);
@@ -764,14 +770,13 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteVarients[0];
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
-        movespeed = f;
+        movemult = 1;
         timer2 = Random.Range(-0.25f, 0.25f);
     }
     public IEnumerator Spiter2Sex()
     {
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
-        float f = movespeed;
-        movespeed = 0;
+        movemult = 0;
         yield return new WaitForSeconds(0.20f);
         SoundSystem.Instance.PlaySound(16, true, 0.1f, 0.5f);
         yield return new WaitForSeconds(0.1f);
@@ -785,13 +790,12 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteVarients[0];
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
-        movespeed = f;
+        movemult = 1;
         timer2 = Random.Range(-0.25f, 0.25f);
     }
     public IEnumerator CannonSex()
     {
-        float f = movespeed;
-        movespeed = 0;
+        movemult = 0;
         yield return new WaitForSeconds(0.25f);
         //SoundSystem.Instance.PlaySound(16, true, 0.1f);
         yield return new WaitForSeconds(0.05f);
@@ -805,7 +809,7 @@ public class NavMeshEntity : MonoBehaviour
         e.sexballs = this;
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
-        movespeed = f;
+        movemult = 1;
         timer2 = Random.Range(-0.25f, 0.25f);
     }
     public IEnumerator WraithSex()
@@ -837,8 +841,7 @@ public class NavMeshEntity : MonoBehaviour
     }
     public IEnumerator EyeSex()
     {
-        float f = movespeed;
-        movespeed = 0;
+        movemult = 0;
         yield return new WaitForSeconds(0.25f);
         //SoundSystem.Instance.PlaySound(16, true, 0.1f);
         yield return new WaitForSeconds(0.05f);
@@ -848,20 +851,19 @@ public class NavMeshEntity : MonoBehaviour
         SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, -25));
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
-        movespeed = f;
+        movemult = 1;
         timer2 = Random.Range(-0.25f, 0.25f);
     }
     public IEnumerator SnormSex()
     {
-        float f = movespeed;
-        movespeed = 0;
+        movemult = 0;
         var wank = PointAtPoint2D(target.transform.position, 0);
         SpawnBox(transform.position, wank);
         SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, 25));
         SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, -25));
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
-        movespeed = f;
+        movemult = 1f;
         yield return null;
     }
     public IEnumerator BatSex()
@@ -887,7 +889,7 @@ public class NavMeshEntity : MonoBehaviour
     public IEnumerator CloakSex()
     {
         float f = movespeed;
-        movespeed = 0;
+        movemult = 0;
         canrunattacktimer = false;
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.15f);
@@ -946,14 +948,164 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.15f);
         WantASpriteCranberry.sprite = SpriteVarients[0];
-        movespeed = f;
+        movemult = 1;
         canrunattacktimer = true;
         timer2 = Random.Range(-0.25f, 0.25f);
+    }
+
+    private int sexamnt = 0;
+    public IEnumerator BossrockSex()
+    {
+        float f = movespeed;
+        movemult = 0;
+        canrunattacktimer = false;
+
+
+        yield return new WaitForSeconds(0.15f);
+        int i = Random.Range(2, 3);
+        Vector3 pos = transform.position + new Vector3(0, 1.15f, 0);
+        
+        if(RandomFunctions.Instance.Dist(transform.position, target.transform.position) <= 8.5 && Random.Range(0, 1f) <= 1f)
+        {
+            var orig = new Vector3(-3.08699989f, 1.05999994f, 0);
+            var newn = new Vector3(-3.32999992f, 2.24000001f, 0);
+            var fein = new Vector3(-3.32999992f, -0.25999999f, 0);
+            var orig2 = new Vector3(3.08699989f, 1.05999994f, 0);
+            var newn2 = new Vector3(3.32999992f, 2.24000001f, 0);
+            var fein2 = new Vector3(3.32999992f, -0.25999999f, 0);
+
+            var ee = Instantiate(Miscrefs[4], transform.position, Quaternion.identity, transform).GetComponent<DangerCircleScrip>();
+            ee.Wait = 1f;
+            ee.izescale = 20f;
+            ee.Type = "bossrock";
+            ee.GetComponent<SpriteRenderer>().sprite = SpriteMiscRefs[0];
+
+            yield return StartCoroutine(OXLerp.Linear((x) =>
+            {
+                Miscrefs[1].transform.localPosition = Vector3.Lerp(orig, newn, RandomFunctions.EaseInAndOut(x));
+                Miscrefs[2].transform.localPosition = Vector3.Lerp(orig2, newn2, RandomFunctions.EaseInAndOut(x));
+            }, 0.8f));
+            yield return StartCoroutine(OXLerp.Linear((x) =>
+            {
+                Miscrefs[1].transform.localPosition = Vector3.Lerp(newn, fein, RandomFunctions.EaseOut(x));
+                Miscrefs[2].transform.localPosition = Vector3.Lerp(newn2, fein2, RandomFunctions.EaseOut(x));
+            }, 0.2f));
+
+
+            var g = Gamer.Instance;
+            var aa = new Vector3(-3.28999996f, -3.30999994f, 0);
+            var aa2 = new Vector3(3.28999996f, -3.30999994f, 0);
+            Instantiate(g.ParticleSpawns[37], transform.position+aa, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+            Instantiate(g.ParticleSpawns[37], transform.position+aa2, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+            CameraLol.Instance.Shake(0.25f, 0.80f);
+
+            if(RandomFunctions.Instance.Dist(PlayerController.Instance.transform.position, transform.position) <= 10)
+            {
+                var a = SpawnBox(Miscrefs[3], new Vector3(10000000,1000000), Quaternion.identity);
+                a.Tirggegg(PlayerController.Instance.mecollider, true);
+                Destroy(a.gameObject);
+            }
+
+            yield return StartCoroutine(OXLerp.Linear((x) =>
+            {
+                Miscrefs[1].transform.localPosition = Vector3.Lerp(fein, orig, RandomFunctions.EaseInAndOut(x));
+                Miscrefs[2].transform.localPosition = Vector3.Lerp(fein2, orig2, RandomFunctions.EaseInAndOut(x));
+            }, 0.8f));
+            timer2 = AttackCooldown / 2;
+            goto endend;
+        }
+
+
+        switch (i)
+        {
+            case 2:
+                sexamnt++;
+                if (sexamnt > 1) sexamnt = 0;
+                WantASpriteCranberry.sprite = SpriteMiscRefs[1];
+                Instantiate(Gamer.Instance.ParticleSpawns[38], transform.position, Quaternion.identity, transform);
+                yield return new WaitForSeconds(0.2f);
+                var s = PointAtPoint2D(target.transform.position, 0);
+                for (int j = 0; j < 10; j++)
+                {
+                    var wenis = Instantiate(Miscrefs[5], transform.position, s *Quaternion.Euler(0,0,36*j), Gamer.Instance.balls);
+
+                    var e2 = wenis.GetComponent<DeathBeamScript>();
+                    e2.Player = target.transform;
+                    e2.SorceNerd = transform;
+                    e2.UpdatePos();
+                    e2.multdir = sexamnt==0?1:-1;
+
+
+                    var e = e2.fardd.GetComponent<EnemyHitShit>();
+                    e.Damage = Damage;
+                    e.balling = transform;
+                    e.sexballs = this;
+                }
+                var cc1 = Miscrefs[1].transform.localPosition;
+                var cc2 = Miscrefs[2].transform.localPosition;
+                StartCoroutine(OXLerp.BounceFixed((x) =>
+                {
+                    float f = RandomFunctions.EaseIn(x)/7f;
+                    Miscrefs[1].transform.localPosition = cc1 + new Vector3(Random.Range(-f, f), Random.Range(-f, f), 0);
+                    Miscrefs[2].transform.localPosition = cc2 + new Vector3(Random.Range(-f, f), Random.Range(-f, f), 0);
+                }, 2, 1.5f));
+
+                yield return new WaitForSeconds(3);
+                Miscrefs[1].transform.localPosition = cc1;
+                Miscrefs[2].transform.localPosition = cc2;
+                WantASpriteCranberry.sprite = SpriteVarients[0];
+                break;
+            case 1:
+                Backup:
+                yield return StartCoroutine(OXLerp.Linear((x) =>
+                {
+                    Miscrefs[1].transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, -160, RandomFunctions.EaseInAndOut(x)));
+                    Miscrefs[2].transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, 160, RandomFunctions.EaseInAndOut(x)));
+                },1.5f));
+
+                for(int j = 0; j < 26; j++)
+                {
+                    yield return new WaitForSeconds(0.05f);
+                    var pp = transform.position + new Vector3(4.45f * ((j % 2 == 0) ? 1 : -1), 4.7f, 0);
+                    var wank = PointAtPoint2DMod(pp,target.transform.position, 0);
+                    SpawnBox(Miscrefs[3], pp, wank * Quaternion.Euler(0,0, Random.Range(-30f, 30f)));
+                }
+                yield return StartCoroutine(OXLerp.Linear((x) =>
+                {
+                    Miscrefs[1].transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(-160, 0, RandomFunctions.EaseInAndOut(x)));
+                    Miscrefs[2].transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(160, 0, RandomFunctions.EaseInAndOut(x)));
+                },1.5f));
+                timer2 = AttackCooldown / 4;
+                break;
+            default:
+                if (Gamer.Instance.EnemiesExisting.Count >= 10) goto Backup;
+                yield return StartCoroutine(OXLerp.Linear((x) =>
+                {
+                    Miscrefs[1].transform.rotation = Quaternion.Euler(0,0,Mathf.Lerp(0,-25,RandomFunctions.EaseInAndOut(x)));
+                    Miscrefs[2].transform.rotation = Quaternion.Euler(0,0,Mathf.Lerp(0,25,RandomFunctions.EaseInAndOut(x)));
+                }, 1.5f));
+
+                Gamer.Instance.SpawnEnemy(HolderRef, false, transform.position + new Vector3(6.5f, 0,0));
+                Gamer.Instance.SpawnEnemy(HolderRef, false, transform.position + new Vector3(-6.5f, 0,0));
+                yield return new WaitForSeconds(0.2f);
+                yield return StartCoroutine(OXLerp.Linear((x) =>
+                {
+                    Miscrefs[1].transform.rotation = Quaternion.Euler(0,0,Mathf.Lerp(-25,0,RandomFunctions.EaseInAndOut(x)));
+                    Miscrefs[2].transform.rotation = Quaternion.Euler(0,0,Mathf.Lerp(25,0,RandomFunctions.EaseInAndOut(x)));
+                }, 1.5f));
+                break;
+        }
+        endend:
+        yield return new WaitForSeconds(0.15f);
+
+        movemult = 1;
+        canrunattacktimer = true;
+        timer2 += Random.Range(-0.25f, 0.25f);
     }
     public IEnumerator HandlessSex()
     {
         float f = movespeed;
-        movespeed = 0;
+        movemult = 0;
         canrunattacktimer = false;
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.3f);
@@ -967,13 +1119,13 @@ public class NavMeshEntity : MonoBehaviour
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.30f);
         WantASpriteCranberry.sprite = SpriteVarients[0];
-        movespeed = f;
+        movemult = 1;
         canrunattacktimer = true;
     }
     public IEnumerator RockySex()
     {
         float f = movespeed;
-        movespeed = 0;
+        movemult = 0;
         canrunattacktimer = false;
         Instantiate(Gamer.Instance.ParticleSpawns[11], transform.position, Quaternion.identity, transform);
         yield return new WaitForSeconds(0.30f);
@@ -1025,7 +1177,7 @@ public class NavMeshEntity : MonoBehaviour
         yield return new WaitForSeconds(0.30f);
         WantASpriteCranberry.sprite = SpriteVarients[0];
         yield return new WaitForSeconds(0.30f);
-        movespeed = f;
+        movemult = 1;
         canrunattacktimer = true;
         timer2 = Random.Range(-0.25f, 0.25f);
     }
@@ -1039,6 +1191,16 @@ public class NavMeshEntity : MonoBehaviour
         return e;
     }
     private EnemyHitShit SpawnBox(Vector3 pos, Quaternion rot)
+    {
+        var wenis = Instantiate(box, pos, rot, Gamer.Instance.balls);
+        var e = wenis.GetComponent<EnemyHitShit>();
+        e.Damage = Damage;
+        e.balling = transform;
+        e.sexballs = this;
+        return e;
+    }
+    
+    private EnemyHitShit SpawnBox(GameObject box, Vector3 pos, Quaternion rot)
     {
         var wenis = Instantiate(box, pos, rot, Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
@@ -1097,7 +1259,7 @@ public class NavMeshEntity : MonoBehaviour
         canrunattacktimer = true;
         charging = true;
         chargedir = (GetDir() - NoZ(transform.position)).normalized;
-        movespeed = 0;
+        movemult = 0;
         charging2 = true;
         CLearShit?.Invoke();
         yield return new WaitForSeconds(0.3f);
@@ -1227,6 +1389,19 @@ public class NavMeshEntity : MonoBehaviour
 
         //Debug.Log(offset);
         Vector3 difference = NoZ(location) - NoZ(transform.position);
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);
+        return sex;
+    }
+    private Quaternion PointAtPoint2DMod(Vector3 start_location, Vector3 end_location, float spread)
+    {
+        // a different version of PointAtPoint with some extra shtuff
+        //returns the rotation the gameobject requires to point at a specific location
+        var offset = UnityEngine.Random.Range(-spread, spread);
+
+        //Debug.Log(offset);
+        Vector3 difference = NoZ(end_location) - NoZ(start_location);
         difference.Normalize();
         float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         var sex = Quaternion.Euler(0f, 0f, rotation_z + offset);

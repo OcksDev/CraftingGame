@@ -27,7 +27,18 @@ public class DangerCircleScrip : MonoBehaviour
         var w = spr.color;
         w.a = wankperc/(Type=="fub"?1:2);
         spr.color = w;
-        float sz = RandomFunctions.EaseOut(wankperc, 2) * izescale;
+        float pp = 0;
+        if (Type == "bossrock")
+        {
+            pp = RandomFunctions.EaseIn(wankperc, 2);
+            pp = pp = (pp / 2) + 0.5f;
+
+        }
+        else
+        {
+            pp = RandomFunctions.EaseOut(wankperc, 2);
+        }
+        float sz = pp * izescale;
         transform.localScale = new Vector3(sz, sz, sz);
         if (bal != null) bal.ChargePOerc = wankperc;
         if (wankperc >= 1)
@@ -38,6 +49,9 @@ public class DangerCircleScrip : MonoBehaviour
                     if(www != null)
                     bal.directionsons = (www.position - transform.position).normalized;
                     this.enabled = false;
+                    break;
+                case "bossrock":
+                    Destroy(gameObject);
                     break;
                 default:
                     var a = Instantiate(ToSpawn, transform.position - new Vector3(0, 0.5f, 0), transform.rotation).GetComponent<EnemyHitShit>();
@@ -53,4 +67,5 @@ public class DangerCircleScrip : MonoBehaviour
             transform.position = gam.sexballs.transform.position + new Vector3(0, 3.5f, 0);
         }
     }
+
 }

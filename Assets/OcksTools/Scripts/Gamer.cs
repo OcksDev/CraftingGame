@@ -1994,21 +1994,31 @@ public class Gamer : MonoBehaviour
     }
     public GameObject UnstableBullet;
     public GameObject HealBeam;
-    public NavMeshEntity SpawnEnemy(EnemyHolder wank)
+    public NavMeshEntity SpawnEnemy(EnemyHolder wank, bool canspendcredits = true)
     {
-        List<string> elitetypes = new List<string>();
-        EliteTypesDict["Corrupted"].Enabled = false;
-        EliteTypesDict["Lunar"].Enabled = false;
-        EliteTypesDict["Unstable"].Enabled = CurrentFloor >= 6;
-        EliteTypesDict["Splitting"].Enabled = CurrentFloor >= 6;
-        foreach (var a in EliteTypes)
-        {
-            if (a.Enabled)
-                elitetypes.Add(a.Name);
-        }
-
         var ppos = wank.SpawnPos;
         if (ppos == Vector3.zero) ppos = FindValidPos(CurrentRoom, wank.EnemyObject.GetComponent<NavMeshEntity>());
+
+        return SpawnEnemy(wank, canspendcredits, ppos);
+    }
+    
+    public NavMeshEntity SpawnEnemy(EnemyHolder wank, bool canspendcredits, Vector3 position = default)
+    {
+        List<string> elitetypes = new List<string>();
+        if (wank.CanBeElite)
+        {
+            EliteTypesDict["Corrupted"].Enabled = false;
+            EliteTypesDict["Lunar"].Enabled = false;
+            EliteTypesDict["Unstable"].Enabled = CurrentFloor >= 6;
+            EliteTypesDict["Splitting"].Enabled = CurrentFloor >= 6;
+            foreach (var a in EliteTypes)
+            {
+                if (a.Enabled)
+                    elitetypes.Add(a.Name);
+            }
+        }
+
+        var ppos = position;
 
         var ss = Instantiate(wank.EnemyObject, ppos, PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
         var rs = ss.GetComponent<NavMeshEntity>();
@@ -2030,7 +2040,10 @@ public class Gamer : MonoBehaviour
             }
             e = (e * (long)(100 * EliteTypesDict[rs.EliteType].CostMod)) / 100;
         }
-        creditcount -= e;
+        if (canspendcredits)
+        {
+            creditcount -= e;
+        }
         rs.creditsspent = e;
         EnemiesExisting.Add(rs);
         return rs;

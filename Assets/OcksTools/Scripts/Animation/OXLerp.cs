@@ -68,6 +68,31 @@ public class OXLerp : MonoBehaviour
             if (i >= bounces) yield break;
         }
     }
+    public static IEnumerator BounceFixed(Action<float> method, int bounces, float time = 1f)
+    {
+        float x = 0f;
+        float f = 1 / time;
+        int i = 0;
+        while(i < bounces)
+        {
+            while (x < 1)
+            {
+                x = Mathf.Clamp01(x + Time.deltaTime*f);
+                method(x);
+                yield return new WaitForFixedUpdate();
+            }
+            i++;
+            if(i >= bounces) yield break;
+            while (x > 0)
+            {
+                x = Mathf.Clamp01(x - Time.deltaTime*f);
+                method(x);
+                yield return new WaitForFixedUpdate();
+            }
+            i++;
+            if (i >= bounces) yield break;
+        }
+    }
     public static IEnumerator BounceInfinite(Action<float> method, float time = 1f)
     {
         float x = 0f;

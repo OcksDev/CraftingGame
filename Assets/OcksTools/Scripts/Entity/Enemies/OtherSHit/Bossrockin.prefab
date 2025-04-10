@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1721443495685260826}
   - component: {fileID: 5659395772713800228}
   m_Layer: 0
-  m_Name: Tringle
+  m_Name: Bossrockin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db827c8bd003e974fbabd1313a7b55d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: spik
+  type: rocky
   subtype: realbullet
   Damage: 10
   overridedamage: -5
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791a21e1c61b3314498d9a351b701be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  speed: 16
   rotationspeed: 0
   myballs: {fileID: 3511280402470737557}
   HomeStrength: 0
@@ -101,7 +101,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.49, y: 0.64}
   m_EdgeRadius: 0
 --- !u!50 &5659395772713800228
 Rigidbody2D:
@@ -148,14 +148,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5194846569057996884}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9060262229701945039}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6775052420513362083
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -196,9 +196,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 595fd04c4bc523542ba04edf4dc0c646, type: 3}
-  m_Color: {r: 0.15686275, g: 0.16470589, b: 0.6117647, a: 1}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 7e94fa7523f01bc4ba79192726669fa4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -234,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8131516757035642594}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.36, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -324,7 +324,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -431,7 +431,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.15686275, g: 0.16470589, b: 0.6117647, a: 1}
+      maxColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 0.57254905}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -493,7 +493,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 1.7
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5048,7 +5048,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
