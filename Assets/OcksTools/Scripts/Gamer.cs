@@ -472,6 +472,8 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.shakeo.Clear();
         CurrentFloor = 0;
         LastHitEnemy = null;
+        Edgemogging = false;
+        CameraMouseMult = 1;
         enemybar.gameObject.SetActive(false);
         enemybaroutline.gameObject.SetActive(false);
         enemybar.BarParentSize.gameObject.SetActive(false);
@@ -1931,18 +1933,42 @@ public class Gamer : MonoBehaviour
         int waves = Random.Range(0,wavesex)+adder;
         creditcount = 0;
         nmr.BuildNavMesh(true);
-        for(int i = 0; i < waves; i++)
+
+        switch (CurrentFloor)
         {
-            if (GameState != "Game") break;
-            SpawnEnemyWave(creditcount);
-            if (creditcount > 0)
-            {
-                i--;
-            }
-            yield return new WaitUntil(() => { return EnemiesExisting.Count <= 14; });
-            yield return new WaitForSeconds(time);
+            case 9:
+                StartCoroutine(HijackCamera(CurrentRoom.transform.position));
+                yield return new WaitForSeconds(1f);
+                EnemyHolder bossy = null;
+                foreach(var a in EnemiesDos)
+                {
+                    if (a.EnemyObject.GetComponent<NavMeshEntity>().EnemyType == "Bossrocks")
+                    {
+                        bossy = a;
+                        break;
+                    }
+                }
+                SpawnEnemy(bossy, false, CurrentRoom.transform.position);
+                yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
+                break;
+            default:
+                for (int i = 0; i < waves; i++)
+                {
+                    if (GameState != "Game") break;
+                    SpawnEnemyWave(creditcount);
+                    if (creditcount > 0)
+                    {
+                        i--;
+                    }
+                    yield return new WaitUntil(() => { return EnemiesExisting.Count <= 14; });
+                    yield return new WaitForSeconds(time);
+                }
+                yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
+                break;
         }
-        yield return new WaitUntil(() => { return EnemiesExisting.Count == 0; });
+
+
+
         CurrentRoom = null;
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         for(int i = 1; i < PlayerController.Instance.Skills.Count; i++)
@@ -1970,6 +1996,26 @@ public class Gamer : MonoBehaviour
 
         //test
     }
+    [HideInInspector]
+    public bool Edgemogging = false;
+    public float CameraMouseMult = 1;
+    public IEnumerator HijackCamera(Vector3 target)
+    {
+        Edgemogging = true;
+        yield return StartCoroutine(OXLerp.Linear((x) =>
+        {
+            CameraLol.Instance.targetpos = Vector3.Lerp(PlayerController.Instance.transform.position, target, RandomFunctions.EaseInAndOut(x));
+            CameraMouseMult = 1 - RandomFunctions.EaseInAndOut(x);
+        }));
+        yield return new WaitForSeconds(1.5f);
+        yield return StartCoroutine(OXLerp.Linear((x) =>
+        {
+            CameraLol.Instance.targetpos = Vector3.Lerp(target, PlayerController.Instance.transform.position, RandomFunctions.EaseInAndOut(x));
+            CameraMouseMult = RandomFunctions.EaseInAndOut(x);
+        }));
+        Edgemogging = false;
+    }
+
 
 
     public List<NavMeshEntity> SpawnEnemyWave(long creditoverflow = 0)
@@ -2017,7 +2063,6 @@ public class Gamer : MonoBehaviour
                     elitetypes.Add(a.Name);
             }
         }
-
         var ppos = position;
 
         var ss = Instantiate(wank.EnemyObject, ppos, PlayerController.Instance.transform.rotation, Tags.refs["EnemyHolder"].transform);
@@ -2046,6 +2091,19 @@ public class Gamer : MonoBehaviour
         }
         rs.creditsspent = e;
         EnemiesExisting.Add(rs);
+
+
+        if (rs.IsBoss)
+        {
+            switch (CurrentFloor)
+            {
+                case 9: break;
+                default:
+                    rs.IsBoss = false; 
+                    break;
+            }
+        }
+
         return rs;
     }
 
@@ -2086,22 +2144,46 @@ public class Gamer : MonoBehaviour
         }
         var x = pos + new Vector3(Random.Range(-s1.x + 3f, s1.x - 3f), Random.Range(-s1.y + 3f, s1.y - 3f), 0);
         bool failed = false;
-        if(RandomFunctions.Instance.Dist(x, PlayerController.Instance.transform.position) < 5)
+        switch (wankw.EnemyType)
         {
-            failed = true;
-        }
-        else
-        {
-            var a = Physics2D.OverlapCircleAll((Vector2)x, wankw.SpawnOverlapRadius);
-            foreach (var b in a)
-            {
-                var ob = GetObjectType(b.gameObject, false);
-                if (ob.BlocksSpawn)
+            case "Orb":
+                if (RandomFunctions.Instance.Dist(x, PlayerController.Instance.transform.position) < 4 || RandomFunctions.Instance.Dist(x, PlayerController.Instance.transform.position) > 10)
                 {
                     failed = true;
-                    break;
                 }
-            }
+                else
+                {
+                    var a = Physics2D.OverlapCircleAll((Vector2)x, wankw.SpawnOverlapRadius);
+                    foreach (var b in a)
+                    {
+                        var ob = GetObjectType(b.gameObject, false);
+                        if (ob.BlocksSpawn)
+                        {
+                            failed = true;
+                            break;
+                        }
+                    }
+                }
+                break;
+            default:
+                if (RandomFunctions.Instance.Dist(x, PlayerController.Instance.transform.position) < 5)
+                {
+                    failed = true;
+                }
+                else
+                {
+                    var a = Physics2D.OverlapCircleAll((Vector2)x, wankw.SpawnOverlapRadius);
+                    foreach (var b in a)
+                    {
+                        var ob = GetObjectType(b.gameObject, false);
+                        if (ob.BlocksSpawn)
+                        {
+                            failed = true;
+                            break;
+                        }
+                    }
+                }
+                break;
         }
 
         if (failed)
@@ -2156,6 +2238,10 @@ public class Gamer : MonoBehaviour
         OldCurrentRoom = CurrentRoom;
         var pp = new Vector2(CurrentRoom.transform.position.x,CurrentRoom.transform.position.y);
         var ppshex = CurrentRoom.room.RoomSize * 15f;
+
+        Debug.Log("Boomedyourroomt");
+        Debug.Log(CurrentRoom.gameObject.name);
+
         if (CurrentRoom.room.HasBottomDoor)
         {
             var pz = pp - ppshex;

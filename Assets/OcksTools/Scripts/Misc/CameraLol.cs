@@ -77,6 +77,7 @@ public class CameraLol : MonoBehaviour
                 p = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 p -= transform.position;
                 p /= 3.5f;
+                p *= Gamer.Instance.CameraMouseMult;
                 oldp = p;
             }
             // "pos" is the location the camera tries to get to

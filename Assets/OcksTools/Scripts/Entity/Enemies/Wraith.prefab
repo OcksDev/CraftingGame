@@ -143,6 +143,7 @@ MonoBehaviour:
   Shield: 0
   Max_Health: 45
   Max_Shield: 0
+  Effects: []
   DamageTimer: 0.1
   col:
     serializedVersion: 2
@@ -204,12 +205,14 @@ MonoBehaviour:
   Name: Wraith
   EnemyType: Wraith
   AttackType: Forever
+  IsBoss: 0
   ImagePixelSize: 36
   FlipImage: 0
   SpawnOverlapRadius: 1
   movespeed: 3
+  MeleeRange: 2.5
   SightRange: 15
-  AttackCooldown: 1.5
+  AttackCooldown: 2.2
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
@@ -220,6 +223,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 280869c4a9f06384aac492c35bc3e513, type: 3}
   SpriteMiscRefs: []
   EnableOnTrueSpawn: []
+  Miscrefs: []
+  sex: {fileID: 0}
   box: {fileID: 1894346058258269852, guid: 46783c73a7cf2bf498e3d3d342476628, type: 3}
   EntityOXS: {fileID: 0}
   timer2: 0
@@ -243,9 +248,22 @@ MonoBehaviour:
   BaldAltMoveSpeed: 0
   BaldDamage: 0
   TurnSpeen: 0
+  CustomLogbookSprite: {fileID: 0}
+  HolderRef:
+    EnemyObject: {fileID: 0}
+    CreditCost: 1
+    PickChance: 1
+    MinFloor: 0
+    MaxFloor: 0
+    CanBeElite: 1
+    InstantSpawn: 0
+    SpawnPos: {x: 0, y: 0, z: 0}
   distancetraveleleled: 0
   existing: 0
   ddist: 0
+  movemult: 1
+  mainonly_movemult: 1
+  altonly_movemult: 1
   charging: 0
   charging2: 0
   alt_speed: 10

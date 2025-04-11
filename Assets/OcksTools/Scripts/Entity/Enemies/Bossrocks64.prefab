@@ -227,9 +227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyType: Enemy
-  Health: 2500
+  Health: 3500
   Shield: 0
-  Max_Health: 2500
+  Max_Health: 3500
   Max_Shield: 0
   Effects: []
   DamageTimer: 0.1
@@ -302,12 +302,12 @@ MonoBehaviour:
   movespeed: 3
   MeleeRange: 2.5
   SightRange: 15
-  AttackCooldown: 3
+  AttackCooldown: 2
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 20
+  Damage: 12
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: 21300000, guid: a9fd8d277df587143a40f5fd2bcbced9, type: 3}
@@ -360,6 +360,8 @@ MonoBehaviour:
   existing: 0
   ddist: 0
   movemult: 1
+  mainonly_movemult: 1
+  altonly_movemult: 1
   charging: 0
   charging2: 0
   alt_speed: 10

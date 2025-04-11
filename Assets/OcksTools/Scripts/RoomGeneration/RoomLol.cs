@@ -9,6 +9,7 @@ public class RoomLol : MonoBehaviour
     public float DistanceScaler = 1f;
     public Vector3 CenterSpawn = new Vector3(0, 0, 0);
     public Room[] RoomNerds;
+    public Room[] SpecialRoomNerds;
     public List<GameObject> SpawnedRooms = new List<GameObject>();
     public List<I_Room> SpawnedRoomsDos = new List<I_Room>();
     public int[,] RoomColliders = new int[200, 200];
@@ -65,6 +66,10 @@ public class RoomLol : MonoBehaviour
             RoomNerds[i].SetData(i);
             AllRooms.Add(RoomNerds[i]);
         }
+        for (int i = 0; i < SpecialRoomNerds.Length; i++)
+        {
+            SpecialRoomNerds[i].SetData(i);
+        }
         LeftRooms.Clear();
         RightRooms.Clear();
         UpRooms.Clear();
@@ -114,6 +119,48 @@ public class RoomLol : MonoBehaviour
          * Lists
          * 
          */
+        switch (Gamer.CurrentFloor)
+        {
+            case 9:
+                int sz = RoomColliders.GetLength(0) / 2;
+                var v = new Vector2(sz, sz);    
+                var v2 = new Vector2(sz, sz);    
+                ret.room = SpecialRoomNerds[0];
+                ret.pos = v;
+
+
+                v += ret.room.RightDoor;
+
+                CoolRoom ret2 = new CoolRoom();
+
+                ret2.room = RoomNerds[5];
+
+                v -= ret2.room.LeftDoor;
+                v += new Vector2(1, 0);
+
+                ret2.pos = v;
+
+                ret.comlpetedRooms.Add(ret2);
+
+
+                v2 += ret.room.LeftDoor;
+
+                CoolRoom ret3 = new CoolRoom();
+
+                ret3.room = RoomNerds[0];
+
+                v2 -= ret3.room.RightDoor;
+                v2 -= new Vector2(1, 0);
+
+                ret3.pos = v2;
+
+                ret.comlpetedRooms.Add(ret3);
+
+
+                return ret;
+        }
+
+
         List<Room> available_rooms;
         switch (dir)
         {

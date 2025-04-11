@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     public float DashCoolDown = 0f;
     public OcksNetworkVar network_helditem = new OcksNetworkVar();
     private bool HasLoadedWeapon = false;
-    public static float BaseDashCooldown = 5f;
+    public static float BaseDashCooldown = 4f;
     public SpriteRenderer Underlay;
     public WeaponDisplay weewee;
     public bool DeathDisable = false;
@@ -967,7 +967,7 @@ public class PlayerController : MonoBehaviour
                 c.a = candash||IsDashing?1:0.3f;
                 Underlay.color = c;
             }
-            if (CameraLol.Instance != null)
+            if (CameraLol.Instance != null && !Gamer.Instance.Edgemogging)
             {
                 CameraLol.Instance.targetpos = transform.position;
             }

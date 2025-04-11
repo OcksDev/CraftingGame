@@ -604,6 +604,8 @@ public class EntityOXS : MonoBehaviour
                 {
                     string zaza = GISLol.Instance.AllAspects[Random.Range(0, GISLol.Instance.AllAspects.Count)];
                     Gamer.Instance.SpawnGroundItem(transform.position, new GISItem(zaza));
+
+                    Gamer.Instance.SpawnCoins(transform.position, 9, PlayerController.Instance);
                 }
 
                 switch (aa.EliteType)

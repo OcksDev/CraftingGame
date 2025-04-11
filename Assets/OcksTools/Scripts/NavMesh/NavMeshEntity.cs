@@ -230,6 +230,10 @@ public class NavMeshEntity : MonoBehaviour
                 //EnableOnTrueSpawn[0].GetComponent<ParticleSystem>().Play();
                 break;
         }
+        if (IsBoss)
+        {
+            timer2 = -2f;
+        }
     }
 
 
@@ -324,6 +328,8 @@ public class NavMeshEntity : MonoBehaviour
     bool canrunattacktimer = true;
     const float sexcum = 180 / Mathf.PI;
     public float movemult = 1;
+    public float mainonly_movemult = 1;
+    public float altonly_movemult = 1;
     public void SetMoveSpeeds()
     {
         float mult = 1;
@@ -340,8 +346,8 @@ public class NavMeshEntity : MonoBehaviour
         }
         mult *= movemult;
 
-        movespeed = BaldMoveSpeed * mult;
-        alt_speed = BaldAltMoveSpeed * mult;
+        movespeed = BaldMoveSpeed * mult * mainonly_movemult;
+        alt_speed = BaldAltMoveSpeed * mult * altonly_movemult;
     }
 
     // Update is called once per frame
@@ -706,19 +712,19 @@ public class NavMeshEntity : MonoBehaviour
     {
         distancetraveleleled = 0;
         float premove = movespeed;
-        movespeed = 0.5f;
+        mainonly_movemult = 0.5f;
         charging = true;
         yield return new WaitForSeconds(0.3f);
         ANTICHARGEFART = true;
         chargedir = (GetDir() - NoZ(transform.position)).normalized;
-        movemult = 0;
+        mainonly_movemult = 0;
         charging2 = true;
         CLearShit?.Invoke();
         box.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         charging = false;
         charging2 = false;
-        movemult = 1;
+        mainonly_movemult = 1;
         timer2 = Random.Range(-0.25f, 0.25f);
         box.SetActive(false);
         yield return new WaitForSeconds(0.13f);
@@ -962,10 +968,10 @@ public class NavMeshEntity : MonoBehaviour
 
 
         yield return new WaitForSeconds(0.15f);
-        int i = Random.Range(1, 3);
+        int i = Random.Range(0, 3);
         Vector3 pos = transform.position + new Vector3(0, 1.15f, 0);
         
-        if(RandomFunctions.Instance.Dist(transform.position, target.transform.position) <= 8.5 && Random.Range(0, 1f) <= 0.5f)
+        if(RandomFunctions.Instance.Dist(transform.position, target.transform.position) <= 8.5 && Random.Range(0, 1f) <= 0.4f)
         {
             var orig = new Vector3(-3.08699989f, 1.05999994f, 0);
             var newn = new Vector3(-3.32999992f, 2.24000001f, 0);
@@ -1011,7 +1017,7 @@ public class NavMeshEntity : MonoBehaviour
                 Miscrefs[1].transform.localPosition = Vector3.Lerp(fein, orig, RandomFunctions.EaseInAndOut(x));
                 Miscrefs[2].transform.localPosition = Vector3.Lerp(fein2, orig2, RandomFunctions.EaseInAndOut(x));
             }, 0.8f));
-            timer2 = AttackCooldown / 2;
+            timer2 = AttackCooldown / 1.5f;
             goto endend;
         }
 
@@ -1063,7 +1069,7 @@ public class NavMeshEntity : MonoBehaviour
                     Miscrefs[2].transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(0, 160, RandomFunctions.EaseInAndOut(x)));
                 },1.5f));
 
-                for(int j = 0; j < 26; j++)
+                for(int j = 0; j < 20; j++)
                 {
                     yield return new WaitForSeconds(0.05f);
                     var pp = transform.position + new Vector3(4.45f * ((j % 2 == 0) ? 1 : -1), 4.7f, 0);
@@ -1259,12 +1265,13 @@ public class NavMeshEntity : MonoBehaviour
         canrunattacktimer = true;
         charging = true;
         chargedir = (GetDir() - NoZ(transform.position)).normalized;
-        movemult = 0;
+        mainonly_movemult = 0;
         charging2 = true;
         CLearShit?.Invoke();
         yield return new WaitForSeconds(0.3f);
         charging = false;
         charging2 = false;
+        mainonly_movemult = 1;
         timer2 = Random.Range(-0.25f, 0.25f);
 
     }
