@@ -128,34 +128,21 @@ public class RoomLol : MonoBehaviour
                 ret.room = SpecialRoomNerds[0];
                 ret.pos = v;
 
-
                 v += ret.room.RightDoor;
-
                 CoolRoom ret2 = new CoolRoom();
-
                 ret2.room = RoomNerds[5];
-
                 v -= ret2.room.LeftDoor;
                 v += new Vector2(1, 0);
-
                 ret2.pos = v;
-
                 ret.comlpetedRooms.Add(ret2);
 
-
                 v2 += ret.room.LeftDoor;
-
                 CoolRoom ret3 = new CoolRoom();
-
                 ret3.room = RoomNerds[0];
-
                 v2 -= ret3.room.RightDoor;
                 v2 -= new Vector2(1, 0);
-
                 ret3.pos = v2;
-
                 ret.comlpetedRooms.Add(ret3);
-
 
                 return ret;
         }
