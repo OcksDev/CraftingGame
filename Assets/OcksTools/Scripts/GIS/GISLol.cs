@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class GISLol : MonoBehaviour
 {
@@ -47,10 +46,7 @@ public class GISLol : MonoBehaviour
     public TextAsset DesciptionOverrides;
     public TextAsset GeneralDesciptionOverrides;
     public TextAsset EXTRADescriptionSussyBacons;
-    public static GISLol Instance
-    {
-        get { return instance; }
-    }
+    public static GISLol Instance;
 
     public void LoadTempForAll()
     {
@@ -95,7 +91,10 @@ public class GISLol : MonoBehaviour
 
     private void Awake()
     {
-
+        if(Instance != this)
+        {
+            Debug.LogError("WHAT");
+        }
         foreach (var a in Skills)
         {
             SkillsDict.Add(a.Name, a);
@@ -223,8 +222,7 @@ public class GISLol : MonoBehaviour
                 ItemsDict[we.Key].EXTRADescription = we.Value;
             }
         }
-
-        if (Instance == null) instance = this;
+        Instance = this;
         SaveSystem.SaveAllData += SaveAll;
         Mouse_Held_Item = new GISItem();
     }

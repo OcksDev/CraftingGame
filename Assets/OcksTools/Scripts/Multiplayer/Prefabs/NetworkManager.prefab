@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 273937250216202032}
   - component: {fileID: 5856764855215001397}
   - component: {fileID: 7616261651428151912}
-  - component: {fileID: 6570595859471956945}
   - component: {fileID: 6452671135146635083}
   - component: {fileID: 7616261651428151914}
   - component: {fileID: 3022886960770519242}
@@ -74,13 +73,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   fader: {fileID: 0}
+  mainnerddeingle: {fileID: 0}
+  textShuingite: {fileID: 0}
   ballers: []
-  Enemies: []
+  floordinglers: []
+  EnemiesDos: []
   Players: []
   EnemiesExisting: []
   Chests: []
+  EliteTypes: []
   HealerGFooFO: {fileID: 0}
+  CoinGFooFO: {fileID: 0}
   nmr: {fileID: 0}
+  DoorHolder: {fileID: 0}
   GroundItemShit: {fileID: 0}
   CraftSex: 3
   cuumer: {fileID: 0}
@@ -88,20 +93,119 @@ MonoBehaviour:
   healers: []
   balls: {fileID: 0}
   spawnedchests: []
-  ItemShites: []
+  spawneditemsformymassivesexyballs: []
   ItemDisplayParent: {fileID: 0}
   ItemDisplay: {fileID: 0}
-  ItemDikPoops: []
   DoorFab: {fileID: 0}
   SpawnFix: {fileID: 0}
+  StupidAssDoorDoohickies: []
   ParticleSpawns: []
+  LevelProgression: []
+  FloorHeader: {fileID: 0}
+  InitFloorHeadPos: {fileID: 0}
+  LastHitEnemy: {fileID: 0}
+  enemybar: {fileID: 0}
+  enemybaroutline: {fileID: 0}
+  ItemNameInput: {fileID: 0}
+  CoinCostDisplay: {fileID: 0}
+  ItemPoolMats: []
+  ItemPoolRunes: []
+  ItemPoolAspects: []
+  CanInteractThisFrame: 0
+  EnemySpawnNumber: 0
+  EnemySpawnElite: 
+  NextFloorButtonSexFuck: 0
+  NextShopButtonSexFuck: 0
+  ItemTranser: {fileID: 0}
   HitSexers: []
+  SkillCumSexers: []
+  ItemAnimThing: {fileID: 0}
+  VaultThing: {fileID: 0}
+  LogbookThing: {fileID: 0}
+  EffectThing: {fileID: 0}
+  volume: {fileID: 0}
+  FUCKYOUOHMYGOD: {fileID: 0}
+  SkillOffers: []
+  TimeOfQuest: 0
   InRoom: 0
   CurrentRoom: {fileID: 0}
+  PickupItemCrossover:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
+    AspectMaterial:
+      index: 
+      itemindex: 
+    Run_Materials: []
+    Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
+    Luck: 0
+    Balance: 1
+    BlockChance: 0
+    Player: {fileID: 0}
+    IAMSPECIL: {fileID: 0}
+    SPEC2: {fileID: 0}
+    CoinCost: 0
+  KillMeOnRoomSex: []
   IsHost: 0
+  currentvault: 0
+  spawnednerds: []
+  prespawnednerds: []
+  SortMethod: 0
+  VaultSearch: {fileID: 0}
+  Highlights: 0
+  Lowlights: 0
+  PrinterYoinks:
+    ItemIndex: Empty
+    Amount: 0
+    CustomName: 
+    Container: {fileID: 0}
+    Materials: []
+    GraftedMaterial:
+      index: 
+      itemindex: 
+    AspectMaterial:
+      index: 
+      itemindex: 
+    Run_Materials: []
+    Interacted_Containers: []
+    UsesRemaining: 5
+    Quality: 5
+    Luck: 0
+    Balance: 1
+    BlockChance: 0
+    Player: {fileID: 0}
+    IAMSPECIL: {fileID: 0}
+    SPEC2: {fileID: 0}
+    CoinCost: 0
+  itemshite: {fileID: 0}
+  Flasher: {fileID: 0}
+  IsInShop: 0
+  playerstpos: {x: 0, y: 0, z: 0}
+  OrbChaser: {fileID: 0}
+  PasscodeSex: {fileID: 0}
+  Edgemogging: 0
+  CameraMouseMult: 1
+  UnstableBullet: {fileID: 0}
+  HealBeam: {fileID: 0}
+  OldCurrentRoom: {fileID: 0}
   ShartPoop: 0
+  lastkillpos: {x: 0, y: 0, z: 0}
+  AllHealers: []
   IsFading: 0
+  WasInShop: 0
+  Skipper: 0
   completetetge: 0
+  MinigameScore: 0
+  CompletedMinigame: 0
+  Reachedtop: 0
+  animaim: 0
 --- !u!114 &5856764855215001397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,23 +258,6 @@ MonoBehaviour:
   Join_Code: 
   ServerGamerObject: {fileID: 880589326191894371, guid: 85c57e8fe3c62394fbdaaad429dd5d0e, type: 3}
   SignInState: 
---- !u!114 &6570595859471956945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7616261651428151895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83a179bc67924fb4aa73997ab081459c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseLanguageFile: 1
-  Mouse_Displayer: {fileID: 0}
-  MouseFollower: {fileID: 0}
-  Items: []
-  Materials: []
 --- !u!114 &6452671135146635083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4376f568938f14886d41f6e0e56131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  locklevelzz: []
 --- !u!114 &7616261651428151914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,8 +360,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UseFileSystem: 1
-  SaveFile: 0
   test: 0
+  NoScroll: 0
+  DashSkillShow: 0
   LoadedData: 0
 --- !u!114 &733915574832352348
 MonoBehaviour:

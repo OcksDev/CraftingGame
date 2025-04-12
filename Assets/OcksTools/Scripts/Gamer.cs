@@ -1695,7 +1695,25 @@ public class Gamer : MonoBehaviour
         {
             if (psex.level == level) endos.Add(psex);
         }
-        var rm = endos[r.Next(0, endos.Count)];
+        I_Room rm = null;
+        switch (CurrentFloor)
+        {
+            case 9:
+                foreach(var a in endos)
+                {
+                    Debug.Log(a.gameObject.name);
+                    if (a.gameObject.name == "End1(Clone)")
+                    {
+                        rm = a;
+                        break;
+                    }
+                }
+                break;
+            default:
+                rm = endos[r.Next(0, endos.Count)];
+                break;
+        }
+
         //Debug.Log("Endo Count: "+ endos.Count);
         rm.isused = "Start";
         PlayerController.Instance.transform.position = rm.transform.position;
