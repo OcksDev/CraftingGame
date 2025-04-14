@@ -414,7 +414,11 @@ public class GISLol : MonoBehaviour
             e.itemindex = "Rock";
             PlayerController.Instance.mainweapon.Materials.Add(e);
         }
-        
+
+        if (InputManager.IsKeyDown(KeyCode.I))
+        {
+            Gamer.Instance.SpawnGroundItem(PlayerController.Instance.transform.position, Gamer.Instance.GetItemForLevel());
+        }
         if (InputManager.IsKeyDown(KeyCode.L, "menu"))
         {
             Debug.LogError("Fuck you, pause the game");

@@ -618,6 +618,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (DeathDisable) return;
+        if (Gamer.WithinAMenu) return;
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"][0], "Dash", "player", 0.1f, true);
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["skill1"][0], "Skill1", "player", 0.1f, true);
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["skill2"][0], "Skill2", "player", 0.1f, true);
@@ -630,6 +631,7 @@ public class PlayerController : MonoBehaviour
     
     private void LateUpdate()
     {
+        if (Gamer.WithinAMenu) return;
         AAA();
     }
 
@@ -797,8 +799,9 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (DeathDisable) return;
+        if (Gamer.WithinAMenu) return;
 
-        if(Gamer.GameState == "Lobby")
+        if (Gamer.GameState == "Lobby")
         {
             entit.Health = entit.Max_Health;
         }

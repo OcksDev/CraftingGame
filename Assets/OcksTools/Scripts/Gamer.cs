@@ -5,7 +5,6 @@ using TMPro;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
 using Unity.Netcode.Components;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -146,15 +145,18 @@ public class Gamer : MonoBehaviour
         //SkillCumSexers[1].gameObject.SetActive(false);
         //SkillCumSexers[2].gameObject.SetActive(false);
         //SkillCumSexers[3].gameObject.SetActive(false);
-        WithinAMenu = false;
+        WithinAMenu = MenuAnim;
         InputManager.ResetLockLevel();
-        for(int i = 0; i < checks.Length; i++)
+        if (!WithinAMenu)
         {
-            if (checks[i])
+            for (int i = 0; i < checks.Length; i++)
             {
-                WithinAMenu = true;
-                InputManager.SetLockLevel("menu");
-                break;
+                if (checks[i])
+                {
+                    WithinAMenu = true;
+                    InputManager.SetLockLevel("menu");
+                    break;
+                }
             }
         }
         if (checks[4])
@@ -465,7 +467,6 @@ public class Gamer : MonoBehaviour
             }
         }
     }
-
     public void ResetIntegreal()
     {
         if (titlething != null) StopCoroutine(titlething);
@@ -477,6 +478,7 @@ public class Gamer : MonoBehaviour
         enemybar.gameObject.SetActive(false);
         enemybaroutline.gameObject.SetActive(false);
         enemybar.BarParentSize.gameObject.SetActive(false);
+        MenuAnim = false;
         if (NextFloorBall != null) StopCoroutine(NextFloorBall);
         FloorHeader.transform.position = InitFloorHeadPos.position;
         for (int i = 0; i < checks.Length; i++)
@@ -591,7 +593,7 @@ public class Gamer : MonoBehaviour
             }
             else
             {
-                SetPauseMenu(!checks[4]);
+               if(!WithinAMenu || checks[4]) SetPauseMenu(!checks[4]);
             }
         }
         if ((InputManager.IsKeyDown("inven", "player") && GameState == "Lobby") || (checks[0] && InputManager.IsKeyDown("inven", "menu")))
@@ -751,9 +753,9 @@ public class Gamer : MonoBehaviour
     }
 
     public static int EnemyCheckoffset = 0;
-    public void ToggleInventory(bool overrides = false)
+    public System.Action<float> ToggleInventory(bool overrides = false)
     {
-        if(GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty")
+        if (GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty")
         {
             GISLol.Instance.GrantItem(GISLol.Instance.Mouse_Held_Item);
             GISLol.Instance.Mouse_Held_Item = new GISItem();
@@ -781,16 +783,43 @@ public class Gamer : MonoBehaviour
                 }
             }
         }
-
-        if (checks[1] && !overrides) return;
+        System.Action bana = () => 
+        {
+            checks[1] = false;
+            checks[11] = false;
+            checks[18] = false;
+            checks[19] = false;
+            checks[2] = checks[0];
+            UpdateMenus();
+        };
         checks[0] = !checks[0];
-        checks[1] = false;
-        checks[11] = false;
-        checks[18] = false;
-        checks[19] = false;
-        checks[2] = checks[0];
-        UpdateMenus();
+        if (overrides) goto why;
+        bana();
+        why:
+        var aa = Tags.refs["Inventory"].GetComponent<MenuMover>();
+        aa.Initial();
+        System.Action<float> y = (x) =>
+        {
+            aa.nerds[0].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[0].x, -775, 0), aa.nerds_orig[0], RandomFunctions.EaseIn(x));
+            if (checks[1]) aa.nerds[1].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[1].x, 775, 0), aa.nerds_orig[1], RandomFunctions.EaseIn(x));
+            if (checks[11]) aa.nerds[2].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[2].x, 775, 0), aa.nerds_orig[2], RandomFunctions.EaseIn(x));
+            if (checks[18]) aa.nerds[3].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[3].x, 775, 0), aa.nerds_orig[3], RandomFunctions.EaseIn(x));
+            if (checks[19]) aa.nerds[4].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[4].x, 775, 0), aa.nerds_orig[4], RandomFunctions.EaseIn(x));
+            aa.nerds_img[0].color = Color.Lerp(new Color(0, 0, 0, 0), aa.nerds_img_orig[0], x);
+            aa.nerds_img[1].color = Color.Lerp(new Color(0, 0, 0, 0), aa.nerds_img_orig[1], x);
+        };
+        y(0);
+        StartCoroutine(InvenAids(y, !checks[0], bana));
+        return y;
     }
+
+    public IEnumerator InvenAids(System.Action<float> y, bool fu, System.Action b)
+    {
+        yield return StartCoroutine(MenuAnimationLol(!checks[0], !checks[0], y));
+        if (fu) b();
+    }
+
+
     public void ToggleSettings()
     {
         checks[8] = !checks[8];
@@ -799,9 +828,37 @@ public class Gamer : MonoBehaviour
     public void ToggleQuests()
     {
         checks[14] = !checks[14];
-        if (checks[14]) Tags.refs["QuestMenu"].GetComponent<QuestMenuUpdater>().OpenCum();
-        UpdateMenus();
+        var aa = Tags.refs["QuestMenu"].GetComponent<MenuMover>();
+        aa.Initial();
+        if (checks[14])
+        {
+            Tags.refs["QuestMenu"].GetComponent<QuestMenuUpdater>().OpenCum();
+            UpdateMenus();
+        }
+        System.Action<float> y = (x) =>
+        {
+            aa.nerds[0].localPosition = Vector3.Lerp(new Vector3(0, -720, 0), aa.nerds_orig[0], RandomFunctions.EaseIn(x));
+            aa.nerds_img[0].color = Color.Lerp(new Color(0,0,0,0), aa.nerds_img_orig[0], x);
+        };
+        y(0);
+        StartCoroutine(MenuAnimationLol(!checks[14],!checks[14], y));
     }
+
+    public IEnumerator MenuAnimationLol(bool updateoncum, bool reversedir, System.Action<float> x)
+    {
+        MenuAnim = true;
+        if (reversedir)
+        {
+            yield return StartCoroutine(OXLerp.Linear((y) => { x(1 - y); }, 0.5f));
+        }
+        else
+        {
+            yield return StartCoroutine(OXLerp.Linear(x, 0.5f));
+        }
+        MenuAnim = false;
+        if (updateoncum) UpdateMenus();
+    }
+
     public void ToggleLogbook()
     {
         checks[12] = !checks[12];
@@ -1249,6 +1306,7 @@ public class Gamer : MonoBehaviour
     }
 
     bool anim = false;
+    public bool MenuAnim = false;
 
     public IEnumerator FUCKYOU()
     {
@@ -1480,8 +1538,30 @@ public class Gamer : MonoBehaviour
     public void CheckWeaponsBreak()
     {
         var c = GISLol.Instance.All_Containers["Equips"];
-        if (c.slots[0].Held_Item.UsesRemaining <= 0) c.slots[0].Held_Item = new GISItem();
-        if (c.slots[1].Held_Item.UsesRemaining <= 0) c.slots[1].Held_Item = new GISItem();
+        if (c.slots[0].Held_Item.UsesRemaining <= 0)
+        {
+            var a = new OXNotif();
+            a.Title = "A Weapon Has Broken";
+            a.Description = c.slots[0].Held_Item.CustomName;
+            a.BackgroundColor1 = new Color(0.5f, 0, 0);
+            a.Item = c.slots[0].Held_Item;
+            a.Descoffset = new Vector3(0, -2, 0);
+            a.Time = 5;
+            NotificationSystem.Instance.AddNotif(a);
+            c.slots[0].Held_Item = new GISItem();
+        }
+        if (c.slots[1].Held_Item.UsesRemaining <= 0)
+        {
+            var a = new OXNotif();
+            a.Title = "A Weapon Has Broken";
+            a.Description = c.slots[1].Held_Item.CustomName;
+            a.BackgroundColor1 = new Color(0.5f, 0, 0);
+            a.Item = c.slots[1].Held_Item;
+            a.Descoffset = new Vector3(0, -2, 0);
+            a.Time = 5;
+            NotificationSystem.Instance.AddNotif(a);
+            c.slots[1].Held_Item = new GISItem();
+        }
         c.SaveTempContents();
     }
     

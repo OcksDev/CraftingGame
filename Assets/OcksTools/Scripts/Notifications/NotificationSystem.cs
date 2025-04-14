@@ -132,6 +132,7 @@ public class NotificationSystem : MonoBehaviour
         thing.SetItem(notif.Item);
         thing.Background1.color = notif.BackgroundColor1;
         thing.Background2.color = notif.BackgroundColor2;
+        thing.CalcSizeOfTexts[1].transform.position += notif.Descoffset;
 
         thing.CalcSizeDelta();
         notif.meme = not;
@@ -177,6 +178,7 @@ public class OXNotif
     public GISItem Item = null;
     public Color32 BackgroundColor1;
     public Color32 BackgroundColor2;
+    public Vector3 Descoffset = Vector3.zero;
     // dont touch the following variables
     public float sextimer = 0;
     public GameObject meme;

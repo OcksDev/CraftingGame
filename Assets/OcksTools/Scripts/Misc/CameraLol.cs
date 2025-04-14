@@ -60,7 +60,6 @@ public class CameraLol : MonoBehaviour
             Shake(0.4f, 0.8f);
         }
         */
-
         transform.position = ppos;
         var a = new Vector3(offset(ppos.x) * SmoothMod, offset(ppos.y) * SmoothMod, 0);
         Tags.refs["RenderHolder"].transform.position = Tags.refs["NormalRender"].transform.position + a;

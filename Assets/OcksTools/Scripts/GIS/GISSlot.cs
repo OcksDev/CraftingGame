@@ -216,6 +216,7 @@ public class GISSlot : MonoBehaviour
         bool right = InputManager.IsKeyDown("item_half");
         bool ctrl = InputManager.IsKey("item_quick");
         if (!(right || left)) return;
+        if (Gamer.Instance.MenuAnim) return;
         if (!IsHovering()) return;
         if (Gamer.Instance.checks[21]) return;
         switch (InteractFilter)

@@ -121,22 +121,24 @@ public class INteractable : MonoBehaviour
         var g = Gamer.Instance;
         g.CanInteractThisFrame = false;
         if (g.IsFading) return;
+        System.Action<float> aa;
         switch(Type)
         {
             case "Crafter":
-                g.checks[1] = !g.checks[1];
-                g.checks[0] = g.checks[1];
+                aa = g.ToggleInventory();
                 g.checks[2] = false;
-                g.checks[11] = false;
+                g.checks[1] = true;
+                aa(0);
+                g.UpdateMenus();
                 g.cuumer.Open();
                 g.InitCraftMenu();
                 g.UpdateMenus();
                 break;
             case "Vault":
+                aa = g.ToggleInventory();
                 g.checks[11] = true;
-                g.checks[1] = false;
-                g.checks[0] = true;
                 g.checks[2] = false;
+                aa(0);
                 g.UpdateMenus();
                 g.OpenVault();
                 Gamer.Instance.LoadVaultPage(0);
