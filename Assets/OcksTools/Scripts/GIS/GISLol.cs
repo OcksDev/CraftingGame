@@ -306,6 +306,7 @@ public class GISLol : MonoBehaviour
         foreach (var boner in All_Containers)
         {
             if (Gamer.Instance.checks[21]) break;
+            if (Gamer.Instance.checks[22]) break;
             if (boner.Value.gameObject.activeInHierarchy)
             {
                 foreach (var bone in boner.Value.slots)

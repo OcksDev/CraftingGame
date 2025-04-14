@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Gamer : MonoBehaviour
 {
@@ -119,10 +120,12 @@ public class Gamer : MonoBehaviour
         Tags.refs["GrafterMenu"].SetActive(checks[18]);
         Tags.refs["AspectMenu"].SetActive(checks[19]);
         Tags.refs["Minigame"].SetActive(checks[21]);
+        Tags.refs["Transmute"].SetActive(checks[22]);
 
         Tags.refs["ItemeP"].SetActive(checks[20]);
         Tags.refs["ItemeR"].SetActive(checks[17]);
-        Tags.refs["Iteme"].SetActive(!(checks[17] || checks[20]));
+        Tags.refs["ItemeT"].SetActive(checks[23]);
+        Tags.refs["Iteme"].SetActive(!(checks[17] || checks[20]|| checks[23]));
 
         Tags.refs["GameUI"].SetActive(GameState == "Game");
         Tags.refs["EnemiesRemaining"].SetActive(!IsInShop);
@@ -540,7 +543,7 @@ public class Gamer : MonoBehaviour
 
     public void Update()
     {
-        if (!IsFading && InputManager.IsKeyDown("close_menu"))
+        if (!IsFading && !MenuAnim && InputManager.IsKeyDown("close_menu"))
         {
              if (checks[14])
             {
@@ -579,7 +582,11 @@ public class Gamer : MonoBehaviour
             {
                 ToggleSkillMenu();
             }
-            else if (checks[5] || checks[17])
+            else if (checks[22])
+            {
+                SetTranStat(false);
+            }
+            else if (checks[5] || checks[17]|| checks[23])
             {
                 if(!anim)
                 ToggleItemPickup();
@@ -598,7 +605,14 @@ public class Gamer : MonoBehaviour
         }
         if ((InputManager.IsKeyDown("inven", "player") && GameState == "Lobby") || (checks[0] && InputManager.IsKeyDown("inven", "menu")))
         {
-            ToggleInventory();
+            if (checks[0])
+            {
+                ToggleInventory(true);
+            }
+            else
+            {
+                ToggleInventory();
+            }
         }
         if (checks[11])
         {
@@ -755,6 +769,7 @@ public class Gamer : MonoBehaviour
     public static int EnemyCheckoffset = 0;
     public System.Action<float> ToggleInventory(bool overrides = false)
     {
+        if (MenuAnim) return null;
         if (GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty")
         {
             GISLol.Instance.GrantItem(GISLol.Instance.Mouse_Held_Item);
@@ -891,6 +906,14 @@ public class Gamer : MonoBehaviour
         checks[5] = !checks[5];
         checks[17] = true;
         Ubdatebananasexballsfucucucuc();
+        Shanana();
+    }
+    public void ToggleTransmutehMenu()
+    {
+        checks[5] = !checks[5];
+        //checks[22] = true;
+        hastrantempyes = false;
+        checks[23] = true;
         Shanana();
     }
 
@@ -1091,6 +1114,17 @@ public class Gamer : MonoBehaviour
         }
     }
 
+    public List<string> GetSelfSimilar(string item)
+    {
+        var aa = GISLol.Instance.ItemsDict[item];
+        if (aa.IsCraftable) return ItemPoolMats;
+        if (aa.IsRune) return ItemPoolRunes;
+        if (aa.IsAspect) return ItemPoolAspects;
+        return null;
+    }
+
+
+
     public void ToggleFuckPause()
     {
         if(GameState == "Lobby")
@@ -1224,6 +1258,8 @@ public class Gamer : MonoBehaviour
     {
         checks[5] = !checks[5];
         checks[17] = false;
+        checks[22] = false;
+        checks[23] = false;
         Shanana();
     }
 
@@ -1234,12 +1270,7 @@ public class Gamer : MonoBehaviour
             var c = GISLol.Instance.All_Containers["Equips"];
 
             var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
-            if (checks[17])
-            {
-                poopy.slots[0].Held_Item = new GISItem();
-                poopy.slots[0].Displayer.UpdateDisplay();
-            }
-            else if (checks[20])
+            if (checks[17] || checks[20] || checks[23])
             {
                 poopy.slots[0].Held_Item = new GISItem();
                 poopy.slots[0].Displayer.UpdateDisplay();
@@ -1304,6 +1335,59 @@ public class Gamer : MonoBehaviour
         }
         UpdateMenus();
     }
+    bool hastrantempyes = false;
+    public void AttemptOpenTransmute(GISItem meme)
+    {
+        if (hastrantempyes) return;
+        SetTranStat(true, meme);
+    }
+    List<I_penis> spawndinglebobs = new List<I_penis>();
+    public void SetTranStat(bool ree, GISItem a = null)
+    {
+        checks[22] = ree;
+        if (ree)
+        {
+            var wankwank = GetSelfSimilar(a.ItemIndex);
+
+            var diff = wankwank.Count - spawndinglebobs.Count;
+            for (int i = 0; i < diff; i++)
+            {
+                spawndinglebobs.Add(Instantiate(LogbookThing, transform.position, transform.rotation, Tags.refs["TransmuteParent"].transform).GetComponent<I_penis>());
+            }
+            for (int i = 0; i < -diff; i++)
+            {
+                Destroy(spawndinglebobs[0].gameObject);
+                spawndinglebobs.RemoveAt(0);
+            }
+            for (int i = 0; i < wankwank.Count; i++)
+            {
+                spawndinglebobs[i].GISDisplay.item = new GISItem(wankwank[i]);
+                spawndinglebobs[i].GISDisplay.UpdateDisplay("logbook");
+            }
+        }
+        else
+        {
+            if(a != null)
+            {
+                hastrantempyes = true;
+                GISLol.Instance.All_Containers["ItemPickup"].slots[0].Held_Item = new GISItem(a);
+            }
+        }
+        var aa = Tags.refs["Transmute"].GetComponent<MenuMover>();
+        aa.Initial();
+        System.Action<float> y = (x) =>
+        {
+            aa.nerds[0].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[0].x, -775, 0), aa.nerds_orig[0], RandomFunctions.EaseIn(x));
+            aa.nerds_img[0].color = Color.Lerp(new Color(0, 0, 0, 0), aa.nerds_img_orig[0], x);
+        };
+        y(0);
+        if(ree) UpdateMenus();
+        StartCoroutine(MenuAnimationLol(!ree, !ree, y));
+    }
+    public void Transselected(GISItem aa)
+    {
+        SetTranStat(false, aa);
+    }
 
     bool anim = false;
     public bool MenuAnim = false;
@@ -1336,17 +1420,20 @@ public class Gamer : MonoBehaviour
     public void Ubdatebananasexballsfucucucuc()
     {
         var poopy = Tags.refs["ItemeR"].GetComponent<Quicky>();
-        var x = itemrollamnt * 2;
+        var x = itemrollamnt * 1;
         poopy.costy.text = $"{x} Coins";
         poopy.buyer.interactable = PlayerController.Instance.Coins >= x;
     }
+    
 
     private bool AmIVeryFuckableToday()
     {
         if (anim) return true;
+        if (MenuAnim) return true;
         var poopy = Tags.refs["InititemPickup"].GetComponent<GISContainer>();
         if (poopy.slots[0].Held_Item.ItemIndex != "Empty") return true;
         if (GISLol.Instance.Mouse_Held_Item.ItemIndex != "Empty") return true;
+        if (checks[23] && (!hastrantempyes || PlayerController.Instance.Coins < 15)) return true;
         return false;
     }
 
@@ -1354,15 +1441,22 @@ public class Gamer : MonoBehaviour
     {
         if (AmIVeryFuckableToday()) return;
 
-        PlayerController.Instance.Coins -= PickupItemCrossover.CoinCost;
-        if(PickupItemCrossover.PickItems != null)
+        if(PickupItemCrossover != null)
         {
-            foreach(var a in PickupItemCrossover.PickItems)
+            PlayerController.Instance.Coins -= PickupItemCrossover.CoinCost;
+            if (PickupItemCrossover.PickItems != null)
             {
-                if (a == PickupItemCrossover) continue;
-                Destroy(a.SPEC2.gameObject);
+                foreach (var a in PickupItemCrossover.PickItems)
+                {
+                    if (a == PickupItemCrossover) continue;
+                    Destroy(a.SPEC2.gameObject);
+                }
+                Gamer.QuestProgressIncrease("Room", "Pick Three");
             }
-            Gamer.QuestProgressIncrease("Room", "Pick Three");
+        }
+        if (checks[23])
+        {
+            PlayerController.Instance.Coins -= 15;
         }
 
         var leftnut = Tags.refs["LeftItemItems"].GetComponent<GISContainer>();
@@ -1494,6 +1588,8 @@ public class Gamer : MonoBehaviour
         checks[5] = false;
         checks[17] = false;
         checks[20] = false;
+        checks[22] = false;
+        checks[23] = false;
         UpdateMenus();
     }
 

@@ -173,6 +173,9 @@ public class INteractable : MonoBehaviour
             case "RetoolBananman":
                 Gamer.Instance.ToggleRefreshMenu();
                 break;
+            case "Transmuter":
+                Gamer.Instance.ToggleTransmutehMenu();
+                break;
             case "Printer":
                 Gamer.Instance.PrinterYoinks = cuum;
                 Gamer.Instance.TogglePrinterMenu();

@@ -136,6 +136,13 @@ public class GISSlot : MonoBehaviour
                     Held_Item = new GISItem(Gamer.Instance.PrinterYoinks);
                 }
             }
+            if(Conte.Name == "ItemPickup" && Gamer.Instance.checks[23])
+            {
+                if(Held_Item.ItemIndex != "Empty")
+                {
+                    Gamer.Instance.AttemptOpenTransmute(Held_Item);
+                }
+            }
         }
     }
     public static void Shungite()

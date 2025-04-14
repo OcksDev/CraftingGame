@@ -618,7 +618,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (DeathDisable) return;
-        if (Gamer.WithinAMenu) return;
+        //if (Gamer.WithinAMenu) return;
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["dash"][0], "Dash", "player", 0.1f, true);
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["skill1"][0], "Skill1", "player", 0.1f, true);
         InputBuffer.Instance.BufferListen(InputManager.gamekeys["skill2"][0], "Skill2", "player", 0.1f, true);
@@ -631,7 +631,6 @@ public class PlayerController : MonoBehaviour
     
     private void LateUpdate()
     {
-        if (Gamer.WithinAMenu) return;
         AAA();
     }
 
@@ -758,22 +757,19 @@ public class PlayerController : MonoBehaviour
                     SwordFart.localPosition = new Vector3(Mathf.Lerp(-0.5f, 0.5f, g) * reverse, 0, 0);
                     break;
             }
-            if (!Gamer.WithinAMenu)
+            int reverse2 = (transform.position - MyAssHurts.transform.position).x < 0 ? 1 : -1;
+            switch (mainweapon.ItemIndex)
             {
-                int reverse2 = (transform.position - MyAssHurts.transform.position).x < 0 ? 1 : -1;
-                switch (mainweapon.ItemIndex)
-                {
-                    case "Crossbow": SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
-                    case "Shuriken": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
-                    case "Dagger": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
-                    case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
-                    case "Axe": SwordFart.localScale = new Vector3(1, 1, 1); break;
-                    case "Scythe": SwordFart.localScale = new Vector3(reverse*((Mathf.Sin(f*Mathf.PI)*1.3f)+1)*(f<1f?1:-1), 1* ((Mathf.Sin(f * Mathf.PI) * 1.3f) + 1), 1); break;
-                    case "Blowdart": SwordFart.localScale = new Vector3(1, 1, 1); break;
-                    case "Wand":
-                    case "Knife": SwordFart.localScale = new Vector3(-reverse, 1, 1); break;
-                    default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
-                }
+                case "Crossbow": SwordFart.localScale = new Vector3(Mathf.Lerp(1, 0.8f, f2 / (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond)) * reverse2, 1, 1); break;
+                case "Shuriken": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
+                case "Dagger": SwordFart.localScale = new Vector3(reverse2 * (1 - g), (1 - g), (1 - g)); break;
+                case "Boomerang": SwordFart.localScale = new Vector3((1 - g), (1 - g), (1 - g)); break;
+                case "Axe": SwordFart.localScale = new Vector3(1, 1, 1); break;
+                case "Scythe": SwordFart.localScale = new Vector3(reverse * ((Mathf.Sin(f * Mathf.PI) * 1.3f) + 1) * (f < 1f ? 1 : -1), 1 * ((Mathf.Sin(f * Mathf.PI) * 1.3f) + 1), 1); break;
+                case "Blowdart": SwordFart.localScale = new Vector3(1, 1, 1); break;
+                case "Wand":
+                case "Knife": SwordFart.localScale = new Vector3(-reverse, 1, 1); break;
+                default: SwordFart.localScale = new Vector3(reverse2, 1, 1); break;
             }
         }
     }
@@ -799,7 +795,6 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (DeathDisable) return;
-        if (Gamer.WithinAMenu) return;
 
         if (Gamer.GameState == "Lobby")
         {
@@ -881,10 +876,13 @@ public class PlayerController : MonoBehaviour
             SetMoveSpeed();
             move *= decay;
             Vector3 dir = new Vector3(0, 0, 0);
-            if (InputManager.IsKey(KeyCode.W, "player")) dir += Vector3.up;
-            if (InputManager.IsKey(KeyCode.S, "player")) dir += Vector3.down;
-            if (InputManager.IsKey(KeyCode.D, "player")) dir += Vector3.right;
-            if (InputManager.IsKey(KeyCode.A, "player")) dir += Vector3.left;
+            if (!Gamer.WithinAMenu)
+            {
+                if (InputManager.IsKey(KeyCode.W, "player")) dir += Vector3.up;
+                if (InputManager.IsKey(KeyCode.S, "player")) dir += Vector3.down;
+                if (InputManager.IsKey(KeyCode.D, "player")) dir += Vector3.right;
+                if (InputManager.IsKey(KeyCode.A, "player")) dir += Vector3.left;
+            }
             if (dir.magnitude > 0.5f)
             {
                 dir.Normalize();
