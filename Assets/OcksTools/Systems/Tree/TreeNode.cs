@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TreeNode : MonoBehaviour
 {
@@ -16,10 +17,12 @@ public class TreeNode : MonoBehaviour
     public ViewStates StartState = ViewStates.Hidden;
     [HideInInspector]
     public ViewStates ViewState = ViewStates.Hidden;
-    public GameObject CanvasPartner;
     public GameObject LineObject;
+
+    public Button clicky;
+
     private PartnerScrpt prntr;
-    public Dictionary<string, Transform> lines = new Dictionary<string, Transform>();
+    public Dictionary<string, LineSex> lines = new Dictionary<string, LineSex>();
     private void Awake()
     {
         InitializeNode();
@@ -32,7 +35,6 @@ public class TreeNode : MonoBehaviour
         TreeHandler.Nodes.Add(Name, this);
         ViewState = StartState;
         RelateNodes = new List<string>(Prerequisites);
-        TreeHandler.SpawnPartners.Append(Name, SpawnPartner);
         TreeHandler.LoadCurrentState.Append(Name, UpdateState);
         TreeHandler.SpawnLines.Append(Name, SpawnLines);
         TreeHandler.UpdateLines.Append(Name, UpdateAllLines);
@@ -58,6 +60,9 @@ public class TreeNode : MonoBehaviour
                 case ViewStates.Hidden:
                     ViewState = ViewStates.Available;
                     goto Ragg;
+                case ViewStates.Seeable:
+                    ViewState = ViewStates.Available;
+                    goto Ragg;
                 case ViewStates.Available:
                 Ragg:
                     if (TreeHandler.CurrentOwnerships.ContainsKey(Name))
@@ -77,11 +82,24 @@ public class TreeNode : MonoBehaviour
             case ViewStates.Locked:
                 canseeme = lockedview;
                 break;
+            case ViewStates.Seeable:
             case ViewStates.Available:
             case ViewStates.Obtained:
                 canseeme = true;
                 break;
             case ViewStates.Hidden:
+                break;
+        }
+        switch (ViewState)
+        {
+            case ViewStates.Locked:
+            case ViewStates.Seeable:
+            case ViewStates.Obtained:
+            case ViewStates.Hidden:
+                clicky.interactable = false;
+                break;
+            case ViewStates.Available:
+                clicky.interactable = true;
                 break;
         }
         gameObject.SetActive(canseeme);
@@ -145,19 +163,13 @@ public class TreeNode : MonoBehaviour
         }
     }
 
-    public void SpawnPartner()
-    {
-        CanvasPartner = Instantiate(CanvasPartner, transform.position, transform.rotation, TreeHandler.Instance.PartnerParent.transform);
-        prntr = CanvasPartner.GetComponent<PartnerScrpt>();
-        prntr.Partner = this;
-    }
     public void SpawnLines()
     {
         foreach(var a in RelateNodes)
         {
             if (Prerequisites.Contains(a)) continue;
             var li = Instantiate(LineObject, transform.position, Quaternion.identity, TreeHandler.Instance.LineParent.transform);
-            lines.Add(a, li.transform);
+            lines.Add(a, li.GetComponent<LineSex>());
         }
         foreach (var a in lines)
         {
@@ -165,39 +177,26 @@ public class TreeNode : MonoBehaviour
         }
     }
 
-    public void UpdateLinePos(KeyValuePair<string, Transform> s)
+    public void UpdateLinePos(KeyValuePair<string, LineSex> s)
     {
         var targ = TreeHandler.Nodes[s.Key].transform.position;
-        s.Value.position = Vector3.Lerp(transform.position, targ, 0.5f);
-        s.Value.rotation = RandomFunctions.PointAtPoint2D(transform.position, targ, 0);
-        s.Value.localScale = new Vector3(RandomFunctions.Instance.Dist(transform.position, targ), 1, 1);
+        s.Value.ree.position = Vector3.Lerp(transform.position, targ, 0.5f);
+        s.Value.ree.rotation = RandomFunctions.PointAtPoint2D(transform.position, targ, 0);
+        s.Value.ree.localScale = new Vector3(RandomFunctions.Instance.Dist(transform.position, targ), 1, 1);
     }
-    public void UpdateLineStatus(KeyValuePair<string, Transform> s)
+    public void UpdateLineStatus(KeyValuePair<string, LineSex> s)
     {
         if (!TreeHandler .CurrentOwnerships.ContainsKey(Name))
         {
-            s.Value.gameObject.SetActive(false);
+            s.Value.baka.color = new Color32(255, 255, 255, 25);
             return;
         }
         if (TreeHandler.Nodes[s.Key].canseeme)
         {
-            s.Value.gameObject.SetActive(true);
+            s.Value.baka.color = new Color32(189, 122, 255, 100);
             return;
         }
-        s.Value.gameObject.SetActive(false);
-    }
-
-    private void OnEnable()
-    {
-        CanvasPartner.SetActive(true);
-    }
-    private void OnDisable()
-    {
-        if (CanvasPartner != null) CanvasPartner.SetActive(false);
-    }
-    private void OnDestroy()
-    {
-        Destroy(CanvasPartner);
+        s.Value.baka.color = new Color32(255,255,255,25);
     }
 
     public enum ViewReq
@@ -211,6 +210,7 @@ public class TreeNode : MonoBehaviour
         Locked,
         Available,
         Obtained,
+        Seeable,
     }
 
 }

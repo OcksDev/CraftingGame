@@ -420,6 +420,9 @@ public class ConsoleLol : MonoBehaviour
                     BackLog = "";
                     break;
 #if UNITY_EDITOR
+                case "spend":
+                    UpgradeTreeSex.SpendItem(new GISItem("Diamond"), 5);
+                    break;
                 case "corrupt":
                     CorruptionCode.Instance.CorruptTile(new Vector3Int((int)PlayerController.Instance.transform.position.x, (int)PlayerController.Instance.transform.position.y));
                     break;

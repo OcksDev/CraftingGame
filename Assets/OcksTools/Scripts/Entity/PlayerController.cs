@@ -878,10 +878,10 @@ public class PlayerController : MonoBehaviour
             Vector3 dir = new Vector3(0, 0, 0);
             if (!Gamer.WithinAMenu)
             {
-                if (InputManager.IsKey(KeyCode.W, "player")) dir += Vector3.up;
-                if (InputManager.IsKey(KeyCode.S, "player")) dir += Vector3.down;
-                if (InputManager.IsKey(KeyCode.D, "player")) dir += Vector3.right;
-                if (InputManager.IsKey(KeyCode.A, "player")) dir += Vector3.left;
+                if (InputManager.IsKey("move_forward", "player")) dir += Vector3.up;
+                if (InputManager.IsKey("move_back", "player")) dir += Vector3.down;
+                if (InputManager.IsKey("move_right", "player")) dir += Vector3.right;
+                if (InputManager.IsKey("move_left", "player")) dir += Vector3.left;
             }
             if (dir.magnitude > 0.5f)
             {

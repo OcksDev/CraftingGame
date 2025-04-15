@@ -201,6 +201,9 @@ public class INteractable : MonoBehaviour
             case "Transmuter":
                 Gamer.Instance.ToggleTransmutehMenu();
                 break;
+            case "Upgrader":
+                Gamer.Instance.ToggleUpgradetree();
+                break;
             case "Printer":
                 Gamer.Instance.PrinterYoinks = cuum;
                 Gamer.Instance.TogglePrinterMenu();

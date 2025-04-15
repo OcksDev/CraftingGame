@@ -122,6 +122,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["Minigame"].SetActive(checks[21]);
         Tags.refs["Transmute"].SetActive(checks[22]);
         Tags.refs["RepairMenu"].SetActive(checks[24]);
+        Tags.refs["UpgradeTree"].SetActive(checks[25]);
 
         Tags.refs["ItemeP"].SetActive(checks[20]);
         Tags.refs["ItemeR"].SetActive(checks[17]);
@@ -576,6 +577,10 @@ public class Gamer : MonoBehaviour
             {
                 ToggleLogbook();
             }
+            else if (checks[25])
+            {
+                ToggleUpgradetree();
+            }
             else if (checks[10])
             {
                 ToggleFuckPause();
@@ -869,6 +874,24 @@ public class Gamer : MonoBehaviour
         };
         y(0);
         StartCoroutine(MenuAnimationLol(!checks[14],!checks[14], y));
+    }
+    
+    public void ToggleUpgradetree()
+    {
+        checks[25] = !checks[25];
+        var aa = Tags.refs["UpgradeTree"].GetComponent<MenuMover>();
+        aa.Initial();
+        if (checks[25])
+        {
+            UpdateMenus();
+        }
+        System.Action<float> y = (x) =>
+        {
+            aa.nerds[0].localPosition = Vector3.Lerp(new Vector3(0, 550, 0), aa.nerds_orig[0], RandomFunctions.EaseIn(x));
+            aa.nerds_img[0].color = Color.Lerp(new Color(0,0,0,0), aa.nerds_img_orig[0], x);
+        };
+        y(0);
+        StartCoroutine(MenuAnimationLol(!checks[25],!checks[25], y));
     }
 
     public IEnumerator MenuAnimationLol(bool updateoncum, bool reversedir, System.Action<float> x)
@@ -3042,7 +3065,6 @@ public class Gamer : MonoBehaviour
         e.UsesRemaining = e.Quality;
         con.slots[3].Held_Item = e;
 
-        if(GISLol.Instance.IsUniqueCraft(e)) GISLol.Instance.AddUniqueCraft(e);
 
         if (e.Materials[0].GetName() != "Rock" && e.Materials[1].GetName() != "Rock" && e.Materials[2].GetName() != "Rock")
         {
