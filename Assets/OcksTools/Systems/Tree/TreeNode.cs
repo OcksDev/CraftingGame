@@ -20,6 +20,7 @@ public class TreeNode : MonoBehaviour
     public GameObject LineObject;
 
     public Button clicky;
+    public Image sexing;
 
     private PartnerScrpt prntr;
     public Dictionary<string, LineSex> lines = new Dictionary<string, LineSex>();
@@ -30,6 +31,7 @@ public class TreeNode : MonoBehaviour
     bool hasinit = false;
     public void InitializeNode()
     {
+        Debug.Log("INITIITIT");
         if (hasinit) return;
         hasinit = true;
         TreeHandler.Nodes.Add(Name, this);
@@ -100,6 +102,20 @@ public class TreeNode : MonoBehaviour
                 break;
             case ViewStates.Available:
                 clicky.interactable = true;
+                break;
+        }
+        switch (ViewState)
+        {
+            case ViewStates.Obtained:
+                sexing.color = new Color32(190, 122, 255, 255);
+                break;
+            case ViewStates.Locked:
+            case ViewStates.Seeable:
+            case ViewStates.Hidden:
+                sexing.color = new Color32(113, 113, 113, 255);
+                break;
+            case ViewStates.Available:
+                sexing.color = new Color32(240, 240, 240, 255);
                 break;
         }
         gameObject.SetActive(canseeme);
@@ -175,6 +191,12 @@ public class TreeNode : MonoBehaviour
         {
             UpdateLinePos(a);
         }
+    }
+
+    private void OnEnable()
+    {
+        if (Time.time <= 0.1f) return;
+        UpdateState();
     }
 
     public void UpdateLinePos(KeyValuePair<string, LineSex> s)

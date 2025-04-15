@@ -19,6 +19,7 @@ public class UtreeGaming : MonoBehaviour
     public float mult = 1;
     public float scrolmult = 1;
     public float scalem = 1;
+    public float mousescale = 1;
 
     public Vector3 oldmouseshung = Vector3.zero;
     bool hasset = false;
@@ -36,7 +37,7 @@ public class UtreeGaming : MonoBehaviour
 
         if (InputManager.IsKey(KeyCode.Mouse1))
         {
-            var c = Input.mousePosition;
+            var c = Camera.main.ScreenToWorldPoint(Input.mousePosition) * mousescale;
             if (hasset)
             {
                 var diff = (c - oldmouseshung)*(1/scalem);

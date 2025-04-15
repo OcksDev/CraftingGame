@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -254,6 +255,8 @@ public class HoverRefHolder : MonoBehaviour
 public class HoverType
 {
     public GISItem item;
+    [HideInInspector]
+    public GameObject gamgam = null;
     public string type = "Item";
     public string data = "";
     public string data2 = "";

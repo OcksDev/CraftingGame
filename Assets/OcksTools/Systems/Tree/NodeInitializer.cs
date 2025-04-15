@@ -26,6 +26,7 @@ public class NodeInitializer : MonoBehaviour
     {
         foreach(var a in treeNodes)
         {
+            a.InitializeNode();
         }
     }
 }

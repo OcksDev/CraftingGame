@@ -188,6 +188,14 @@ public class Gamer : MonoBehaviour
         wasincraft = checks[1];
     }
 
+    public void UpdateLobbyStuff()
+    {
+
+    }
+
+
+
+
     public static Gamer Instance;
     private void Awake()
     {

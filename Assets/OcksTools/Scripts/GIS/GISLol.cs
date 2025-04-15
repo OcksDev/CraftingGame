@@ -436,6 +436,9 @@ public class GISLol : MonoBehaviour
 #endif
     }
     bool founddaddy = false;
+
+    public GameObject LastSex;
+
     public void HoverDohicky(HoverType hv, bool foundc = true, bool cansex = true)
     {
         if (founddaddy) return;
@@ -446,6 +449,7 @@ public class GISLol : MonoBehaviour
         if (true)
         {
             hovercummer.SetMostData(hv);
+            LastSex = hv.gamgam;
             var wank = ballingsexnut.anchoredPosition;
             float xoffset = 35;
             float yoffset = 35;

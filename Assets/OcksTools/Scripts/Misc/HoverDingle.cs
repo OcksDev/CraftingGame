@@ -10,6 +10,7 @@ public class HoverDingle : MonoBehaviour
     public ItemHolder iuny;
     public SkillCum wunty;
     public EffectorSexyBallzungussy ounty;
+    public UpgradeTreeSex zunty;
     private void Start()
     {
         switch (type)
@@ -28,6 +29,7 @@ public class HoverDingle : MonoBehaviour
         if (wan)
         {
             var hv = new HoverType(type);
+            hv.gamgam = gameObject;
             switch (type)
             {
                 case "WeaponName":
@@ -103,6 +105,12 @@ public class HoverDingle : MonoBehaviour
                     hv.type = "TitleAndDesc";
                     hv.data = "Repair";
                     hv.data2 = "Sacrifice any two materials to repair a weapon";
+                    g.HoverDohicky(hv);
+                    break;
+                case "Upgrte":
+                    hv.type = "TitleAndDesc";
+                    hv.data = zunty.Title;
+                    hv.data2 = zunty.DescReal;
                     g.HoverDohicky(hv);
                     break;
             }

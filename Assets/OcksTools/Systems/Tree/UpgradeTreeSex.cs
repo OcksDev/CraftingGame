@@ -5,10 +5,28 @@ using UnityEngine;
 
 public class UpgradeTreeSex : MonoBehaviour
 {
+    public string DisplayItem = "";
+    public string Title = "";
+    public string Desc = "";
+    [HideInInspector]
+    public string DescReal = "";
+    public bool IsWeaponDisplay = false;
     public List<ItemCost> itemCosts = new List<ItemCost>();
+    public GISDisplay wawa;
+    public TreeNode treeeee;
     public static int GetTotalAmountOfItem(GISItem a)
     {
-        int totalAmount = GISLol.Instance.All_Containers["Vault"].AmountOfItem(a, true);
+        int totalAmount = 0;
+
+        foreach(var b in GISLol.Instance.VaultItems)
+        {
+            if(b.Key.Compare(a, true))
+            {
+                totalAmount += b.Value;
+                break;
+            }
+        }
+
         totalAmount += GISLol.Instance.All_Containers["Inventory"].AmountOfItem(a, true);
         return totalAmount;
     }
@@ -21,6 +39,44 @@ public class UpgradeTreeSex : MonoBehaviour
         }
         return true;
     }
+    string ee = "sex";
+    private void OnEnable()
+    {
+        if (Time.time <= 0.1f) return;
+        SetRealDesc();
+        if (ee == DisplayItem) return;
+        ee = DisplayItem;
+        wawa.item = new GISItem(DisplayItem);
+        if (IsWeaponDisplay)
+        {
+            wawa.item.Materials = new List<GISMaterial> { new GISMaterial("Angelic Ingot"), new GISMaterial("Angelic Ingot"), new GISMaterial("Angelic Ingot") };
+        }
+        wawa.UpdateDisplay();
+    }
+
+    public void SetRealDesc()
+    {
+        DescReal = Desc;
+        if(itemCosts.Count > 0)
+        {
+            DescReal += "<br><br>Cost:";
+            foreach (var a in itemCosts)
+            {
+                DescReal += $"<br>- x{a.Amount} {GISLol.Instance.ItemsDict[a.ItemType].GetDisplayName()}";
+            }
+        }
+    }
+
+    public void Clity()
+    {
+        if (!MeetsRequirements()) return;
+        foreach(var a in itemCosts)
+        {
+            SpendItem(new GISItem(a.ItemType), a.Amount);
+        }
+        treeeee.Click();
+    }
+
 
     public static void SpendItem(GISItem a, int Amount)
     {
@@ -57,6 +113,7 @@ public class UpgradeTreeSex : MonoBehaviour
                 {
                     int x = Mathf.Clamp(aa.Value, 0, Amount);
                     GISLol.Instance.VaultItems[aa.Key] -= x;
+                    Amount -= x;
                     if(GISLol.Instance.VaultItems[aa.Key] <= 0)
                     {
                         GISLol.Instance.VaultItems.Remove(aa.Key);
@@ -64,10 +121,6 @@ public class UpgradeTreeSex : MonoBehaviour
                     break;
                 }
             }
-        }
-        if(Amount > 0)
-        {
-            Debug.Log("HOW?");
         }
     }
 }
