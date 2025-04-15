@@ -110,6 +110,9 @@ public class INteractable : MonoBehaviour
                     e.text = $"[ {pon} ]";
                 }
                 break;
+            case "ContinueRun":
+                e.text = $"Continue Previous Run<br>[ {pon} ]";
+                break;
             default:
             wank:
                 e.text = $"[ {pon} ]";
@@ -144,15 +147,24 @@ public class INteractable : MonoBehaviour
                 Gamer.Instance.LoadVaultPage(0);
                 break;
             case "Grafter":
-                g.ToggleInventory();
+                aa = g.ToggleInventory();
                 g.checks[2] = false;
                 g.checks[18] = true;
+                aa(0);
                 g.UpdateMenus();
                 break;
             case "Aspect":
-                g.ToggleInventory();
+                aa = g.ToggleInventory();
                 g.checks[2] = false;
                 g.checks[19] = true;
+                aa(0);
+                g.UpdateMenus();
+                break;
+            case "Repairer":
+                aa = g.ToggleInventory();
+                g.checks[2] = false;
+                g.checks[24] = true;
+                aa(0);
                 g.UpdateMenus();
                 break;
             case "StartGame":

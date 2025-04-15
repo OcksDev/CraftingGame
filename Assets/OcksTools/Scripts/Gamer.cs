@@ -121,6 +121,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["AspectMenu"].SetActive(checks[19]);
         Tags.refs["Minigame"].SetActive(checks[21]);
         Tags.refs["Transmute"].SetActive(checks[22]);
+        Tags.refs["RepairMenu"].SetActive(checks[24]);
 
         Tags.refs["ItemeP"].SetActive(checks[20]);
         Tags.refs["ItemeR"].SetActive(checks[17]);
@@ -804,6 +805,7 @@ public class Gamer : MonoBehaviour
             checks[11] = false;
             checks[18] = false;
             checks[19] = false;
+            checks[24] = false;
             checks[2] = checks[0];
             UpdateMenus();
         };
@@ -820,6 +822,7 @@ public class Gamer : MonoBehaviour
             if (checks[11]) aa.nerds[2].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[2].x, 775, 0), aa.nerds_orig[2], RandomFunctions.EaseIn(x));
             if (checks[18]) aa.nerds[3].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[3].x, 775, 0), aa.nerds_orig[3], RandomFunctions.EaseIn(x));
             if (checks[19]) aa.nerds[4].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[4].x, 775, 0), aa.nerds_orig[4], RandomFunctions.EaseIn(x));
+            if (checks[24]) aa.nerds[5].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[5].x, 775, 0), aa.nerds_orig[5], RandomFunctions.EaseIn(x));
             aa.nerds_img[0].color = Color.Lerp(new Color(0, 0, 0, 0), aa.nerds_img_orig[0], x);
             aa.nerds_img[1].color = Color.Lerp(new Color(0, 0, 0, 0), aa.nerds_img_orig[1], x);
         };
@@ -2807,6 +2810,14 @@ public class Gamer : MonoBehaviour
         if(con.slots[3].Held_Item.GraftedMaterial.IsSet()) return false;
         return con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft() && con.slots[3].Held_Item.ItemIndex != "Empty";
     }
+    public bool CanCurrentRepair()
+    {
+        var con = GISLol.Instance.All_Containers["Repair"];
+        if (anim) return false;
+        if (con.slots[0].Held_Item.ItemIndex == "Rock") return false;
+        if (con.slots[1].Held_Item.ItemIndex == "Rock") return false;
+        return con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.ItemIndex != "Empty";
+    }
     public bool CanCurrentAspect()
     {
         var con = GISLol.Instance.All_Containers["Aspecter"];
@@ -2819,6 +2830,15 @@ public class Gamer : MonoBehaviour
     {
         if (CanCurrentCraft())
         {
+            thingl = StartCoroutine(OpenMinigame());
+        }
+    }
+    public void AttemptRepair()
+    {
+        Debug.Log("Click");
+        if (CanCurrentRepair())
+        {
+            Debug.Log("Sucky");
             thingl = StartCoroutine(OpenMinigame());
         }
     }
@@ -2879,7 +2899,15 @@ public class Gamer : MonoBehaviour
         animaim = false;
         checks[21] = false;
         UpdateMenus();
-        StartCoroutine(CraftAnim());
+        if (checks[24])
+        {
+            Debug.Log("A");
+            StartCoroutine(RepairAnim());
+        }
+        else
+        {
+            StartCoroutine(CraftAnim());
+        }
     }
     [HideInInspector]
     public bool animaim=false;
@@ -3049,6 +3077,42 @@ public class Gamer : MonoBehaviour
         /*if()
         {
             QuestProgressIncrease("Aspect", );
+        }*/
+        anim = false;
+    }
+    public IEnumerator RepairAnim()
+    {
+        var con = GISLol.Instance.All_Containers["Repair"];
+        mattertyeysys.Clear();
+        anim = true;
+
+
+        System.Func<int, int> SpawnAnim = (i) =>
+        {
+            var weenor = Instantiate(ItemAnimThing, con.slots[i].transform.position, Quaternion.identity, Tags.refs["RepairAnimHolder"].transform);
+            dienerds.Add(weenor);
+            var w2 = weenor.GetComponent<MeWhenYourMom>();
+            w2.target = con.slots[2].transform;
+            w2.speed = 9f;
+            if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
+            {
+                w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].GetVisColor();
+            }
+            var aa = con.slots[i].Held_Item;
+            mattertyeysys.Add(aa);
+            con.slots[i].Held_Item = new GISItem();
+            return i;
+        };
+
+
+        SpawnAnim(0);
+        SpawnAnim(1);
+        yield return new WaitForSeconds(0.6f);
+        con.slots[2].Held_Item.Quality = MinigameScore + 2;
+        con.slots[2].Held_Item.UsesRemaining = con.slots[2].Held_Item.Quality;
+        /*if()
+        {
+            QuestProgressIncrease("Graft", );
         }*/
         anim = false;
     }

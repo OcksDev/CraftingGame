@@ -905,7 +905,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if (mainweapon != null && isrealowner)
+            if (mainweapon != null && isrealowner && !Gamer.WithinAMenu)
             {
                 if (mainweapon.ItemIndex == "Bow")
                 {
