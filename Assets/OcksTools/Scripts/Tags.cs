@@ -23,6 +23,10 @@ public class Tags : MonoBehaviour
      * string ID of a gamobject should be stored in SpawnData.Data[0]
      * 
      */
+    public static string GenerateID()
+    {
+        return Guid.NewGuid().ToString();
+    }
 
     public static Tags Instance;
 

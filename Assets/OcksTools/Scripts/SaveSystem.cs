@@ -330,7 +330,19 @@ public class SaveSystem : MonoBehaviour
         if (!w.ContainsKey("Loaded")) w.Add("Loaded", "True");
         f.WriteFile(DictNameToFilePath(dict), Converter.DictionaryToString(w, Environment.NewLine, ": "), true);
     }
-
+    public Dictionary<string, string> GetDict(string key, Dictionary<string, string> defaul = null, string dict = "def")
+    {
+        var d = GetDict(dict);
+        if (d.ContainsKey(key))
+        {
+            var cd2 = Converter.EscapedStringToDictionary(d[key]);
+            return cd2.Count > 0 ? cd2 : defaul;
+        }
+        else
+        {
+            return defaul;
+        }
+    }
 
     public void GetDataFromFile(string dict = "def")
     {
@@ -354,6 +366,18 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
+    public void SetDict(string key, Dictionary<string, string> data, string dict = "def")
+    {
+        var d = GetDict(dict);
+        if (d.ContainsKey(key))
+        {
+            d[key] = Converter.EscapedDictionaryToString(data);
+        }
+        else
+        {
+            d.Add(key, Converter.EscapedDictionaryToString(data));
+        }
+    }
 
     public string Prefix(int file)
     {
