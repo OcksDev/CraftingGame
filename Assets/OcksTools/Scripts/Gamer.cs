@@ -320,6 +320,7 @@ public class Gamer : MonoBehaviour
         OldCurrentRoom = null;
         Tags.refs["NextFloor"].transform.position = new Vector3(11.51f, 0, 0);
         Tags.refs["NextShop"].transform.position = new Vector3(100000, 100000, 0);
+        Tags.refs["NextShop2"].transform.position = new Vector3(100000, 100000, 0);
         Tags.refs["Lobby"].SetActive(true);
         Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
         if (IsMultiplayer)
@@ -492,6 +493,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["Lobby"].SetActive(false);
         Tags.refs["NextFloor"].SetActive(false);
         Tags.refs["NextShop"].SetActive(false);
+        Tags.refs["NextShop2"].SetActive(false);
         Time.timeScale = 1;
         ShartPoop = 0f;
         ClearMap();
@@ -776,6 +778,10 @@ public class Gamer : MonoBehaviour
             GISLol.Instance.GrantItem(GISLol.Instance.Mouse_Held_Item);
             GISLol.Instance.Mouse_Held_Item = new GISItem();
         }
+
+        if(!overrides && checks[0]) overrides = true;
+
+
 
         if (checks[18])
         {
@@ -1731,6 +1737,7 @@ public class Gamer : MonoBehaviour
         hascorrupted = false;
         OldCurrentRoom = null;
         skillrollamnt = 0;
+        roomsdeep = 0;
         itemrollamnt = 1;
         GameState = "Game";
         Tags.refs["Lobby"].SetActive(false);
@@ -1745,12 +1752,13 @@ public class Gamer : MonoBehaviour
         AssembleItemPool();
         Tags.refs["NextFloor"].SetActive(true);
         Tags.refs["NextShop"].SetActive(true);
+        Tags.refs["NextShop2"].SetActive(true);
         if (titlething != null) StopCoroutine(titlething);
         if(PlayerController.Instance != null)PlayerController.Instance.SetData();
         Tags.refs["NextFloor"].GetComponent<INteractable>().UpdateText();
     }
     public bool IsInShop = false;
-    public IEnumerator NextShopLevel()
+    public IEnumerator NextShopLevel(int sex)
     {
         GeneralFloorChange();
         IsInShop = true;
@@ -1777,11 +1785,12 @@ public class Gamer : MonoBehaviour
         UpdateMenus();
         Tags.refs["NextFloor"].transform.position = new Vector3(11.5100002f, 0, -4.4000001f);
         Tags.refs["NextShop"].transform.position = new Vector3(100000, 100000, 0);
+        Tags.refs["NextShop2"].transform.position = new Vector3(100000, 100000, 0);
 
         completetetge = true;
         yield return new WaitForSeconds(0.5f);
 
-        titlething = StartCoroutine(TitleText("Shop"));
+        titlething = StartCoroutine(TitleText("Market"));
     }
     Coroutine titlething;
     public GISItem GetItemForLevel()
@@ -1829,7 +1838,7 @@ public class Gamer : MonoBehaviour
 
     public static List<RoomTypeHolder> ValidRoomTypes = new List<RoomTypeHolder>();
 
-
+    bool skipped = false;
     public IEnumerator NextFloor(int seed = 0)
     {
         GeneralFloorChange();
@@ -1903,19 +1912,35 @@ public class Gamer : MonoBehaviour
         rm2.isused = "End";
         Tags.refs["NextShop"].transform.position = rm2.transform.position;
         Tags.refs["NextFloor"].transform.position = new Vector3(100000, 100000, 0);
+        Tags.refs["NextShop2"].transform.position = new Vector3(100000, 100000, 0);
         if(CurrentFloor > 1)
         {
-            var meme = new Vector3(5, 0, 0);
-            var meme2 = new Vector3(-5, 0, 0);
+            var meme = new Vector3(7.5f, -2, 0);
+            var meme2 = new Vector3(-7.5f, -2, 0);
+            var meme3 = new Vector3(0, 5, 0);
 
             if (rm2.room.HasLeftDoor || rm2.room.HasRightDoor)
             {
-                meme = new Vector3(0, -5, 0);
-                meme2 = new Vector3(0, 5, 0);
+                meme = new Vector3(2, -7.5f, 0);
+                meme2 = new Vector3(2, 7.5f, 0);
+                meme3 = new Vector3(-5, 0, 0);
+            }
+            if (rm2.room.HasLeftDoor)
+            {
+                meme.x = -2;
+                meme2.x = -2;
+                meme3 = new Vector3(5, 0, 0);
+            }
+            if (rm2.room.HasTopDoor)
+            {
+                meme.y = 2;
+                meme2.y = 2;
+                meme3 = new Vector3(0, -5, 0);
             }
 
             Tags.refs["NextShop"].transform.position = rm2.transform.position + meme;
-            Tags.refs["NextFloor"].transform.position = rm2.transform.position + meme2;
+            Tags.refs["NextFloor"].transform.position = rm2.transform.position + meme3;
+            Tags.refs["NextShop2"].transform.position = rm2.transform.position + meme2;
         }
         enders.Remove(rm2);
         endos.Remove(rm2);
@@ -1926,7 +1951,7 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.ppos = e2;
         CameraLol.Instance.targetpos = e2;
 
-        bool skipped = !WasInShop && CurrentFloor > 1;
+        skipped = !WasInShop && CurrentFloor > 1;
         if (skipped)
         {
             SpawnPrinter(rm.transform.position + new Vector3(7,7,0));
@@ -2167,6 +2192,7 @@ public class Gamer : MonoBehaviour
 
 
         CurrentRoom = null;
+        roomsdeep++;
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         for(int i = 1; i < PlayerController.Instance.Skills.Count; i++)
         {
@@ -2179,6 +2205,7 @@ public class Gamer : MonoBehaviour
         {
             if (!hascorrupted && CurrentFloor > 1 && PlayerController.Instance.entit.Health > 0)
             {
+                if(skipped && roomsdeep < 2) goto WWW;
                 hascorrupted = true;
                 CorruptionCode.Instance.CorruptTile(new Vector3Int((int)playerstpos.x, (int)playerstpos.y));
 
@@ -2187,12 +2214,15 @@ public class Gamer : MonoBehaviour
                 notif.BackgroundColor1 = new Color32(143, 52, 235, 255);
                 NotificationSystem.Instance.AddNotif(notif);
             }
-
+            WWW:
             SpawnCoins(lastkillpos, 1, PlayerController.Instance);
         }
 
         //test
     }
+
+    int roomsdeep = 0;
+
     [HideInInspector]
     public bool Edgemogging = false;
     public float CameraMouseMult = 1;
@@ -2739,7 +2769,7 @@ public class Gamer : MonoBehaviour
                 if (IsInShop)
                 {
                     CurrentFloor++;
-                    NextFloorBall = StartCoroutine(NextShopLevel());
+                    NextFloorBall = StartCoroutine(NextShopLevel(0));
                 }
                 else
                 {
@@ -2751,7 +2781,12 @@ public class Gamer : MonoBehaviour
             case "NextShop":
                 Skipper = false;
                 WasInShop = IsInShop;
-                NextFloorBall = StartCoroutine(NextShopLevel());
+                NextFloorBall = StartCoroutine(NextShopLevel(0));
+                break;
+            case "NextShop2":
+                Skipper = false;
+                WasInShop = IsInShop;
+                NextFloorBall = StartCoroutine(NextShopLevel(1));
                 break;
             case "LobDingle":
                 ResetIntegreal();

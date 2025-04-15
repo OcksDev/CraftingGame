@@ -99,6 +99,14 @@ public class INteractable : MonoBehaviour
                     e.text = $"{BananaMan.sexyballer.CoinCost} Coins  [ {pon} ]";
                 }
                 break;
+            case "NextShop":
+                e.text = $"Go to Market<br>[ {pon} ]";
+                workingtextoff += 0.5f;
+                break;
+            case "NextShop2":
+                e.text = $"Go to Emporium<br>[ {pon} ]";
+                workingtextoff += 0.5f;
+                break;
             case "StartGame":
                 if (Gamer.Instance.Skipper && Gamer.CurrentFloor >= 1)
                 {
@@ -129,6 +137,7 @@ public class INteractable : MonoBehaviour
         {
             case "Crafter":
                 aa = g.ToggleInventory();
+                if (aa == null || !Gamer.Instance.checks[0]) return;
                 g.checks[2] = false;
                 g.checks[1] = true;
                 aa(0);
@@ -139,6 +148,7 @@ public class INteractable : MonoBehaviour
                 break;
             case "Vault":
                 aa = g.ToggleInventory();
+                if(aa==null || !Gamer.Instance.checks[0]) return;
                 g.checks[11] = true;
                 g.checks[2] = false;
                 aa(0);
@@ -148,6 +158,7 @@ public class INteractable : MonoBehaviour
                 break;
             case "Grafter":
                 aa = g.ToggleInventory();
+                if(aa==null || !Gamer.Instance.checks[0]) return;
                 g.checks[2] = false;
                 g.checks[18] = true;
                 aa(0);
@@ -155,6 +166,7 @@ public class INteractable : MonoBehaviour
                 break;
             case "Aspect":
                 aa = g.ToggleInventory();
+                if(aa==null || !Gamer.Instance.checks[0]) return;
                 g.checks[2] = false;
                 g.checks[19] = true;
                 aa(0);
@@ -162,6 +174,7 @@ public class INteractable : MonoBehaviour
                 break;
             case "Repairer":
                 aa = g.ToggleInventory();
+                if(aa==null || !Gamer.Instance.checks[0]) return;
                 g.checks[2] = false;
                 g.checks[24] = true;
                 aa(0);
@@ -195,6 +208,10 @@ public class INteractable : MonoBehaviour
             case "NextShop":
                 if (PlayerFailsWeaponCheck()) return;
                 Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextShop"));
+                break;
+            case "NextShop2":
+                if (PlayerFailsWeaponCheck()) return;
+                Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextShop2"));
                 break;
             case "Item":
                 GetComponent<GroundItem>().AttemptPickup();
