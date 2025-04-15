@@ -177,6 +177,9 @@ public class Gamer : MonoBehaviour
         }
         InputManager.RemoveLockLevel("TextEntry");
 
+
+        Tags.refs["Equippers"].SetActive(!WithinAMenu);
+
         FUCKYOUOHMYGOD.Select();
 
         UpdateShaders();

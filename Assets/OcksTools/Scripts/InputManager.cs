@@ -68,6 +68,8 @@ public class InputManager : MonoBehaviour
         CreateKeyAllocation("skill1", KeyCode.Q);
         CreateKeyAllocation("skill2", KeyCode.E);
         CreateKeyAllocation("skill3", KeyCode.R);
+        CreateKeyAllocation("switch1", KeyCode.Alpha1);
+        CreateKeyAllocation("switch2", KeyCode.Alpha2);
 
 
     }

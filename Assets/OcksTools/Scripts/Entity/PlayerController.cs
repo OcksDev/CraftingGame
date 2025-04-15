@@ -640,8 +640,8 @@ public class PlayerController : MonoBehaviour
         dicksplit.rotation = Quaternion.identity;
         if (isrealowner)
         {
-            if (InputManager.IsKeyDown(KeyCode.Alpha1, "player")) SwitchWeapon(0);
-            else if (InputManager.IsKeyDown(KeyCode.Alpha2, "player")) SwitchWeapon(1);
+            if (InputManager.IsKeyDown("switch1", "player")) SwitchWeapon(0);
+            else if (InputManager.IsKeyDown("switch2", "player")) SwitchWeapon(1);
             //scrollcool -= Time.deltaTime;
             if (Input.mouseScrollDelta.y != 0 && !SaveSystem.Instance.NoScroll && Time.timeScale > 0.1f)
             {
