@@ -6,7 +6,7 @@ public class UtreeGaming : MonoBehaviour
 {
     public RectTransform TheGamer;
     public RectTransform TheGamerScaler;
-    private Vector3 PosTarget;
+    public Vector3 PosTarget;
     // Update is called once per frame
 
     private void OnEnable()
@@ -32,12 +32,13 @@ public class UtreeGaming : MonoBehaviour
         if (InputManager.IsKey("move_left")) dir -= Vector3.left;
         if (Input.GetAxis("Mouse ScrollWheel") != 0f) // forward
         {
-            scalem = Mathf.Clamp(scalem+(Input.GetAxis("Mouse ScrollWheel")*scrolmult), 0.15f, 1.5f);
+            scalem = Mathf.Clamp(scalem+(Input.GetAxis("Mouse ScrollWheel")*scrolmult), 0.15f, 3.5f);
         }
 
         if (InputManager.IsKey(KeyCode.Mouse1))
         {
             var c = Camera.main.ScreenToWorldPoint(Input.mousePosition) * mousescale;
+            c.z = 0;
             if (hasset)
             {
                 var diff = (c - oldmouseshung)*(1/scalem);
@@ -52,9 +53,9 @@ public class UtreeGaming : MonoBehaviour
             hasset = false;
         }
 
-
         PosTarget += dir * Time.deltaTime * mult * Mathf.Lerp(1, 1/scalem, 0.35f);
         TheGamer.transform.localPosition = Vector3.Lerp(TheGamer.transform.localPosition, PosTarget, 10 * Time.deltaTime);
+        //TheGamerSM.transform.localPosition = c/scalem;
         TheGamerScaler.localScale = Vector3.one*scalem;
     }
 }

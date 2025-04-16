@@ -55136,7 +55136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: m_AnchorMax.x
@@ -55312,12 +55312,12 @@ GameObject:
   - component: {fileID: 1098636226}
   - component: {fileID: 1098636224}
   m_Layer: 26
-  m_Name: Image
+  m_Name: UPGRADE TREE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1098636224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93674,6 +93674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TheGamer: {fileID: 650728341}
   TheGamerScaler: {fileID: 759781568}
+  PosTarget: {x: 0, y: 0, z: 0}
   mult: 500
   scrolmult: 1
   scalem: 1
@@ -110159,7 +110160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: m_AnchorMax.x
