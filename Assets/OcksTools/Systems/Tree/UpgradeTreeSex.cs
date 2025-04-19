@@ -12,8 +12,10 @@ public class UpgradeTreeSex : MonoBehaviour
     public string DescReal = "";
     public bool IsWeaponDisplay = false;
     public List<ItemCost> itemCosts = new List<ItemCost>();
+    public Color multcol = Color.white;
     public GISDisplay wawa;
     public TreeNode treeeee;
+    public bool CanPurcahse = false;
     public static int GetTotalAmountOfItem(GISItem a)
     {
         int totalAmount = 0;
@@ -44,6 +46,11 @@ public class UpgradeTreeSex : MonoBehaviour
     {
         if (Time.time <= 0.1f) return;
         SetRealDesc();
+        if(ree != null)
+        {
+            Destroy(ree.gameObject);
+            ree = null;
+        }
         if (ee == DisplayItem) return;
         ee = DisplayItem;
         wawa.item = new GISItem(DisplayItem);
@@ -52,29 +59,64 @@ public class UpgradeTreeSex : MonoBehaviour
             wawa.item.Materials = new List<GISMaterial> { new GISMaterial("Angelic Ingot"), new GISMaterial("Angelic Ingot"), new GISMaterial("Angelic Ingot") };
         }
         wawa.UpdateDisplay();
+        foreach(var a in wawa.displays)
+        {
+            a.color = multcol;
+        }
     }
-
+    private void Update()
+    {
+        if(ree != null) ree.Particicic.transform.localScale = Vector3.one * UtreeGaming.Instance.scalem;
+    }
     public void SetRealDesc()
     {
         DescReal = Desc;
-        if(itemCosts.Count > 0)
+        if (IsWeaponDisplay)
+        {
+            DescReal = GISLol.Instance.ItemsDict[DisplayItem].Description;
+        }
+        CanPurcahse = true;
+        if (treeeee.ViewState == TreeNode.ViewStates.Obtained)
+        {
+            DescReal += "<br><br><c>Purchased</>";
+        }
+        else if(itemCosts.Count > 0)
         {
             DescReal += "<br><br>Cost:";
             foreach (var a in itemCosts)
             {
-                DescReal += $"<br>- x{a.Amount} {GISLol.Instance.ItemsDict[a.ItemType].GetDisplayName()}";
+                var x = GetTotalAmountOfItem(new GISItem(a.ItemType));
+                bool wee = x >= a.Amount;
+                if (wee) DescReal += "<g>";
+                else DescReal += "<b>";
+                DescReal += $"<br>- {x}/{a.Amount} {GISLol.Instance.ItemsDict[a.ItemType].GetDisplayName()}";
+                DescReal += "</>";
+                if(!wee) CanPurcahse  = false;
             }
         }
+        DescReal = GISLol.Instance.ColorText(DescReal);
+        treeeee.UpdateDisplay();
     }
-
+    partShitBall ree;
     public void Clity()
     {
-        if (!MeetsRequirements()) return;
-        foreach(var a in itemCosts)
+        if (!Gamer.Instance.DevNoTreeCost)
         {
-            SpendItem(new GISItem(a.ItemType), a.Amount);
+            if (!MeetsRequirements()) return;
+            foreach (var a in itemCosts)
+            {
+                SpendItem(new GISItem(a.ItemType), a.Amount);
+            }
         }
+
+        ree = Instantiate(Gamer.Instance.ParticleSpawns[40], transform.position, Quaternion.identity, transform).GetComponent<partShitBall>();
+        ree.Particicic.transform.localScale = Vector3.one * UtreeGaming.Instance.scalem;
         treeeee.Click();
+        Gamer.Instance.UpdateLobbyStuff();
+        foreach(var a in TreeHandler.Nodes)
+        {
+            a.Value.prntr.SetRealDesc();
+        }
     }
 
 

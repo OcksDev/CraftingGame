@@ -8,19 +8,24 @@ public class Selector : MonoBehaviour
     public List<GameObject> gm = new List<GameObject>();
     public GameObject prefabsex;
    
-    public void Start()
+    public void OnEnable()
     {
+        if(Time.time > 0.1f)
         Open();
     }
     public void Open()
     {
-        if (gm.Count > 0) 
+        if (gm.Count > 0)
         {
-            gm[0].GetComponent<ItemHolder>().Click();
-            return;
-            };
+            foreach(var a in gm)
+            {
+                Destroy(a.gameObject);
+            }
+            gm.Clear();
+        }
         for(int i = 0; i < ItemIndexes.Count; i++)
         {
+            if (i > 1 && !TreeHandler.CurrentOwnerships.ContainsKey(ItemIndexes[i])) continue;
             var e = new GISItem(ItemIndexes[i]);
             e.Materials.Add(new GISMaterial("Rock"));
             e.Materials.Add(new GISMaterial("Rock"));

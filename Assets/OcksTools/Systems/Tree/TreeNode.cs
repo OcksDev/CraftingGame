@@ -21,8 +21,9 @@ public class TreeNode : MonoBehaviour
 
     public Button clicky;
     public Image sexing;
+    public Image sexing_overlat;
 
-    private PartnerScrpt prntr;
+    public UpgradeTreeSex prntr;
     public Dictionary<string, LineSex> lines = new Dictionary<string, LineSex>();
     private void Awake()
     {
@@ -31,7 +32,7 @@ public class TreeNode : MonoBehaviour
     bool hasinit = false;
     public void InitializeNode()
     {
-        Debug.Log("INITIITIT");
+        //Debug.Log("INITIITIT");
         if (hasinit) return;
         hasinit = true;
         TreeHandler.Nodes.Add(Name, this);
@@ -104,22 +105,39 @@ public class TreeNode : MonoBehaviour
                 clicky.interactable = true;
                 break;
         }
+        UpdateDisplay();
+        gameObject.SetActive(canseeme);
+    }
+
+    public void UpdateDisplay()
+    {
+
         switch (ViewState)
         {
             case ViewStates.Obtained:
-                sexing.color = new Color32(190, 122, 255, 255);
+                sexing.color = new Color32(148, 0, 255, 255);
+                transform.localScale = Vector3.one;
+                sexing_overlat.enabled = true;
+                sexing_overlat.color = new Color32(148, 3, 252, 50);
                 break;
             case ViewStates.Locked:
             case ViewStates.Seeable:
             case ViewStates.Hidden:
                 sexing.color = new Color32(113, 113, 113, 255);
+                transform.localScale = Vector3.one * 0.8f;
+                sexing_overlat.enabled = true;
                 break;
             case ViewStates.Available:
-                sexing.color = new Color32(240, 240, 240, 255);
+                sexing.color = new Color32(240, 100, 100, 255);
+                if(prntr.CanPurcahse) sexing.color = new Color32(100, 240, 100, 255);
+                transform.localScale = Vector3.one;
+                sexing_overlat.enabled = false;
                 break;
         }
-        gameObject.SetActive(canseeme);
     }
+
+
+
     [HideInInspector]
     public bool canseeme = false;
 
@@ -137,7 +155,6 @@ public class TreeNode : MonoBehaviour
         UpdateAllLines();
         foreach(var a in RelateNodes)
         {
-            if (Prerequisites.Contains(a)) continue;
             TreeHandler.Nodes[a].UpdateAllLines();
             TreeHandler.Nodes[a].UpdatePrereqLines(Name);
         }
@@ -208,14 +225,25 @@ public class TreeNode : MonoBehaviour
     }
     public void UpdateLineStatus(KeyValuePair<string, LineSex> s)
     {
-        if (!TreeHandler .CurrentOwnerships.ContainsKey(Name))
+        if (!TreeHandler.CurrentOwnerships.ContainsKey(Name))
         {
             s.Value.baka.color = new Color32(255, 255, 255, 25);
+            if (TreeHandler.CurrentOwnerships.ContainsKey(s.Key))
+            {
+                s.Value.baka.color = new Color32(255, 255, 255, 65);
+            }
             return;
         }
+        else if (!TreeHandler.CurrentOwnerships.ContainsKey(s.Key))
+        {
+            s.Value.baka.color = new Color32(255, 255, 255, 65);
+            return;
+        }
+
+
         if (TreeHandler.Nodes[s.Key].canseeme)
         {
-            s.Value.baka.color = new Color32(189, 122, 255, 100);
+            s.Value.baka.color = new Color32(148, 3, 252, 130);
             return;
         }
         s.Value.baka.color = new Color32(255,255,255,25);

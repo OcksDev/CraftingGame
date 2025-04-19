@@ -14,6 +14,7 @@ using static UnityEditor.Progress;
 
 public class Gamer : MonoBehaviour
 {
+    public bool DevNoTreeCost = false;
     public bool[] checks = new bool[30];
     public Material[] sexex = new Material[2];
     public Image fader;
@@ -95,6 +96,9 @@ public class Gamer : MonoBehaviour
     public static bool WithinAMenu = false;
     bool wasincraft = false;
 
+
+    bool nexty = false;
+
     public void UpdateMenus()
     {
         Tags.refs["Inventory"].SetActive(checks[0]);
@@ -123,7 +127,11 @@ public class Gamer : MonoBehaviour
         Tags.refs["Transmute"].SetActive(checks[22]);
         Tags.refs["RepairMenu"].SetActive(checks[24]);
         Tags.refs["UpgradeTree"].SetActive(checks[25]);
-
+        if(nexty && !checks[25])
+        {
+            Gamer.Instance.UpdateLobbyStuff();
+        }
+        nexty = checks[25];
         Tags.refs["ItemeP"].SetActive(checks[20]);
         Tags.refs["ItemeR"].SetActive(checks[17]);
         Tags.refs["ItemeT"].SetActive(checks[23]);
@@ -190,7 +198,7 @@ public class Gamer : MonoBehaviour
 
     public void UpdateLobbyStuff()
     {
-
+        Tags.refs["Lobby"].GetComponent<NodeEnablerLol>().Reebaka();
     }
 
 
@@ -334,7 +342,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["NextShop"].transform.position = new Vector3(100000, 100000, 0);
         Tags.refs["NextShop2"].transform.position = new Vector3(100000, 100000, 0);
         Tags.refs["Lobby"].SetActive(true);
-        Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
+        //Tags.refs["Baller"].transform.position = new Vector3(5.12f, -6.6f, 17.68f);
         if (IsMultiplayer)
         {
             IsHost = NetworkManager.Singleton.IsHost;
@@ -346,7 +354,7 @@ public class Gamer : MonoBehaviour
         }
 
         UpdateCurrentQuests();
-
+        UpdateLobbyStuff();
     }
 
     public void UpdateCurrentQuests()
@@ -887,6 +895,8 @@ public class Gamer : MonoBehaviour
     public void ToggleUpgradetree()
     {
         checks[25] = !checks[25];
+        UpdateMenus();
+        /*
         var aa = Tags.refs["UpgradeTree"].GetComponent<MenuMover>();
         aa.Initial();
         if (checks[25])
@@ -899,7 +909,7 @@ public class Gamer : MonoBehaviour
             aa.nerds_img[0].color = Color.Lerp(new Color(0,0,0,0), aa.nerds_img_orig[0], x);
         };
         y(0);
-        StartCoroutine(MenuAnimationLol(!checks[25],!checks[25], y));
+        StartCoroutine(MenuAnimationLol(!checks[25],!checks[25], y));*/
     }
 
     public IEnumerator MenuAnimationLol(bool updateoncum, bool reversedir, System.Action<float> x)
