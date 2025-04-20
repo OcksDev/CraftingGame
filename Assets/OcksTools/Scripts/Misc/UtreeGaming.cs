@@ -35,7 +35,7 @@ public class UtreeGaming : MonoBehaviour
         if (InputManager.IsKey("move_left")) dir -= Vector3.left;
         if (Input.GetAxis("Mouse ScrollWheel") != 0f) // forward
         {
-            scalem = Mathf.Clamp(scalem+(Input.GetAxis("Mouse ScrollWheel")*scrolmult * (scalem)), 0.15f, 3.5f);
+            scalem = Mathf.Clamp(scalem+(Input.GetAxis("Mouse ScrollWheel")*scrolmult * (scalem)), 0.1f, 3.5f);
         }
 
         if (InputManager.IsKey(KeyCode.Mouse1))

@@ -397,8 +397,8 @@ public class PlayerController : MonoBehaviour
                     Damage = 6f;
                     break;
                 case "Axe":
-                    AttacksPerSecond = 1.3f;
-                    Damage = 6f;
+                    AttacksPerSecond = 1.5f;
+                    Damage = 8f;
                     f = 1f;
                     fardedonhand = true;
                     f2 = 0.06f;

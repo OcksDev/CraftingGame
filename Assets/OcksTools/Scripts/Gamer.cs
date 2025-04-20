@@ -2360,6 +2360,13 @@ public class Gamer : MonoBehaviour
             suck.Add(SpawnEnemy(wank));
             x++;
         }
+
+        if (ActiveDrugs.Contains("LSD"))
+        {
+            lsd_carryover = true;
+            SpawnEnemy(GetEnemyForDiff(false), false);
+        }
+
         return suck;
     }
     public GameObject UnstableBullet;
@@ -2371,6 +2378,7 @@ public class Gamer : MonoBehaviour
 
         return SpawnEnemy(wank, canspendcredits, ppos);
     }
+    bool lsd_carryover = false;
     
     public NavMeshEntity SpawnEnemy(EnemyHolder wank, bool canspendcredits, Vector3 position = default)
     {
@@ -2415,7 +2423,8 @@ public class Gamer : MonoBehaviour
         }
         rs.creditsspent = e;
         EnemiesExisting.Add(rs);
-
+        rs.IsLSD = lsd_carryover;
+        lsd_carryover = false;
 
         if (rs.IsBoss)
         {

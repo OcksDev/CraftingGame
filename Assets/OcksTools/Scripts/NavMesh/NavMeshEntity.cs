@@ -55,11 +55,17 @@ public class NavMeshEntity : MonoBehaviour
     public float BaldAltMoveSpeed = 0f;
     [HideInInspector]
     public double BaldDamage = 0f;
+    [HideInInspector]
+    public bool IsLSD = false;
     private Animator anime;
     public float TurnSpeen = 0f;
     bool CanChangeIMg = false;
     public Sprite CustomLogbookSprite = null;
     public EnemyHolder HolderRef = null;
+    [HideInInspector]
+    public double lsd_store = 0;
+
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -115,6 +121,7 @@ public class NavMeshEntity : MonoBehaviour
                 CLearShit += box.GetComponentInChildren<EnemyHitShit>().OnSpawn;
                 break;
         }
+
         if(EliteType != "")
         {
             EntityOXS.Max_Health *= 1.2f;
@@ -297,6 +304,10 @@ public class NavMeshEntity : MonoBehaviour
         if(boner.EliteType != "")
         {
             ba = $"{boner.EliteType} {ba}";
+        }
+        if(boner.IsLSD)
+        {
+            ba = $"Imagined {ba}";
         }
         return ba;
     }

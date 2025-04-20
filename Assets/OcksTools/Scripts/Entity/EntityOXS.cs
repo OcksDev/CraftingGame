@@ -140,6 +140,7 @@ public class EntityOXS : MonoBehaviour
                 }
                 else
                 {
+                    var aaaaa2 = Gamer.Instance.GetObjectType(hit.attacker, false);
                     //var y = s2.GetItem("blocker");
                     var y = 0;
                     float x = ((float)y) / (19f + y);
@@ -153,6 +154,7 @@ public class EntityOXS : MonoBehaviour
                         }
                         damagefromhit *= s2.DamageTakenMod;
                         Shield -= damagefromhit;
+                        if (aaaaa2.type == "Enemy") aaaaa2.entity.lsd_store += damagefromhit;
                         if (Shield < 0)
                         {
                             Health += Shield;
@@ -567,7 +569,7 @@ public class EntityOXS : MonoBehaviour
                 Gamer.Instance.lastkillpos = transform.position;
 
                 int effect = -1;
-                var aa = OXComponent.GetComponent<NavMeshEntity>(gameObject);
+                var aa = sexy;
                 switch (aa.EnemyType)
                 {
                     case "Charger":
@@ -751,9 +753,19 @@ public class EntityOXS : MonoBehaviour
 
         if (!Gamer.ActiveDrugs.Contains("MDMA"))
         {
-            for (int i = 0; i < amnt; i++)
+            if (sexy.IsLSD)
             {
-                Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+                if (sexy.lsd_store > 0)
+                {
+                    PlayerController.Instance.entit.Heal(sexy.lsd_store);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < amnt; i++)
+                {
+                    Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+                }
             }
         }
     }
@@ -783,7 +795,9 @@ public class EntityOXS : MonoBehaviour
                     {
                         ren.material = w3;
                     }
-                    ren.color = DamageTimer >= 0 ? new Color32(255, 255, 255, 255) : col;
+                    var targetcol = DamageTimer >= 0 ? new Color32(255, 255, 255, 255) : col;
+                    if(sexy != null && sexy.IsLSD) targetcol.a /= 2;
+                    ren.color = targetcol;
                 }
                 oldstatus = curstatus;
                 if (!curstatus && sexy != null)

@@ -91,6 +91,7 @@ Cocaine:: x2 Enemy Movement Speed
 Weed:: x1.5 Enemy Attack Speed
 Meth:: No Wave Delay
 Liquid Corruption:: x1.5 Corruption Speed
-Fentanyl:: All Enemies Are Elite
-Lean:: More Enemies Spawn
-MDMA:: All Map Destructibles Drop 2 Souls<br>Enemies No Longer Drop Souls
+Fentanyl:: All Enemies are Elite
+Lean:: More Enemies spawn
+MDMA:: All Map Destructibles drop 2 Souls<br>Enemies no longer drop Souls
+LSD:: Hallucinate fake Enemies, these Enemies Heal<br>the Total Damage they dealt on kill (no Souls).
