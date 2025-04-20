@@ -50,6 +50,14 @@ public class DrugSex : MonoBehaviour
         };
         ree(offers, startp);
         ree(onners, selp);
+        foreach(var a in offers)
+        {
+            Gamer.Instance.AttemptAddLogbookItem(a, false);
+        }
+        foreach(var a in onners)
+        {
+            Gamer.Instance.AttemptAddLogbookItem(a, false);
+        }
     }
 
     public void FlipFlop(DrugDealing aa)
@@ -68,5 +76,4 @@ public class DrugSex : MonoBehaviour
             Gamer.ActiveDrugs.Remove(aa.MainCont.item.ItemIndex);
         }
     }
-
 }

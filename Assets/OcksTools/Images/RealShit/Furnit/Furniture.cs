@@ -107,9 +107,11 @@ public class Furniture : MonoBehaviour
     public void OnTouch()
     {
         if (hadsexed) return;
+        bool cande = false;
         switch (type)
         {
             case "Barrel":
+                cande = true;
                 SoundSystem.Instance.PlaySound(8, true, 0.4f, 0.8f);
                 if (self.sprite == sprites[0])
                 {
@@ -133,12 +135,14 @@ public class Furniture : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case "Bed":
+                cande = true;
                 SoundSystem.Instance.PlaySound(8, true, 0.4f, 0.8f);
                 Instantiate(Gamer.Instance.ParticleSpawns[2], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                 hadsexed = true;
                 Destroy(gameObject);
                 break;
             case "Torch":
+                cande = true;
                 SoundSystem.Instance.PlaySound(20, true, 0.4f);
                 hadsexed = true;
                 Destroy(miscrefs[0]);
@@ -147,6 +151,11 @@ public class Furniture : MonoBehaviour
                 miscrefs[2].GetComponent<ParticleSystem>().Stop();
                 self.sprite = sprites[0];
                 break;
+        }
+
+        if (cande && Gamer.ActiveDrugs.Contains("MDMA"))
+        {
+            Gamer.Instance.SpawnHealers(transform.position, 2, PlayerController.Instance);
         }
     }
 

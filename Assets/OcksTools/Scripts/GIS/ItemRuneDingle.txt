@@ -92,3 +92,5 @@ Weed:: x1.5 Enemy Attack Speed
 Meth:: No Wave Delay
 Liquid Corruption:: x1.5 Corruption Speed
 Fentanyl:: All Enemies Are Elite
+Lean:: More Enemies Spawn
+MDMA:: All Map Destructibles Drop 2 Souls<br>Enemies No Longer Drop Souls

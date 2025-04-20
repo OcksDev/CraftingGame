@@ -1092,13 +1092,13 @@ public class Gamer : MonoBehaviour
     }
 
 
-    public void AttemptAddLogbookItem(string item)
+    public void AttemptAddLogbookItem(string item, bool donotif = true)
     {
         if (!GISLol.Instance.LogbookDiscoveries.ContainsKey(item))
         {
             GISLol.Instance.LogbookDiscoveries.Add(item, "");
             if (item == "Rock") return;
-
+            if (!donotif) return;
             var ww = GISLol.Instance.ItemsDict[item];
             var notif = new OXNotif();
             if (ww.IsSkill)
@@ -1124,6 +1124,7 @@ public class Gamer : MonoBehaviour
     List<I_penis> spawnsofmyballs1 = new List<I_penis>();
     List<I_penis> spawnsofmyballs2 = new List<I_penis>();
     List<I_penis> spawnsofmyballs3 = new List<I_penis>();
+    List<I_penis> spawnsofmyballs4 = new List<I_penis>();
     public void ReloadLogbookItems()
     {
         List<string> items1 = new List<string>();
@@ -1131,6 +1132,7 @@ public class Gamer : MonoBehaviour
         List<string> items3 = new List<string>();
         List<string> skills = new List<string>();
         List<string> enems = new List<string>();
+        List<string> drugs = new List<string>();
 
         foreach (var a in GISLol.Instance.Items)
         {
@@ -1141,6 +1143,7 @@ public class Gamer : MonoBehaviour
                 else if (a.IsSkill) skills.Add(a.Name);
                 else if (a.IsEnemy) enems.Add(a.Name);
                 else if (a.IsAspect) items3.Add(a.Name);
+                else if (a.IsDrug) drugs.Add(a.Name);
             }
         }
         items1 = RandomFunctions.CombineLists(items1, items2);
@@ -1191,6 +1194,22 @@ public class Gamer : MonoBehaviour
         {
             spawnsofmyballs3[i].GISDisplay.item = new GISItem(enems[i]);
             spawnsofmyballs3[i].GISDisplay.UpdateDisplay("logbook");
+        }
+
+        diff = drugs.Count - spawnsofmyballs4.Count;
+        for(int i = 0; i < diff; i++)
+        {
+            spawnsofmyballs4.Add(Instantiate(LogbookThing, transform.position, transform.rotation, Tags.refs["LogbookParent4"].transform).GetComponent<I_penis>());
+        }
+        for(int i = 0; i < -diff; i++)
+        {
+            Destroy(spawnsofmyballs4[0].gameObject);
+            spawnsofmyballs4.RemoveAt(0);
+        }
+        for(int i = 0; i < drugs.Count; i++)
+        {
+            spawnsofmyballs4[i].GISDisplay.item = new GISItem(drugs[i]);
+            spawnsofmyballs4[i].GISDisplay.UpdateDisplay("logbook");
         }
     }
 
@@ -2229,6 +2248,7 @@ public class Gamer : MonoBehaviour
         nmr.BuildNavMesh(true);
 
         if (ActiveDrugs.Contains("Meth")) time = 0.1f;
+        if (ActiveDrugs.Contains("Lean")) waves += 1;
 
         switch (CurrentFloor)
         {
@@ -2327,9 +2347,12 @@ public class Gamer : MonoBehaviour
         if(creditcount <= 0)
         creditcount = (long)(((25 * Mathf.Sqrt(w.x * w.y * ((1.5f*CurrentFloor)-0.5f))-1)+ CurrentFloor)*ww);
         int x = 0;
-        while(creditcount > 0)
+        int maxperwave = 4;
+        if (ActiveDrugs.Contains("Lean")) maxperwave += 1;
+        if (ActiveDrugs.Contains("Lean")) creditcount = (creditcount * 15)/10;
+        while (creditcount > 0)
         {
-            if (x >= 4)
+            if (x >= maxperwave)
             {
                 break;
             }

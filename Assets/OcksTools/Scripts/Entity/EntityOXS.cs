@@ -748,9 +748,13 @@ public class EntityOXS : MonoBehaviour
             }
 
         }
-        for(int i = 0; i < amnt; i++)
+
+        if (!Gamer.ActiveDrugs.Contains("MDMA"))
         {
-            Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+            for (int i = 0; i < amnt; i++)
+            {
+                Gamer.Instance.SpawnHealers(transform.position, he, PlayerController.Instance);
+            }
         }
     }
 
