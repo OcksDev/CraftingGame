@@ -86,3 +86,9 @@ Aspect Of Lightning:: <g>50%</> chance on hit to shoot <o>Lightning</><br>with 5
 Aspect Of Unscalability:: <g>x2</> Total Damage<br><b>x0.25</> Attack Damage
 Aspect Of Critical:: <g>x2</> Crit Chance<br><b>x2</> Skill Cooldown
 Aspect Of Fission:: All <g>Movement Speed Changes</> apply to Skill Cooldown<br><b>x0.7</> Movement Speed
+Heroin:: x0.5 Max Health
+Cocaine:: x2 Enemy Movement Speed
+Weed:: x1.5 Enemy Attack Speed
+Meth:: No Wave Delay
+Liquid Corruption:: x1.5 Corruption Speed
+Fentanyl:: All Enemies Are Elite

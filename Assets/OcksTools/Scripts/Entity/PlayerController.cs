@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour
                 weenor = new GISItem();
                 weenor.StringToItem(SaveSystem.Instance.GetString("Weapon2", "", dict));
                 cc.slots[1].Held_Item = weenor;
+                Gamer.ActiveDrugs = Converter.StringToList(SaveSystem.Instance.GetString("Drugs", "", dict));
                 SaveSystem.Instance.ResetFile(dict);
             }
             Gamer.Instance.CheckWeaponsBreak();
@@ -443,6 +444,11 @@ public class PlayerController : MonoBehaviour
         Damage *= 1 + (GetItem("damag")*0.1f);
         AttacksPerSecond *= 1 + (GetItem("atkpeed")*0.1f);
         CritChance += (GetItem("critglass")*0.1f);*/
+
+        if (Gamer.ActiveDrugs.Contains("Heroin"))
+        {
+            helth /= 2f;
+        }
         entit.Max_Health = helth;
         entit.Health = helth * OLDPERC;
         entit.Max_Shield = (helth/2) * sheldmult;

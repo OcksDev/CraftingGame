@@ -11,6 +11,7 @@ public class UpgradeTreeSex : MonoBehaviour
     [HideInInspector]
     public string DescReal = "";
     public bool IsWeaponDisplay = false;
+    public bool UseItemDesc = false;
     public List<ItemCost> itemCosts = new List<ItemCost>();
     public Color multcol = Color.white;
     public GISDisplay wawa;
@@ -71,7 +72,7 @@ public class UpgradeTreeSex : MonoBehaviour
     public void SetRealDesc()
     {
         DescReal = Desc;
-        if (IsWeaponDisplay)
+        if (IsWeaponDisplay || UseItemDesc)
         {
             DescReal = GISLol.Instance.ItemsDict[DisplayItem].Description;
         }

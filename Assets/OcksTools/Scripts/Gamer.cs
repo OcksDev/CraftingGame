@@ -69,6 +69,7 @@ public class Gamer : MonoBehaviour
     public bool NextShopButtonSexFuck = false;
     public GameObject ItemTranser;
     public List<Image> HitSexers = new List<Image>();
+    public static List<string> ActiveDrugs = new List<string>();
     public List<SkillCum> SkillCumSexers = new List<SkillCum>();
     public GameObject ItemAnimThing;
     public GameObject VaultThing;
@@ -127,6 +128,7 @@ public class Gamer : MonoBehaviour
         Tags.refs["Transmute"].SetActive(checks[22]);
         Tags.refs["RepairMenu"].SetActive(checks[24]);
         Tags.refs["UpgradeTree"].SetActive(checks[25]);
+        Tags.refs["DrugMenu"].SetActive(checks[26]);
         if(nexty && !checks[25])
         {
             Gamer.Instance.UpdateLobbyStuff();
@@ -589,6 +591,10 @@ public class Gamer : MonoBehaviour
                 checks[13] = false;
                 UpdateMenus();
             }
+            else if (checks[26])
+            {
+                ToggleDrugs();
+            }
             else if (checks[12])
             {
                 ToggleLogbook();
@@ -890,6 +896,27 @@ public class Gamer : MonoBehaviour
         };
         y(0);
         StartCoroutine(MenuAnimationLol(!checks[14],!checks[14], y));
+    }
+    
+
+    public void ToggleDrugs()
+    {
+        checks[26] = !checks[26];
+        var aa = Tags.refs["DrugMenu"].GetComponent<MenuMover>();
+        aa.Initial();
+        if (checks[26])
+        {
+            var aaa = Tags.refs["DrugMenu"].GetComponent<DrugSex>();
+            aaa.DoAll();
+            UpdateMenus();
+        }
+        System.Action<float> y = (x) =>
+        {
+            aa.nerds[0].localPosition = Vector3.Lerp(new Vector3(0, -720, 0), aa.nerds_orig[0], RandomFunctions.EaseIn(x));
+            aa.nerds_img[0].color = Color.Lerp(new Color(0,0,0,0), aa.nerds_img_orig[0], x);
+        };
+        y(0);
+        StartCoroutine(MenuAnimationLol(!checks[26],!checks[26], y));
     }
     
     public void ToggleUpgradetree()
@@ -2106,6 +2133,7 @@ public class Gamer : MonoBehaviour
         var c = GISLol.Instance.All_Containers["Equips"];
         SaveSystem.Instance.SetString("Weapon1", c.slots[0].Held_Item.ItemToString(), dict);
         SaveSystem.Instance.SetString("Weapon2", c.slots[1].Held_Item.ItemToString(), dict);
+        SaveSystem.Instance.SetString("Drugs", Converter.ListToString(ActiveDrugs), dict);
         SaveSystem.Instance.SaveDataToFile(dict);
         //SaveSystem.Instance.SaveGame();
     }
@@ -2199,6 +2227,8 @@ public class Gamer : MonoBehaviour
         int waves = Random.Range(0,wavesex)+adder;
         creditcount = 0;
         nmr.BuildNavMesh(true);
+
+        if (ActiveDrugs.Contains("Meth")) time = 0.1f;
 
         switch (CurrentFloor)
         {
@@ -2342,7 +2372,7 @@ public class Gamer : MonoBehaviour
         rs.EnemyHolder = wank;
         var e = wank.CreditCost;
         var dif = CurrentFloor - wank.MinFloor;
-        if (wank.CanBeElite && Random.Range(0, 1f) < 0.2f * dif)
+        if (wank.CanBeElite && (Random.Range(0, 1f) < 0.2f * dif || ActiveDrugs.Contains("Fentanyl")))
         {
             if (dif < 8)
             {

@@ -48,7 +48,7 @@ public class TreeNode : MonoBehaviour
     {
         var t = TreeHandler.Instance;
         bool lockedview = false;
-        if (t.MeetsReqs(Prerequisites, ViewRequirement))
+        if (t.MeetsReqs(RelateNodes, ViewRequirement))
         {
             switch (ViewState)
             {
@@ -118,7 +118,7 @@ public class TreeNode : MonoBehaviour
                 sexing.color = new Color32(148, 0, 255, 255);
                 transform.localScale = Vector3.one;
                 sexing_overlat.enabled = true;
-                sexing_overlat.color = new Color32(148, 3, 252, 50);
+                sexing_overlat.color = new Color32(148, 3, 252, 70);
                 break;
             case ViewStates.Locked:
             case ViewStates.Seeable:
@@ -177,7 +177,7 @@ public class TreeNode : MonoBehaviour
     public void Click()
     {
         var t = TreeHandler.Instance;
-        if (!t.MeetsReqs(Prerequisites, ViewRequirement))
+        if (!t.MeetsReqs(RelateNodes, ViewRequirement))
         {
             return;
         }

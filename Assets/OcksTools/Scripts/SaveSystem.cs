@@ -116,7 +116,7 @@ public class SaveSystem : MonoBehaviour
             GISLol.Instance.UniqueCrafts.Add(Converter.StringToList(a));
         }
 
-
+        Gamer.ActiveDrugs = Converter.StringToList(GetString("drugs", "", dict));
 
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
         Gamer.Instance.UpdateShaders();
@@ -178,6 +178,7 @@ public class SaveSystem : MonoBehaviour
             list.Add(quest.DataToString());
         }
         SetString("quests", Converter.ListToString(list), dict);
+        SetString("drugs", Converter.ListToString(Gamer.ActiveDrugs), dict);
         SetString("questtime", Gamer.Instance.TimeOfQuest.ToString(), dict);
 
         list.Clear();
@@ -194,6 +195,7 @@ public class SaveSystem : MonoBehaviour
     {
         string dict = "current_run";
         SetString("Floor", Gamer.CurrentFloor.ToString(), dict);
+        SetString("Drugs", Converter.ListToString(Gamer.ActiveDrugs), dict);
         SetString("Shoope", Gamer.Instance.IsInShop.ToString(), dict);
         SetString("Skipppp", Gamer.Instance.Skipper.ToString(), dict);
         SetString("Health", (PlayerController.Instance.entit.Health/ PlayerController.Instance.entit.Max_Health).ToString(), dict);
@@ -220,6 +222,7 @@ public class SaveSystem : MonoBehaviour
         {
             Gamer.CurrentFloor = int.Parse(GetString("Floor", "1", dict)) - 1;
             Gamer.Seed = int.Parse(GetString("Seed", "0", dict));
+            Gamer.ActiveDrugs = Converter.StringToList(GetString("Drugs", "", dict));
             Gamer.Instance.IsInShop = bool.Parse(GetString("Shoope", "False", dict));
             Gamer.Instance.Skipper = bool.Parse(GetString("Skipppp", "False", dict));
             Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor2"));

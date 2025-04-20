@@ -26,6 +26,7 @@ public class CorruptionCode : MonoBehaviour
         int revs = 8;
         exi %= revs;
         float timtim = Time.deltaTime * revs;
+        if (Gamer.ActiveDrugs.Contains("Liquid Corruption")) timtim *= 1.5f;
         for (int i = exi; i < activenerds.Count; i+=revs)
         {
             var tingle = activenerds.ElementAt(i).Value;
@@ -86,7 +87,7 @@ public class CorruptionCode : MonoBehaviour
     }
 
     float mintim = 0.35f;
-    float maxtim = 2f;
+    float maxtim = 1.7f;
     private static List<Vector2Int> nerdlocs = new List<Vector2Int>()
     {
         new Vector2Int(1,1),

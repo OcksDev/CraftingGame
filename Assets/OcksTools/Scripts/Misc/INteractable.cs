@@ -192,6 +192,9 @@ public class INteractable : MonoBehaviour
             case "Quest":
                 Gamer.Instance.ToggleQuests();
                 break;
+            case "Druggy":
+                Gamer.Instance.ToggleDrugs();
+                break;
             case "Skilledman":
                 Gamer.Instance.ToggleSkillMenu();
                 break;

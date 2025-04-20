@@ -22,6 +22,7 @@ public class GISLol : MonoBehaviour
     public List<GISMaterial_Data> Materials = new List<GISMaterial_Data>();
     public List<EntityEffect_Data> Effects = new List<EntityEffect_Data>();
     public List<Skill_Data> Skills = new List<Skill_Data>();
+    public List<Drug_Data> Drugs = new List<Drug_Data>();
     public Dictionary<string, GISItem_Data> ItemsDict = new Dictionary<string, GISItem_Data>();
     public Dictionary<string, GISMaterial_Data> MaterialsDict = new Dictionary<string, GISMaterial_Data>();
     public Dictionary<string, EntityEffect_Data> EffectsDict = new Dictionary<string, EntityEffect_Data>();
@@ -108,6 +109,17 @@ public class GISLol : MonoBehaviour
             newitem.LogbookOverride = true;
             //newitem.IsRune = true;
             newitem.IsSkill = true;
+            Items.Add(newitem);
+        }
+
+        foreach (var a in Drugs)
+        {
+            var newitem = new GISItem_Data();
+            newitem.Name = a.Name;
+            newitem.Description = "AA"; //this will get overritten by the txt files
+            newitem.Sprite = a.Image;
+            //newitem.IsRune = true;
+            newitem.IsDrug = true;
             Items.Add(newitem);
         }
         Dictionary<string, EnemyHolder> banana = new Dictionary<string, EnemyHolder>();
@@ -1082,6 +1094,8 @@ public class GISItem_Data
     [HideInInspector]
     public bool IsSkill = false;
     [HideInInspector]
+    public bool IsDrug = false;
+    [HideInInspector]
     public bool IsEnemy = false;
     public bool CanSpawn = true;
     public bool LogbookOverride = false;
@@ -1291,6 +1305,12 @@ public class Skill_Data
         }
         return x;
     }
+}
+[Serializable]
+public class Drug_Data
+{
+    public string Name = "BasicBitch";
+    public Sprite Image;
 }
 
 [Serializable]

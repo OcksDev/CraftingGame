@@ -120,12 +120,21 @@ public class NavMeshEntity : MonoBehaviour
             EntityOXS.Max_Health *= 1.2f;
             EntityOXS.Health = EntityOXS.Max_Health;
         }
+        elite_movemult = 1;
+        if (Gamer.ActiveDrugs.Contains("Weed"))
+        {
+            AttackCooldown /= 1.5f;
+        }
+        if (Gamer.ActiveDrugs.Contains("Cocaine"))
+        {
+            elite_movemult *= 2;
+        }
+
         switch (EliteType)
         {
             case "Hasty":
                 AttackCooldown /= 1.5f;
-                movespeed *= 1.5f;
-                alt_speed *= 1.5f;
+                elite_movemult *= 1.5f;
                 break;
             case "Resilient":
                 EntityOXS.Max_Health *= 1.5f;
@@ -135,8 +144,7 @@ public class NavMeshEntity : MonoBehaviour
                 EntityOXS.Max_Health *= 6f;
                 EntityOXS.Health = EntityOXS.Max_Health;
                 AttackCooldown /= 1.5f;
-                movespeed *= 1.5f;
-                alt_speed *= 1.5f;
+                elite_movemult *= 1.5f;
                 break;
             case "Perfected":
                 EntityOXS.Max_Health *= 5f;
@@ -330,6 +338,7 @@ public class NavMeshEntity : MonoBehaviour
     public float movemult = 1;
     public float mainonly_movemult = 1;
     public float altonly_movemult = 1;
+    public float elite_movemult = 1;
     public void SetMoveSpeeds()
     {
         float mult = 1;
@@ -345,7 +354,7 @@ public class NavMeshEntity : MonoBehaviour
             }
         }
         mult *= movemult;
-
+        mult *= elite_movemult;
         movespeed = BaldMoveSpeed * mult * mainonly_movemult;
         alt_speed = BaldAltMoveSpeed * mult * altonly_movemult;
     }
