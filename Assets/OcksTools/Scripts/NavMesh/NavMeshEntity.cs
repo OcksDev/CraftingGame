@@ -399,13 +399,27 @@ public class NavMeshEntity : MonoBehaviour
             }
         }
         SetMoveSpeeds();
-        ddist= dist;
+        var IdealTarget = PlayerController.Instance.gameObject;
+        if (AttackType == "Support")
+        {
+            float dd = 100000;
+            foreach(var a in Gamer.Instance.EnemiesExisting)
+            {
+                var x = RandomFunctions.Instance.DistNoSQRT(RandomFunctions.Instance.NoZ(a.transform.position), RandomFunctions.Instance.NoZ(transform.position));
+                if (x < dd && a != this)
+                {
+                    dd = x;
+                    IdealTarget = a.gameObject;
+                }
+            }
+        }
+        ddist = dist;
         if(nearestnerd != null && dist <= 100)
         {
 
             if (dist <= SightRange && curcycycle == 1)
             {
-                CheckCanSee(true, PlayerController.Instance.gameObject);
+                CheckCanSee(true, IdealTarget);
             }
             switch (EnemyType)
             {
@@ -498,6 +512,28 @@ public class NavMeshEntity : MonoBehaviour
                         }
                     }
                     break;
+                case "Support":
+                    if (target != null && !charging && canrunattacktimer)
+                    {
+                        timer2 += Time.deltaTime;
+                    }
+                    if (timer2 > AttackCooldown)
+                    {
+                        canrunattacktimer = true;
+                        switch (EnemyType)
+                        {
+                            case "Slimer":
+                                timer2 = 0;
+                                StartCoroutine(SlimerSex());
+                                break;
+                            case "Wraith":
+                                timer2 = 0;
+                                if(target != null)
+                                StartCoroutine(WraithSex());
+                                break;
+                        }
+                    }
+                    break;
                 case "Ranged":
                     if (target != null && canseemysexybooty && !charging && canrunattacktimer)
                     {
@@ -535,6 +571,10 @@ public class NavMeshEntity : MonoBehaviour
                                 timer2 = 0;
                                 StartCoroutine(BatSex());
                                 break;
+                            case "Arcus":
+                                timer2 = 0;
+                                StartCoroutine(ArcusSex());
+                                break;
                             case "Cannon":
                                 timer2 = 0;
                                 StartCoroutine(CannonSex());
@@ -548,9 +588,12 @@ public class NavMeshEntity : MonoBehaviour
                                 StartCoroutine(SpiterSex());
                                 break;
                             case "Snail":
-                            case "EyeOrb":
                                 timer2 = 0;
                                 StartCoroutine(SnormSex());
+                                break;
+                            case "EyeOrb":
+                                timer2 = 0;
+                                StartCoroutine(SnormSex2());
                                 break;
                             case "Worm":
                                 timer2 = 0;
@@ -632,6 +675,22 @@ public class NavMeshEntity : MonoBehaviour
                         {
                             beans.SetDestination(target.transform.position);
                             beans.speed = movespeed * 3f;
+                        }
+                        if (dist >= 15f)
+                        {
+                            beans.speed *= 1.5f;
+                        }
+                        break;
+                    case "defcrys":
+                        if (canseemysexybooty)
+                        {
+                            var e = (NoZ(target.transform.position) - NoZ(transform.position)).normalized * -3f + target.transform.position;
+                            beans.SetDestination(e);
+                        }
+                        else
+                        {
+                            beans.SetDestination(target.transform.position);
+                            beans.speed = movespeed * 2f;
                         }
                         if (dist >= 15f)
                         {
@@ -892,6 +951,16 @@ public class NavMeshEntity : MonoBehaviour
         movemult = 1f;
         yield return null;
     }
+    public IEnumerator SnormSex2()
+    {
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        SpawnBox(transform.position, wank);
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, 25));
+        SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, -25));
+        var w2 = wank * new Vector3(-5, 0, 0);
+        sex.velocity += (Vector2)w2;
+        yield return null;
+    }
     public IEnumerator BatSex()
     {
         var wank = PointAtPoint2D(target.transform.position, 0);
@@ -910,6 +979,35 @@ public class NavMeshEntity : MonoBehaviour
         var w2 = wank * new Vector3(-5, 0, 0);
         sex.velocity += (Vector2)w2;
         timer2 = Random.Range(-0.25f, 0.25f);
+        yield return null;
+    }
+    public IEnumerator ArcusSex()
+    {
+        canrunattacktimer = false;
+        movemult = 0;
+
+        yield return new WaitForSeconds(0.3f);
+
+        var wank = PointAtPoint2D(target.transform.position, 0);
+        var w2 = wank * new Vector3(-5, 0, 0);
+        float f = 35f;
+        for (int i = 0; i < 15; i++)
+        {
+            yield return new WaitForSeconds(0.05f);
+            SpawnBox(transform.position, wank * Quaternion.Euler(0,0,Random.Range(-f,f)));
+            sex.velocity += (Vector2)w2;
+        }
+
+
+
+        timer2 = Random.Range(-0.25f, 0.25f);
+
+        yield return new WaitForSeconds(0.3f);
+
+        canrunattacktimer = true;
+
+        movemult = 1;
+
         yield return null;
     }
     public IEnumerator CloakSex()
@@ -1317,13 +1415,13 @@ public class NavMeshEntity : MonoBehaviour
             if (h.distance <= dist)
             {
                 var obj = Gamer.Instance.GetObjectType(h.collider.gameObject, true);
-                if (obj.type == "Enemy") continue;
                 if (h.transform == p.transform)
                 {
                     sex = true;
                     dist = h.distance;
                     sexp = h.collider.gameObject;
                 }
+                if (obj.type == "Enemy") continue;
                 if (obj.type == "Wall")
                 {
                     sex = false;
@@ -1333,13 +1431,19 @@ public class NavMeshEntity : MonoBehaviour
             }
         }
         //Debug.Log(hits);
-        if (target == null) target = PlayerController.Instance.gameObject;
+        if (target == null) target = shart;
         if (sex)
         {
-            if (OXComponent.GetComponent<PlayerController>(sexp) != null)
+            var cc = Gamer.Instance.GetObjectType(sexp);
+            if (cc.playerController != null)
             {
                 canseemysexybooty = true;
                 fuckyouunity = (EnemyType == "Worm" ? 0 : 3);
+            }
+            else if(cc.entityoxs != null)
+            {
+                //target is enemy
+                canseemysexybooty = true;
             }
         }
         else

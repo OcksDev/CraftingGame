@@ -33,6 +33,7 @@ public class GISDisplay : MonoBehaviour
 
     public void UpdateDisplay(string extra = "")
     {
+        if (Time.time <= 0.5f) return;
         olditem = item;
         var g = GISLol.Instance.ItemsDict[item.ItemIndex];
         amnt.text = item.Amount > 0 && g.MaxAmount != 1 && item.ItemIndex != "Empty" ? "x" + item.Amount : "";
