@@ -522,14 +522,21 @@ public class NavMeshEntity : MonoBehaviour
                         canrunattacktimer = true;
                         switch (EnemyType)
                         {
-                            case "Slimer":
+                            case "defcrys":
                                 timer2 = 0;
-                                StartCoroutine(SlimerSex());
-                                break;
-                            case "Wraith":
-                                timer2 = 0;
-                                if(target != null)
-                                StartCoroutine(WraithSex());
+                                foreach(var a in Gamer.Instance.EnemiesExisting)
+                                {
+                                    if (a.EnemyType=="defcrys") continue;
+                                    var ef = new EffectProfile("Shielded", 0.8f, 4, 1);
+                                    a.EntityOXS.AddEffect(ef);
+
+
+                                    var wankjob = Instantiate(box);
+                                    var esus = wankjob.GetComponent<LineKiller>();
+                                    esus.coolpos = transform;
+                                    esus.coolerpos = a.transform;
+
+                                }
                                 break;
                         }
                     }
@@ -618,7 +625,7 @@ public class NavMeshEntity : MonoBehaviour
                             default:
                                 timer2 = 0;
                                 var wank = PointAtPoint2D(target.transform.position, 0);
-                                var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
+                                var wenis = Instantiate(box, transform.position, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
                                 var e = wenis.GetComponent<EnemyHitShit>();
                                 e.Damage = Damage;
                                 e.balling = transform;
@@ -847,7 +854,7 @@ public class NavMeshEntity : MonoBehaviour
         yield return new WaitForSeconds(0.07f);
         if (target == null) yield break;
         var wank = PointAtPoint2D(target.transform.position, 0);
-        var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
+        var wenis = Instantiate(box, transform.position, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
@@ -887,7 +894,7 @@ public class NavMeshEntity : MonoBehaviour
         var wank = PointAtPoint2D(target.transform.position, 0);
         Vector3 off = new Vector3(0.782000005f, 0.144999996f, 0);
         if (WantASpriteCranberry.flipX) off.x *= -1;
-        var wenis = Instantiate(box, transform.position+off, wank, Gamer.Instance.balls);
+        var wenis = Instantiate(box, transform.position+off, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
@@ -914,7 +921,7 @@ public class NavMeshEntity : MonoBehaviour
         var wank = PointAtPoint2D(target.transform.position, 0);
         Vector3 off = new Vector3(0, 0, 0);
         if (WantASpriteCranberry.flipX) off.x *= -1;
-        var wenis = Instantiate(box, transform.position+off, wank, Gamer.Instance.balls);
+        var wenis = Instantiate(box, transform.position+off, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
@@ -965,12 +972,12 @@ public class NavMeshEntity : MonoBehaviour
     {
         var wank = PointAtPoint2D(target.transform.position, 0);
 
-        var wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
+        var wenis = Instantiate(box, transform.position, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
         e.sexballs = this;
-        wenis = Instantiate(box, transform.position, wank, Gamer.Instance.balls);
+        wenis = Instantiate(box, transform.position, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
         e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
@@ -1024,7 +1031,7 @@ public class NavMeshEntity : MonoBehaviour
         int i = Random.Range(0, 2);
         var wank = PointAtPoint2D(target.transform.position, 0);
         Vector3 pos = transform.position + new Vector3(0, 1.15f, 0);
-        var wenis = Instantiate(box, pos, wank, Gamer.Instance.balls);
+        var wenis = Instantiate(box, pos, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
@@ -1034,12 +1041,12 @@ public class NavMeshEntity : MonoBehaviour
         switch (i)
         {
             case 1:
-                wenis = Instantiate(box, pos, wank * Quaternion.Euler(0, 0, 45), Gamer.Instance.balls);
+                wenis = Instantiate(box, pos, Gamer.Instance.AlcoholSex(wank * Quaternion.Euler(0, 0, 45)), Gamer.Instance.balls);
                 e = wenis.GetComponent<EnemyHitShit>();
                 e.Damage = Damage;
                 e.balling = transform;
                 e.sexballs = this;
-                wenis = Instantiate(box, pos, wank * Quaternion.Euler(0, 0, -45), Gamer.Instance.balls);
+                wenis = Instantiate(box, pos, Gamer.Instance.AlcoholSex(wank * Quaternion.Euler(0, 0, -45)), Gamer.Instance.balls);
                 e = wenis.GetComponent<EnemyHitShit>();
                 e.Damage = Damage;
                 e.balling = transform;
@@ -1048,7 +1055,7 @@ public class NavMeshEntity : MonoBehaviour
             default:
                 yield return new WaitForSeconds(0.3f);
                 pos = transform.position + new Vector3(0, 1.15f, 0);
-                wenis = Instantiate(box, pos, wank, Gamer.Instance.balls);
+                wenis = Instantiate(box, pos, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
                 e = wenis.GetComponent<EnemyHitShit>();
                 e.Damage = Damage;
                 e.balling = transform;
@@ -1057,7 +1064,7 @@ public class NavMeshEntity : MonoBehaviour
                 sex.velocity += (Vector2)w2;
                 yield return new WaitForSeconds(0.3f);
                 pos = transform.position + new Vector3(0, 1.15f, 0);
-                wenis = Instantiate(box, pos, wank, Gamer.Instance.balls);
+                wenis = Instantiate(box, pos, Gamer.Instance.AlcoholSex(wank), Gamer.Instance.balls);
                 e = wenis.GetComponent<EnemyHitShit>();
                 e.Damage = Damage;
                 e.balling = transform;
@@ -1151,7 +1158,7 @@ public class NavMeshEntity : MonoBehaviour
                 var s = PointAtPoint2D(target.transform.position, 0);
                 for (int j = 0; j < 10; j++)
                 {
-                    var wenis = Instantiate(Miscrefs[5], transform.position, s *Quaternion.Euler(0,0,36*j), Gamer.Instance.balls);
+                    var wenis = Instantiate(Miscrefs[5], transform.position, Gamer.Instance.AlcoholSex(s * Quaternion.Euler(0, 0, 36 * j)), Gamer.Instance.balls);
 
                     var e2 = wenis.GetComponent<DeathBeamScript>();
                     e2.Player = target.transform;
@@ -1316,7 +1323,7 @@ public class NavMeshEntity : MonoBehaviour
     }
     private EnemyHitShit SpawnBox(Vector3 pos, Quaternion rot)
     {
-        var wenis = Instantiate(box, pos, rot, Gamer.Instance.balls);
+        var wenis = Instantiate(box, pos, Gamer.Instance.AlcoholSex(rot), Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
@@ -1326,7 +1333,7 @@ public class NavMeshEntity : MonoBehaviour
     
     private EnemyHitShit SpawnBox(GameObject box, Vector3 pos, Quaternion rot)
     {
-        var wenis = Instantiate(box, pos, rot, Gamer.Instance.balls);
+        var wenis = Instantiate(box, pos, Gamer.Instance.AlcoholSex(rot), Gamer.Instance.balls);
         var e = wenis.GetComponent<EnemyHitShit>();
         e.Damage = Damage;
         e.balling = transform;
@@ -1338,7 +1345,7 @@ public class NavMeshEntity : MonoBehaviour
     public IEnumerator OrbSex()
     {
         SoundSystem.Instance.PlaySound(17, true, 0.05f);
-        var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
+        var wenis = Instantiate(box, transform.position, Gamer.Instance.AlcoholSex(PointAtPoint2D(target.transform.position, 0)), Gamer.Instance.balls);
         Instantiate(Gamer.Instance.ParticleSpawns[6], transform.position, Quaternion.identity, transform);
 
         var e2 = wenis.GetComponent<DeathBeamScript>();
@@ -1360,7 +1367,7 @@ public class NavMeshEntity : MonoBehaviour
         canrunattacktimer = false;
         WantASpriteCranberry.sprite = SpriteMiscRefs[0];
         yield return new WaitForSeconds(0.2f);
-        var wenis = Instantiate(box, transform.position, PointAtPoint2D(target.transform.position, 0), Gamer.Instance.balls);
+        var wenis = Instantiate(box, transform.position, Gamer.Instance.AlcoholSex(PointAtPoint2D(target.transform.position, 0)), Gamer.Instance.balls);
 
         var e2 = wenis.GetComponent<DeathBeamScript>();
         e2.Player = target.transform;

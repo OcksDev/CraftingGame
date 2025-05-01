@@ -120,6 +120,10 @@ public class EntityOXS : MonoBehaviour
                 break;
         }
         bool block = false;
+        if (ContainsEffect("Shielded").hasthing)
+        {
+            damagefromhit /= 2;
+        }
         switch (EnemyType)
         {
             case "Player":
@@ -1120,11 +1124,11 @@ public class EffectProfile
     public DamageProfile damprof;
     public EffectProfile(string type, float time, int add_method, int stacks = 1)
     {
-        SetData();
         Type = type;
         Duration = time;
         CombineMethod = add_method;
         Stack =stacks;
+        SetData();
     }
     public EffectProfile()
     {
@@ -1139,6 +1143,9 @@ public class EffectProfile
             //some example effects
             case "Healing Energy":
                 MaxStack = 6;
+                break;
+            case "Shielded":
+                MaxStack = 1;
                 break;
         }
     }

@@ -95,3 +95,4 @@ Fentanyl:: All Enemies are Elite
 Lean:: More Enemies spawn
 MDMA:: All Map Destructibles drop 2 Souls<br>Enemies no longer drop Souls
 LSD:: Hallucinate fake Enemies, these Enemies Heal<br>the Total Damage they dealt on kill (no Souls).
+Alcohol:: All Projectiles are inaccurate.

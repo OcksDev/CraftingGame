@@ -2380,6 +2380,19 @@ public class Gamer : MonoBehaviour
     }
     bool lsd_carryover = false;
     
+    public Quaternion AlcoholSex(Quaternion init)
+    {
+        if (!ActiveDrugs.Contains("Alcohol") || init == Quaternion.identity) return init;
+        return init * Quaternion.Euler(0, 0, Random.Range(-35f,35f));
+    }
+    
+    public Quaternion AlcoholSex()
+    {
+        if (!ActiveDrugs.Contains("Alcohol")) return Quaternion.identity;
+        return Quaternion.Euler(0, 0, Random.Range(-35f,35f));
+    }
+
+
     public NavMeshEntity SpawnEnemy(EnemyHolder wank, bool canspendcredits, Vector3 position = default)
     {
         List<string> elitetypes = new List<string>();

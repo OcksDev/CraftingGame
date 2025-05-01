@@ -1010,7 +1010,7 @@ public class PlayerController : MonoBehaviour
             var attack = GetDamageProfile();
             attack.DamageMod *= 0.5 * arr;
             var weenis = transform;
-            var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], weenis.position, PointFromTo2D(transform.position, RandomFunctions.Instance.MousePositon(Camera.main), 90 + UnityEngine.Random.Range(-90f, 90f)), Gamer.Instance.balls).GetComponent<MissileMover>();
+            var we = Instantiate(RandomFunctions.Instance.SpawnRefs[1], weenis.position, Gamer.Instance.AlcoholSex(PointFromTo2D(transform.position, RandomFunctions.Instance.MousePositon(Camera.main), 90 + UnityEngine.Random.Range(-90f, 90f))), Gamer.Instance.balls).GetComponent<MissileMover>();
             we.hitbal.attackProfile = attack;
         }
         arr = mainweapon.ReadItemAmount("Rune Of Electricity");
@@ -1188,7 +1188,7 @@ public class PlayerController : MonoBehaviour
         var ff = UnityEngine.Random.Range(0f, 1f);
         var tt = Mathf.FloorToInt(CritChance);
         Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
-        var s = Instantiate(SlashEffect[2], pos, rot, Gamer.Instance.balls);
+        var s = Instantiate(SlashEffect[2], pos, Gamer.Instance.AlcoholSex(rot), Gamer.Instance.balls);
         var s3 = s.GetComponent<HitBalls>();
         s3.playerController = this;
         s3.attackProfile = offshart;
@@ -1261,7 +1261,7 @@ public class PlayerController : MonoBehaviour
             var ff = UnityEngine.Random.Range(0f, 1f);
             var tt = Mathf.FloorToInt(CritChance);
             Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
-            var s = Instantiate(SlashEffect[8], transform.position, wankerpos, Gamer.Instance.balls);
+            var s = Instantiate(SlashEffect[8], transform.position, Gamer.Instance.AlcoholSex(wankerpos), Gamer.Instance.balls);
             var s3 = s.GetComponent<HitBalls>();
             s3.playerController = this;
             s3.attackProfile = offshart;
@@ -1294,7 +1294,7 @@ public class PlayerController : MonoBehaviour
         var wankerpos = transform.rotation;
         Func<int, int> wanker = (i) =>
         {
-            var s = Instantiate(SlashEffect[9], transform.position, wankerpos, Gamer.Instance.balls);
+            var s = Instantiate(SlashEffect[9], transform.position, Gamer.Instance.AlcoholSex(wankerpos), Gamer.Instance.balls);
             return 0;
         };
         wanker(0);
@@ -1302,7 +1302,7 @@ public class PlayerController : MonoBehaviour
 
     public void LaunchGrapple(Skill sk)
     {
-        var cd = Instantiate(SlashEffect[5], transform.position, Point2D(0, 0)).GetComponent<GrappHook>();
+        var cd = Instantiate(SlashEffect[5], transform.position, Gamer.Instance.AlcoholSex(Point2D(0, 0))).GetComponent<GrappHook>();
         cd.dad = this;
         cd.SkillDad = sk;
     }
@@ -1463,7 +1463,8 @@ public class PlayerController : MonoBehaviour
 
                 var wankiwa = RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 var wankiwaa = RandomFunctions.Instance.NoZ(MyAssHurts.position);
-                s = Instantiate(SlashEffect[12], MyAssHurts.position + (wankiwa-wankiwaa).normalized*5.5f, RandomFunctions.PointAtPoint2D(wankiwaa, wankiwa, 0), Gamer.Instance.balls);
+                var mu = Gamer.Instance.AlcoholSex();
+                s = Instantiate(SlashEffect[12], MyAssHurts.position + (mu * (wankiwa-wankiwaa)).normalized*5.5f, RandomFunctions.PointAtPoint2D(wankiwaa, wankiwa, 0) * mu, Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
 
                 s3.attackProfile = Shart;
@@ -1521,7 +1522,7 @@ public class PlayerController : MonoBehaviour
                 SoundSystem.Instance.PlaySound(12, true, 0.15f, 1f);
                 break;
             case "Crossbow":
-                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
+                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, Gamer.Instance.AlcoholSex(transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2)))), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
                 s3.attackProfile = Shart;
                 epe *= -0.5f;
@@ -1532,7 +1533,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Blowdart":
                 reverse *= -1;
-                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
+                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, Gamer.Instance.AlcoholSex(transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2)))), Gamer.Instance.balls);
                 var rahh = s.GetComponent<Projectile>();
                 rahh.spinglerenderer.sprite = rahh.Springles[0];
                 s3 = s.GetComponent<HitBalls>();
@@ -1558,7 +1559,7 @@ public class PlayerController : MonoBehaviour
                 f2 = (1 / AttacksPerSecond) + ((0.2f * 3f) / AttacksPerSecond);
                 break;
             case "Shuriken":
-                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0), Gamer.Instance.balls);
+                s = Instantiate(SlashEffect[4], MyAssHurts.position, Gamer.Instance.AlcoholSex(Point2DMod(MyAssHurts.position, -90, 0)), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
 
                 var x = RandomFunctions.Instance.Dist(RandomFunctions.Instance.NoZ(Camera.main.ScreenToWorldPoint(Input.mousePosition)), RandomFunctions.Instance.NoZ(MyAssHurts.position));
@@ -1591,7 +1592,7 @@ public class PlayerController : MonoBehaviour
             case "Dagger":
                 for(int i = 0; i < 3; i++)
                 {
-                    s = Instantiate(SlashEffect[4], MyAssHurts.position, Quaternion.Euler(0,0,(i-1)*10f) * Point2DMod(MyAssHurts.position, -90, 0), Gamer.Instance.balls);
+                    s = Instantiate(SlashEffect[4], MyAssHurts.position, Gamer.Instance.AlcoholSex(Quaternion.Euler(0, 0, (i - 1) * 10f) * Point2DMod(MyAssHurts.position, -90, 0)), Gamer.Instance.balls);
                     s3 = s.GetComponent<HitBalls>();
 
                     var sss2 = s.GetComponent<Projectile>();
@@ -1623,7 +1624,7 @@ public class PlayerController : MonoBehaviour
                 SoundSystem.Instance.PlaySound(13, true, 0.8f, 0.8f);
                 break;
             case "Boomerang":
-                s = Instantiate(SlashEffect[4], MyAssHurts.position, Point2DMod(MyAssHurts.position, -90, 0), Gamer.Instance.balls);
+                s = Instantiate(SlashEffect[4], MyAssHurts.position, Gamer.Instance.AlcoholSex(Point2DMod(MyAssHurts.position, -90, 0)), Gamer.Instance.balls);
                 s3 = s.GetComponent<HitBalls>();
                 s3.playerController = this;
 
@@ -1673,7 +1674,7 @@ public class PlayerController : MonoBehaviour
                     var ff = UnityEngine.Random.Range(0f, 1f);
                     var tt = Mathf.FloorToInt(CritChance);
                     Shart.PreCritted = tt + (ff < (CritChance % 1) ? 2 : 1);
-                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, Point2DMod(MyAssHurts.position, -90, 0) * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2))), Gamer.Instance.balls);
+                    s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, Gamer.Instance.AlcoholSex(Point2DMod(MyAssHurts.position, -90, 0) * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2)))), Gamer.Instance.balls);
                     s3 = s.GetComponent<HitBalls>();
                     s3.playerController = this;
                     s3.attackProfile = offshart;

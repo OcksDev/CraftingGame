@@ -19146,7 +19146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 841672118526005587, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: Prerequisites.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 841672118526005587, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: Prerequisites.Array.data[0]
@@ -19154,7 +19154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 841672118526005587, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: Prerequisites.Array.data[1]
-      value: Lean
+      value: Alcohol
       objectReference: {fileID: 0}
     - target: {fileID: 841672118526005590, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: m_Name
@@ -24894,6 +24894,8 @@ MonoBehaviour:
     Image: {fileID: 21300000, guid: e70a245c67207264ba42a8fc9a1bf828, type: 3}
   - Name: Swift
     Image: {fileID: 21300000, guid: 64890d266d1bee1418a01e79154fba31, type: 3}
+  - Name: Shielded
+    Image: {fileID: 21300000, guid: 6bfc914efbd54674898d253d94c4f7a2, type: 3}
   Skills:
   - Name: Empty
     NameOverride: 
@@ -25042,6 +25044,8 @@ MonoBehaviour:
     Image: {fileID: 21300000, guid: 34c2c524a5793cb4a9389677ec4ef810, type: 3}
   - Name: LSD
     Image: {fileID: 21300000, guid: e533b8d77ec707f40b2bc434f1aff1dd, type: 3}
+  - Name: Alcohol
+    Image: {fileID: 21300000, guid: 6b0901d8ccfe30249af4b789a17027e7, type: 3}
   AllWeaponNames: []
   AllCraftables: []
   AllAspects: []
@@ -27112,6 +27116,179 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1001 &639529876
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 650728341}
+    m_Modifications:
+    - target: {fileID: 841672118526005587, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: Name
+      value: Alcohol
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005587, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: StartState
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005587, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: Prerequisites.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005587, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: Prerequisites.Array.data[0]
+      value: Meth
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005587, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: Prerequisites.Array.data[1]
+      value: Fentanyl
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005590, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_Name
+      value: Image (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_RootOrder
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1250
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: Desc
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: Title
+      value: Alcohol
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: multcol.b
+      value: 0.8509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: multcol.g
+      value: 0.8509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: multcol.r
+      value: 0.8509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: DisplayItem
+      value: Alcohol
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: UseItemDesc
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: itemCosts.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: itemCosts.Array.data[0].Amount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: itemCosts.Array.data[1].Amount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: itemCosts.Array.data[2].Amount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: itemCosts.Array.data[0].ItemType
+      value: Angelic Ingot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: itemCosts.Array.data[1].ItemType
+      value: Zebrium
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+      propertyPath: itemCosts.Array.data[2].ItemType
+      value: Morkite
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
 --- !u!224 &644659066 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4933656227016282864, guid: 283bb50cdbd4db74bbeedb431bd2ab0f, type: 3}
@@ -27325,6 +27502,7 @@ RectTransform:
   - {fileID: 2086794791}
   - {fileID: 98345193}
   - {fileID: 1933758966}
+  - {fileID: 710004377}
   m_Father: {fileID: 759781568}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28936,6 +29114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a48cf3c2a66264a962010007cb9ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &710004377 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 841672118526005591, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
+  m_PrefabInstance: {fileID: 639529876}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &710220413
 GameObject:
   m_ObjectHideFlags: 0
@@ -95024,6 +95207,7 @@ MonoBehaviour:
   - Lean
   - MDMA
   - LSD
+  - Alcohol
 --- !u!1 &1888876301
 GameObject:
   m_ObjectHideFlags: 0

@@ -212,12 +212,12 @@ MonoBehaviour:
   movespeed: 5
   MeleeRange: 2.5
   SightRange: 15
-  AttackCooldown: 2.2
+  AttackCooldown: 0.75
   randommovetimer: 0
   beans: {fileID: 0}
   target: {fileID: 0}
   originroom: {fileID: 0}
-  Damage: 10
+  Damage: 0
   WantASpriteCranberry: {fileID: 0}
   SpriteVarients:
   - {fileID: 21300000, guid: b7c84aa4ffd8b2748bbbb399e3e7c56a, type: 3}
@@ -225,7 +225,7 @@ MonoBehaviour:
   EnableOnTrueSpawn: []
   Miscrefs: []
   sex: {fileID: 0}
-  box: {fileID: 1894346058258269852, guid: 46783c73a7cf2bf498e3d3d342476628, type: 3}
+  box: {fileID: 1753367827399034600, guid: 33ec84f456e23ea4fbf4e654c63bb5f3, type: 3}
   EntityOXS: {fileID: 0}
   timer2: 0
   spawn: {x: 0, y: 0, z: 0}
