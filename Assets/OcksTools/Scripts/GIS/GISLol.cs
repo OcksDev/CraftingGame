@@ -198,6 +198,7 @@ public class GISLol : MonoBehaviour
             if (ItemsDict.ContainsKey(we.Key) && !banana.ContainsKey(we.Key))
             {
                 ItemsDict[we.Key].Description = we.Value;
+                if(ItemsDict[we.Key].MinFloor > 0) ItemsDict[we.Key].Description += $"\n<m>Min Floor: {ItemsDict[we.Key].MinFloor}</>";
             }
             if (SkillsDict.ContainsKey(we.Key))
             {
@@ -223,7 +224,7 @@ public class GISLol : MonoBehaviour
             if(bana2.IsBoss) ItemsDict[bana2.EnemyType].Description += $"<bold><color=red>Boss</b></color><br>";
             ItemsDict[bana2.EnemyType].Description += $"Health: {bana3.Max_Health}";
             ItemsDict[bana2.EnemyType].Description += $"<br>Damage: {bana2.Damage}";
-            if (bana.MinFloor > 1) ItemsDict[bana2.EnemyType].Description += $"<br>Min Floor: {bana.MinFloor}";
+            if (bana.MinFloor > 1) ItemsDict[bana2.EnemyType].Description += $"<br><m>Min Floor: {bana.MinFloor}</>";
         }
 
         e = Converter.StringToDictionary(EXTRADescriptionSussyBacons.text.Replace("\r", ""), "\n", ":: ");
@@ -555,7 +556,7 @@ public class GISLol : MonoBehaviour
         {
             if(!(EXTRA || Gamer.GameState == "Lobby" || Gamer.Instance.checks[12]))
             {
-                e = $"This item has no effect until it is brought back to base.<br>This item does not count toward weapon balance.<br><br>{wank.Description}";
+                e = $"<m>This item has no effect until it is brought back to base.<br>This item does not count toward weapon balance.<br><br></>{wank.Description}";
             }
         }
         if (EXTRA)
@@ -593,6 +594,7 @@ public class GISLol : MonoBehaviour
         e = e.Replace("<e>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[2])}>"); //enemy
         e = e.Replace("<o>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[3])}>"); //object/physical-thing/item/woman
         e = e.Replace("<c>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[4])}>"); //curruption
+        e = e.Replace("<m>", $"<color=#{ColorUtility.ToHtmlStringRGBA(attributecolors[5])}>"); //curruption
         e = e.Replace("</>", $"</color>"); // end
         e = e.Replace("<bold>", $"<b>"); //bold override lol
 
@@ -1086,6 +1088,7 @@ public class GISItem_Data
     public Sprite Sprite;
     public string Description;
     public string EXTRADescription;
+    public int MinFloor = 0;
     public int MaxAmount;
     public bool IsWeapon = false;
     public bool IsCraftable = false;

@@ -59,9 +59,9 @@ public class Gamer : MonoBehaviour
     public GameObject enemybaroutline;
     public TMP_InputField ItemNameInput;
     public TextMeshProUGUI CoinCostDisplay;
-    public List<string> ItemPoolMats = new List<string>();
-    public List<string> ItemPoolRunes = new List<string>();
-    public List<string> ItemPoolAspects = new List<string>();
+    public Dictionary<int,List<string>> ItemPoolMats = new Dictionary<int, List<string>>();
+    public Dictionary<int, List<string>> ItemPoolRunes = new Dictionary<int, List<string>>();
+    public Dictionary<int, List<string>> ItemPoolAspects = new Dictionary<int, List<string>>();
     public bool CanInteractThisFrame;
     public int EnemySpawnNumber = 0;
     public string EnemySpawnElite = "";
@@ -1213,12 +1213,27 @@ public class Gamer : MonoBehaviour
         }
     }
 
+    public static List<string> ConvertPoolToList(Dictionary<int, List<string>> pool)
+    {
+        List<string> list = new List<string>();
+        foreach(var a in pool)
+        {
+            foreach(var b in a.Value)
+            {
+                list.Add(b);
+            }
+        }
+        return list;
+
+    }
+
+
     public List<string> GetSelfSimilar(string item)
     {
         var aa = GISLol.Instance.ItemsDict[item];
-        if (aa.IsCraftable) return ItemPoolMats;
-        if (aa.IsRune) return ItemPoolRunes;
-        if (aa.IsAspect) return ItemPoolAspects;
+        if (aa.IsCraftable) return ConvertPoolToList(ItemPoolMats);
+        if (aa.IsRune) return ConvertPoolToList(ItemPoolRunes);
+        if (aa.IsAspect) return ConvertPoolToList(ItemPoolAspects);
         return null;
     }
 
@@ -1885,18 +1900,21 @@ public class Gamer : MonoBehaviour
     Coroutine titlething;
     public GISItem GetItemForLevel()
     {
-        if(CurrentFloor >= 5 && Random.Range(0, 101) == 0)
-        {
-            return new GISItem(ItemPoolAspects[Random.Range(0, ItemPoolAspects.Count)]);
-        }
+        Dictionary<int, List<string>> bana2 = ItemPoolMats;
+
         if (Random.Range(0, 2) == 0)
         {
-            return new GISItem(ItemPoolMats[Random.Range(0, ItemPoolMats.Count)]);
+            bana2 = ItemPoolRunes;
         }
-        else
-        {
-            return new GISItem(ItemPoolRunes[Random.Range(0, ItemPoolRunes.Count)]);
-        }
+
+        var bana = new Dictionary<int, List<string>>(bana2);
+
+        List<int> succers = new List<int>() { 0};
+        if(CurrentFloor >= 10) succers.Add(10);
+
+        int selectedflooritem = succers[Random.Range(0, succers.Count)];
+
+        return new GISItem(bana[selectedflooritem][(Random.Range(0, bana[selectedflooritem].Count))]);
     }
 
     public void AssembleItemPool()
@@ -1907,24 +1925,39 @@ public class Gamer : MonoBehaviour
         foreach(var a in GISLol.Instance.Items)
         {
             if(!a.CanSpawn) continue;
+            if (a.MinFloor > 0 && CurrentFloor < a.MinFloor) continue;
+            if(a.Name=="Rock") continue;
             if (a.IsCraftable)
             {
-                ItemPoolMats.Add(a.Name);
+                AddToDict(ItemPoolMats, a);
                 continue;
             }
             if (a.IsRune)
             {
-                ItemPoolRunes.Add(a.Name);
+                AddToDict(ItemPoolRunes, a);
                 continue;
             }
             if (a.IsAspect)
             {
-                ItemPoolAspects.Add(a.Name);
+                AddToDict(ItemPoolAspects, a);
                 continue;
             }
         }
-        ItemPoolMats.Remove("Rock");
     }
+
+    public static void AddToDict(Dictionary<int,List<string>> weenors, GISItem_Data dd)
+    {
+        if (weenors.ContainsKey(dd.MinFloor))
+        {
+            weenors[dd.MinFloor].Add(dd.Name);
+        }
+        else
+        {
+            weenors.Add(dd.MinFloor, new List<string>() { dd.Name });
+        }
+    }
+
+
 
     public static List<RoomTypeHolder> ValidRoomTypes = new List<RoomTypeHolder>();
 
@@ -1953,6 +1986,9 @@ public class Gamer : MonoBehaviour
             PlayerController.Instance.Coins = 0;
             SaveCurrentWeapons();
         }
+
+        AssembleItemPool();
+
         List<I_Room> enders = new List<I_Room>();
         foreach (var e in RoomLol.Instance.SpawnedRoomsDos)
         {

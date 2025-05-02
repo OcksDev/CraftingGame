@@ -120,7 +120,7 @@ public class EntityOXS : MonoBehaviour
                 break;
         }
         bool block = false;
-        if (ContainsEffect("Shielded").hasthing)
+        if (ContainsEffect("Protected").hasthing)
         {
             damagefromhit /= 2;
         }
@@ -156,6 +156,17 @@ public class EntityOXS : MonoBehaviour
                             CameraLol.Instance.Shake(wasticked || hit.Name == "nono" ? 0.1f:0.4f, 0.87f);
                             Gamer.Instance.ShartPoop += wasticked || hit.Name == "nono" ? 0.1f:0.4f;
                         }
+
+
+                        var arr = s2.mainweapon.ReadItemAmount("Rune Of Shielded Missiling");
+                        if (arr >= 1 && (s2.entit.Shield > 0.01 || s2.entit.Health == s2.entit.Max_Health))
+                        {
+                            var Shart = s2.GetDamageProfile();
+                            Shart.DamageMod *= arr;
+                            s2.entit.SpawnMissile(null, transform.position, Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360)), Shart);
+                        }
+
+
                         damagefromhit *= s2.DamageTakenMod;
                         Shield -= damagefromhit;
                         if (aaaaa2.type == "Enemy") aaaaa2.entity.lsd_store += damagefromhit;
@@ -163,7 +174,7 @@ public class EntityOXS : MonoBehaviour
                         {
                             Health += Shield;
                         }
-                        var arr = s2.mainweapon.ReadItemAmount("Rune Of Retaliation");
+                        arr = s2.mainweapon.ReadItemAmount("Rune Of Retaliation");
                         if(arr >= 1)
                         {
                             NavMeshEntity cuumer = NearestEnemyFrom(transform.position);
@@ -175,6 +186,13 @@ public class EntityOXS : MonoBehaviour
                                 cuumer.EntityOXS.Hit(we);
                             }
 
+                        }
+                        arr = s2.mainweapon.ReadItemAmount("Rune Of Protection");
+                        if(arr >= 1)
+                        {
+                            var ef = new EffectProfile("Protected", arr*0.5f, 5, 1);
+                            ef.ItemOfInit = hit.WeaponOfAttack;
+                            AddEffect(ef);
                         }
                         arr = s2.mainweapon.ReadItemAmount("Rune Of Retribution");
                         if(arr >= 1)
@@ -255,6 +273,11 @@ public class EntityOXS : MonoBehaviour
                                 return x;
                             };
                             stored_funcs.Add(me);
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Conversion");
+                        if (arr > 0)
+                        {
+                            aaaaa.playerController.entit.Shield += 0.1 * arr * damagefromhit;
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Bleed") * 0.2f;
                         if (arr > 0 && hit.controller != null && !hit.Procs.Contains("Bleed"))
@@ -472,6 +495,13 @@ public class EntityOXS : MonoBehaviour
                 if (arr > 0)
                 {
                     amount *= 2;
+                }
+                arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Lasting");
+                if (arr >= 1)
+                {
+                    var ef = new EffectProfile("Protected", arr * 0.5f, 5, 1);
+                    ef.ItemOfInit = playerdaddy.mainweapon;
+                    AddEffect(ef);
                 }
                 DirectShieldPercent = 1-playerdaddy.DirectShieldHeal;
                 ShieldChangeMult = playerdaddy.ShieldHealingMod;
@@ -1144,7 +1174,7 @@ public class EffectProfile
             case "Healing Energy":
                 MaxStack = 6;
                 break;
-            case "Shielded":
+            case "Protected":
                 MaxStack = 1;
                 break;
         }

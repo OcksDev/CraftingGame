@@ -527,7 +527,8 @@ public class NavMeshEntity : MonoBehaviour
                                 foreach(var a in Gamer.Instance.EnemiesExisting)
                                 {
                                     if (a.EnemyType=="defcrys") continue;
-                                    var ef = new EffectProfile("Shielded", 0.8f, 4, 1);
+                                    if (RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position) >= 100) continue;
+                                    var ef = new EffectProfile("Protected", 0.8f, 4, 1);
                                     a.EntityOXS.AddEffect(ef);
 
 

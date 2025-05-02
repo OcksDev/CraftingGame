@@ -29,8 +29,8 @@ Piss:: Smells tasty
 Brick:: "I'm all bricked up!"
 Dash:: Boner
 Grappling:: Launch a <o>Grappling Hook</> which pulls you toward itself when it lands.
-Capitalism:: Spend 1 <o>Coin</> to instantly kill the 3 nearest <e>Enemies</>. 
-SoulDrain:: All nearby <e>Enemies</> drop x2 their kill reward, but become <o>Soulless</>.<br><o>Soulless</> <e>Enemies</> do not drop a kill reward on death.
+Capitalism:: Spend 1 <o>Coin</> to instantly Kill the 3 nearest <e>Enemies</>. 
+SoulDrain:: All nearby <e>Enemies</> drop x2 their Kill reward, but become <o>Soulless</>.<br><o>Soulless</> <e>Enemies</> do not drop a Kill reward on death.
 ArrowStorm:: Shoot an arc of <o>Arrows</> with 50% Damage.
 SwordDance:: Surround yourself with 8 <o>Flying Swords</>, each with 75% Damage.<br>Max of 32 simultaneous <o>Flying Swords</>.
 Soulsplosion:: All uncollected <o>Souls</> you have harvested explode for 10 Damage<br>5m Explosion Size
@@ -46,7 +46,7 @@ Rune Of Confluence:: <g>+35%</> chance on Heal to deal<br>x2 the amount as Damag
 Rune Of Arrow:: <g>+35%</> chance on Attack to shoot an <o>Arrow</> with 100% Damage
 Rune Of Kaboom:: <e>Enemies</> explode on Kill for 15 Damage<br><g>5m (+2m per stack)</> Explosion Size
 Rune Of Retaliation:: When taking Damage, deal <g>+50%</> of the Damage to the nearest <e>Enemy</>
-Rune Of Soul:: <g>+15%</> chance to spawn an extra <o>Soul</> on kill
+Rune Of Soul:: <g>+15%</> chance to spawn an extra <o>Soul</> on Kill
 Rune Of Splitting:: Damage taken is split evenly between <g>2 (+1 per stack)</> ticks across 3s
 Rune Of Retribution:: Explode on taking Damage for 10 Damage<br><g>6m (+2m per stack)</> Explosion Size
 Rune Of Luck:: <g>+0.35</> Luck
@@ -66,7 +66,7 @@ Rune Of Electricity:: On Skill shoot <o>Lightning</> with <g>+20%</> Damage (max
 Rune Of Swords:: On Kill spawn a <o>Flying Sword</> with <g>+5</> Damage.<br>Max of 32 simultaneous <o>Flying Swords</>.
 Rune Of Combustion:: All explosions apply <g>+1</> stack of <o>Fire<br>Fire</> deals 1 (+1 per stack) Damage every 0.33s for 3s
 Rune Of Mimicry:: When placed on a <o>Weapon</>, becomes one of the<br><o>Items</> already equipped on the <o>Weapon</> randomly.
-Rune Of Turret:: 20% chance on kill to place a <o>Turret</> which deals <g>+3</> Damage.<br><o>Turret</> Attack Speed scales based on your Attack Speed 
+Rune Of Turret:: 20% chance on Kill to place a <o>Turret</> which deals <g>+3</> Damage.<br><o>Turret</> Attack Speed scales based on your Attack Speed 
 Rune Of Conduction:: 15% chance on hit to shoot <o>Lightning</> with <g>+50%</> Damage (max of 4 bounces)
 Rune Of Demolition:: <o>Missiles</> will explode for 30% Damage<br><g>5m (+2m per stack)</> Explosion Size
 Rune Of Agitation:: When collecting a <o>Soul</>, Gain <g>+1</> stacks of <o>Swift</> for 2.5s.<br><o>Swift</> increases Movement Speed by +5% per stack
@@ -74,9 +74,13 @@ Rune Of Steady Shielding:: <g>x0.75</> <o>Barrier</> Decay Rate
 Rune Of Advanced Shielding:: <g>+25%</> Healing when applied as <o>Barrier</> 
 Rune Of Weaponized Shielding:: While at full Health or in <o>Barrier</><br><g>+20%</> Total Damage
 Rune Of Criticality:: <g>+5%</> Crit Chance<br>Critial Hits will explode for 30% Damage<br><g>5m (+2m per stack)</> Explosion Size
-Rune Of Drain:: On kill, Heal for <g>+1</> per unique Debuff on the slain <e>Enemy</>.
-Rune Of Acid:: 20% chance on kill to place an <o>Acid Pool</><br>which deals <g>+3</> Damage every 1s.
-Aspect Of Plague:: On kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
+Rune Of Drain:: On Kill, Heal for <g>+1</> per unique Debuff on the slain <e>Enemy</>.
+Rune Of Acid:: 20% chance on Kill to place an <o>Acid Pool</><br>which deals <g>+3</> Damage every 1s.
+Rune Of Protection:: On taking Damage gain <g>+0.5s</> of <o>Protected</><br>While <o>Protected</> take x0.5 Damage.
+Rune Of Lasting:: On Heal gain <g>+0.5s</> of <o>Protected</><br>While <o>Protected</> take x0.5 Damage.
+Rune Of Conversion:: <g>+0.1</> <o>Barrier</> per Damage Dealt
+Rune Of Shielded Missiling:: On taking Damage while at full Health or in <o>Barrier</>,<br>Shoot a <o>Missile</> with <g>+100%</> Damage
+Aspect Of Plague:: On Kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health
 Aspect Of Speed:: <g>x2</> Attack Speed<br><b>x0.5</> Attack Damage
@@ -94,5 +98,5 @@ Liquid Corruption:: x1.5 Corruption Speed
 Fentanyl:: All Enemies are Elite
 Lean:: More Enemies spawn
 MDMA:: All Map Destructibles drop 2 Souls<br>Enemies no longer drop Souls
-LSD:: Hallucinate fake Enemies, these Enemies Heal<br>the Total Damage they dealt on kill (no Souls).
+LSD:: Hallucinate fake Enemies, these Enemies Heal<br>the Total Damage they dealt on Kill (no Souls).
 Alcohol:: All Projectiles are inaccurate.
