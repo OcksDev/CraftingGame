@@ -862,6 +862,9 @@ public class EntityOXS : MonoBehaviour
             Kill();
         }
     }
+
+    public Dictionary<string,ParticleSystem> alreadyspawned = new Dictionary<string, ParticleSystem>();
+
     private void FixedUpdate()
     {
         switch(EnemyType)
@@ -896,6 +899,62 @@ public class EntityOXS : MonoBehaviour
                 }
                 break;
         }
+        bool foundbounds = false;
+        Vector2 bb = Vector2.zero;
+        Transform eee = transform;
+        switch (EnemyType)
+        {
+            case "Enemy":
+                if (sexy!= null && sexy.WantASpriteCranberry != null)
+                {
+                    foundbounds = true;
+                    bb = sexy.WantASpriteCranberry.bounds.size;
+                    bb *= 0.85f;
+                }
+                break;
+            case "Player":
+                eee = playerdaddy.dicksplit;
+                foundbounds = true;
+                bb = playerdaddy.PlayerimageRemder.bounds.size;
+                bb *= 0.9f;
+                break;
+        }
+        if (foundbounds)
+        {
+            HashSet<string> tbd = new HashSet<string>();
+            Dictionary<string, ParticleSystem> tbd2 = new Dictionary<string, ParticleSystem>(alreadyspawned);
+            foreach(var a in Effects) tbd.Add(a.Type);
+            //List<string> tbd2 = new List<string>(tbd);
+            foreach(var a in tbd2)
+            {
+                if (alreadyspawned.ContainsKey(a.Key) && !tbd.Contains(a.Key))
+                {
+                    Destroy(a.Value.gameObject);
+                    alreadyspawned.Remove(a.Key);
+                }
+            }
+            foreach(var a in tbd)
+            {
+                if (alreadyspawned.ContainsKey(a)) continue;
+                int index = -1;
+                switch (a)
+                {
+                    case "Protected": index = 42; break;
+                    case "Fire": index = 41; break;
+                }
+                if(index > -1)
+                {
+                    var ee = Instantiate(Gamer.Instance.ParticleSpawns[index], transform.position, Quaternion.Euler(-90,0,0), eee).GetComponent<ParticleSystem>();
+                    alreadyspawned.Add(a, ee);
+                    var e = ee.shape;
+                    var e2 = ee.emission;
+                    e2.rateOverTime = e2.rateOverTime.constant * (bb.x * bb.y);
+                    e.scale = new Vector3(bb.x,bb.y,0);
+                    if(EnemyType=="Player") ee.gameObject.layer = 5;
+                }
+            }
+        }
+
     }
     public ret_cum_shenan ContainsEffect(EffectProfile eff)
     {

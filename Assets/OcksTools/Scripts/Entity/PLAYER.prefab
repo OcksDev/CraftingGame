@@ -751,6 +751,7 @@ MonoBehaviour:
   MyAssHurts: {fileID: 1066387814657488983}
   ArrowInMyperkyAss: {fileID: 8457356311685386516}
   ArrowInThyAss: {fileID: 7713990164888205087}
+  PlayerimageRemder: {fileID: 401543440080684480}
   cummers:
   - {fileID: 1830576388047842341}
   - {fileID: 4971977308512331650}
@@ -1530,7 +1531,7 @@ GameObject:
   - component: {fileID: 205681123314581784}
   - component: {fileID: 6550949459897784657}
   m_Layer: 7
-  m_Name: Circle
+  m_Name: AAAAAAA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

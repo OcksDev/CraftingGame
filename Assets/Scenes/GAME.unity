@@ -100964,7 +100964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ParticleSpawns.Array.size
-      value: 41
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: SkillCumSexers.Array.size
@@ -101191,6 +101191,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3653482439093956654, guid: 156a7cf56c72f9849a87e9c2bf05465c, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[41]
+      value: 
+      objectReference: {fileID: 8133987032057056179, guid: 0671a50e2e8ff26429a621441f521214, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: ParticleSpawns.Array.data[42]
+      value: 
+      objectReference: {fileID: 8133987032057056179, guid: 12290d4d34d07174c98fac56a2e39202, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.data[0].Image
       value: 
       objectReference: {fileID: 21300000, guid: 632dbb917d9a5ec4ba6f39842e756943, type: 3}
@@ -101412,6 +101420,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[20].MinFloor
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[21].MinFloor
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
@@ -101711,6 +101723,18 @@ PrefabInstance:
       value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[21].CanBeElite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[21].CreditCost
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[21].PickChance
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[2].EnemyObject
       value: 
       objectReference: {fileID: 2284451541892325387, guid: 5ed5f063e5e4b5448816625b35b15021, type: 3}
@@ -101788,6 +101812,10 @@ PrefabInstance:
       objectReference: {fileID: 2284451541892325387, guid: 0c42626c62014c2428b96dd6d6047fa1, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[20].EnemyObject
+      value: 
+      objectReference: {fileID: 2284451541892325387, guid: 15d8664813c752e40b32f6c258488627, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[21].EnemyObject
       value: 
       objectReference: {fileID: 2284451541892325387, guid: 15d8664813c752e40b32f6c258488627, type: 3}
     - target: {fileID: 733915574832352348, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}

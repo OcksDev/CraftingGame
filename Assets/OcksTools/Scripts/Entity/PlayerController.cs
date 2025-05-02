@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public Transform MyAssHurts;
     public Transform ArrowInMyperkyAss;
     public SpriteRenderer ArrowInThyAss;
+    public SpriteRenderer PlayerimageRemder;
     public Transform[] cummers = new Transform[2];
     public GameObject[] SlashEffect;
     public GameObject HitCollider;
