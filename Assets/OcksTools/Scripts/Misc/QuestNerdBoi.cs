@@ -69,6 +69,7 @@ public class QuestNerdBoi : MonoBehaviour
             case "Collect": return $"Collect {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()}";
             case "Kill": return $"Kill {quest.Data["Target_Amount"]} enemies using {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()} weapons.";
             case "Craft": return $"Craft {quest.Data["Target_Amount"]} {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()} weapons, (Rock disqualifies craft)";
+            case "Drug": return $"End on the 5th Floor or later with the {GISLol.Instance.ItemsDict[quest.Data["Target_Data"]].GetDisplayName()} drug active.";
             case "Room":
                 switch (quest.Data["Target_Data"])
                 {

@@ -17946,7 +17946,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can zoom in and out here!
+  m_text: 'You can zoom in and out here!
+
+    (Scroll)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff7080db41e4bac4b888582b423da393, type: 2}
   m_sharedMaterial: {fileID: -5551472778389622864, guid: ff7080db41e4bac4b888582b423da393, type: 2}
@@ -25193,11 +25195,12 @@ MonoBehaviour:
   - Name: LSD
     Image: {fileID: 21300000, guid: e533b8d77ec707f40b2bc434f1aff1dd, type: 3}
   - Name: Alcohol
-    Image: {fileID: 21300000, guid: 6b0901d8ccfe30249af4b789a17027e7, type: 3}
+    Image: {fileID: 21300000, guid: b1f143c9e43fec04d8028a7df039e29b, type: 3}
   AllWeaponNames: []
   AllCraftables: []
   AllAspects: []
   AllRunes: []
+  AllDrugs: []
   attributecolors:
   - serializedVersion: 2
     rgba: 4282569026
@@ -56319,7 +56322,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: Desc
-      value: Run-spanning modifiers that are optionally enableable.
+      value: Run-spanning modifiers that are optionally enableable.<br>(Also unlucks
+        a new Quest type)
       objectReference: {fileID: 0}
     - target: {fileID: 1578179587967342844, guid: d815b6bd31b822747bae818290cb28a7, type: 3}
       propertyPath: Title
@@ -61730,7 +61734,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can move around here!
+  m_text: 'You can move around here!
+
+    (WASD)
+
+    (Right-Click+Drag)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff7080db41e4bac4b888582b423da393, type: 2}
   m_sharedMaterial: {fileID: -5551472778389622864, guid: ff7080db41e4bac4b888582b423da393, type: 2}

@@ -31,6 +31,7 @@ public class GISLol : MonoBehaviour
     public List<string> AllCraftables = new List<string>();
     public List<string> AllAspects = new List<string>();
     public List<string> AllRunes = new List<string>();
+    public List<string> AllDrugs = new List<string>();
     private RectTransform ballingsexnut;
     private HoverRefHolder hovercummer;
     public List<Color32> attributecolors = new List<Color32>();
@@ -121,6 +122,7 @@ public class GISLol : MonoBehaviour
             //newitem.IsRune = true;
             newitem.IsDrug = true;
             Items.Add(newitem);
+            AllDrugs.Add(a.Name);
         }
         Dictionary<string, EnemyHolder> banana = new Dictionary<string, EnemyHolder>();
         List< GISItem_Data > WAIT = new List< GISItem_Data >();

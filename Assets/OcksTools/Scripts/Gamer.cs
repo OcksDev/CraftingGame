@@ -382,6 +382,7 @@ public class Gamer : MonoBehaviour
             {"mats", new List<string>(GISLol.Instance.AllCraftables) },
             {"weapons", GISLol.Instance.AllWeaponNames },
             {"runes", GISLol.Instance.AllRunes },
+            {"drugs", GISLol.Instance.AllDrugs },
             {"rooms", new List<string>() },
         };
         dat["mats"].Remove("Rock");
@@ -392,15 +393,41 @@ public class Gamer : MonoBehaviour
             "Kill",
             "Craft",
             "Room",
+            "Drug",
         };
+        if(!TreeHandler.CurrentOwnerships.ContainsKey("Drugs")) list.Remove("Drug");
         weenor.Data["Name"] = list[Random.Range(0, list.Count)];
         var sexx = Random.Range(3, 6);
         switch (weenor.Data["Name"])
         {
             case "Room":
-                foreach(var a in ValidRoomTypes)
+                foreach (var a in ValidRoomTypes)
                 {
                     dat["rooms"].Add(a.Name);
+                }
+                break;
+            case "Craft":
+                for (int i = 0; i < dat["weapons"].Count; i++)
+                {
+                    var x = dat["weapons"][i];
+                    if (x == "Sword" || x == "Crossbow") continue;
+                    if (!TreeHandler.CurrentOwnerships.ContainsKey(x))
+                    {
+                        dat["weapons"].RemoveAt(i);
+                        i--;
+                    }
+                }
+                break;
+            case "Drug":
+                for (int i = 0; i < dat["drugs"].Count; i++)
+                {
+                    var x = dat["drugs"][i];
+                    if (x == "Liquid Corruption" || x == "Weed" || x == "Heroin") continue;
+                    if (!TreeHandler.CurrentOwnerships.ContainsKey(x))
+                    {
+                        dat["drugs"].RemoveAt(i);
+                        i--;
+                    }
                 }
                 break;
             default:
@@ -431,6 +458,12 @@ public class Gamer : MonoBehaviour
                 weenor.Data["Target_Amount"] = (sexx*2).ToString();
                 weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
                 weenor.Data["Reward_Amount"] = (sexx).ToString();
+                break;
+            case "Drug":
+                weenor.Data["Target_Data"] = dat["drugs"][Random.Range(0, dat["drugs"].Count)];
+                weenor.Data["Target_Amount"] = "1";
+                weenor.Data["Reward_Data"] = dat["mats"][Random.Range(0, dat["mats"].Count)];
+                weenor.Data["Reward_Amount"] = "5";
                 break;
         }
 
@@ -1820,6 +1853,10 @@ public class Gamer : MonoBehaviour
         GameState = "Dead";
         Time.timeScale = 1;
         SetPauseMenu(false);
+        foreach(var a in ActiveDrugs)
+        {
+            QuestProgressIncrease("Drug",a);
+        }
     }
 
     public void StartLobby()
