@@ -574,6 +574,8 @@ public class GISLol : MonoBehaviour
         if (i >= 50) return "Godly";
         if (i >= 25) return "Legendary";
         if (i >= 20) return "Superior";
+        if (i >= 17) return "Perfect";
+        if (i >= 16) return "Insane";
         if (i >= 15) return "Awe Inspiring";
         if (i == 14) return "Astounding";
         if (i == 13) return "Incredible";
@@ -653,6 +655,7 @@ public class GISItem
     public List<GISMaterial> Materials = new List<GISMaterial>();
     public GISMaterial GraftedMaterial = null;
     public GISMaterial AspectMaterial = null;
+    public GISMaterial AspectMaterial2 = null;
     public List<GISMaterial> Run_Materials = new List<GISMaterial>();
     public List<GISContainer> Interacted_Containers = new List<GISContainer>();
     public Dictionary<string, int> AmountOfItems = new Dictionary<string, int>();
@@ -715,6 +718,7 @@ public class GISItem
         }
         segsadd(GraftedMaterial, false);
         segsadd(AspectMaterial, false);
+        segsadd(AspectMaterial2, false);
     }
 
     public void CompileBalance(GISItem com)
@@ -799,6 +803,7 @@ public class GISItem
         Run_Materials = new List<GISMaterial>(sexnut.Run_Materials);
         GraftedMaterial = new GISMaterial(sexnut.GraftedMaterial);
         AspectMaterial = new GISMaterial(sexnut.AspectMaterial);
+        AspectMaterial2 = new GISMaterial(sexnut.AspectMaterial2);
         Luck = sexnut.Luck;
         Balance = sexnut.Balance;
         CompileItems();
@@ -824,6 +829,7 @@ public class GISItem
         Run_Materials = new List<GISMaterial>();
         GraftedMaterial = new GISMaterial();
         AspectMaterial = new GISMaterial();
+        AspectMaterial2 = new GISMaterial();
     }
     public bool CanMimic()
     {
@@ -900,6 +906,7 @@ public class GISItem
             //code to further compare goes here
             if(sexnut.GraftedMaterial.GetName() != GraftedMaterial.GetName()) return false;
             if(sexnut.AspectMaterial.GetName() != AspectMaterial.GetName()) return false;
+            if(sexnut.AspectMaterial2.GetName() != AspectMaterial2.GetName()) return false;
             if(sexnut.Quality != Quality) return false;
             if(sexnut.UsesRemaining != UsesRemaining) return false;
         }
@@ -935,6 +942,7 @@ public class GISItem
             { "RunMats", "" },
             { "Graft", "" },
             { "Aspect", "" },
+            { "Aspect2", "" },
             { "Quality", "5" },
             { "Uses", "5" },
         };
@@ -975,6 +983,7 @@ public class GISItem
         }
         Data["Graft"] = GraftedMaterial.GetName();
         Data["Aspect"] = AspectMaterial.GetName();
+        Data["Aspect2"] = AspectMaterial2.GetName();
         Dictionary<string, string> bb = new Dictionary<string, string>();
         foreach(var dat in Data)
         {
@@ -1046,6 +1055,11 @@ public class GISItem
         {
             AspectMaterial = new GISMaterial();
             AspectMaterial.itemindex = Data["Aspect"];
+        }
+        if (wanker.ContainsKey("Aspect2"))
+        {
+            AspectMaterial2 = new GISMaterial();
+            AspectMaterial2.itemindex = Data["Aspect2"];
         }
         if (wanker.ContainsKey("RunMats"))
         {

@@ -67,7 +67,14 @@ public class GISSlot : MonoBehaviour
             case "AspectWeapon":
                 if (pp.ItemIndex == "Empty") return false;
                 if (!GISLol.Instance.AllWeaponNames.Contains(pp.ItemIndex)) return true;
-                if(pp.AspectMaterial.IsSet()) return true; 
+                if (TreeHandler.CurrentOwnerships.ContainsKey("DualAspects"))
+                {
+                    if (pp.AspectMaterial2.IsSet()) return true;
+                }
+                else
+                {
+                    if (pp.AspectMaterial.IsSet()) return true;
+                }
                 break;
             case "VaultInput":
             case "Trash":

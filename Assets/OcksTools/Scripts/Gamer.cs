@@ -3049,7 +3049,22 @@ public class Gamer : MonoBehaviour
     {
         var con = GISLol.Instance.All_Containers["Aspecter"];
         if (anim) return false;
-        if (con.slots[1].Held_Item.AspectMaterial.IsSet()) return false;
+
+        if (TreeHandler.CurrentOwnerships.ContainsKey("DualAspects"))
+        {
+            if (con.slots[1].Held_Item.AspectMaterial2.IsSet()) return false;
+
+            if (con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.AspectMaterial.itemindex == con.slots[0].Held_Item.ItemIndex)
+            {
+                return false;
+            }
+
+        }
+        else
+        {
+            if (con.slots[1].Held_Item.AspectMaterial.IsSet()) return false;
+        }
+
 
         return con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft();
     }
@@ -3215,6 +3230,8 @@ public class Gamer : MonoBehaviour
         e.Amount = 1;
         e.CustomName = a;
         e.Quality = MinigameScore + 2;
+        if (TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft1")) e.Quality += 2;
+        if (TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft2")) e.Quality += 2;
         ItemNameInput.text = "";
         foreach (var ep in mattertyeysys[0].Materials)
         {
@@ -3299,7 +3316,14 @@ public class Gamer : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         var cd = new GISMaterial();
         cd.itemindex = mattertyeysys[0].ItemIndex;
-        con.slots[1].Held_Item.AspectMaterial = cd;
+        if(TreeHandler.CurrentOwnerships.ContainsKey("DualAspects") && con.slots[1].Held_Item.AspectMaterial.IsSet())
+        {
+            con.slots[1].Held_Item.AspectMaterial2 = cd;
+        }
+        else
+        {
+            con.slots[1].Held_Item.AspectMaterial = cd;
+        }
         /*if()
         {
             QuestProgressIncrease("Aspect", );
@@ -3335,6 +3359,8 @@ public class Gamer : MonoBehaviour
         SpawnAnim(1);
         yield return new WaitForSeconds(0.6f);
         con.slots[2].Held_Item.Quality = MinigameScore + 2;
+        if(TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft1")) con.slots[2].Held_Item.Quality += 2;
+        if(TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft2")) con.slots[2].Held_Item.Quality += 2;
         con.slots[2].Held_Item.UsesRemaining = con.slots[2].Held_Item.Quality;
         /*if()
         {
