@@ -192,6 +192,7 @@ public class GISLol : MonoBehaviour
             if (MaterialsDict.ContainsKey(we.Key))
             {
                 MaterialsDict[we.Key].Description = we.Value;
+                if (ItemsDict[we.Key].MinFloor > 0) MaterialsDict[we.Key].Description += $"\n<m>Min Floor: {ItemsDict[we.Key].MinFloor}</>";
             }
         }
         e = Converter.StringToDictionary(GeneralDesciptionOverrides.text.Replace("\r", ""), "\n", ":: ");

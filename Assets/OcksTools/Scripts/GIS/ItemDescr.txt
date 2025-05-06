@@ -21,3 +21,4 @@ Brick:: <g>x1.15</> Debuff Duration<br><b>+15%</> Skill Cooldown
 Focus:: <g>+15%</> Crit Chance<br><b>x0.85</> Debuff Duration
 Dollar:: <g>+1%</> Attack Speed per <o>Coin</><br><b>+1%</> Skill Cooldown per <o>Coin</>
 Shieldium:: <g>-15% (hyperbolic)</> Damage Taken</><br><b>+15% (hyperbolic)</> Healing applied directly to <o>Barrier</>
+Bread:: TGesting

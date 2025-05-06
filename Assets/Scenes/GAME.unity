@@ -23655,22 +23655,6 @@ MonoBehaviour:
     IsEnemy: 0
     CanSpawn: 0
     LogbookOverride: 0
-  - Name: Bread
-    NameOverride: 
-    Sprite: {fileID: 21300000, guid: e39a469b56d5933488423f9104c2198a, type: 3}
-    Description: Eat me!
-    EXTRADescription: 
-    MinFloor: 0
-    MaxAmount: 1
-    IsWeapon: 0
-    IsCraftable: 1
-    IsRune: 0
-    IsAspect: 0
-    IsSkill: 0
-    IsDrug: 0
-    IsEnemy: 0
-    CanSpawn: 0
-    LogbookOverride: 0
   - Name: Bone
     NameOverride: 
     Sprite: {fileID: 21300000, guid: 8e97e6b89894a1d43a0a1b742859910c, type: 3}
@@ -24045,6 +24029,22 @@ MonoBehaviour:
     Description: Eat me!
     EXTRADescription: 
     MinFloor: 0
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Bread
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 44f7b4d2ee9a6c5418d5384019d133b0, type: 3}
+    Description: Eat me!
+    EXTRADescription: 
+    MinFloor: 10
     MaxAmount: 1
     IsWeapon: 0
     IsCraftable: 1
@@ -25114,10 +25114,10 @@ MonoBehaviour:
     Description: <g>x0.85</> Skill Cooldown<br><b>x0.9</> Movement Speed
     ColorMod:
       serializedVersion: 2
-      rgba: 4278223028
+      rgba: 4281768640
     OverlayColorMod:
       serializedVersion: 2
-      rgba: 4278208355
+      rgba: 2248161635
     VisColor:
       serializedVersion: 2
       rgba: 4278190080
