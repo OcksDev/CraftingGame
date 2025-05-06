@@ -1781,29 +1781,61 @@ public class Gamer : MonoBehaviour
     public void CheckWeaponsBreak()
     {
         var c = GISLol.Instance.All_Containers["Equips"];
-        if (c.slots[0].Held_Item.UsesRemaining <= 0)
+        if (TreeHandler.CurrentOwnerships.ContainsKey("Unbreakable"))
         {
-            var a = new OXNotif();
-            a.Title = "A Weapon Has Broken";
-            a.Description = c.slots[0].Held_Item.CustomName;
-            a.BackgroundColor1 = new Color(0.5f, 0, 0);
-            a.Item = c.slots[0].Held_Item;
-            a.Descoffset = new Vector3(0, -2, 0);
-            a.Time = 5;
-            NotificationSystem.Instance.AddNotif(a);
-            c.slots[0].Held_Item = new GISItem();
+            if (c.slots[0].Held_Item.UsesRemaining <= 0)
+            {
+                var a = new OXNotif();
+                a.Title = "A Weapon Has Broken";
+                a.Description = c.slots[0].Held_Item.CustomName;
+                a.BackgroundColor1 = new Color(0.5f, 0, 0);
+                a.Item = c.slots[0].Held_Item;
+                a.Descoffset = new Vector3(0, -2, 0);
+                a.Time = 5;
+                NotificationSystem.Instance.AddNotif(a);
+                GISLol.Instance.GrantItem(c.slots[0].Held_Item);
+                c.slots[0].Held_Item = new GISItem();
+            }
+            if (c.slots[1].Held_Item.UsesRemaining <= 0)
+            {
+                var a = new OXNotif();
+                a.Title = "A Weapon Has Broken";
+                a.Description = c.slots[1].Held_Item.CustomName;
+                a.BackgroundColor1 = new Color(0.5f, 0, 0);
+                a.Item = c.slots[1].Held_Item;
+                a.Descoffset = new Vector3(0, -2, 0);
+                a.Time = 5;
+                NotificationSystem.Instance.AddNotif(a);
+                GISLol.Instance.GrantItem(c.slots[1].Held_Item);
+                c.slots[1].Held_Item = new GISItem();
+            }
         }
-        if (c.slots[1].Held_Item.UsesRemaining <= 0)
+        else
         {
-            var a = new OXNotif();
-            a.Title = "A Weapon Has Broken";
-            a.Description = c.slots[1].Held_Item.CustomName;
-            a.BackgroundColor1 = new Color(0.5f, 0, 0);
-            a.Item = c.slots[1].Held_Item;
-            a.Descoffset = new Vector3(0, -2, 0);
-            a.Time = 5;
-            NotificationSystem.Instance.AddNotif(a);
-            c.slots[1].Held_Item = new GISItem();
+            if (c.slots[0].Held_Item.UsesRemaining <= 0)
+            {
+                var a = new OXNotif();
+                a.Title = "A Weapon Has Broken";
+                a.Description = c.slots[0].Held_Item.CustomName;
+                a.BackgroundColor1 = new Color(0.5f, 0, 0);
+                a.Item = c.slots[0].Held_Item;
+                a.Descoffset = new Vector3(0, -2, 0);
+                a.Time = 5;
+                NotificationSystem.Instance.AddNotif(a);
+                c.slots[0].Held_Item = new GISItem();
+            }
+            if (c.slots[1].Held_Item.UsesRemaining <= 0)
+            {
+                var a = new OXNotif();
+                a.Title = "A Weapon Has Broken";
+                a.Description = c.slots[1].Held_Item.CustomName;
+                a.BackgroundColor1 = new Color(0.5f, 0, 0);
+                a.Item = c.slots[1].Held_Item;
+                a.Descoffset = new Vector3(0, -2, 0);
+                a.Time = 5;
+                NotificationSystem.Instance.AddNotif(a);
+                c.slots[1].Held_Item = new GISItem();
+            }
         }
         c.SaveTempContents();
     }
@@ -1811,8 +1843,8 @@ public class Gamer : MonoBehaviour
     public void DurabilityHit()
     {
         var c = GISLol.Instance.All_Containers["Equips"];
-        c.slots[0].Held_Item.UsesRemaining--;
-        c.slots[1].Held_Item.UsesRemaining--;
+        if (c.slots[0].Held_Item.UsesRemaining > 0) c.slots[0].Held_Item.UsesRemaining--;
+        if (c.slots[1].Held_Item.UsesRemaining > 0) c.slots[1].Held_Item.UsesRemaining--;
         c.SaveTempContents();
     }
 
@@ -3231,7 +3263,8 @@ public class Gamer : MonoBehaviour
         e.CustomName = a;
         e.Quality = MinigameScore + 2;
         if (TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft1")) e.Quality += 2;
-        if (TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft2")) e.Quality += 2;
+        if (TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft2")) e.Quality += 1;
+        if (TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft3")) e.Quality += 1;
         ItemNameInput.text = "";
         foreach (var ep in mattertyeysys[0].Materials)
         {
@@ -3360,7 +3393,8 @@ public class Gamer : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         con.slots[2].Held_Item.Quality = MinigameScore + 2;
         if(TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft1")) con.slots[2].Held_Item.Quality += 2;
-        if(TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft2")) con.slots[2].Held_Item.Quality += 2;
+        if(TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft2")) con.slots[2].Held_Item.Quality += 1;
+        if(TreeHandler.CurrentOwnerships.ContainsKey("BetterCraft3")) con.slots[2].Held_Item.Quality += 1;
         con.slots[2].Held_Item.UsesRemaining = con.slots[2].Held_Item.Quality;
         /*if()
         {

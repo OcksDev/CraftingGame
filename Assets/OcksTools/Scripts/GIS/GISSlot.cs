@@ -83,6 +83,10 @@ public class GISSlot : MonoBehaviour
             case "Weapon":
                 if(!GISLol.Instance.AllWeaponNames.Contains(pp.ItemIndex)) return true;
                 break;
+            case "WeaponWithUses":
+                if(!GISLol.Instance.AllWeaponNames.Contains(pp.ItemIndex)) return true;
+                if(pp.UsesRemaining <= 0) return true;
+                break;
         }
         return false;
     }
