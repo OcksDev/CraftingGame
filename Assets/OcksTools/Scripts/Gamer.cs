@@ -1786,7 +1786,7 @@ public class Gamer : MonoBehaviour
             if (c.slots[0].Held_Item.UsesRemaining <= 0)
             {
                 var a = new OXNotif();
-                a.Title = "A Weapon Has Broken";
+                a.Title = "A Weapon Has Exhausted";
                 a.Description = c.slots[0].Held_Item.CustomName;
                 a.BackgroundColor1 = new Color(0.5f, 0, 0);
                 a.Item = c.slots[0].Held_Item;
@@ -1799,7 +1799,7 @@ public class Gamer : MonoBehaviour
             if (c.slots[1].Held_Item.UsesRemaining <= 0)
             {
                 var a = new OXNotif();
-                a.Title = "A Weapon Has Broken";
+                a.Title = "A Weapon Has Exhausted";
                 a.Description = c.slots[1].Held_Item.CustomName;
                 a.BackgroundColor1 = new Color(0.5f, 0, 0);
                 a.Item = c.slots[1].Held_Item;

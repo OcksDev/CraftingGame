@@ -101,6 +101,12 @@ public class HoverDingle : MonoBehaviour
                     hv.data2 = "Requires three of the same material and a central weapon";
                     g.HoverDohicky(hv);
                     break;
+                case "Aspect":
+                    hv.type = "TitleAndDesc";
+                    hv.data = "Aspect";
+                    hv.data2 = "Requires an aspect and a central weapon";
+                    g.HoverDohicky(hv);
+                    break;
                 case "Repair":
                     hv.type = "TitleAndDesc";
                     hv.data = "Repair";
