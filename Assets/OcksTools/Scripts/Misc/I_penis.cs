@@ -15,6 +15,10 @@ public class I_penis : MonoBehaviour
         {
             Gamer.Instance.Transselected(GISDisplay.item);
         }
+        else if (Gamer.Instance.checks[28])
+        {
+            Gamer.Instance.Trans2selected(GISDisplay.item);
+        }
         else
         {
             var a = Tags.refs["LogbookSubmenu"].GetComponent<I_PENISTWO>();

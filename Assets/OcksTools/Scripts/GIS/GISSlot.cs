@@ -352,6 +352,7 @@ public class GISSlot : MonoBehaviour
                     if (Gamer.Instance.checks[1]) ee = GISLol.Instance.All_Containers["Crafting"];
                     if (Gamer.Instance.checks[18]) ee = GISLol.Instance.All_Containers["Grafter"];
                     if (Gamer.Instance.checks[19]) ee = GISLol.Instance.All_Containers["Aspecter"];
+                    if (Gamer.Instance.checks[27]) ee = GISLol.Instance.All_Containers["Transmute2"];
 
                     if(ee != null)
                     {

@@ -172,6 +172,14 @@ public class INteractable : MonoBehaviour
                 aa(0);
                 g.UpdateMenus();
                 break;
+            case "TransmuterHub":
+                aa = g.ToggleInventory();
+                if(aa==null || !Gamer.Instance.checks[0]) return;
+                g.checks[2] = false;
+                g.checks[27] = true;
+                aa(0);
+                g.UpdateMenus();
+                break;
             case "Repairer":
                 aa = g.ToggleInventory();
                 if(aa==null || !Gamer.Instance.checks[0]) return;

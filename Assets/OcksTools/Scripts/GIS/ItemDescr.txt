@@ -1,5 +1,5 @@
 Amethyst:: <g>x0.85</> Skill Cooldown<br><g>x1.1</> Movement Speed
-Rock:: (no modifier)
+Rock:: (no modifier)<br><m>Can not use this material for<br>features beyond crafting.</>
 Emerald:: <g>x1.15</> Attack Speed
 Gold:: <g>+25%</> Attack Damage<br><b>x0.90</> Attack Speed
 Slime:: <g>+20%</> Attack Damage<br><b>x0.9</> Movement Speed

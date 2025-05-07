@@ -24,6 +24,9 @@ public class CrafterWeenorUsus : MonoBehaviour
             case "Repair":
                 CumCraft.interactable = Gamer.Instance.CanCurrentRepair();
                 break;
+            case "Transmute2":
+                CumCraft.interactable = Gamer.Instance.CanCurrentTrans2();
+                break;
         }
         
     }

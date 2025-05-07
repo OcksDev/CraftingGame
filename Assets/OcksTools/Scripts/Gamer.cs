@@ -125,10 +125,11 @@ public class Gamer : MonoBehaviour
         Tags.refs["GrafterMenu"].SetActive(checks[18]);
         Tags.refs["AspectMenu"].SetActive(checks[19]);
         Tags.refs["Minigame"].SetActive(checks[21]);
-        Tags.refs["Transmute"].SetActive(checks[22]);
+        Tags.refs["Transmute"].SetActive(checks[22] || checks[28]);
         Tags.refs["RepairMenu"].SetActive(checks[24]);
         Tags.refs["UpgradeTree"].SetActive(checks[25]);
         Tags.refs["DrugMenu"].SetActive(checks[26]);
+        Tags.refs["Transmute2"].SetActive(checks[27]);
         if(nexty && !checks[25])
         {
             Gamer.Instance.UpdateLobbyStuff();
@@ -603,13 +604,17 @@ public class Gamer : MonoBehaviour
     {
         if (!IsFading && !MenuAnim && InputManager.IsKeyDown("close_menu"))
         {
-             if (checks[14])
+            if (checks[14])
             {
                 ToggleQuests();
             }
             else if(checks[21])
             {
                 StartCoroutine(CloseMinigame());
+            }
+            else if (checks[28])
+            {
+                AbortTrans2();
             }
             else if(checks[0])
             {
@@ -868,6 +873,17 @@ public class Gamer : MonoBehaviour
                 }
             }
         }
+        if (checks[27])
+        {
+            foreach (var a in GISLol.Instance.All_Containers["Transmute2"].slots)
+            {
+                if (a.Held_Item.ItemIndex != "Empty")
+                {
+                    GISLol.Instance.GrantItem(a.Held_Item);
+                    a.Held_Item = new GISItem();
+                }
+            }
+        }
         System.Action bana = () => 
         {
             checks[1] = false;
@@ -875,6 +891,7 @@ public class Gamer : MonoBehaviour
             checks[18] = false;
             checks[19] = false;
             checks[24] = false;
+            checks[27] = false;
             checks[2] = checks[0];
             UpdateMenus();
         };
@@ -892,6 +909,7 @@ public class Gamer : MonoBehaviour
             if (checks[18]) aa.nerds[3].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[3].x, 775, 0), aa.nerds_orig[3], RandomFunctions.EaseIn(x));
             if (checks[19]) aa.nerds[4].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[4].x, 775, 0), aa.nerds_orig[4], RandomFunctions.EaseIn(x));
             if (checks[24]) aa.nerds[5].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[5].x, 775, 0), aa.nerds_orig[5], RandomFunctions.EaseIn(x));
+            if (checks[27]) aa.nerds[6].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[6].x, 775, 0), aa.nerds_orig[6], RandomFunctions.EaseIn(x));
             aa.nerds_img[0].color = Color.Lerp(new Color(0, 0, 0, 0), aa.nerds_img_orig[0], x);
             aa.nerds_img[1].color = Color.Lerp(new Color(0, 0, 0, 0), aa.nerds_img_orig[1], x);
         };
@@ -1534,6 +1552,11 @@ public class Gamer : MonoBehaviour
     public void Transselected(GISItem aa)
     {
         SetTranStat(false, aa);
+    }
+    
+    public void Trans2selected(GISItem aa)
+    {
+        SetTran2Stat(false, aa);
     }
 
     bool anim = false;
@@ -3077,6 +3100,14 @@ public class Gamer : MonoBehaviour
         if (con.slots[1].Held_Item.ItemIndex == "Rock") return false;
         return con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.ItemIndex != "Empty";
     }
+    public bool CanCurrentTrans2()
+    {
+        var con = GISLol.Instance.All_Containers["Transmute2"];
+        if (anim) return false;
+        if (con.slots[1].Held_Item.ItemIndex == "Rock") return false;
+        if (con.slots[2].Held_Item.ItemIndex == "Rock") return false;
+        return con.slots[0].Held_Item.CanCraft() && con.slots[1].Held_Item.CanCraft() && con.slots[2].Held_Item.CanCraft();
+    }
     public bool CanCurrentAspect()
     {
         var con = GISLol.Instance.All_Containers["Aspecter"];
@@ -3227,6 +3258,13 @@ public class Gamer : MonoBehaviour
             StartCoroutine(AspectAnim());
         }
     }
+    public void AttemptTrans2()
+    {
+        if (CanCurrentTrans2())
+        {
+            StartCoroutine(Transmute2Anim());
+        }
+    }
     List<GISItem> mattertyeysys = new List<GISItem>();
     public IEnumerator CraftAnim()
     {
@@ -3362,7 +3400,95 @@ public class Gamer : MonoBehaviour
             QuestProgressIncrease("Aspect", );
         }*/
         anim = false;
+    }public IEnumerator Transmute2Anim()
+    {
+        var con = GISLol.Instance.All_Containers["Transmute2"];
+        mattertyeysys.Clear();
+        anim = true;
+
+        reebanka.Clear();   
+        System.Func<int, int> SpawnAnim = (i) =>
+        {
+            var weenor = Instantiate(ItemAnimThing, con.slots[i].transform.position, Quaternion.identity, Tags.refs["Trans2AnimHolder"].transform);
+            dienerds.Add(weenor);
+            var w2 = weenor.GetComponent<MeWhenYourMom>();
+            w2.target = con.slots[0].transform;
+            w2.speed = 9f;
+            //if (GISLol.Instance.ItemsDict[con.slots[i].Held_Item.ItemIndex].IsCraftable)
+            //{
+            //    w2.img.color = GISLol.Instance.MaterialsDict[con.slots[i].Held_Item.ItemIndex].ColorMod;
+            //}
+            var aa = con.slots[i].Held_Item;
+            mattertyeysys.Add(aa);
+            reebanka.Add(aa);
+            con.slots[i].Held_Item = new GISItem();
+            return i;
+        };
+        SpawnAnim(1);
+        SpawnAnim(2);
+        yield return new WaitForSeconds(0.6f);
+        /*if()
+        {
+            QuestProgressIncrease("Aspect", );
+        }*/
+        SetTran2Stat(true, con.slots[0].Held_Item);
+        yield return new WaitForSeconds(0.3f);
+        anim = false;
     }
+    List<GISItem> reebanka = new List<GISItem>();
+    public void AbortTrans2()
+    {
+        var con = GISLol.Instance.All_Containers["Transmute2"];
+        con.slots[1].Held_Item = reebanka[0];
+        con.slots[2].Held_Item = reebanka[1];
+        SetTran2Stat(false);
+    }
+
+
+    public void SetTran2Stat(bool ree, GISItem a = null)
+    {
+        checks[28] = ree;
+        if (ree)
+        {
+            var wankwank = GetSelfSimilar(a.ItemIndex);
+
+            var diff = wankwank.Count - spawndinglebobs.Count;
+            for (int i = 0; i < diff; i++)
+            {
+                spawndinglebobs.Add(Instantiate(LogbookThing, transform.position, transform.rotation, Tags.refs["TransmuteParent"].transform).GetComponent<I_penis>());
+            }
+            for (int i = 0; i < -diff; i++)
+            {
+                Destroy(spawndinglebobs[0].gameObject);
+                spawndinglebobs.RemoveAt(0);
+            }
+            for (int i = 0; i < wankwank.Count; i++)
+            {
+                spawndinglebobs[i].GISDisplay.item = new GISItem(wankwank[i]);
+                spawndinglebobs[i].GISDisplay.UpdateDisplay("logbook");
+            }
+        }
+        else
+        {
+            if (a != null)
+            {
+                hastrantempyes = true;
+                var con = GISLol.Instance.All_Containers["Transmute2"];
+                con.slots[0].Held_Item = new GISItem(a);
+            }
+        }
+        var aa = Tags.refs["Transmute"].GetComponent<MenuMover>();
+        aa.Initial();
+        System.Action<float> y = (x) =>
+        {
+            aa.nerds[0].localPosition = Vector3.Lerp(new Vector3(aa.nerds_orig[0].x, -775, 0), aa.nerds_orig[0], RandomFunctions.EaseIn(x));
+            aa.nerds_img[0].color = Color.Lerp(new Color(0, 0, 0, 0), aa.nerds_img_orig[0], x);
+        };
+        y(0);
+        if (ree) UpdateMenus();
+        StartCoroutine(MenuAnimationLol(!ree, !ree, y));
+    }
+
     public IEnumerator RepairAnim()
     {
         var con = GISLol.Instance.All_Containers["Repair"];
