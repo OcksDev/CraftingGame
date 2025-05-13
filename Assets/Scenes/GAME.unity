@@ -24269,22 +24269,6 @@ MonoBehaviour:
     IsEnemy: 0
     CanSpawn: 0
     LogbookOverride: 0
-  - Name: Magma
-    NameOverride: 
-    Sprite: {fileID: 21300000, guid: 698d8e380ff3bef4aac637f644634b76, type: 3}
-    Description: Cum
-    EXTRADescription: 
-    MinFloor: 0
-    MaxAmount: 1
-    IsWeapon: 0
-    IsCraftable: 1
-    IsRune: 0
-    IsAspect: 0
-    IsSkill: 0
-    IsDrug: 0
-    IsEnemy: 0
-    CanSpawn: 0
-    LogbookOverride: 0
   - Name: Bone
     NameOverride: 
     Sprite: {fileID: 21300000, guid: 8e97e6b89894a1d43a0a1b742859910c, type: 3}
@@ -24673,6 +24657,102 @@ MonoBehaviour:
     NameOverride: 
     Sprite: {fileID: 21300000, guid: 44f7b4d2ee9a6c5418d5384019d133b0, type: 3}
     Description: Eat me!
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Magma
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 3de8682e24774a14a96e5a949d86f2c5, type: 3}
+    Description: Cum
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: CGlass
+    NameOverride: Corrupted Glass
+    Sprite: {fileID: 21300000, guid: 92b9bc633a12c8a42becc555fb6ec8fa, type: 3}
+    Description: sharp!
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: HBranch
+    NameOverride: Hellish Branch
+    Sprite: {fileID: 21300000, guid: 8779f916c9e87814bac13ab5b3b1d3a6, type: 3}
+    Description: sharp!
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Flux
+    NameOverride: Dimensional Flux
+    Sprite: {fileID: 21300000, guid: cbb0478fcc6385548a727451057b0483, type: 3}
+    Description: sharp!
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Dildo
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 4827d0f1e7487254f8ce8234f40be3e5, type: 3}
+    Description: sharp!
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: DNuke
+    NameOverride: Defense Nucleus
+    Sprite: {fileID: 21300000, guid: 0500986c264d1d942923e377fd1b2df8, type: 3}
+    Description: sharp!
     EXTRADescription: 
     MinFloor: 10
     MaxAmount: 1
@@ -25414,6 +25494,62 @@ MonoBehaviour:
     IsOverlay: 0
     UseVisCol: 0
     ignorecolorforcumimg: 1
+  - Name: Dildo
+    Description: <g>+20%</> Crit Chance<br><b>x0.9</> Damage
+    ColorMod:
+      serializedVersion: 2
+      rgba: 4291055572
+    OverlayColorMod:
+      serializedVersion: 2
+      rgba: 0
+    VisColor:
+      serializedVersion: 2
+      rgba: 0
+    SwordParts: []
+    BowParts: []
+    SpearParts: []
+    CrossbowParts: []
+    DaggerParts: []
+    SawbladeParts: []
+    AxeParts: []
+    BlowParts: []
+    TDaggerParts: []
+    KnifeParts: []
+    WandParts: []
+    ScytheParts: []
+    fallthroughmaterial: Rock
+    fallthroughmaterialmian: 
+    IsOverlay: 0
+    UseVisCol: 0
+    ignorecolorforcumimg: 1
+  - Name: CGlass
+    Description: <g>+20%</> Crit Chance<br><b>x0.9</> Damage
+    ColorMod:
+      serializedVersion: 2
+      rgba: 4294901909
+    OverlayColorMod:
+      serializedVersion: 2
+      rgba: 0
+    VisColor:
+      serializedVersion: 2
+      rgba: 4291100787
+    SwordParts: []
+    BowParts: []
+    SpearParts: []
+    CrossbowParts: []
+    DaggerParts: []
+    SawbladeParts: []
+    AxeParts: []
+    BlowParts: []
+    TDaggerParts: []
+    KnifeParts: []
+    WandParts: []
+    ScytheParts: []
+    fallthroughmaterial: Glass
+    fallthroughmaterialmian: 
+    IsOverlay: 0
+    UseVisCol: 1
+    ignorecolorforcumimg: 1
   - Name: Piss
     Description: ddd
     ColorMod:
@@ -25740,6 +25876,37 @@ MonoBehaviour:
     IsOverlay: 1
     UseVisCol: 1
     ignorecolorforcumimg: 1
+  - Name: DNuke
+    Description: <g>x0.85</> Skill Cooldown<br><b>x0.9</> Movement Speed
+    ColorMod:
+      serializedVersion: 2
+      rgba: 4278276726
+    OverlayColorMod:
+      serializedVersion: 2
+      rgba: 4279535304
+    VisColor:
+      serializedVersion: 2
+      rgba: 4279544319
+    SwordParts:
+    - {fileID: 21300000, guid: 8e68a9c079ca23441beede428867cc2b, type: 3}
+    - {fileID: 21300000, guid: 4d3a91458c0c3e842bbe9f076a013835, type: 3}
+    - {fileID: 21300000, guid: fac4229bcc6635e48825e90e0a7089c1, type: 3}
+    BowParts: []
+    SpearParts: []
+    CrossbowParts: []
+    DaggerParts: []
+    SawbladeParts: []
+    AxeParts: []
+    BlowParts: []
+    TDaggerParts: []
+    KnifeParts: []
+    WandParts: []
+    ScytheParts: []
+    fallthroughmaterial: Filled
+    fallthroughmaterialmian: Zebrium
+    IsOverlay: 1
+    UseVisCol: 1
+    ignorecolorforcumimg: 1
   - Name: Bread
     Description: <g>x0.85</> Skill Cooldown<br><b>x0.9</> Movement Speed
     ColorMod:
@@ -25768,6 +25935,34 @@ MonoBehaviour:
     ScytheParts: []
     fallthroughmaterial: Rock
     fallthroughmaterialmian: Zebrium
+    IsOverlay: 1
+    UseVisCol: 0
+    ignorecolorforcumimg: 1
+  - Name: Flux
+    Description: ' '
+    ColorMod:
+      serializedVersion: 2
+      rgba: 4293018939
+    OverlayColorMod:
+      serializedVersion: 2
+      rgba: 3437571203
+    VisColor:
+      serializedVersion: 2
+      rgba: 0
+    SwordParts: []
+    BowParts: []
+    SpearParts: []
+    CrossbowParts: []
+    DaggerParts: []
+    SawbladeParts: []
+    AxeParts: []
+    BlowParts: []
+    TDaggerParts: []
+    KnifeParts: []
+    WandParts: []
+    ScytheParts: []
+    fallthroughmaterial: Infused Rock
+    fallthroughmaterialmian: Infused Rock
     IsOverlay: 1
     UseVisCol: 0
     ignorecolorforcumimg: 1
@@ -25831,6 +26026,34 @@ MonoBehaviour:
     fallthroughmaterialmian: 
     IsOverlay: 1
     UseVisCol: 1
+    ignorecolorforcumimg: 1
+  - Name: HBranch
+    Description: ' '
+    ColorMod:
+      serializedVersion: 2
+      rgba: 4279769213
+    OverlayColorMod:
+      serializedVersion: 2
+      rgba: 4279735521
+    VisColor:
+      serializedVersion: 2
+      rgba: 0
+    SwordParts: []
+    BowParts: []
+    SpearParts: []
+    CrossbowParts: []
+    DaggerParts: []
+    SawbladeParts: []
+    AxeParts: []
+    BlowParts: []
+    TDaggerParts: []
+    KnifeParts: []
+    WandParts: []
+    ScytheParts: []
+    fallthroughmaterial: Branch
+    fallthroughmaterialmian: Branch
+    IsOverlay: 1
+    UseVisCol: 0
     ignorecolorforcumimg: 1
   - Name: Morkite
     Description: <g>x0.85</> Skill Cooldown<br><b>x0.9</> Movement Speed

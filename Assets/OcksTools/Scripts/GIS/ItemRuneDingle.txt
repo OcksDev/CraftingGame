@@ -27,6 +27,16 @@ Bone:: Disturbingly warm
 Diamond:: I CAN SWING MY SWORD!
 Piss:: Smells tasty
 Brick:: "I'm all bricked up!"
+Frystal:: Focus!
+Dollar:: "We're Rich!"
+Shieldium:: Safe
+Bread:: Scrumptious
+HBranch:: Dual-pronged tickle torture
+CGlass:: Evil Sharp!
+Magma:: Hot!
+Dildo:: Hmm
+Flux:: strAngE
+DNuke:: Protective
 Dash:: Boner
 Grappling:: Launch a <o>Grappling Hook</> which pulls you toward itself when it lands.
 Capitalism:: Spend 1 <o>Coin</> to instantly Kill the 3 nearest <e>Enemies</>. 

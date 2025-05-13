@@ -551,6 +551,40 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond *= 0.9f;
                     working_move_speed *= 0.8f;
                     break;
+                case "Bread":
+                    SkillCooldownMult *= 0.75f;
+                    working_move_speed *= 0.75f;
+                    break;
+                case "Magma":
+                    CritChance += 0.25f;
+                    AttacksPerSecond *= 0.9f;
+                    break;
+                case "HBranch":
+                    mainweapon.Luck += 1f;
+                    CritChance += 0.1f;
+                    WeaponDamageMod *= 0.9;
+                    break;
+                case "CGlass":
+                    WeaponDamageMod *= 1.3;
+                    AttacksPerSecond *= 0.85f;
+                    break;
+                case "Dildo":
+                    AttacksPerSecond *= 1.1f;
+                    working_move_speed *= 1.1f;
+                    SkillCooldownMult *= 1.1f;
+                    break;
+                case "Flux":
+                    AttacksPerSecondMod += 0.1f;
+                    WeaponDamageMod += 0.1f;
+                    working_move_speed *= 1.1f;
+                    SkillCooldownMult *= 0.9f;
+                    helth *= 0.8f;
+                    break;
+                case "DNuke":
+                    DamageTakenMod *= 0.80;
+                    WeaponDamageMod *= 0.85;
+
+                    break;
             }
             switch (matty.itemindex)
             {
