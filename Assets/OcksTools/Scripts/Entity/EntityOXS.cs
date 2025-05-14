@@ -674,7 +674,6 @@ public class EntityOXS : MonoBehaviour
 
     public void DropKillReward(bool useplayermainweapon, int amnt = 1)
     {
-        //make shit about commercenelkjeasjk,heswHJKDASWJKLH
 
 
         int he = healerstospawn;
@@ -784,6 +783,11 @@ public class EntityOXS : MonoBehaviour
                         }
                     }
                 }
+            }
+            arr2 = inpu.ReadItemAmount("Aspect Of Commerce");
+            if (arr2 > 0)
+            {
+                Gamer.Instance.SpawnCoins(transform.position, 1, PlayerController.Instance);
             }
 
         }

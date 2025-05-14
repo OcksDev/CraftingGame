@@ -103544,7 +103544,7 @@ PrefabInstance:
       objectReference: {fileID: 547125997}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemySpawnNumber
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: InitFloorHeadPos
@@ -103620,7 +103620,7 @@ PrefabInstance:
       objectReference: {fileID: 2284451541892325387, guid: 3bbaf0e94e998e44aaf73a02a41c7943, type: 3}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.size
-      value: 21
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: ItemShites.Array.size
@@ -104112,7 +104112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[21].MinFloor
-      value: 11
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[22].MinFloor
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EliteTypes.Array.data[0].color.rgba
@@ -104423,6 +104427,18 @@ PrefabInstance:
       value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[22].CanBeElite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[22].CreditCost
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[22].PickChance
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[2].EnemyObject
       value: 
       objectReference: {fileID: 2284451541892325387, guid: 5ed5f063e5e4b5448816625b35b15021, type: 3}
@@ -104505,7 +104521,11 @@ PrefabInstance:
     - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: EnemiesDos.Array.data[21].EnemyObject
       value: 
-      objectReference: {fileID: 2284451541892325387, guid: 15d8664813c752e40b32f6c258488627, type: 3}
+      objectReference: {fileID: 2284451541892325387, guid: d2d9abae9643386478f1759b9ba23ce6, type: 3}
+    - target: {fileID: 273937250216202032, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: EnemiesDos.Array.data[22].EnemyObject
+      value: 
+      objectReference: {fileID: 2284451541892325387, guid: 9fb97caa0b6b908478b16abf6a17c226, type: 3}
     - target: {fileID: 733915574832352348, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: AudioClips.Array.size
       value: 21
@@ -104596,7 +104616,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 968a32fda9cded84a82561ede854bd33, type: 3}
     - target: {fileID: 1919247279447903412, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: SpawnRefs.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1919247279447903412, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: SpawnRefs.Array.data[0]
@@ -104614,6 +104634,10 @@ PrefabInstance:
       propertyPath: SpawnRefs.Array.data[3]
       value: 
       objectReference: {fileID: 6572824188943781900, guid: 6a1f474cd208fb149af6857a5f117579, type: 3}
+    - target: {fileID: 1919247279447903412, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
+      propertyPath: SpawnRefs.Array.data[4]
+      value: 
+      objectReference: {fileID: 1894346058258269852, guid: 9498607ce0dfa6344bbd253f28008e8b, type: 3}
     - target: {fileID: 3022886960770519242, guid: a3430a4bc775e7a4895e94adf7005cac, type: 3}
       propertyPath: GameVer
       value: v1.0.2

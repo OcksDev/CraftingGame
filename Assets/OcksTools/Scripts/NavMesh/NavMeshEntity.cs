@@ -113,6 +113,7 @@ public class NavMeshEntity : MonoBehaviour
         switch (EnemyType)
         {
             case "Slimer":
+            case "Accot":
             case "Charger":
                 CLearShit += box.GetComponent<EnemyHitShit>().OnSpawn;
                 break;
@@ -175,6 +176,7 @@ public class NavMeshEntity : MonoBehaviour
                 timer2 = AttackCooldown / 2;
                 break;
             case "Fwog":
+            case "srq":
                 timer2 = AttackCooldown / 2;
                 break;
             case "Worm":
@@ -318,6 +320,30 @@ public class NavMeshEntity : MonoBehaviour
         if(!HasSpawned) return;
         switch (EnemyType)
         {
+            case "Accot":
+                if (ddist < SightRange)
+                {
+                    var WEEEE = alt_speed * Time.deltaTime;
+                    transform.position += chargedir * WEEEE;
+                    if (ANTICHARGEFART && (distancetraveleleled += WEEEE) >= 2.5f)
+                    {
+                        distancetraveleleled = 0;
+                        var ww = RandomFunctions.PointAtPoint2D(transform.position, transform.position + chargedir, 90);
+
+                        var wenis = Instantiate(RandomFunctions.Instance.SpawnRefs[4], transform.position, Gamer.Instance.AlcoholSex(ww), Gamer.Instance.balls);
+                        var e = wenis.GetComponent<EnemyHitShit>();
+                        e.Damage = Damage;
+                        e.balling = transform;
+                        e.sexballs = this;
+
+                        wenis = Instantiate(RandomFunctions.Instance.SpawnRefs[4], transform.position, Gamer.Instance.AlcoholSex(ww * Quaternion.Euler(0,0,180)), Gamer.Instance.balls);
+                        e = wenis.GetComponent<EnemyHitShit>();
+                        e.Damage = Damage;
+                        e.balling = transform;
+                        e.sexballs = this;
+                    }
+                }
+                break;
             case "Charger":
                 if(ddist < SightRange)
                 {
@@ -336,6 +362,7 @@ public class NavMeshEntity : MonoBehaviour
                 break;
             case "Worm":
             case "Fwog":
+            case "srq":
             case "Slimer":
                 transform.position += chargedir * alt_speed * Time.deltaTime;
                 break;
@@ -453,7 +480,9 @@ public class NavMeshEntity : MonoBehaviour
 
                     break;
                 case "Fwog":
+                case "srq":
                 case "Charger":
+                case "Accot":
                     if (!charging2)
                     {
                         chargedir *= 0.9f;
@@ -552,6 +581,10 @@ public class NavMeshEntity : MonoBehaviour
                         canrunattacktimer = true;
                         switch (EnemyType)
                         {
+                            case "Accot":
+                                timer2 = 0;
+                                StartCoroutine(AccotSex());
+                                break;
                             case "Charger":
                                 timer2 = 0;
                                 StartCoroutine(ChargeSex());
@@ -561,6 +594,18 @@ public class NavMeshEntity : MonoBehaviour
                                 {
                                     timer2 = 0;
                                     StartCoroutine(OrbSex());
+                                }
+                                break;
+                            case "srq":
+                                if (ddist <= 16f)
+                                {
+                                    timer2 = 0;
+                                    StartCoroutine(srqSex(false));
+                                }
+                                else
+                                {
+                                    timer2 = 0;
+                                    StartCoroutine(srqSex(true));
                                 }
                                 break;
                             case "Fwog":
@@ -739,6 +784,7 @@ public class NavMeshEntity : MonoBehaviour
                         }
                         break;
                     case "Charger":
+                    case "Accot":
                         beans.SetDestination(target.transform.position);
                         if (dist >= 15f)
                         {
@@ -796,6 +842,28 @@ public class NavMeshEntity : MonoBehaviour
 
 
     public IEnumerator ChargeSex()
+    {
+        distancetraveleleled = 0;
+        float premove = movespeed;
+        mainonly_movemult = 0.5f;
+        charging = true;
+        yield return new WaitForSeconds(0.3f);
+        ANTICHARGEFART = true;
+        chargedir = (GetDir() - NoZ(transform.position)).normalized;
+        mainonly_movemult = 0;
+        charging2 = true;
+        CLearShit?.Invoke();
+        box.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        charging = false;
+        charging2 = false;
+        mainonly_movemult = 1;
+        timer2 = Random.Range(-0.25f, 0.25f);
+        box.SetActive(false);
+        yield return new WaitForSeconds(0.13f);
+        ANTICHARGEFART = false;
+    }
+    public IEnumerator AccotSex()
     {
         distancetraveleleled = 0;
         float premove = movespeed;
@@ -1387,6 +1455,44 @@ public class NavMeshEntity : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         wank:
+
+        canrunattacktimer = true;
+        charging = true;
+        chargedir = (GetDir() - NoZ(transform.position)).normalized;
+        mainonly_movemult = 0;
+        charging2 = true;
+        CLearShit?.Invoke();
+        yield return new WaitForSeconds(0.3f);
+        charging = false;
+        charging2 = false;
+        mainonly_movemult = 1;
+        timer2 = Random.Range(-0.25f, 0.25f);
+
+    }
+    public IEnumerator srqSex(bool ump = false)
+    {
+        if (ump) goto wank;
+        canrunattacktimer = false;
+        WantASpriteCranberry.sprite = SpriteMiscRefs[0];
+        yield return new WaitForSeconds(0.3f);
+        for(int i = 0; i < 4; i++)
+        {
+            var wank = RandomFunctions.PointAtPoint2D(transform.position, target.transform.position, 180);
+            SpawnBox(transform.position, wank);
+            SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, 25));
+            SpawnBox(transform.position, wank * Quaternion.Euler(0, 0, -25));
+            var w2 = wank * new Vector3(-5, 0, 0);
+            sex.velocity += (Vector2)w2;
+            yield return new WaitForSeconds(0.2f);
+        }
+
+
+
+        yield return new WaitForSeconds(0.9f);
+        WantASpriteCranberry.sprite = SpriteVarients[0];
+        yield return new WaitForSeconds(0.3f);
+
+    wank:
 
         canrunattacktimer = true;
         charging = true;
