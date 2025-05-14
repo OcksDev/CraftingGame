@@ -67,6 +67,7 @@ public class Gamer : MonoBehaviour
     public string EnemySpawnElite = "";
     public bool NextFloorButtonSexFuck = false;
     public bool NextShopButtonSexFuck = false;
+    public bool NextShopButton2SexFuck = false;
     public GameObject ItemTranser;
     public List<Image> HitSexers = new List<Image>();
     public static List<string> ActiveDrugs = new List<string>();
@@ -1272,6 +1273,7 @@ public class Gamer : MonoBehaviour
             foreach(var b in a.Value)
             {
                 list.Add(b);
+                Debug.Log(b);
             }
         }
         return list;
@@ -1282,10 +1284,25 @@ public class Gamer : MonoBehaviour
     public List<string> GetSelfSimilar(string item)
     {
         var aa = GISLol.Instance.ItemsDict[item];
-        if (aa.IsCraftable) return ConvertPoolToList(ItemPoolMats);
-        if (aa.IsRune) return ConvertPoolToList(ItemPoolRunes);
-        if (aa.IsAspect) return ConvertPoolToList(ItemPoolAspects);
-        return null;
+        List<string> aaa = null;
+        if (aa.IsCraftable) aaa = ConvertPoolToList(ItemPoolMats);
+        if (aa.IsRune) aaa = ConvertPoolToList(ItemPoolRunes);
+        if (aa.IsAspect) aaa = ConvertPoolToList(ItemPoolAspects);
+
+        if(aaa != null)
+        {
+            for(int i = 0; i < aaa.Count; i++)
+            {
+                Debug.Log($"Minf {item}: {aa.MinFloor}, compared to {aaa[i]} {GISLol.Instance.ItemsDict[aaa[i]].MinFloor}, {aa.MinFloor < GISLol.Instance.ItemsDict[aaa[i]].MinFloor}");
+                if (aa.MinFloor < GISLol.Instance.ItemsDict[aaa[i]].MinFloor)
+                {
+                    aaa.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        return aaa;
     }
 
 
@@ -1957,10 +1974,13 @@ public class Gamer : MonoBehaviour
     public bool IsInShop = false;
     public IEnumerator NextShopLevel(int sex)
     {
+        IsInAltShop = sex == 1;
         GeneralFloorChange();
         IsInShop = true;
         SaveSystem.Instance.SaveCurrentRun();
         Tags.refs["ShopArea"].SetActive(true);
+        Tags.refs["Market"].SetActive(!IsInAltShop);
+        Tags.refs["Emporium"].SetActive(IsInAltShop);
         PlayerController.Instance.transform.position = new Vector3(0,0,0);
         var e2 = CameraLol.Instance.transform.position;
         e2.x = PlayerController.Instance.transform.position.x;
@@ -1969,12 +1989,22 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.ppos = e2;
         CameraLol.Instance.targetpos = e2;
 
-        for(int i = 0; i < 3; i++)
+        if (IsInAltShop)
         {
-            var c = Instantiate(GetChest(), new Vector3(-6, 7, 0) + (new Vector3(6, 0, 0) * i), Quaternion.identity, Tags.refs["ShopArea"].transform).GetComponent<INteractable>();
-            var f = GetItemForLevel();
-            c.cuum = f;
-            spawnedchests.Add(c);
+            SpawnPrinter(Tags.refs["ShopArea"].transform.position + new Vector3(7, 7, 0));
+            SpawnPrinter(Tags.refs["ShopArea"].transform.position + new Vector3(7, -7, 0));
+            SpawnPrinter(Tags.refs["ShopArea"].transform.position + new Vector3(-7, 7, 0));
+            SpawnPrinter(Tags.refs["ShopArea"].transform.position + new Vector3(-7, -7, 0));
+        }
+        else
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                var c = Instantiate(GetChest(), new Vector3(-6, 7, 0) + (new Vector3(6, 0, 0) * i), Quaternion.identity, Tags.refs["ShopArea"].transform).GetComponent<INteractable>();
+                var f = GetItemForLevel();
+                c.cuum = f;
+                spawnedchests.Add(c);
+            }
         }
 
         RollNewSkillSex();
@@ -1987,7 +2017,14 @@ public class Gamer : MonoBehaviour
         completetetge = true;
         yield return new WaitForSeconds(0.5f);
 
-        titlething = StartCoroutine(TitleText("Market"));
+        if (IsInAltShop)
+        {
+            titlething = StartCoroutine(TitleText("Emporium"));
+        }
+        else
+        {
+            titlething = StartCoroutine(TitleText("Market"));
+        }
     }
     Coroutine titlething;
     public GISItem GetItemForLevel()
@@ -2017,7 +2054,7 @@ public class Gamer : MonoBehaviour
         foreach(var a in GISLol.Instance.Items)
         {
             if(!a.CanSpawn) continue;
-            if (a.MinFloor > 0 && CurrentFloor < a.MinFloor) continue;
+            if (a.MinFloor > 0 && CurrentFloor < a.MinFloor && CurrentFloor > 0) continue;
             if(a.Name=="Rock") continue;
             if (a.IsCraftable)
             {
@@ -2170,13 +2207,6 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.targetpos = e2;
 
         skipped = !WasInShop && CurrentFloor > 1;
-        if (skipped)
-        {
-            SpawnPrinter(rm.transform.position + new Vector3(7,7,0));
-            SpawnPrinter(rm.transform.position + new Vector3(7,-7,0));
-            SpawnPrinter(rm.transform.position + new Vector3(-7,7,0));
-            SpawnPrinter(rm.transform.position + new Vector3(-7,-7,0));
-        }
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         yield return new WaitForFixedUpdate();
 
@@ -2790,6 +2820,11 @@ public class Gamer : MonoBehaviour
                 NextShopButtonSexFuck = false;
                 StartCoroutine(StartFade("NextShop"));
             }
+            if (NextShopButton2SexFuck)
+            {
+                NextShopButton2SexFuck = false;
+                StartCoroutine(StartFade("NextShop2"));
+            }
             enemybar.gameObject.SetActive(LastHitEnemy != null);
             enemybaroutline.SetActive(LastHitEnemy != null);
             enemybar.BarParentSize.gameObject.SetActive(LastHitEnemy != null);
@@ -2983,6 +3018,8 @@ public class Gamer : MonoBehaviour
     [HideInInspector]
     public bool WasInShop = false;
     [HideInInspector]
+    public bool IsInAltShop = false;
+    [HideInInspector]
     public bool Skipper = false;
     public IEnumerator StartFade(string type, int steps = 50, bool startfake = false)
     {
@@ -3016,7 +3053,14 @@ public class Gamer : MonoBehaviour
                 if (IsInShop)
                 {
                     CurrentFloor++;
-                    NextFloorBall = StartCoroutine(NextShopLevel(0));
+                    if (IsInAltShop)
+                    {
+                        NextFloorBall = StartCoroutine(NextShopLevel(1));
+                    }
+                    else
+                    {
+                        NextFloorBall = StartCoroutine(NextShopLevel(0));
+                    }
                 }
                 else
                 {

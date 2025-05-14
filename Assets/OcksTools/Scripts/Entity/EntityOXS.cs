@@ -721,6 +721,32 @@ public class EntityOXS : MonoBehaviour
                     inpu.Player.SpawnAcidPool(nn, transform.position);
                 }
             }
+            arr2 = inpu.ReadItemAmount("Rune Of Deathly Arrow");
+            if (arr2 > 0)
+            {
+                bool found = false;
+                GameObject sexgm = null;
+                float fdist = 100000000;
+                foreach (var a in Gamer.Instance.EnemiesExisting)
+                {
+                    if (!a.HasSpawned || a.gameObject == gameObject) continue;
+                    found = true;
+                    var r = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
+                    if (fdist > r)
+                    {
+                        sexgm = a.gameObject;
+                        fdist = r;
+                    }
+                }
+                if (found && sexgm != null)
+                {
+                    var wee = inpu.Player;
+                    var w = wee.GetDamageProfile();
+                    w.Damage = 5 * arr2;
+                    var a = wee.SpawnArrow(w, transform.position, RandomFunctions.PointAtPoint2D(transform.position, sexgm.transform.position, 90), 1);
+                    a.hitlist.Add(gameObject);
+                }
+            }
             arr2 = inpu.ReadItemAmount("Rune Of Drain");
             if (arr2 > 0 && Effects.Count > 0)
             {

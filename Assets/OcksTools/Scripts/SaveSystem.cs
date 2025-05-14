@@ -198,6 +198,7 @@ public class SaveSystem : MonoBehaviour
         SetString("Drugs", Converter.ListToString(Gamer.ActiveDrugs), dict);
         SetString("Shoope", Gamer.Instance.IsInShop.ToString(), dict);
         SetString("Skipppp", Gamer.Instance.Skipper.ToString(), dict);
+        SetString("AltShop", Gamer.Instance.IsInAltShop.ToString(), dict);
         SetString("Health", (PlayerController.Instance.entit.Health/ PlayerController.Instance.entit.Max_Health).ToString(), dict);
         SetString("Seed", Gamer.Seed.ToString(), dict);
         SetString("Coins", PlayerController.Instance.Coins.ToString(), dict);
@@ -225,6 +226,7 @@ public class SaveSystem : MonoBehaviour
             Gamer.ActiveDrugs = Converter.StringToList(GetString("Drugs", "", dict));
             Gamer.Instance.IsInShop = bool.Parse(GetString("Shoope", "False", dict));
             Gamer.Instance.Skipper = bool.Parse(GetString("Skipppp", "False", dict));
+            Gamer.Instance.IsInAltShop = bool.Parse(GetString("AltShop", "False", dict));
             Gamer.Instance.StartCoroutine(Gamer.Instance.StartFade("NextFloor2"));
         }
         else

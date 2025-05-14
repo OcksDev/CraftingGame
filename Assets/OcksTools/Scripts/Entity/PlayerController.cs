@@ -657,7 +657,7 @@ public class PlayerController : MonoBehaviour
                     working_move_speed *= 0.7f;
                     break;
                 case "Aspect Of Commerce":
-                    TotalDamageMod *= System.Math.Clamp(1-(((double)Coins)/25),0,1);
+                    TotalDamageMod *= System.Math.Clamp(1-(((double)Coins)/15),0,1);
                     break;
             }
         }
