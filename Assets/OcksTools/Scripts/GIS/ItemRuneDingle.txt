@@ -90,6 +90,8 @@ Rune Of Protection:: On taking Damage gain <g>+0.5s</> of <o>Protected</><br>Whi
 Rune Of Lasting:: On Heal gain <g>+0.5s</> of <o>Protected</><br>While <o>Protected</> take x0.5 Damage.
 Rune Of Conversion:: <g>+0.1</> <o>Barrier</> per Damage Dealt
 Rune Of Shielded Missiling:: On taking Damage while at full Health or in <o>Barrier</>,<br>Shoot a <o>Missile</> with <g>+100%</> Damage
+Rune Of Deathly Arrow:: On Kill slain <e>Enemies</> shoot an <o>Arrow</> at the<br>nearest living <e>Enemy</> with <g>+5</> Damage
+Rune Of Division:: 20% chance on Hit for an <o>Arrow</> to split into another <o>Arrow</><br>This new <o>Arrow</> has <g>+50%</> Damage of its progenitor
 Aspect Of Plague:: On Kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health
@@ -100,6 +102,8 @@ Aspect Of Lightning:: <g>50%</> chance on hit to shoot <o>Lightning</><br>with 5
 Aspect Of Unscalability:: <g>x2</> Total Damage<br><b>x0.25</> Attack Damage
 Aspect Of Critical:: <g>x2</> Crit Chance<br><b>x2</> Skill Cooldown
 Aspect Of Fission:: All <g>Movement Speed Changes</> apply to Skill Cooldown<br><b>x0.7</> Movement Speed
+Aspect Of Arrow:: <o>Arrows</> <g>Bounce</> between nearby <e>Enemies</><br><b>x0.5</> Attack Damage
+Aspect Of Commerce:: Every slain <e>Enemy</> <g>drops</> a <o>Coin</><br><b>-4%</> Total Damage per <o>Coin</> currently held
 Heroin:: x0.5 Max Health
 Cocaine:: x2 Enemy Movement Speed
 Weed:: x1.5 Enemy Attack Speed

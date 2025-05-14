@@ -24029,22 +24029,6 @@ MonoBehaviour:
     IsEnemy: 0
     CanSpawn: 1
     LogbookOverride: 0
-  - Name: Rune Of Demolition
-    NameOverride: 
-    Sprite: {fileID: 21300000, guid: cf60655023e21d24fb7a002a446f41d8, type: 3}
-    Description: Edging To Yourself (egocentrism)
-    EXTRADescription: 
-    MinFloor: 0
-    MaxAmount: 1
-    IsWeapon: 0
-    IsCraftable: 0
-    IsRune: 1
-    IsAspect: 0
-    IsSkill: 0
-    IsDrug: 0
-    IsEnemy: 0
-    CanSpawn: 1
-    LogbookOverride: 0
   - Name: Rune Of Agitation
     NameOverride: 
     Sprite: {fileID: 21300000, guid: cdf8ad70253610149bd3e17ed4d50eb5, type: 3}
@@ -24157,6 +24141,38 @@ MonoBehaviour:
     IsEnemy: 0
     CanSpawn: 1
     LogbookOverride: 0
+  - Name: Rune Of Deathly Arrow
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 85c9f80dfeb0af34d9f968cbd1b0971f, type: 3}
+    Description: Feels kinda tickly
+    EXTRADescription: 
+    MinFloor: 0
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Rune Of Division
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 20f892e02d096cb4f8f3b194899f908e, type: 3}
+    Description: Feels kinda tickly
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
   - Name: Rune Of Protection
     NameOverride: 
     Sprite: {fileID: 21300000, guid: 8d521a55bdadedd48b302c22679c4de9, type: 3}
@@ -24208,6 +24224,22 @@ MonoBehaviour:
   - Name: Rune Of Shielded Missiling
     NameOverride: 
     Sprite: {fileID: 21300000, guid: e11550d2cc491b34886c3506cf2ed3aa, type: 3}
+    Description: Edging To Yourself (egocentrism)
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Rune Of Demolition
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: cf60655023e21d24fb7a002a446f41d8, type: 3}
     Description: Edging To Yourself (egocentrism)
     EXTRADescription: 
     MinFloor: 10
@@ -24448,6 +24480,38 @@ MonoBehaviour:
   - Name: Aspect Of Fission
     NameOverride: 
     Sprite: {fileID: 21300000, guid: 5cc44b5d450954b42b05dfa9f45663dd, type: 3}
+    Description: Boner
+    EXTRADescription: 
+    MinFloor: 0
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 0
+    IsAspect: 1
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Aspect Of Arrow
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 4bef0191a2f82a6429f33fd5befcfe9b, type: 3}
+    Description: Boner
+    EXTRADescription: 
+    MinFloor: 0
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 0
+    IsAspect: 1
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Aspect Of Commerce
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 9bf9a234cde884547b64cc38a876f1b1, type: 3}
     Description: Boner
     EXTRADescription: 
     MinFloor: 0

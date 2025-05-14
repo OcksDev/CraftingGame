@@ -674,6 +674,9 @@ public class EntityOXS : MonoBehaviour
 
     public void DropKillReward(bool useplayermainweapon, int amnt = 1)
     {
+        //make shit about commercenelkjeasjk,heswHJKDASWJKLH
+
+
         int he = healerstospawn;
 
         GISItem inpu = null;

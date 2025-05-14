@@ -428,6 +428,7 @@ public class PlayerController : MonoBehaviour
             }
             ParseMaterial(mainweapon.GraftedMaterial);
             ParseMaterial(mainweapon.AspectMaterial, true);
+            ParseMaterial(mainweapon.AspectMaterial2, true);
         }
 
         MaxDashCooldown *= SkillCooldownMult;
@@ -641,6 +642,9 @@ public class PlayerController : MonoBehaviour
                 case "Aspect Of Lightning":
                     WeaponDamageMod /= 2;
                     break;
+                case "Aspect Of Arrow":
+                    WeaponDamageMod /= 2;
+                    break;
                 case "Aspect Of Unscalability":
                     TotalDamageMod *= 2;
                     WeaponDamageMod /= 4;
@@ -651,6 +655,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Aspect Of Fission":
                     working_move_speed *= 0.7f;
+                    break;
+                case "Aspect Of Commerce":
+                    TotalDamageMod *= System.Math.Clamp(1-(((double)Coins)/25),0,1);
                     break;
             }
         }
@@ -1216,7 +1223,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void SpawnArrow(DamageProfile Shart, Vector3 pos, Quaternion rot, double dammod = 0.5)
+    public HitBalls SpawnArrow(DamageProfile Shart, Vector3 pos, Quaternion rot, double dammod = 0.5)
     {
         var offshart = new DamageProfile(Shart);
         offshart.DamageMod *= dammod;
@@ -1227,6 +1234,7 @@ public class PlayerController : MonoBehaviour
         var s3 = s.GetComponent<HitBalls>();
         s3.playerController = this;
         s3.attackProfile = offshart;
+        return s3;
     }
     public void SpawnTurret(DamageProfile nn, Vector3 pos)
     {
@@ -1557,9 +1565,7 @@ public class PlayerController : MonoBehaviour
                 SoundSystem.Instance.PlaySound(12, true, 0.15f, 1f);
                 break;
             case "Crossbow":
-                s = Instantiate(SlashEffect[2], SlashEffect[3].transform.position, Gamer.Instance.AlcoholSex(transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2)))), Gamer.Instance.balls);
-                s3 = s.GetComponent<HitBalls>();
-                s3.attackProfile = Shart;
+                SpawnArrow(Shart, SlashEffect[3].transform.position, transform.rotation * Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(Spread / 2, -Spread / 2))),1);
                 epe *= -0.5f;
                 HitCollider = null;
                 f = 1;
@@ -1743,6 +1749,15 @@ public class PlayerController : MonoBehaviour
         Shart.TotalDamageMod = TotalDamageMod;
         return Shart;
     }
+
+/*
+    public HitBalls SpawnArrow(Vector3 pos, Quaternion rot, DamageProfile Shart)
+    {
+        var s = Instantiate(SlashEffect[2], pos, Gamer.Instance.AlcoholSex(rot), Gamer.Instance.balls);
+        var s3 = s.GetComponent<HitBalls>();
+        s3.attackProfile = Shart;
+        return s3;
+    }*/
 
     private Quaternion Point2D(float offset2, float spread)
     {

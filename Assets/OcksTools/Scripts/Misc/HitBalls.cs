@@ -199,7 +199,59 @@ public class HitBalls : MonoBehaviour
                     {
                         case "Dagger":
                         case "Arrow":
+                            var arr = attackProfile.WeaponOfAttack.ReadItemAmount("Aspect Of Arrow");
+                            if(arr > 0 && Gamer.Instance.EnemiesExisting.Count > 1)
+                            {
+                                bool found = false;
+                                GameObject sexgm = null;
+                                float fdist = 100000000;
+                                foreach(var a in Gamer.Instance.EnemiesExisting)
+                                {
+                                    if (!a.HasSpawned || a.gameObject==collision.gameObject) continue;
+                                    found = true;
+                                    var r = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
+                                    if (fdist > r)
+                                    {
+                                        sexgm = a.gameObject;
+                                        fdist = r;
+                                    }
+                                }
+                                if (found && sexgm!=null)
+                                {
+                                    hitlist.Clear();
+                                    transform.rotation = RandomFunctions.PointAtPoint2D(transform.position, sexgm.transform.position, 90);
+                                }
+                            }
                             hitlist.Add(collision.gameObject);
+                            arr = attackProfile.WeaponOfAttack.ReadItemAmount("Rune Of Division");
+                            if(arr > 0 && Gamer.Instance.EnemiesExisting.Count > 0)
+                            {
+                                var f = attackProfile.WeaponOfAttack.RollLuck(0.2f);
+                                if(f > 0)
+                                {
+                                    bool found = false;
+                                    GameObject sexgm = null;
+                                    float fdist = 100000000;
+                                    foreach (var a in Gamer.Instance.EnemiesExisting)
+                                    {
+                                        if (!a.HasSpawned || a.gameObject == collision.gameObject) continue;
+                                        found = true;
+                                        var r = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
+                                        if (fdist > r)
+                                        {
+                                            sexgm = a.gameObject;
+                                            fdist = r;
+                                        }
+                                    }
+                                    if (found && sexgm != null)
+                                    {
+                                        var a = attackProfile.controller.SpawnArrow(attackProfile, transform.position, RandomFunctions.PointAtPoint2D   (transform.position, sexgm.transform.position, 90),0.5*arr);
+                                        a.hitlist.Add(collision.gameObject);
+                                    }
+
+
+                                }
+                            }
                             break;
                         case "Boomerang":
                             hitlist.Add(collision.gameObject);
