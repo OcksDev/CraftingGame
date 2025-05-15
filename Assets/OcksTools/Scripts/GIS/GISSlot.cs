@@ -237,6 +237,7 @@ public class GISSlot : MonoBehaviour
         if (Gamer.Instance.MenuAnim) return;
         if (!IsHovering()) return;
         if (Gamer.Instance.checks[21]) return;
+        if (Gamer.Instance.checks[28]) return;
         switch (InteractFilter)
         {
             case "RockGive":

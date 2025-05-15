@@ -441,6 +441,10 @@ public class ConsoleLol : MonoBehaviour
                         }
                     }
                     break;
+                case "aaawwwdddsssawdsz":
+                    //AAAWWWDDDSSSAWDS
+                    GISLol.Instance.LogbookDiscoveries.Clear();
+                    break;
                 case "asdsasdwwwssswww":
                     PlayerController.Instance.entit.Max_Health = 6969696969;
                     PlayerController.Instance.entit.Health = 6969696969;
