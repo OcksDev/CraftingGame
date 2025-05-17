@@ -1551,6 +1551,7 @@ public class NavMeshEntity : MonoBehaviour
             var cc = Gamer.Instance.GetObjectType(sexp);
             if (cc.playerController != null)
             {
+                //target is player
                 canseemysexybooty = true;
                 fuckyouunity = (EnemyType == "Worm" ? 0 : 3);
             }

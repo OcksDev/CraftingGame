@@ -10,6 +10,7 @@ public class MissileMover : MonoBehaviour
     public float turnspeed = 45f;
     int offs;
     // Update is called once per frame
+    bool funkyu = false;
     void FixedUpdate()
     {
         transform.position += transform.up * Time.deltaTime * speed;
@@ -33,7 +34,48 @@ public class MissileMover : MonoBehaviour
         {
             transform.rotation = RotateLock(transform.rotation, PointFromTo2D(target.transform.position, transform.position, -90),  turnspeed * Time.deltaTime);
         }
+        if(hitbal.attackProfile.controller != null && hitbal.attackProfile.WeaponOfAttack != null)
+        {
+            var arr = hitbal.attackProfile.WeaponOfAttack.ReadItemAmount("Rune Of Mounted Weaponry");
+            if (arr > 0)
+            {
+                sextim -= Time.deltaTime;
+                if(sextim <= 0)
+                {
+                    if (funkyu)
+                    {
+                        bool found = false;
+                        GameObject sexgm = null;
+                        float fdist = 100000000;
+                        foreach (var a in Gamer.Instance.EnemiesExisting)
+                        {
+                            if (!a.HasSpawned) continue;
+                            found = true;
+                            var r = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
+                            if (fdist > r)
+                            {
+                                sexgm = a.gameObject;
+                                fdist = r;
+                            }
+                        }
+                        if (found && sexgm != null)
+                        {
+                            var a = hitbal.attackProfile.controller.SpawnArrow(hitbal.attackProfile, transform.position, RandomFunctions.PointAtPoint2D(transform.position, sexgm.transform.position, 90), 0.2 * arr);
+                        }
+                    }
+                    else
+                    {
+                        funkyu = true;
+                    }
+                    sextim = Mathf.Pow(0.85f, arr-1)*0.5f;
+                }
+            }
+        }
     }
+
+    float sextim = 0;
+
+
     private Quaternion PointFromTo2D(Vector3 from_pos, Vector3 to_pos, float offset2)
     {
         //returns the rotation required to make the current gameobject point at the mouse, this method is 2D only.

@@ -92,6 +92,7 @@ Rune Of Conversion:: <g>+0.1</> <o>Barrier</> per Damage Dealt
 Rune Of Shielded Missiling:: On taking Damage while at full Health or in <o>Barrier</>,<br>Shoot a <o>Missile</> with <g>+100%</> Damage
 Rune Of Deathly Arrow:: On Kill slain <e>Enemies</> shoot an <o>Arrow</> at the<br>nearest living <e>Enemy</> with <g>+5</> Damage
 Rune Of Division:: 20% chance on Hit for an <o>Arrow</> to split into another <o>Arrow</><br>This new <o>Arrow</> has <g>+50%</> Damage of its progenitor
+Rune Of Mounted Weaponry:: <o>Missiles</> shoot an <o>Arrow</> every <g>1s (-15% per stack, asymptotic)</><br>Each <o>Arrow</> has <g>+20%</> Damage of its progenitor
 Aspect Of Plague:: On Kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health

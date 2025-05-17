@@ -24253,6 +24253,22 @@ MonoBehaviour:
     IsEnemy: 0
     CanSpawn: 1
     LogbookOverride: 0
+  - Name: Rune Of Mounted Weaponry
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: aa60bbf42e0c4474b9bef12bbeae7099, type: 3}
+    Description: Edging To Yourself (egocentrism)
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
   - Name: Void
     NameOverride: 
     Sprite: {fileID: 21300000, guid: a3569a4b13c5c764c9558e8208c0d331, type: 3}
