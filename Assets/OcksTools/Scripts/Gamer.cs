@@ -64,6 +64,7 @@ public class Gamer : MonoBehaviour
     public Dictionary<int, List<string>> ItemPoolAspects = new Dictionary<int, List<string>>();
     public bool CanInteractThisFrame;
     public int EnemySpawnNumber = 0;
+    public int EnemySpawnAmnt = 1;
     public string EnemySpawnElite = "";
     public bool NextFloorButtonSexFuck = false;
     public bool NextShopButtonSexFuck = false;
@@ -695,9 +696,12 @@ public class Gamer : MonoBehaviour
 #if UNITY_EDITOR
         if (InputManager.IsKeyDown(KeyCode.Space, "player"))
         {
+            for(int i = 0; i < EnemySpawnAmnt; i++)
+            {
+                var a = SpawnEnemy(EnemiesDos[EnemySpawnNumber]);
+                a.EliteType = EnemySpawnElite;
+            }
             //SaveSystem.Instance.SaveGame();
-            var a = SpawnEnemy(EnemiesDos[EnemySpawnNumber]);
-            a.EliteType = EnemySpawnElite;
         }
 #endif
 

@@ -350,7 +350,7 @@ public class EntityOXS : MonoBehaviour
                         {
                             if(hit.WeaponOfAttack.RollLuck(0.2f) > 0)
                             {
-                                OnKillEffect(hit.controller.secondweapon);
+                                OnKillEffect(hit.controller.secondweapon, true);
                             }
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Collapse")*0.5f;
@@ -698,7 +698,14 @@ public class EntityOXS : MonoBehaviour
         }
         if (inpu != null)
         {
-            OnKillEffect(inpu);
+            if(lasthit.WeaponOfAttack != null && lasthit.WasItemTransfered)
+            {
+                //do nothing
+            }
+            else
+            {
+                OnKillEffect(inpu);
+            }
         }
 
         if (!Gamer.ActiveDrugs.Contains("MDMA"))
@@ -720,7 +727,7 @@ public class EntityOXS : MonoBehaviour
         }
     }
 
-    public void OnKillEffect(GISItem inpu)
+    public void OnKillEffect(GISItem inpu, bool wankwank = false)
     {
         var arr2 = inpu.ReadItemAmount("Aspect Of Duality");
         if (arr2 > 0)
@@ -732,6 +739,7 @@ public class EntityOXS : MonoBehaviour
         {
             var a = inpu.Player.GetDamageProfile();
             a.WeaponOfAttack = inpu;
+            if(wankwank) a.WasItemTransfered = true;
             return new DamageProfile(a);
         };
 
@@ -1174,6 +1182,7 @@ public class DamageProfile
     public DamageType DType = DamageType.Misc;
     public Transform HijackaleTransform = null;
     public Transform OriginalTransform = null;
+    public bool WasItemTransfered = false;
     public DamageProfile(string name, double damage)
     {
         Damage = damage;
@@ -1209,6 +1218,7 @@ public class DamageProfile
         TotalDamageMod = pp.TotalDamageMod;
         HijackaleTransform = pp.HijackaleTransform;
         OriginalTransform = pp.OriginalTransform;
+        WasItemTransfered = pp.WasItemTransfered;
     }
     public Transform GetTransform()
     {
