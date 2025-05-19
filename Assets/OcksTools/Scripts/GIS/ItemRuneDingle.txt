@@ -104,7 +104,8 @@ Aspect Of Unscalability:: <g>x2</> Total Damage<br><b>x0.25</> Attack Damage
 Aspect Of Critical:: <g>x2</> Crit Chance<br><b>x2</> Skill Cooldown
 Aspect Of Fission:: All <g>Movement Speed Changes</> apply to Skill Cooldown<br><b>x0.7</> Movement Speed
 Aspect Of Arrow:: <o>Arrows</> <g>Bounce</> between nearby <e>Enemies</><br><b>x0.5</> Attack Damage
-Aspect Of Commerce:: Every slain <e>Enemy</> <g>drops</> a <o>Coin</><br><b>-7%</> Total Damage per <o>Coin</> currently held
+Aspect Of Commerce:: On Kill, <g>drop</> a <o>Coin</><br><b>-7%</> Total Damage per <o>Coin</> currently held
+Aspect Of Duality:: <g>20%</> chance on Hit to activate the on Kill effects<br>of the other equipped <o>Weapon</><br>On Kill is <b>disabled</> for this <o>Weapon</>
 Heroin:: x0.5 Max Health
 Cocaine:: x2 Enemy Movement Speed
 Weed:: x1.5 Enemy Attack Speed

@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     private float f2 = 0;
     private int reverse = 1;
     public GISItem mainweapon;
+    public GISItem secondweapon;
     private double helth = 0;
     private double sheldmult = 0;
     public EntityOXS entit;
@@ -292,12 +293,14 @@ public class PlayerController : MonoBehaviour
             if (isrealowner)
             {
                 mainweapon = c.slots[selecteditem].Held_Item;
+                secondweapon = c.slots[1-selecteditem].Held_Item;
                 c.slots[0].Held_Item.Player = this;
                 c.slots[1].Held_Item.Player = this;
                 if (hasaids)network_helditem.SetValue(mainweapon.ItemToString());
             }
-            else
+           /* else    old multiplayer code
             {
+                
                 try
                 {
                     var s = network_helditem.GetValue();
@@ -309,11 +312,12 @@ public class PlayerController : MonoBehaviour
                 {
 
                 }
-            }
+            }*/
         }
         else
         {
             mainweapon = null;
+            secondweapon = null;
             if (isrealowner && hasaids)
             {
                 network_helditem.SetValue("");

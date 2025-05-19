@@ -152,6 +152,9 @@ MonoBehaviour:
   EnemeisPenis: []
   coll: {fileID: 531870453691666476}
   ridig: {fileID: 6646572603122715760}
+  wandu: {fileID: 0}
+  ISDEAD: 0
+  isweat: 0
 --- !u!114 &2300964143502615943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,8 +182,8 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2278403275201244645}
-  m_BodyType: 1
-  m_Simulated: 1
+  m_BodyType: 2
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001

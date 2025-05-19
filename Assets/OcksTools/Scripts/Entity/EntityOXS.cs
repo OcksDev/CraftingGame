@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class EntityOXS : MonoBehaviour
 {
@@ -343,6 +344,14 @@ public class EntityOXS : MonoBehaviour
                                 Instantiate(Gamer.Instance.ParticleSpawns[21], hit.attacker.transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
                             }
                             aaaaa.playerController.timersincedamage = aaaaa.playerController.MaxTimeSinceDamageDealt;
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Aspect Of Duality");
+                        if (arr > 0)
+                        {
+                            if(hit.WeaponOfAttack.RollLuck(0.2f) > 0)
+                            {
+                                OnKillEffect(hit.controller.secondweapon);
+                            }
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Collapse")*0.5f;
                         if (arr > 0)
@@ -687,135 +696,9 @@ public class EntityOXS : MonoBehaviour
         {
             inpu = PlayerController.Instance.mainweapon;
         }
-        var absthing = lasthit == null ? inpu.Player.GetDamageProfile() : lasthit;
         if (inpu != null)
         {
-            var arr2 = inpu.ReadItemAmount("Rune Of Kaboom") * 2;
-            arr2 += 3;
-            if (arr2 > 4)
-            {
-                SpawnExplosion(arr2, transform.position, absthing);
-            }
-            arr2 = inpu.ReadItemAmount("Rune Of Swords");
-            if (arr2 > 0)
-            {
-                inpu.Player.SpawnSword(arr2*5);
-            }
-            arr2 = inpu.ReadItemAmount("Rune Of Turret");
-            if (arr2 > 0)
-            {
-                if (inpu.RollLuck(0.2f) > 0)
-                {
-                    var nn = new DamageProfile(absthing);
-                    nn.Damage = 3 * arr2;
-                    inpu.Player.SpawnTurret(nn, transform.position);
-                }
-            }
-            arr2 = inpu.ReadItemAmount("Rune Of Acid");
-            if (arr2 > 0)
-            {
-                if (inpu.RollLuck(0.2f) > 0)
-                {
-                    var nn = new DamageProfile(absthing);
-                    nn.Damage = 3 * arr2;
-                    inpu.Player.SpawnAcidPool(nn, transform.position);
-                }
-            }
-            arr2 = inpu.ReadItemAmount("Rune Of Deathly Arrow");
-            if (arr2 > 0)
-            {
-                bool found = false;
-                GameObject sexgm = null;
-                float fdist = 100000000;
-                foreach (var a in Gamer.Instance.EnemiesExisting)
-                {
-                    if (!a.HasSpawned || a.gameObject == gameObject) continue;
-                    found = true;
-                    var r = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
-                    if (fdist > r)
-                    {
-                        sexgm = a.gameObject;
-                        fdist = r;
-                    }
-                }
-                if (found && sexgm != null)
-                {
-                    var wee = inpu.Player;
-                    var w = wee.GetDamageProfile();
-                    w.Damage = 5 * arr2;
-                    var a = wee.SpawnArrow(w, transform.position, RandomFunctions.PointAtPoint2D(transform.position, sexgm.transform.position, 90), 1);
-                    a.hitlist.Add(gameObject);
-                }
-            }
-            arr2 = inpu.ReadItemAmount("Rune Of Drain");
-            if (arr2 > 0 && Effects.Count > 0)
-            {
-                inpu.Player.entit.Heal(arr2 * Effects.Count);
-            }
-            var arr = inpu.ReadItemAmount("Rune Of Soul") * 0.15f;
-            if (arr > 0)
-            {
-                he += inpu.RollLuck(arr);
-            }
-            arr2 = inpu.ReadItemAmount("Rune Of Surge");
-            if (arr2 > 0)
-            {
-                if(inpu.RollLuck(0.15f) > 0)
-                {
-                    for(int i  = 1; i < inpu.Player.Skills.Count; i++)
-                    {
-                        var x = GISLol.Instance.SkillsDict[inpu.Player.Skills[i].Name].MaxStacks;
-                        inpu.Player.Skills[i].Stacks = Mathf.Clamp(inpu.Player.Skills[i].Stacks + arr2, 0, x);
-                        if (inpu.Player.Skills[i].Stacks == x) inpu.Player.Skills[i].Timer = 0;
-                    }
-                }
-            }
-            arr2 = inpu.ReadItemAmount("Aspect Of Plague");
-            if (arr2 > 0)
-            {
-                NavMeshEntity near = null;
-                float nr = 100000000;
-                foreach(var a in Gamer.Instance.EnemiesExisting)
-                {
-                    if(a != null && a != sexy && a.HasSpawned)
-                    {
-                        var de = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
-                        if(de < nr)
-                        {
-                            nr = de;
-                            near = a;
-                        }
-                    }
-                }
-                if(near != null)
-                {
-                    foreach(var a in Effects)
-                    {
-                        var x = near.EntityOXS.ContainsEffect(a);
-                        if (x.hasthing)
-                        {
-                            if(x.susser.Stack < a.Stack)
-                            {
-                                x.susser.Stack = a.Stack;
-                            }
-                            if(x.susser.TimeRemaining < a.TimeRemaining)
-                            {
-                                x.susser.TimeRemaining = a.TimeRemaining;
-                            }
-                        }
-                        else
-                        {
-                            near.EntityOXS.AddEffect(a, true);
-                        }
-                    }
-                }
-            }
-            arr2 = inpu.ReadItemAmount("Aspect Of Commerce");
-            if (arr2 > 0)
-            {
-                Gamer.Instance.SpawnCoins(transform.position, 1, PlayerController.Instance);
-            }
-
+            OnKillEffect(inpu);
         }
 
         if (!Gamer.ActiveDrugs.Contains("MDMA"))
@@ -836,6 +719,154 @@ public class EntityOXS : MonoBehaviour
             }
         }
     }
+
+    public void OnKillEffect(GISItem inpu)
+    {
+        var arr2 = inpu.ReadItemAmount("Aspect Of Duality");
+        if (arr2 > 0)
+        {
+            return;
+        }
+
+        System.Func<DamageProfile> GetDam = () =>
+        {
+            var a = inpu.Player.GetDamageProfile();
+            a.WeaponOfAttack = inpu;
+            return new DamageProfile(a);
+        };
+
+        arr2 = inpu.ReadItemAmount("Rune Of Kaboom") * 2;
+        arr2 += 3;
+        if (arr2 > 4)
+        {
+            SpawnExplosion(arr2, transform.position, GetDam());
+        }
+        arr2 = inpu.ReadItemAmount("Rune Of Swords");
+        if (arr2 > 0)
+        {
+            inpu.Player.SpawnSword(arr2 * 5);
+        }
+        arr2 = inpu.ReadItemAmount("Rune Of Turret");
+        if (arr2 > 0)
+        {
+            if (inpu.RollLuck(0.2f) > 0)
+            {
+                var nn = GetDam();
+                nn.Damage = 3 * arr2;
+                inpu.Player.SpawnTurret(nn, transform.position);
+            }
+        }
+        arr2 = inpu.ReadItemAmount("Rune Of Acid");
+        if (arr2 > 0)
+        {
+            if (inpu.RollLuck(0.2f) > 0)
+            {
+                var nn = GetDam();
+                nn.Damage = 3 * arr2;
+                inpu.Player.SpawnAcidPool(nn, transform.position);
+            }
+        }
+        arr2 = inpu.ReadItemAmount("Rune Of Deathly Arrow");
+        if (arr2 > 0)
+        {
+            bool found = false;
+            GameObject sexgm = null;
+            float fdist = 100000000;
+            foreach (var a in Gamer.Instance.EnemiesExisting)
+            {
+                if (!a.HasSpawned || a.gameObject == gameObject) continue;
+                found = true;
+                var r = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
+                if (fdist > r)
+                {
+                    sexgm = a.gameObject;
+                    fdist = r;
+                }
+            }
+            if (found && sexgm != null)
+            {
+                var wee = inpu.Player;
+                var w = GetDam();
+                w.Damage = 5 * arr2;
+                var a = wee.SpawnArrow(w, transform.position, RandomFunctions.PointAtPoint2D(transform.position, sexgm.transform.position, 90), 1);
+                a.hitlist.Add(gameObject);
+            }
+        }
+        arr2 = inpu.ReadItemAmount("Rune Of Drain");
+        if (arr2 > 0 && Effects.Count > 0)
+        {
+            inpu.Player.entit.Heal(arr2 * Effects.Count);
+        }
+        var arr = inpu.ReadItemAmount("Rune Of Soul") * 0.15f;
+        if (arr > 0)
+        {
+            var x = inpu.RollLuck(arr);
+            if(x > 0)
+            {
+                Gamer.Instance.SpawnHealers(transform.position, x, PlayerController.Instance);
+            }
+        }
+        arr2 = inpu.ReadItemAmount("Rune Of Surge");
+        if (arr2 > 0)
+        {
+            if (inpu.RollLuck(0.15f) > 0)
+            {
+                for (int i = 1; i < inpu.Player.Skills.Count; i++)
+                {
+                    var x = GISLol.Instance.SkillsDict[inpu.Player.Skills[i].Name].MaxStacks;
+                    inpu.Player.Skills[i].Stacks = Mathf.Clamp(inpu.Player.Skills[i].Stacks + arr2, 0, x);
+                    if (inpu.Player.Skills[i].Stacks == x) inpu.Player.Skills[i].Timer = 0;
+                }
+            }
+        }
+        arr2 = inpu.ReadItemAmount("Aspect Of Plague");
+        if (arr2 > 0)
+        {
+            NavMeshEntity near = null;
+            float nr = 100000000;
+            foreach (var a in Gamer.Instance.EnemiesExisting)
+            {
+                if (a != null && a != sexy && a.HasSpawned)
+                {
+                    var de = RandomFunctions.Instance.DistNoSQRT(transform.position, a.transform.position);
+                    if (de < nr)
+                    {
+                        nr = de;
+                        near = a;
+                    }
+                }
+            }
+            if (near != null)
+            {
+                foreach (var a in Effects)
+                {
+                    var x = near.EntityOXS.ContainsEffect(a);
+                    if (x.hasthing)
+                    {
+                        if (x.susser.Stack < a.Stack)
+                        {
+                            x.susser.Stack = a.Stack;
+                        }
+                        if (x.susser.TimeRemaining < a.TimeRemaining)
+                        {
+                            x.susser.TimeRemaining = a.TimeRemaining;
+                        }
+                    }
+                    else
+                    {
+                        near.EntityOXS.AddEffect(a, true);
+                    }
+                }
+            }
+        }
+        arr2 = inpu.ReadItemAmount("Aspect Of Commerce");
+        if (arr2 > 0)
+        {
+            Gamer.Instance.SpawnCoins(transform.position, 1, PlayerController.Instance);
+        }
+    }
+
+
 
     bool oldstatus = false;
     bool curstatus = false;

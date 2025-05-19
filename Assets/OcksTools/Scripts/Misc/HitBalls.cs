@@ -39,7 +39,6 @@ public class HitBalls : MonoBehaviour
                 var c = trail.emission;
                 c.rateOverTime = 50;
                 coll.isTrigger = false;
-                ridig.bodyType = RigidbodyType2D.Dynamic;
                 break;
         }
         OXComponent.StoreComponent(this);
@@ -88,6 +87,32 @@ public class HitBalls : MonoBehaviour
             case "Boomerang":
                 specialsharts[0].transform.rotation *= Quaternion.Euler(0, 0, hsh);
                 hsh *= 0.99f;
+                break;
+        }
+        switch (type)
+        {
+            case "Shuriken":
+                var a2 = Physics2D.OverlapCircleAll(transform.position, coll.radius);
+                if (a2.Length > 0)
+                {
+                    foreach (var b in a2)
+                    {
+                        if (!hitdict.ContainsKey(b.gameObject))
+                        {
+                            Collisonsns(b);
+                        }
+                    }
+                }
+                break;
+            case "Dagger":
+                var a = Physics2D.OverlapCircleAll(transform.position, coll.radius);
+                if(a.Length > 0)
+                {
+                    foreach(var b in a)
+                    {
+                        Collisonsns(b);
+                    }
+                }
                 break;
         }
     }
@@ -309,14 +334,22 @@ public class HitBalls : MonoBehaviour
 
     bool NO = false;
     public bool ISDEAD=false;
+    public bool isweat = false;
     public IEnumerator WaitForDIe(bool fart = false)
     {
+        switch (type)
+        {
+            case "Dagger":
+                if (isweat) yield break;
+                break;
+        }
+        isweat = true;
         var e = GetComponent<Projectile>();
         if (fart && e != null) e.speed = 0;
         var e2 = GetComponent<BallScrip>();
         if (fart && e2 != null) e2.speed = 0;
         var f = GetComponent<SpriteRenderer>();
-        int steps = 50;
+        int steps = 15;
         /*if (ISDEAD) yield break;
         ISDEAD = true;*/
         switch (type)
@@ -333,6 +366,7 @@ public class HitBalls : MonoBehaviour
                         cc.color = c2;
                     }
                 }
+                steps = 10;
                 break;
             case "FLYSW":
                 var c3 = trail.emission;
@@ -342,7 +376,7 @@ public class HitBalls : MonoBehaviour
                 break;
         }
         float dick = 1f / steps;
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < steps; i++)
         {
             switch (type)
             {
@@ -392,6 +426,10 @@ public class HitBalls : MonoBehaviour
                 {
                     e.speed *= 0.96f;
                 }
+                else if (type=="Dagger")
+                {
+                    e.speed *= 0.8f;
+                }
                 else
                 {
                     e.speed *= 0.93f;
@@ -404,7 +442,7 @@ public class HitBalls : MonoBehaviour
         {
             coll.enabled = false;
         }
-        if (type == "Shuriken")
+        else if (type == "Shuriken")
         {
             yield return new WaitForSeconds(1f);
             for (int i = 0; i < 25 ; i++)
@@ -413,10 +451,6 @@ public class HitBalls : MonoBehaviour
                 if (transform.localScale.x <= 0) break;
                 yield return new WaitForFixedUpdate();
             }
-        }
-        else
-        {
-            yield return new WaitForSeconds(0.5f);
         }
         end:
         if (f != null) f.enabled = false;

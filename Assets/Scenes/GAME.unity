@@ -24541,6 +24541,22 @@ MonoBehaviour:
     IsEnemy: 0
     CanSpawn: 1
     LogbookOverride: 0
+  - Name: Aspect Of Duality
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 9bf9a234cde884547b64cc38a876f1b1, type: 3}
+    Description: Boner
+    EXTRADescription: 
+    MinFloor: 0
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 0
+    IsAspect: 1
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
   - Name: Plastic
     NameOverride: 
     Sprite: {fileID: 21300000, guid: 34f797aafb48f664e8abacbd13587bf5, type: 3}
