@@ -37,25 +37,14 @@ Magma:: Hot!
 Dildo:: Hmm
 Flux:: strAngE
 DNuke:: Protective
-Dash:: Boner
-Grappling:: Launch a <o>Grappling Hook</> which pulls you toward itself when it lands.
-Capitalism:: Spend 1 <o>Coin</> to instantly Kill the 3 nearest <e>Enemies</>. 
-SoulDrain:: All nearby <e>Enemies</> drop x2 their Kill reward, but become <o>Soulless</>.<br><o>Soulless</> <e>Enemies</> do not drop a Kill reward on death.
-ArrowStorm:: Shoot an arc of <o>Arrows</> with 50% Damage.
-SwordDance:: Surround yourself with 8 <o>Flying Swords</>, each with 75% Damage.<br>Max of 32 simultaneous <o>Flying Swords</>.
-Soulsplosion:: All uncollected <o>Souls</> you have harvested explode for 10 Damage<br>5m Explosion Size
-Wave:: Launch a <o>Wave</> that pushes all enemies back.<br>Additionally, deals 3 Damage.
-Strike:: Call down a <o>Strike</> deals 50 Damage to all <e>Enemies</> in an area.
-Vortex:: Pull all nearby <e>Enemies</> into a <o>Vortex</>.
-Backup:: Place 4 <o>Turrets</> around yourself which each deal 2 Damage.<br><o>Turret</> Attack Speed scales based on your Attack Speed 
-Convert:: Convert all nearby <e>Enemy's</> stacks of <o>Freeze</> into <o>Brittle</>.<br><o>Brittle</> makes the next damage source deal +50% Damage<br>per stack, but also clears all stacks. 
-Barrage:: Rapidly shoot 15 <o>Missiles</> with 25% Damage around yourself
+Mythril:: Sparky
+Mimestone:: Same-y
 Rune Of Self:: <g>+15%</> chance on Hit to Heal 1
 Rune Of Missile:: <g>+10%</> chance on Hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: <g>+35%</> chance on Heal to deal<br>x2 the amount as Damage to the nearest <e>Enemy</>
 Rune Of Arrow:: <g>+35%</> chance on Attack to shoot an <o>Arrow</> with 100% Damage
 Rune Of Kaboom:: <e>Enemies</> explode on Kill for 15 Damage<br><g>5m (+2m per stack)</> Explosion Size
-Rune Of Retaliation:: When taking Damage, deal <g>+50%</> of the Damage to the nearest <e>Enemy</>
+Rune Of Retaliation:: On taking Damage, deal <g>+50%</> of the Damage to the nearest <e>Enemy</>
 Rune Of Soul:: <g>+15%</> chance to spawn an extra <o>Soul</> on Kill
 Rune Of Splitting:: Damage taken is split evenly between <g>2 (+1 per stack)</> ticks across 3s
 Rune Of Retribution:: Explode on taking Damage for 10 Damage<br><g>6m (+2m per stack)</> Explosion Size
@@ -93,6 +82,10 @@ Rune Of Shielded Missiling:: On taking Damage while at full Health or in <o>Barr
 Rune Of Deathly Arrow:: On Kill slain <e>Enemies</> shoot an <o>Arrow</> at the<br>nearest living <e>Enemy</> with <g>+5</> Damage
 Rune Of Division:: 20% chance on Hit for an <o>Arrow</> to split into another <o>Arrow</><br>This new <o>Arrow</> has <g>+50%</> Damage of its progenitor
 Rune Of Mounted Weaponry:: <o>Missiles</> shoot an <o>Arrow</> every <g>1s (-15% per stack, asymptotic)</><br>Each <o>Arrow</> has <g>+20%</> Damage of its progenitor
+Rune Of Trickle Down Economics:: <g>+2%</> Healing per <o>Coin</> currently held 
+Rune Of Blocked Healing:: On taking Damage, if Blocked, Heal for <g>+3</>
+Rune Of Rejuvenation:: On Skill, Heal for <g>+3</><br>(only works during combat)
+Rune Of Drive-By:: While Dashing gain <g>+25%</> Total Damage
 Aspect Of Plague:: On Kill, <g>Spread</> all Debuffs from the slain <e>Enemy</> to the nearest living <e>Enemy</><br><b>x0.5</> Debuff Duration
 Aspect Of Damage:: <g>x2</> Damage<br><b>x0.5</> Movement Speed
 Aspect Of Healing:: <g>x2</> Healing<br><b>x0.5</> Max Health
@@ -116,3 +109,16 @@ Lean:: More Enemies spawn
 MDMA:: All Map Destructibles drop 2 Souls<br>Enemies no longer drop Souls
 LSD:: Hallucinate fake Enemies, these Enemies Heal<br>the Total Damage they dealt on Kill (no Souls).
 Alcohol:: All Projectiles are inaccurate.
+Dash:: Boner
+Grappling:: Launch a <o>Grappling Hook</> which pulls you toward itself when it lands.
+Capitalism:: Spend 1 <o>Coin</> to instantly Kill the 3 nearest <e>Enemies</>. 
+SoulDrain:: All nearby <e>Enemies</> drop x2 their Kill reward, but become <o>Soulless</>.<br><o>Soulless</> <e>Enemies</> do not drop a Kill reward on death.
+ArrowStorm:: Shoot an arc of <o>Arrows</> with 50% Damage.
+SwordDance:: Surround yourself with 8 <o>Flying Swords</>, each with 75% Damage.<br>Max of 32 simultaneous <o>Flying Swords</>.
+Soulsplosion:: All uncollected <o>Souls</> you have harvested explode for 10 Damage<br>5m Explosion Size
+Wave:: Launch a <o>Wave</> that pushes all enemies back.<br>Additionally, deals 3 Damage.
+Strike:: Call down a <o>Strike</> deals 50 Damage to all <e>Enemies</> in an area.
+Vortex:: Pull all nearby <e>Enemies</> into a <o>Vortex</>.
+Backup:: Place 4 <o>Turrets</> around yourself which each deal 2 Damage.<br><o>Turret</> Attack Speed scales based on your Attack Speed 
+Convert:: Convert all nearby <e>Enemy's</> stacks of <o>Freeze</> into <o>Brittle</>.<br><o>Brittle</> makes the next damage source deal +50% Damage<br>per stack, but also clears all stacks. 
+Barrage:: Rapidly shoot 15 <o>Missiles</> with 25% Damage around yourself

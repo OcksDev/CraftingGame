@@ -28,3 +28,5 @@ Magma:: <g>+25%</> Crit Chance<br><b>x0.9</> Attack Speed
 Dildo:: <g>x1.1</> Attack Speed<br><g>x1.1</> Movement Speed<br><b>x1.1</> Skill Cooldown
 Flux:: <g>+10%</> Attack Speed<br><g>+10%</> Attack Damage<br><g>x1.1</> Movement Speed<br><g>x0.9</> Skill Cooldown<br><b>x0.8</> Max Health
 DNuke:: <g>-20% (asymptotic stacking)</> Damage Taken</><br><b>x0.85</> Attack Damage
+Mythril:: <g>x1.25</> Max Health<br><b>-10%</> Crit Chance
+Mimestone:: Copies the correlating <o>Item</> on the other equipped <o>Weapon</><br>(can not copy Mimestone)

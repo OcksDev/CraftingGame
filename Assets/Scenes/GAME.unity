@@ -24157,6 +24157,38 @@ MonoBehaviour:
     IsEnemy: 0
     CanSpawn: 1
     LogbookOverride: 0
+  - Name: Rune Of Trickle Down Economics
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: dfed66ed7da3a5741a64e2963d9c70fe, type: 3}
+    Description: Feels kinda tickly
+    EXTRADescription: 
+    MinFloor: 0
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Rune Of Car Crash
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 06a68f5abf1ba1a4387ce48751b7b1fe, type: 3}
+    Description: Feels kinda tickly
+    EXTRADescription: 
+    MinFloor: 0
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 0
+    LogbookOverride: 0
   - Name: Rune Of Division
     NameOverride: 
     Sprite: {fileID: 21300000, guid: 20f892e02d096cb4f8f3b194899f908e, type: 3}
@@ -24256,6 +24288,54 @@ MonoBehaviour:
   - Name: Rune Of Mounted Weaponry
     NameOverride: 
     Sprite: {fileID: 21300000, guid: aa60bbf42e0c4474b9bef12bbeae7099, type: 3}
+    Description: Edging To Yourself (egocentrism)
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Rune Of Blocked Healing
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 5f8b30901760da1428b84412c6874445, type: 3}
+    Description: Edging To Yourself (egocentrism)
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Rune Of Rejuvenation
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 0097d1bd6408dff4396cd341fa0cf29b, type: 3}
+    Description: Edging To Yourself (egocentrism)
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 0
+    IsRune: 1
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Rune Of Drive-By
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 262438e7c1b05054cbc5aed3c6774309, type: 3}
     Description: Edging To Yourself (egocentrism)
     EXTRADescription: 
     MinFloor: 10
@@ -24848,6 +24928,38 @@ MonoBehaviour:
   - Name: DNuke
     NameOverride: Defense Nucleus
     Sprite: {fileID: 21300000, guid: 0500986c264d1d942923e377fd1b2df8, type: 3}
+    Description: sharp!
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Mythril
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: 06cd431d50c385e4dbd0cadf20dbec7d, type: 3}
+    Description: sharp!
+    EXTRADescription: 
+    MinFloor: 10
+    MaxAmount: 1
+    IsWeapon: 0
+    IsCraftable: 1
+    IsRune: 0
+    IsAspect: 0
+    IsSkill: 0
+    IsDrug: 0
+    IsEnemy: 0
+    CanSpawn: 1
+    LogbookOverride: 0
+  - Name: Mimestone
+    NameOverride: 
+    Sprite: {fileID: 21300000, guid: ce6585b28cb7e80488f212aa517e4d48, type: 3}
     Description: sharp!
     EXTRADescription: 
     MinFloor: 10
@@ -25852,6 +25964,34 @@ MonoBehaviour:
     IsOverlay: 1
     UseVisCol: 0
     ignorecolorforcumimg: 1
+  - Name: Mythril
+    Description: ' '
+    ColorMod:
+      serializedVersion: 2
+      rgba: 4283256141
+    OverlayColorMod:
+      serializedVersion: 2
+      rgba: 1171693880
+    VisColor:
+      serializedVersion: 2
+      rgba: 0
+    SwordParts: []
+    BowParts: []
+    SpearParts: []
+    CrossbowParts: []
+    DaggerParts: []
+    SawbladeParts: []
+    AxeParts: []
+    BlowParts: []
+    TDaggerParts: []
+    KnifeParts: []
+    WandParts: []
+    ScytheParts: []
+    fallthroughmaterial: Infused Rock
+    fallthroughmaterialmian: Infused Rock
+    IsOverlay: 1
+    UseVisCol: 0
+    ignorecolorforcumimg: 1
   - Name: Cum
     Description: Cuumer
     ColorMod:
@@ -25952,6 +26092,37 @@ MonoBehaviour:
     VisColor:
       serializedVersion: 2
       rgba: 4293340550
+    SwordParts:
+    - {fileID: 21300000, guid: 8e68a9c079ca23441beede428867cc2b, type: 3}
+    - {fileID: 21300000, guid: 4d3a91458c0c3e842bbe9f076a013835, type: 3}
+    - {fileID: 21300000, guid: fac4229bcc6635e48825e90e0a7089c1, type: 3}
+    BowParts: []
+    SpearParts: []
+    CrossbowParts: []
+    DaggerParts: []
+    SawbladeParts: []
+    AxeParts: []
+    BlowParts: []
+    TDaggerParts: []
+    KnifeParts: []
+    WandParts: []
+    ScytheParts: []
+    fallthroughmaterial: Filled
+    fallthroughmaterialmian: Outline
+    IsOverlay: 1
+    UseVisCol: 1
+    ignorecolorforcumimg: 1
+  - Name: Mimestone
+    Description: <g>x0.85</> Skill Cooldown<br><b>x0.9</> Movement Speed
+    ColorMod:
+      serializedVersion: 2
+      rgba: 4278190080
+    OverlayColorMod:
+      serializedVersion: 2
+      rgba: 4289967027
+    VisColor:
+      serializedVersion: 2
+      rgba: 4289967027
     SwordParts:
     - {fileID: 21300000, guid: 8e68a9c079ca23441beede428867cc2b, type: 3}
     - {fileID: 21300000, guid: 4d3a91458c0c3e842bbe9f076a013835, type: 3}

@@ -689,10 +689,35 @@ public class GISItem
     {
         AmountOfItems.Clear();
 
-        Func<GISMaterial, bool, int> segsadd = (a, b) =>
+        Func<GISMaterial, bool, int, int> segsadd = (a, b, c) =>
         {
             var nm = a.GetName();
             if (nm == "") return 1;
+            if (nm == "Mimestone" && PlayerController.Instance != null && PlayerController.Instance.secondweapon != null && PlayerController.Instance.secondweapon.ItemIndex != "Empty")
+            {
+                switch (c)
+                {
+                    default:
+                        if (b)
+                        {
+                            nm = PlayerController.Instance.secondweapon.Run_Materials[c].GetName();
+                        }
+                        else
+                        {
+                            nm = PlayerController.Instance.secondweapon.Materials[c].GetName();
+                        }
+                        break;
+                    case -1:
+                        nm = PlayerController.Instance.secondweapon.GraftedMaterial.GetName();
+                        break;
+                    case -2:
+                        nm = PlayerController.Instance.secondweapon.AspectMaterial.GetName();
+                        break;
+                    case -3:
+                        nm = PlayerController.Instance.secondweapon.AspectMaterial2.GetName();
+                        break;
+                }
+            }
             if (b)
             {
                 var it = GISLol.Instance.ItemsDict[nm];
@@ -708,18 +733,21 @@ public class GISItem
             }
             return 0;
         };
-
+        int x = 0;
         foreach (var a in Materials)
         {
-            segsadd(a, false);
+            segsadd(a, false,x);
+            x++;
         }
+        x = 0;
         foreach (var a in Run_Materials)
         {
-            segsadd(a, true);
+            segsadd(a, true,x);
+            x++;
         }
-        segsadd(GraftedMaterial, false);
-        segsadd(AspectMaterial, false);
-        segsadd(AspectMaterial2, false);
+        segsadd(GraftedMaterial, false,-1);
+        segsadd(AspectMaterial, false,-2);
+        segsadd(AspectMaterial2, false,-3);
     }
 
     public void CompileBalance(GISItem com)

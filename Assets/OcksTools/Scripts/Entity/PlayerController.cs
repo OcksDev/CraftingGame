@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Unity.Burst.CompilerServices;
+using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -422,15 +423,40 @@ public class PlayerController : MonoBehaviour
                     RotationOverride = true;
                     break;
             }
+            int x = 0;
             foreach(var m in mainweapon.Materials)
             {
-                ParseMaterial(m);
+                if (m.GetName() == "Mimestone" && secondweapon.ItemIndex != "Empty")
+                {
+                    ParseMaterial(secondweapon.Materials[x]);
+                }
+                else
+                {
+                    ParseMaterial(m);
+                }
+                x++;
             }
+            x = 0;
             foreach(var m in mainweapon.Run_Materials)
             {
-                ParseMaterial(m);
+                if (m.GetName() == "Mimestone" && secondweapon.ItemIndex != "Empty")
+                {
+                    ParseMaterial(secondweapon.Run_Materials[x]);
+                }
+                else
+                {
+                    ParseMaterial(m);
+                }
+                x++;
             }
-            ParseMaterial(mainweapon.GraftedMaterial);
+            if (mainweapon.GraftedMaterial.GetName() == "Mimestone" && secondweapon.ItemIndex != "Empty")
+            {
+                ParseMaterial(secondweapon.GraftedMaterial);
+            }
+            else
+            {
+                ParseMaterial(mainweapon.GraftedMaterial);
+            }
             ParseMaterial(mainweapon.AspectMaterial, true);
             ParseMaterial(mainweapon.AspectMaterial2, true);
         }
@@ -556,6 +582,10 @@ public class PlayerController : MonoBehaviour
                     AttacksPerSecond *= 0.9f;
                     working_move_speed *= 0.8f;
                     break;
+                case "Mythril":
+                    helth *= 1.25f;
+                    CritChance -= 0.1f;
+                    break;
                 case "Bread":
                     SkillCooldownMult *= 0.75f;
                     working_move_speed *= 0.75f;
@@ -642,6 +672,10 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "Aspect Of Healing":
                     helth /= 2;
+                    break;
+                case "Aspect Of Skill":
+                    SkillCooldownMult /= 2;
+                    WeaponDamageMod /= 2;
                     break;
                 case "Aspect Of Lightning":
                     WeaponDamageMod /= 2;
@@ -1063,6 +1097,11 @@ public class PlayerController : MonoBehaviour
         if (arr > 0)
         {
             ShootLightning(arr, transform.position);
+        }
+        arr = mainweapon.ReadItemAmount("Rune Of Rejuvenation");
+        if (arr > 0 && Gamer.Instance.CurrentRoom != null)
+        {
+            entit.Heal(3 * arr);
         }
 
 

@@ -142,6 +142,13 @@ public class EntityOXS : MonoBehaviour
                 if (s2.IsDashingImmume || block)
                 {
                     block = true;
+                    var arr = s2.mainweapon.ReadItemAmount("Rune Of Blocked Healing");
+                    if(arr > 0)
+                    {
+                        StartCoroutine(WaitCall(()=>{
+                            Heal(3 * arr);
+                        },0.05f));
+                    }
                 }
                 else
                 {
@@ -257,6 +264,11 @@ public class EntityOXS : MonoBehaviour
                         if (arr > 0 && hit.controller != null)
                         {
                             damagefromhit *= ((double)arr * hit.controller.Coins)/100 + 1;
+                        }
+                        arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Drive-By");
+                        if (arr > 0 && hit.controller != null && hit.controller.IsDashing)
+                        {
+                            damagefromhit *= 1 + (0.25 * arr);
                         }
                         arr = hit.WeaponOfAttack.ReadItemAmount("Rune Of Weaponized Shielding");
                         if (arr > 0 && (hit.WeaponOfAttack.Player.entit.Shield > 0.01 || hit.WeaponOfAttack.Player.entit.Health == hit.WeaponOfAttack.Player.entit.Max_Health))
@@ -460,7 +472,11 @@ public class EntityOXS : MonoBehaviour
         we.hitbal.attackProfile = atk;
         we.target = target;
     }
-
+    public IEnumerator WaitCall(System.Action banana, float tim)
+    {
+        yield return new WaitForSeconds(tim);
+        banana();
+    }
     public static void SpawnExplosion(float size, Vector3 pos, DamageProfile dam, double damage = 15, int particleid= 16)
     {
         var weenis = Instantiate(Gamer.Instance.ParticleSpawns[particleid], pos, Quaternion.identity).GetComponent<partShitBall>();
@@ -511,6 +527,11 @@ public class EntityOXS : MonoBehaviour
                     var ef = new EffectProfile("Protected", arr * 0.5f, 5, 1);
                     ef.ItemOfInit = playerdaddy.mainweapon;
                     AddEffect(ef);
+                }
+                arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Trickle Down Economics");
+                if (arr >= 1)
+                {
+                    amount *= 1 + (0.02 * arr * playerdaddy.Coins);
                 }
                 DirectShieldPercent = 1-playerdaddy.DirectShieldHeal;
                 ShieldChangeMult = playerdaddy.ShieldHealingMod;
