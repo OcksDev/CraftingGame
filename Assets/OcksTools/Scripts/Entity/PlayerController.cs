@@ -1156,6 +1156,11 @@ public class PlayerController : MonoBehaviour
             case "Soulsplosion":
                 Soulsplosion();
                 break;
+            case "Fart":
+                var a = GetDamageProfile();
+                a.Damage = Gamer.CurrentFloor*2;
+                SpawnAcidPool(a, transform.position);
+                break;
             case "Backup":
                 Backup();
                 break;

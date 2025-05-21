@@ -22,7 +22,7 @@ X Hellish Ingot: +20% damage, -20% movement speed;
 X Angelic Ingot: +10% movespeed, +10% damage, +10% attack speed, -10 health
 - Dildo: +1% chance to instantly kill any non-boss enemy on hit
 - Bat Talisman: +1% speed
-- Mithril
+X Mithril
 - Adamantium
 - Kryptonite
 - Solidified Piss (JAR OF PISS)

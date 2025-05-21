@@ -26544,6 +26544,14 @@ MonoBehaviour:
     MaxStacks: 1
     CanHold: 0
     OnlyFillInCombat: 1
+  - Name: Fart
+    NameOverride: Fart
+    Image: {fileID: 21300000, guid: 28124a668ac666c4fb1a244a68afe0f9, type: 3}
+    CanSpawn: 1
+    Cooldown: 10
+    MaxStacks: 1
+    CanHold: 0
+    OnlyFillInCombat: 1
   - Name: Baller
     NameOverride: Baller
     Image: {fileID: 21300000, guid: de857cac86b3ad746a8438567441ff81, type: 3}

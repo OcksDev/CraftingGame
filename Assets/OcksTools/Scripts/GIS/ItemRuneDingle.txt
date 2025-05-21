@@ -119,6 +119,7 @@ Soulsplosion:: All uncollected <o>Souls</> you have harvested explode for 10 Dam
 Wave:: Launch a <o>Wave</> that pushes all enemies back.<br>Additionally, deals 3 Damage.
 Strike:: Call down a <o>Strike</> deals 50 Damage to all <e>Enemies</> in an area.
 Vortex:: Pull all nearby <e>Enemies</> into a <o>Vortex</>.
+Fart:: Create an <o>Acid Pool</> with Damage<br>equal to (2 x CurrentFloor)
 Backup:: Place 4 <o>Turrets</> around yourself which each deal 2 Damage.<br><o>Turret</> Attack Speed scales based on your Attack Speed 
 Convert:: Convert all nearby <e>Enemy's</> stacks of <o>Freeze</> into <o>Brittle</>.<br><o>Brittle</> makes the next damage source deal +50% Damage<br>per stack, but also clears all stacks. 
 Barrage:: Rapidly shoot 15 <o>Missiles</> with 25% Damage around yourself
