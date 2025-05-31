@@ -572,6 +572,11 @@ public class PlayerController : MonoBehaviour
                     DebuffDurationMod *= 1.15f;
                     SkillCooldownMult += 0.15f;
                     break;
+                case "Redstone":
+                    DebuffDurationMod *= 1.25f;
+                    working_move_speed *= 1.15f;
+                    mainweapon.Luck -= 0.5f;
+                    break;
                 case "Shieldium":
                     DamageTakenMod *= 0.85;
                     DirectShieldHeal *= 0.85;

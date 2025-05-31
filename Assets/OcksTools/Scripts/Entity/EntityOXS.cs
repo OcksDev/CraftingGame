@@ -719,7 +719,7 @@ public class EntityOXS : MonoBehaviour
         }
         if (inpu != null)
         {
-            if(lasthit.WeaponOfAttack != null && lasthit.WasItemTransfered)
+            if(lasthit != null && lasthit.WeaponOfAttack != null && lasthit.WasItemTransfered)
             {
                 //do nothing
             }

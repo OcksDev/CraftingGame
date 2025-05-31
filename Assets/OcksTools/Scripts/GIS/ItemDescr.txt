@@ -30,3 +30,4 @@ Flux:: <g>+10%</> Attack Speed<br><g>+10%</> Attack Damage<br><g>x1.1</> Movemen
 DNuke:: <g>-20% (asymptotic stacking)</> Damage Taken</><br><b>x0.85</> Attack Damage
 Mythril:: <g>x1.25</> Max Health<br><b>-10%</> Crit Chance
 Mimestone:: Copies the correlating <o>Item</> on the other equipped <o>Weapon</><br>(can not copy Mimestone)
+Redstone:: <g>x1.15</> Movement Speed<br><g>x1.25</> Debuff Duration<br><b>-0.5</> Luck

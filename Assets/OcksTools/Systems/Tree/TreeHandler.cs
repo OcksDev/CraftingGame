@@ -53,7 +53,10 @@ public class TreeHandler : MonoBehaviour
     public bool MeetsReqs(List<string> Prerequisites, TreeNode.ViewReq ViewRequirement)
     {
         bool passedreq = false;
-        if (Prerequisites.Count == 0) return true;
+        if (Prerequisites.Count == 0)
+        {
+            return true;
+        }
         switch (ViewRequirement)
         {
             case ViewReq.AtLeastOne:

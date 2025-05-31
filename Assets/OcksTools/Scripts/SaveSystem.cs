@@ -120,7 +120,8 @@ public class SaveSystem : MonoBehaviour
 
         //ConsoleLol.Instance.ConsoleLog(Prefix(i) + "test_num");
         Gamer.Instance.UpdateShaders();
-        Gamer.Instance.AttemptAddLogbookItem("Rock");
+        Gamer.Instance.AttemptAddLogbookItem("Rock",false);
+        Gamer.Instance.AttemptAddLogbookItem("Dash",false);
         LoadAllData?.Invoke();
 #if !UNITY_EDITOR
         Application.targetFrameRate = Screen.currentResolution.refreshRate;

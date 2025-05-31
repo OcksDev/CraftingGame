@@ -48,7 +48,7 @@ public class TreeNode : MonoBehaviour
     {
         var t = TreeHandler.Instance;
         bool lockedview = false;
-        if (t.MeetsReqs(RelateNodes, ViewRequirement))
+        if (t.MeetsReqs(RelateNodes, ViewRequirement) || Name == "BNanaa")
         {
             switch (ViewState)
             {
@@ -177,11 +177,13 @@ public class TreeNode : MonoBehaviour
     public void Click()
     {
         var t = TreeHandler.Instance;
-        if (!t.MeetsReqs(RelateNodes, ViewRequirement))
+
+
+        if (!t.MeetsReqs(RelateNodes, ViewRequirement) && Name != "BNanaa")
         {
             return;
         }
-        switch(ViewState)
+        switch (ViewState)
         {
             case ViewStates.Obtained:
                 //clicked an already obtained thing

@@ -27,7 +27,7 @@ Bone:: Disturbingly warm
 Diamond:: I CAN SWING MY SWORD!
 Piss:: Smells tasty
 Brick:: "I'm all bricked up!"
-Frystal:: Focus!
+Focus:: Focus!
 Dollar:: "We're Rich!"
 Shieldium:: Safe
 Bread:: Scrumptious
@@ -39,6 +39,7 @@ Flux:: strAngE
 DNuke:: Protective
 Mythril:: Sparky
 Mimestone:: Same-y
+Redstone:: "I'm redstone active!"
 Rune Of Self:: <g>+15%</> chance on Hit to Heal 1
 Rune Of Missile:: <g>+10%</> chance on Hit to shoot a <o>Missile</> with 200% Damage
 Rune Of Confluence:: <g>+35%</> chance on Heal to deal<br>x2 the amount as Damage to the nearest <e>Enemy</>

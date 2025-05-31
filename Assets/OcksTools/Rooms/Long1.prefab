@@ -198,6 +198,7 @@ MonoBehaviour:
   isused: 0
   level: 0
   hasbeensexed: 0
+  CreditMod: 1
 --- !u!1 &5808220945695035771
 GameObject:
   m_ObjectHideFlags: 0
