@@ -74,7 +74,7 @@ public class InputManager : MonoBehaviour
 
     }
 
-    public KeyCode GetArbitraryKeyPressed()
+    public static KeyCode GetArbitraryKeyPressed()
     {
         if (Input.anyKeyDown)
         {
@@ -100,7 +100,7 @@ public class InputManager : MonoBehaviour
     {
         locklevelzz = locklevel;
     }
-    public List<KeyCode> GetAllCurrentlyPressedKeys()
+    public static List<KeyCode> GetAllCurrentlyPressedKeys()
     {
         if (Input.anyKeyDown)
         {
@@ -464,6 +464,13 @@ public class InputManager : MonoBehaviour
         keynames.Add(KeyCode.KeypadPeriod, "n.");
         keynames.Add(KeyCode.KeypadPlus, "n+");
         keynames.Add(KeyCode.KeypadEnter, "nENT");
+        keynames.Add(KeyCode.None, "NONE");
+        keynames.Add(KeyCode.Tilde, "~");
+        keynames.Add(KeyCode.AltGr, "grrr uwu");
+        keynames.Add(KeyCode.BackQuote, "`");
+        keynames.Add(KeyCode.Minus, "-");
+        keynames.Add(KeyCode.Period, ".");
+        keynames.Add(KeyCode.Comma, ",");
     }
 
     public static void CreateKeyAllocation(string name, KeyCode key)

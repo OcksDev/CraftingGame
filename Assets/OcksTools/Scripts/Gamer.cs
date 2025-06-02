@@ -613,6 +613,9 @@ public class Gamer : MonoBehaviour
             {
                 StartCoroutine(CloseMinigame());
             }
+            else if(checks[29])
+            {
+            }
             else if (checks[28])
             {
                 AbortTrans2();

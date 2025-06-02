@@ -12,6 +12,8 @@ public class SaveSystem : MonoBehaviour
     //idk how needed this is tbh
     private string UniqueGamePrefix = "oxt";
     public int test = 0;
+    public bool TestBool;
+    public KeyCode testkeybind;
 
     public bool NoScroll = false;
     public bool DashSkillShow = false;
