@@ -92,7 +92,10 @@ public class SettingInput : MonoBehaviour
                 Gamer.Instance.UpdateShaders();
                 break;
             case "ScrollNo":
-                SaveSystem.Instance.NoScroll = fard;
+                SaveSystem.Instance.NoScroll = !fard;
+                break;
+            case "DashSkillShow":
+                SaveSystem.Instance.DashSkillShow = fard;
                 break;
             case "vsyn":
                 SaveSystem.Instance.vsync = fard;
@@ -161,7 +164,11 @@ public class SettingInput : MonoBehaviour
                 UpdateValue();
                 break;
             case "ScrollNo":
-                fard = SaveSystem.Instance.NoScroll;
+                fard = !SaveSystem.Instance.NoScroll;
+                UpdateValue();
+                break;
+            case "DashSkillShow":
+                fard = SaveSystem.Instance.DashSkillShow;
                 UpdateValue();
                 break;
             case "vsyn":
@@ -187,6 +194,7 @@ public class SettingInput : MonoBehaviour
             case "ScrollNo":
             case "vsyn":
             case "fps_s":
+            case "DashSkillShow":
                 img.color = color32s[fard ? 0 : 1];
                 break;
         }

@@ -176,12 +176,14 @@ public class Gamer : MonoBehaviour
                 }
             }
         }
+        bool main = false;
         if (checks[4])
         {
             InputManager.SetLockLevel("pause_menu");
         }
         if (checks[3])
         {
+            main = true;
             InputManager.SetLockLevel("main_menu");
         }
         if (checks[5])
@@ -192,6 +194,7 @@ public class Gamer : MonoBehaviour
 
 
         Tags.refs["Equippers"].SetActive(!WithinAMenu);
+        Tags.refs["HealthB"].SetActive(!main);
 
         FUCKYOUOHMYGOD.Select();
 

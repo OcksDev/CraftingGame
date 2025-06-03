@@ -1237,7 +1237,7 @@ public class PlayerController : MonoBehaviour
         IsDashingImmume = true;
         DashCoolDown -= MaxDashCooldown;
         Instantiate(Gamer.Instance.ParticleSpawns[4], transform.position, transform.rotation, transform);
-        var c = Tags.refs["DashHolder"].transform;
+        var c = Tags.refs["DashH2"].transform;
         Instantiate(Gamer.Instance.ParticleSpawns[5], c.position, c.rotation, c);
         if(dashcor != null) StopCoroutine(dashcor);
         dashcor = StartCoroutine(Dash(dir));
