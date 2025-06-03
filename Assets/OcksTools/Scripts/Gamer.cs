@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class Gamer : MonoBehaviour
@@ -767,6 +768,13 @@ public class Gamer : MonoBehaviour
             var b = sex.Substring(a.Length+1);
             Screen.SetResolution(int.Parse(a), int.Parse(b), true);
         }
+    }
+    public void Upd_Bloom()
+    {
+        float pp = SoundSystem.Instance.Bloom;
+        Tags.refs["Global Volume"].GetComponent<Volume>().profile.TryGet(out Bloom boomy);
+        boomy.intensity.value = (pp * 5);
+
     }
     public void Upd_Fulls(int f)
     {

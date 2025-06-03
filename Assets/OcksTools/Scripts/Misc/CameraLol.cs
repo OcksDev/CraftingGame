@@ -111,6 +111,7 @@ public class CameraLol : MonoBehaviour
 
     public void Shake(float shake, float falloff, int dir1 = 0, int dir2 = 0)
     {
+        shake *= SoundSystem.Instance.Shake;
         List<float> balls = new List<float>
         {
             shake,

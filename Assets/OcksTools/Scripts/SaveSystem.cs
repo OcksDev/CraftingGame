@@ -16,6 +16,8 @@ public class SaveSystem : MonoBehaviour
     public bool TestBool;
     public bool fps_s;
     public bool vsync;
+    public bool dam_shake;
+    public bool dam_red;
     public int fulls;
     public KeyCode testkeybind;
     public string res;
@@ -87,6 +89,9 @@ public class SaveSystem : MonoBehaviour
             s.MasterVolume = float.Parse(GetString("snd_mas", "1", dict));
             s.SFXVolume = float.Parse(GetString("snd_sfx", "1", dict));
             s.MusicVolume = float.Parse(GetString("snd_mus", "1", dict));
+            s.Bloom = float.Parse(GetString("Bloom", "1", dict));
+            Gamer.Instance.Upd_Bloom();
+            s.Shake = float.Parse(GetString("Shake", "1", dict));
         }
         Gamer.Instance.Highlights = float.Parse(GetString("highlights", "0.5", dict));
         Gamer.Instance.Lowlights = float.Parse(GetString("lowlights", "0.5", dict));
@@ -113,6 +118,8 @@ public class SaveSystem : MonoBehaviour
         Gamer.Instance.Upd_Res(res);
         fulls = int.Parse(GetString("fullscreen", "1", dict));
         Gamer.Instance.Upd_Fulls(fulls);
+        dam_shake = bool.Parse(GetString("dam_shake", "True", dict));
+        dam_red = bool.Parse(GetString("dam_red", "True", dict));
 
 
         list = Converter.StringToList(GetString("quests", "", dict));
@@ -173,12 +180,16 @@ public class SaveSystem : MonoBehaviour
             SetString("snd_mas", s.MasterVolume.ToString(), dict);
             SetString("snd_sfx", s.SFXVolume.ToString(), dict);
             SetString("snd_mus", s.MusicVolume.ToString(), dict);
+            SetString("Bloom", s.Bloom.ToString(), dict);
+            SetString("Shake", s.Shake.ToString(), dict);
         }
         SetString("highlights", Gamer.Instance.Highlights.ToString(), dict);
         SetString("lowlights", Gamer.Instance.Highlights.ToString(), dict);
 
         SetString("target_fps", target_faps.ToString(), dict);
         SetString("vsync", vsync.ToString(), dict);
+        SetString("dam_shake", dam_shake.ToString(), dict);
+        SetString("dam_red", dam_red.ToString(), dict);
         SetString("fullscreen", fulls.ToString(), dict);
         SetString("fps_s", fps_s.ToString(), dict);
         SetString("res", res, dict);

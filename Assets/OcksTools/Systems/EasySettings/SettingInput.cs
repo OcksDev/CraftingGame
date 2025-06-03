@@ -57,6 +57,13 @@ public class SettingInput : MonoBehaviour
             case "MasterVolume":
                 SoundSystem.Instance.MasterVolume = slider.value;
                 break;
+            case "Bloom":
+                SoundSystem.Instance.Bloom = slider.value;
+                Gamer.Instance.Upd_Bloom();
+                break;
+            case "Shake":
+                SoundSystem.Instance.Shake = slider.value;
+                break;
             case "SFXVolume":
                 SoundSystem.Instance.SFXVolume = slider.value;
                 break;
@@ -101,6 +108,14 @@ public class SettingInput : MonoBehaviour
                 SaveSystem.Instance.vsync = fard;
                 Gamer.Instance.Upd_VSync();
                 break;
+            case "dam_shake":
+                SaveSystem.Instance.dam_shake = fard;
+                Gamer.Instance.Upd_VSync();
+                break;
+            case "dam_red":
+                SaveSystem.Instance.dam_red = fard;
+                Gamer.Instance.Upd_VSync();
+                break;
             case "fps_s":
                 SaveSystem.Instance.fps_s = fard;
                 Gamer.Instance.Upd_fps_s();
@@ -120,6 +135,14 @@ public class SettingInput : MonoBehaviour
         {
             case "MasterVolume":
                 slider.value = SoundSystem.Instance.MasterVolume;
+                UpdateValue();
+                break;
+            case "Bloom":
+                slider.value = SoundSystem.Instance.Bloom;
+                UpdateValue();
+                break;
+            case "Shake":
+                slider.value = SoundSystem.Instance.Shake;
                 UpdateValue();
                 break;
             case "SFXVolume":
@@ -175,6 +198,14 @@ public class SettingInput : MonoBehaviour
                 fard = SaveSystem.Instance.vsync;
                 UpdateValue();
                 break;
+            case "dam_shake":
+                fard = SaveSystem.Instance.dam_shake;
+                UpdateValue();
+                break;
+            case "dam_red":
+                fard = SaveSystem.Instance.dam_red;
+                UpdateValue();
+                break;
             case "fps_s":
                 fard = SaveSystem.Instance.fps_s;
                 UpdateValue();
@@ -195,6 +226,8 @@ public class SettingInput : MonoBehaviour
             case "vsyn":
             case "fps_s":
             case "DashSkillShow":
+            case "dam_shake":
+            case "dam_red":
                 img.color = color32s[fard ? 0 : 1];
                 break;
         }

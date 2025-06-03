@@ -14,6 +14,8 @@ public class SoundSystem : MonoBehaviour
     private static SoundSystem instance;
 
     public float MasterVolume = 1;
+    public float Bloom = 1;
+    public float Shake = 1;
     public float SFXVolume = 1;
     public float MusicVolume = 1;
     public List<AudioClip> AudioClips = new List<AudioClip>();

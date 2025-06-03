@@ -161,8 +161,8 @@ public class EntityOXS : MonoBehaviour
                     {
                         if (PlayerController.Instance == s2)
                         {
-                            CameraLol.Instance.Shake(wasticked || hit.Name == "nono" ? 0.1f:0.4f, 0.87f);
-                            Gamer.Instance.ShartPoop += wasticked || hit.Name == "nono" ? 0.1f:0.4f;
+                            if(SaveSystem.Instance.dam_shake) CameraLol.Instance.Shake(wasticked || hit.Name == "nono" ? 0.1f:0.4f, 0.87f);
+                            if (SaveSystem.Instance.dam_red) Gamer.Instance.ShartPoop += wasticked || hit.Name == "nono" ? 0.1f:0.4f;
                         }
 
 
