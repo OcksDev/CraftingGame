@@ -722,6 +722,74 @@ public class Gamer : MonoBehaviour
         VaultSearch.text = "";
     }
     private Dictionary<GISItem, int> memesex;
+
+    public void Upd_FPS()
+    {
+        Debug.Log("FPSC: " + SaveSystem.Instance.target_faps);
+        if (SaveSystem.Instance.target_faps > 48)
+        {
+            Application.targetFrameRate = -1;
+        }
+        else
+        {
+            Application.targetFrameRate = SaveSystem.Instance.target_faps * 5;
+        }
+    }
+
+    
+    public void Upd_VSync()
+    {
+        if (SaveSystem.Instance.vsync)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+        else
+        {
+            QualitySettings.vSyncCount = 0;
+        }
+    }
+    public void Upd_fps_s()
+    {
+        Tags.refs["fps_s"].SetActive(SaveSystem.Instance.fps_s);
+    }
+    public void Upd_Res(string sex)
+    {
+        if (sex.Contains("Na"))
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+        }
+        else
+        {
+            var a = sex.Substring(0, sex.IndexOf("x"));
+            var b = sex.Substring(a.Length+1);
+            Screen.SetResolution(int.Parse(a), int.Parse(b), true);
+        }
+    }
+    public void Upd_Fulls(int f)
+    {
+        switch (f)
+        {
+            case 1:
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case 2:
+                Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
+                break;
+            case 3:
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+            default:
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+        }
+    }
+
+
+
+
+
+
+
     public void LoadVaultPage(int page)
     {
         currentvault = page;
@@ -2859,18 +2927,21 @@ public class Gamer : MonoBehaviour
                     Enemy_effect_prespawns[i].gameObject.SetActive(false);
                 }
             }
-            var weenor2 = PlayerController.Instance.entit.Effects;
-            for (int i = 0; i < player_effect_prespawns.Count; i++)
+            if(PlayerController.Instance != null)
             {
-                bool aa = i < weenor2.Count;
-                player_effect_prespawns[i].gameObject.SetActive(aa);
-                if (aa)
+                var weenor2 = PlayerController.Instance.entit.Effects;
+                for (int i = 0; i < player_effect_prespawns.Count; i++)
                 {
-                    player_effect_prespawns[i].UpdateRender(weenor2[i]);
+                    bool aa = i < weenor2.Count;
+                    player_effect_prespawns[i].gameObject.SetActive(aa);
+                    if (aa)
+                    {
+                        player_effect_prespawns[i].UpdateRender(weenor2[i]);
+                    }
                 }
+                ShartPoop -= Time.deltaTime;
+                ShartPoop = (float)System.Math.Max(Mathf.Clamp01(ShartPoop), 2 * (0.35f - (PlayerController.Instance.entit.Health / PlayerController.Instance.entit.Max_Health)));
             }
-            ShartPoop -= Time.deltaTime;
-            ShartPoop = (float)System.Math.Max(Mathf.Clamp01(ShartPoop), 2 * (0.35f - (PlayerController.Instance.entit.Health / PlayerController.Instance.entit.Max_Health)));
             if (checks[5])
             {
                 if(sexernuttyb == null)

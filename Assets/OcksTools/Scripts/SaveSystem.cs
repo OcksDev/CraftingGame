@@ -12,8 +12,13 @@ public class SaveSystem : MonoBehaviour
     //idk how needed this is tbh
     private string UniqueGamePrefix = "oxt";
     public int test = 0;
+    public int target_faps = 60/5;
     public bool TestBool;
+    public bool fps_s;
+    public bool vsync;
+    public int fulls;
     public KeyCode testkeybind;
+    public string res;
 
     public bool NoScroll = false;
     public bool DashSkillShow = false;
@@ -98,6 +103,17 @@ public class SaveSystem : MonoBehaviour
         DashSkillShow = bool.Parse(GetString("dashskillshow", "False", dict));
         test = int.Parse(GetString("test_num", "0", dict));
 
+        target_faps = int.Parse(GetString("target_fps", (Screen.currentResolution.refreshRate/5).ToString(), dict));
+        Gamer.Instance.Upd_FPS();
+        vsync = bool.Parse(GetString("vsync", "True", dict));
+        Gamer.Instance.Upd_VSync();
+        fps_s = bool.Parse(GetString("fps_s", "False", dict));
+        Gamer.Instance.Upd_fps_s();
+        res = GetString("res", "Native", dict);
+        Gamer.Instance.Upd_Res(res);
+        fulls = int.Parse(GetString("fullscreen", "1", dict));
+        Gamer.Instance.Upd_Fulls(fulls);
+
 
         list = Converter.StringToList(GetString("quests", "", dict));
         GISLol.Instance.Quests.Clear();
@@ -160,6 +176,12 @@ public class SaveSystem : MonoBehaviour
         }
         SetString("highlights", Gamer.Instance.Highlights.ToString(), dict);
         SetString("lowlights", Gamer.Instance.Highlights.ToString(), dict);
+
+        SetString("target_fps", target_faps.ToString(), dict);
+        SetString("vsync", vsync.ToString(), dict);
+        SetString("fullscreen", fulls.ToString(), dict);
+        SetString("fps_s", fps_s.ToString(), dict);
+        SetString("res", res, dict);
 
         Dictionary<string, string> pp = new Dictionary<string, string>();
         foreach (var item in GISLol.Instance.VaultItems)

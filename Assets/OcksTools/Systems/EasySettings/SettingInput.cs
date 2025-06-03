@@ -50,7 +50,6 @@ public class SettingInput : MonoBehaviour
         WriteValue();
         UpdateValue();
     }
-
     public void WriteValue()
     {
         switch (Type)
@@ -70,6 +69,14 @@ public class SettingInput : MonoBehaviour
             case "TestSwitcher":
                 SaveSystem.Instance.test = sw.index;
                 break;
+            case "fulls":
+                SaveSystem.Instance.fulls = sw.index;
+                Gamer.Instance.Upd_Fulls(sw.index);
+                break;
+            case "res":
+                SaveSystem.Instance.res = sw.Items[sw.index];
+                Gamer.Instance.Upd_Res(SaveSystem.Instance.res);
+                break;
             case "TestKeybind":
                 SaveSystem.Instance.testkeybind = ky.keyCode;
                 break;
@@ -86,6 +93,18 @@ public class SettingInput : MonoBehaviour
                 break;
             case "ScrollNo":
                 SaveSystem.Instance.NoScroll = fard;
+                break;
+            case "vsyn":
+                SaveSystem.Instance.vsync = fard;
+                Gamer.Instance.Upd_VSync();
+                break;
+            case "fps_s":
+                SaveSystem.Instance.fps_s = fard;
+                Gamer.Instance.Upd_fps_s();
+                break;
+            case "FPS":
+                SaveSystem.Instance.target_faps = (int)slider.value;
+                Gamer.Instance.Upd_FPS();
                 break;
         }
         UpdateSex?.Invoke();
@@ -116,6 +135,14 @@ public class SettingInput : MonoBehaviour
                 sw.index = SaveSystem.Instance.test;
                 UpdateValue();
                 break;
+            case "fulls":
+                sw.index = SaveSystem.Instance.fulls;
+                UpdateValue();
+                break;
+            case "res":
+                sw.index = sw.Items.IndexOf(SaveSystem.Instance.res);
+                UpdateValue();
+                break;
             case "TestKeybind":
                 ky.keyCode = SaveSystem.Instance.testkeybind;
                 UpdateValue();
@@ -137,6 +164,18 @@ public class SettingInput : MonoBehaviour
                 fard = SaveSystem.Instance.NoScroll;
                 UpdateValue();
                 break;
+            case "vsyn":
+                fard = SaveSystem.Instance.vsync;
+                UpdateValue();
+                break;
+            case "fps_s":
+                fard = SaveSystem.Instance.fps_s;
+                UpdateValue();
+                break;
+            case "FPS":
+                slider.value = SaveSystem.Instance.target_faps;
+                UpdateValue();
+                break;
         }
     }
 
@@ -146,6 +185,8 @@ public class SettingInput : MonoBehaviour
         {
             case "TestToggle":
             case "ScrollNo":
+            case "vsyn":
+            case "fps_s":
                 img.color = color32s[fard ? 0 : 1];
                 break;
         }

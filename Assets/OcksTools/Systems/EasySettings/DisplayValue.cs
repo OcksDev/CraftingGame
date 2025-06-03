@@ -44,6 +44,16 @@ public class DisplayValue : MonoBehaviour
                     case DisplayDataType.Text_Full: myself.text = "Unsupported"; break;
                     case DisplayDataType.Percent: myself.text = textme(((int)(slider.normalizedValue * 100)).ToString()); break;
                     case DisplayDataType.Value: myself.text = textme(slider.value.ToString()); break;
+                    case DisplayDataType.Cum_FPS:
+                        if(slider.value > 48)
+                        {
+                            myself.text = textme("Uncapped");
+                        }
+                        else
+                        {
+                            myself.text = textme((slider.value*5).ToString());
+                        }
+                        break;
                 }
                 break;
             case DisplayType.Toggle:
@@ -95,5 +105,6 @@ public class DisplayValue : MonoBehaviour
         Percent,
         Text,
         Text_Full,
+        Cum_FPS,
     }
 }
