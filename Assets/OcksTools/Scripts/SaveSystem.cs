@@ -25,6 +25,8 @@ public class SaveSystem : MonoBehaviour
     public bool NoScroll = false;
     public bool DashSkillShow = false;
 
+    public bool HasTutorialed = false;
+
     public delegate void JustFuckingRunTheMethods();
     public static event JustFuckingRunTheMethods SaveAllData;
     public static event JustFuckingRunTheMethods LoadAllData;
@@ -121,6 +123,7 @@ public class SaveSystem : MonoBehaviour
         dam_shake = bool.Parse(GetString("dam_shake", "True", dict));
         dam_red = bool.Parse(GetString("dam_red", "True", dict));
 
+        HasTutorialed = bool.Parse(GetString("tutorial", "False", dict));
 
         list = Converter.StringToList(GetString("quests", "", dict));
         GISLol.Instance.Quests.Clear();
@@ -193,6 +196,8 @@ public class SaveSystem : MonoBehaviour
         SetString("fullscreen", fulls.ToString(), dict);
         SetString("fps_s", fps_s.ToString(), dict);
         SetString("res", res, dict);
+
+        SetString("tutorial", HasTutorialed.ToString(), dict);
 
         Dictionary<string, string> pp = new Dictionary<string, string>();
         foreach (var item in GISLol.Instance.VaultItems)

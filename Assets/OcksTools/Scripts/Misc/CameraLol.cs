@@ -67,7 +67,7 @@ public class CameraLol : MonoBehaviour
         {
             //handles getting the mouse position and making the camera adjust to move to it
             Vector3 p = Vector3.zero;
-            if (Gamer.WithinAMenu)
+            if (Gamer.WithinAMenu || DialogLol.Instance.dialogmode)
             {
                 p = oldp;
             }

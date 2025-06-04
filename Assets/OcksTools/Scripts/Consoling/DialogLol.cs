@@ -39,6 +39,7 @@ public class DialogLol : MonoBehaviour
     private string ActiveFileName = "";
     private string baldcharacters = " \n\t";
     private Dictionary<string, string> variables = new Dictionary<string, string>();
+    private Dictionary<string, System.Action> events = new Dictionary<string, System.Action>();
 
     private static DialogLol instance;
 
@@ -185,6 +186,13 @@ public class DialogLol : MonoBehaviour
                 // be careful tho
                 charl += int.Parse(data);
                 succeeded = true;
+                break;
+            case "Event":
+                if (events.ContainsKey(data))
+                {
+                    events[data]();
+                    succeeded = true;
+                }
                 break;
             case "SoundOnType":
                 // Choses a sound preset from PlaySoundPreset() to play when a new character is displayd
@@ -374,6 +382,22 @@ public class DialogLol : MonoBehaviour
             return defaultval;
         }
     }
+
+    public void AddEvent(string ID, System.Action act)
+    {
+        if (events.ContainsKey(ID))
+        {
+            events[ID] = act;
+        }
+        else
+        {
+            events.Add(ID, act);
+        }
+    }
+
+
+
+
     private string VariableParse(string data)
     {
         //attribute variable format
@@ -446,9 +470,9 @@ public class DialogLol : MonoBehaviour
         speaker = "?";
         color = "255|255|255|255";
         tit_color = "255|255|255|255";
-        bg_color = "59|50|84|255";
+        bg_color = "0|66|143|150";
         RichTextEnabled = true;
-        CanSkip = true;
+        CanSkip = false;
         CanEscape = false;
         PlaySoundOnType = -1;
         if (pp != null)
@@ -474,6 +498,7 @@ public class DialogLol : MonoBehaviour
         dialogmode = false;
         datatype = "Dialog";
         SetDefaultParams();
+        Gamer.Instance.UpdateMenus();
     }
     public void StartDialog(int dialog, string datat = "Dialog")
     {
@@ -482,6 +507,7 @@ public class DialogLol : MonoBehaviour
         DialogBoxObject.SetActive(true);
         filenum = dialog;
         datatype = datat;
+        Gamer.Instance.UpdateMenus();
 
         //just closes the OcksTools Console when opening any dialog.
         ConsoleLol.Instance.CloseConsole();

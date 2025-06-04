@@ -34,8 +34,8 @@ public class INteractable : MonoBehaviour
             e.z = 0;
             e2.z = 0;
             bool wanker = (e - e2).magnitude <= IneteractDistance + transform.localScale.x;
-            DisplaySegsmcnugget.gameObject.SetActive(CanInteract && wanker);
-            if (wanker)
+            DisplaySegsmcnugget.gameObject.SetActive(CanInteract && wanker && !DialogLol.Instance.dialogmode);
+            if (wanker && !DialogLol.Instance.dialogmode)
             {
                 DisplaySegsmcnugget.transform.position = transform.position + new Vector3(0, workingtextoff, 0);
                 if (CanInteract && InputManager.IsKeyDown("interact", "player"))

@@ -195,7 +195,7 @@ public class Gamer : MonoBehaviour
 
 
         Tags.refs["Equippers"].SetActive(!WithinAMenu);
-        Tags.refs["HealthB"].SetActive(!main);
+        Tags.refs["HealthB"].SetActive(!main && !DialogLol.Instance.dialogmode);
 
         FUCKYOUOHMYGOD.Select();
 
@@ -249,6 +249,7 @@ public class Gamer : MonoBehaviour
         MainMenu();
         StartCoroutine(FUCK());
         StartCoroutine(SPawnPool());
+        TestShun();
     }
     public static List<List<string>> Backup = new List<List<string>>();
     public static List<List<string>> QBackup = new List<List<string>>();
@@ -584,7 +585,7 @@ public class Gamer : MonoBehaviour
         IsMultiplayer = false;
         ResetIntegreal();
         checks[3] = true;
-        UpdateMenus();
+        DialogLol.Instance.ResetDialog(); //also updates menus lol
     }
 
 
@@ -684,13 +685,16 @@ public class Gamer : MonoBehaviour
         }
         if ((InputManager.IsKeyDown("inven", "player") && GameState == "Lobby") || (checks[0] && InputManager.IsKeyDown("inven", "menu")))
         {
-            if (checks[0])
+            if (!DialogLol.Instance.dialogmode)
             {
-                ToggleInventory(true);
-            }
-            else
-            {
-                ToggleInventory();
+                if (checks[0])
+                {
+                    ToggleInventory(true);
+                }
+                else
+                {
+                    ToggleInventory();
+                }
             }
         }
         if (checks[11])
@@ -795,8 +799,50 @@ public class Gamer : MonoBehaviour
         }
     }
 
+    public void TestShun()
+    {
+        DialogLol.Instance.AddEvent("to_up", CamToWpg);
+        DialogLol.Instance.AddEvent("to_cr", CamToCraft);
+        DialogLol.Instance.AddEvent("to_mn", CamToMine);
+        DialogLol.Instance.AddEvent("to_pan", CamToPanOverCamp);
+        DialogLol.Instance.AddEvent("cumtit", cumtit);
+    }
 
-
+    public void CamToWpg()
+    {
+        CameraLol.Instance.targetpos = Tags.refs["UYpgweenor"].transform.position + focus_offset;
+    }
+    public void CamToCraft()
+    {
+        CameraLol.Instance.targetpos = Tags.refs["Craftweenor"].transform.position + focus_offset;
+    }
+    private Coroutine sexsex;
+    public void CamToMine()
+    {
+        StopCoroutine(sexsex);
+        CameraLol.Instance.targetpos = Tags.refs["NextFloor"].transform.position + focus_offset;
+    }
+    private Vector3 focus_offset = new Vector3(0,-1.5f,0);
+    public void CamToPanOverCamp()
+    {
+        sexsex = StartCoroutine(sexs());
+    }
+    public void cumtit()
+    {
+        SaveSystem.Instance.HasTutorialed = true;
+    }
+    public IEnumerator sexs()
+    {
+        float x = Mathf.PI;
+        float y = 0;
+        while (true)
+        {
+            x += Time.deltaTime/5;
+            y += Time.deltaTime/2;
+            CameraLol.Instance.targetpos = Vector3.Lerp(Vector3.zero, new Vector3(Mathf.Cos(x)*14, Mathf.Sin(x)*14, 0),1-(1/(y+1)));
+            yield return null;
+        }
+    }
 
 
 
@@ -2027,6 +2073,10 @@ public class Gamer : MonoBehaviour
             Destroy(p.GetComponent<NetworkRigidbody2D>());
             Destroy(p.GetComponent<ClientNetworkTransform>());
             Destroy(p.GetComponent<NetworkObject>());
+        }
+        if (!SaveSystem.Instance.HasTutorialed)
+        {
+            DialogLol.Instance.StartDialog(0);
         }
     }
     public static int CurrentFloor = 0;

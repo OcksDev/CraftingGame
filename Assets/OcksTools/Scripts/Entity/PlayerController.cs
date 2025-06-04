@@ -1059,7 +1059,7 @@ public class PlayerController : MonoBehaviour
                 c.a = candash||IsDashing?1:0.3f;
                 Underlay.color = c;
             }
-            if (CameraLol.Instance != null && !Gamer.Instance.Edgemogging)
+            if (CameraLol.Instance != null && !Gamer.Instance.Edgemogging && !DialogLol.Instance.dialogmode)
             {
                 CameraLol.Instance.targetpos = transform.position;
             }
@@ -1238,7 +1238,7 @@ public class PlayerController : MonoBehaviour
         DashCoolDown -= MaxDashCooldown;
         Instantiate(Gamer.Instance.ParticleSpawns[4], transform.position, transform.rotation, transform);
         var c = Tags.refs["DashH2"].transform;
-        Instantiate(Gamer.Instance.ParticleSpawns[5], c.position, c.rotation, c);
+        if(Tags.refs["HealthB"].activeSelf) Instantiate(Gamer.Instance.ParticleSpawns[5], c.position, c.rotation, c);
         if(dashcor != null) StopCoroutine(dashcor);
         dashcor = StartCoroutine(Dash(dir));
     }

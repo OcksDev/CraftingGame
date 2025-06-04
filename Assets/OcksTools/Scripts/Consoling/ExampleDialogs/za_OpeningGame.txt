@@ -1,23 +1,23 @@
 -Opening Game-
 </> <Name=?>
-</> 
+</> <Jump=16>(Click to begin)
 </> 
 </> <Name=?>
 </> <Animate=Text,ShakeIn>zx#$-h&sje@456]%^<Animate=Text,ShakeIn,Remove><Wait=1><br>-erx, hello!<Wait=0.5> I am the Advanced Discovery Assistant,<Wait=0.4> also known as the <Name=ADA>ADA.<Wait=1.3><Skip>
 </> 
 </> <Name=ADA>
-</> It is my job, <Wait=0.2>as an AI assistant tool, <Wait=0.2>to get you aquainted with our Company Sponsored Research Outpost #576.<Wait=0.8> It is also my job to help you in the discovery of our universe.<br><Wait=0.6>Hail to Concord!<Wait=1.3><Skip>
+</> It is my job, <Wait=0.2>as an AI assistant tool, <Wait=0.2>to get you aquainted with Concord Research Outpost #512.<Wait=0.8> It is also my job to help you in the discovery of our universe.<Wait=1.3><Skip>
 </> 
 </> <Name=ADA>
-</> Now, I think it's time I show you the basics.<Wait=0.7> Currently the camp is a bit run down due to an.. <Wait=0.7>incident..<Wait=0.7> but everything is fine, <Wait=0.2>the camp can be repaired with harvested resources.<Wait=1.3><Skip>
+</> Now, I think it's time I show you the basics.<Wait=0.7> <Event=to_pan>Currently the outpost is a bit run down due to an.. <Wait=0.7>incident..<Wait=0.7> but everything is fine, <Wait=0.2>it can be repaired with harvested resources.<Wait=1.3><Skip>
 </> 
 </> <Name=ADA>
-</> These resources can be found down in the mines below, <Wait=0.2>but be careful, <Wait=0.2>monsters and other anomalies have infested the tunnels.<Wait=0.7> I trust you will be able to handle them,<Wait=0.2> as does our company.<Wait=1.3><Skip>
+</> These resources can be found <Event=to_mn>down in the dungeon below, <Wait=0.2>but be careful, <Wait=0.2>monsters and other anomalies have infested the tunnels.<Wait=0.7> I trust you will be able to handle them,<Wait=0.2> I am counting on you after all.<Wait=1.3><Skip>
 </> 
 </> <Name=ADA>
-</> You can't forget afterall, <Wait=0.2>our mission is to research the unknown energies emitted from these mines, <Wait=0.2>and getting yourself killed will result in a reduced paycheck.<Wait=0.7> Anyway, <Wait=0.2>I've gotten a bit sidetracked, <Wait=0.2>and I am running low on power.<Wait=1.3><Skip>
+</> Additionally, <Wait=0.2>in order to best interface with you, <Wait=0.2>I have supplied <Event=to_up>an Upgrade Terminal, <Wait=0.2>which I hope you use wisely. But, <Wait=0.2>for now, <Wait=0.2>that is all I can say, <Wait=0.2>as I am running low on power.<Wait=1.3><Skip>
 </> 
 </> <Name=ADA>
-</> My last piece of advice before I rest is to try and make do with what you can, <Wait=0.3>use the materials in the mines to make weapons if you must, <Wait=0.3>just make sure to believe in the interests of Concord,<Wait=0.2> and everything will be fine.<Wait=1.3><Skip>
+</> My last piece of advice before I rest is to try and make do with what you can, <Wait=0.3>use the materials in the mines to <Event=to_cr>make weapons if you must, <Wait=0.3>but don't let me down.<Event=cumtit><Wait=1.7><Skip>
 </> <End>
 
