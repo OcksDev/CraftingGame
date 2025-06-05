@@ -146,6 +146,9 @@ public class DialogLol : MonoBehaviour
             case 0:
                 SoundSystem.Instance.PlaySoundWithClipping(0, false, 0.2f, 0.5f);
                 break;
+            case 1:
+                SoundSystem.Instance.PlaySound(21, false, 0.3f, 1);
+                break;
             default:
                 Debug.LogWarning("Failed to find a sound preset with the index of " + index);
                 break;
@@ -474,7 +477,7 @@ public class DialogLol : MonoBehaviour
         RichTextEnabled = true;
         CanSkip = false;
         CanEscape = false;
-        PlaySoundOnType = -1;
+        PlaySoundOnType = 1;
         if (pp != null)
         {
             int i = 0;
