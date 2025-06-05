@@ -596,6 +596,13 @@ public class NavMeshEntity : MonoBehaviour
                                     StartCoroutine(OrbSex());
                                 }
                                 break;
+                            case "Wither":
+                                if (ddist <= 20f)
+                                {
+                                    timer2 = 0;
+                                    StartCoroutine(WitherSex());
+                                }
+                                break;
                             case "srq":
                                 if (ddist <= 16f)
                                 {
@@ -1429,6 +1436,36 @@ public class NavMeshEntity : MonoBehaviour
         e.sexballs = this;
         yield return new WaitForSeconds(0.9f);
         SoundSystem.Instance.PlaySound(18, false, 0.15f, 1f);
+    }
+    public IEnumerator WitherSex()
+    {
+        movemult = 0;
+        SoundSystem.Instance.PlaySound(17, true, 0.05f);
+        canrunattacktimer = false;
+        var aa = new Vector3(0, 1.2f, 0);
+        for(int i = -1; i < 2; i++)
+        {
+            var wenis = Instantiate(box, transform.position + aa, Gamer.Instance.AlcoholSex(PointAtPoint2D(target.transform.position, 0) * Quaternion.Euler(0, 0,45 * i)), Gamer.Instance.balls);
+            
+
+            var e2 = wenis.GetComponent<DeathBeamScript>();
+            e2.Player = target.transform;
+            e2.SorceNerd = transform;
+            e2.offset = aa;
+            e2.UpdatePos();
+
+
+            var e = e2.fardd.GetComponent<EnemyHitShit>();
+            e.Damage = Damage;
+            e.balling = transform;
+            e.sexballs = this;
+        }
+        
+        yield return new WaitForSeconds(0.9f);
+        SoundSystem.Instance.PlaySound(18, false, 0.15f, 1f);
+        yield return new WaitForSeconds(2.5f);
+        movemult = 1;
+        canrunattacktimer = true;
     }
     public IEnumerator FwogSex(bool ump = false)
     {
