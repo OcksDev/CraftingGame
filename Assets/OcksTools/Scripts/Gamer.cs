@@ -238,7 +238,7 @@ public class Gamer : MonoBehaviour
             new RoomTypeHolder("Passcode"),
             new RoomTypeHolder("Pick Three"),
             //new RoomTypeHolder("Monster Crystal"), //pendants?
-            //new RoomTypeHolder("Shrine"),
+            new RoomTypeHolder("Shrine"),
             //new RoomTypeHolder("Cursed Item"),
         };
     }
@@ -2377,6 +2377,7 @@ public class Gamer : MonoBehaviour
     }
     public GameObject OrbChaser;
     public GameObject PasscodeSex;
+    public GameObject Shrine;
     public void AssignRoomStuff(I_Room e)
     {
         var tp = ValidRoomTypes[GlobalRand.Next(0, ValidRoomTypes.Count)];
@@ -2393,6 +2394,11 @@ public class Gamer : MonoBehaviour
                 var c3 = Instantiate(PasscodeSex, e.transform.position, Quaternion.identity, Tags.refs["NavMesh"].transform);
                 e.isused = "Passcode";
                 KillMeOnRoomSex.Add(c3);
+                break;
+            case "Shrine":
+                var c4 = Instantiate(Shrine, e.transform.position, Quaternion.identity, Tags.refs["NavMesh"].transform);
+                e.isused = "Shrine";
+                KillMeOnRoomSex.Add(c4);
                 break;
             case "Pick Three":
 

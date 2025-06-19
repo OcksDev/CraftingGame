@@ -459,7 +459,32 @@ public class PlayerController : MonoBehaviour
             }
             ParseMaterial(mainweapon.AspectMaterial, true);
             ParseMaterial(mainweapon.AspectMaterial2, true);
+
+            foreach (var a in entit.Effects)
+            {
+                switch (a.Type)
+                {
+                    case "Shrine Attack Speed":
+                        AttacksPerSecondMod *= 1.5f;
+                        break;
+                    case "Shrine Attack Damage":
+                        Damage *= 1.5f;
+                        break;
+                    case "Shrine Movement Speed":
+                        working_move_speed *= 1.5f;
+                        break;
+                    case "Shrine Skill Cooldown":
+                        SkillCooldownMult *= 0.65f;
+                        break;
+                    case "Shrine Max Health":
+                        helth *= 1.5f;
+                        break;
+                }
+            }
         }
+
+
+
 
         MaxDashCooldown *= SkillCooldownMult;
 

@@ -77,6 +77,8 @@ public class QuestNerdBoi : MonoBehaviour
                         return $"Pay to open {quest.Data["Target_Amount"]} Dungeon Chests";
                     case "Pick Three":
                         return $"Pay to get {quest.Data["Target_Amount"]} items from \"Pick From Three\" rooms";
+                    case "Shrine":
+                        return $"Activate {quest.Data["Target_Amount"]} Shrines";
                     default:
                         return $"Clear {quest.Data["Target_Amount"]} \"{quest.Data["Target_Data"]}\" rooms";
                 }

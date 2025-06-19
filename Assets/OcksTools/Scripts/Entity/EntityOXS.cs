@@ -521,6 +521,10 @@ public class EntityOXS : MonoBehaviour
                 {
                     amount *= 2;
                 }
+                if(ContainsEffect("Shrine Healing").hasthing)
+                {
+                    amount *= 1.5;
+                }
                 arr = playerdaddy.mainweapon.ReadItemAmount("Rune Of Lasting");
                 if (arr >= 1)
                 {
@@ -948,6 +952,7 @@ public class EntityOXS : MonoBehaviour
             {
                 Effects.RemoveAt(i);
                 i--;
+                if (playerdaddy != null) PlayerController.Instance.SetData();
             }
         }
         if (EnemyType == "Player"? Health <= 0 : Health <= 0.5f)
@@ -1165,6 +1170,7 @@ public class EntityOXS : MonoBehaviour
             Effects.Add(eff);
         }
 
+        if (playerdaddy != null) PlayerController.Instance.SetData();
 
     }
 

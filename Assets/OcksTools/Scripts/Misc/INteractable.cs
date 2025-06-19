@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class INteractable : MonoBehaviour
@@ -215,6 +216,9 @@ public class INteractable : MonoBehaviour
             case "Upgrader":
                 Gamer.Instance.ToggleUpgradetree();
                 break;
+            case "Shrine":
+                Shrine();
+                break;
             case "Printer":
                 Gamer.Instance.PrinterYoinks = cuum;
                 Gamer.Instance.TogglePrinterMenu();
@@ -267,6 +271,51 @@ public class INteractable : MonoBehaviour
         memes[1].sprite = ww.sprites[1];
         memes[2].sprite = ww.sprites[2];
     }
+
+    public void Shrine()
+    {
+
+        List<string> a = new List<string>();
+        foreach(var b in GISLol.Instance.Effects)
+        {
+            if(b.Name.Contains("Shrine ")) a.Add(b.Name);
+        }
+        string chosen = a[Random.Range(0, a.Count)];
+
+        var c = new EffectProfile(chosen, 180, 5, 1);
+        PlayerController.Instance.entit.AddEffect(c);
+
+        Gamer.QuestProgressIncrease("Room", "Shrine");
+
+        var n = new OXNotif();
+        n.Title = "ADA Has Sent Thanks";
+        n.Description = chosen;
+        n.Time = 5;
+        switch (chosen)
+        {
+            case "Shrine Attack Speed":
+                n.Description = "x1.5 Attack Speed";
+                break;
+            case "Shrine Attack Damage":
+                n.Description = "x1.5 Attack Damage";
+                break;
+            case "Shrine Movement Speed":
+                n.Description = "x1.5 Movement Speed";
+                break;
+            case "Shrine Skill Cooldown":
+                n.Description = "x0.65 Skill Cooldown";
+                break;
+            case "Shrine Max Health":
+                n.Description = "x1.5 Max Health";
+                break;
+            case "Shrine Healing":
+                n.Description = "x1.5 Healing";
+                break;
+        }
+        n.Description = $"<br>{n.Description}<br>(180s)";
+        NotificationSystem.Instance.AddNotif(n);
+    }
+
 
 }
 
