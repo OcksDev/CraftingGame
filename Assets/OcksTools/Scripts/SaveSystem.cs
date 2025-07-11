@@ -252,7 +252,13 @@ public class SaveSystem : MonoBehaviour
             list.Add(a.SkillToString());
         }
         SetString("Skills", Converter.ListToString(list, "<SK>"), dict);
-
+        list.Clear();
+        foreach (var a in PlayerController.Instance.entit.Effects)
+        {
+            var x = a.GetAsString();
+            if(x != "-") list.Add(x);
+        }
+        SetString("Effects", Converter.ListToString(list, "<EF>"), dict);
         SaveDataToFile(dict);
     }
     
@@ -297,6 +303,15 @@ public class SaveSystem : MonoBehaviour
             sk.StringToSkill(a);
             PlayerController.Instance.Skills.Add(sk);
         }
+        PlayerController.Instance.entit.Effects.Clear();
+        list = Converter.StringToList(GetString("Effects", "", dict), "<EF>");
+        foreach (var a in list)
+        {
+            var ef = new EffectProfile(true, a);
+            ef.CombineMethod = 1;
+            PlayerController.Instance.entit.AddEffect(ef, true);
+        }
+
         StartCoroutine(WaitRefersh());
     }
 

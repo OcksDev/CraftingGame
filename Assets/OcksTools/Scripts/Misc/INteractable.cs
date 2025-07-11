@@ -90,6 +90,9 @@ public class INteractable : MonoBehaviour
                     e.text = $"3 Coins  [ {pon} ]";
                 }
                 break;
+            case "Shrine":
+                e.text = $"6 Coins  [ {pon} ]";
+                break;
             case "Item":
                 if (BananaMan == null || BananaMan.sexyballer.CoinCost <= 0)
                 {
@@ -217,7 +220,13 @@ public class INteractable : MonoBehaviour
                 Gamer.Instance.ToggleUpgradetree();
                 break;
             case "Shrine":
-                Shrine();
+                if(PlayerController.Instance.Coins >= 6)
+                {
+                    Shrine();
+                    PlayerController.Instance.Coins -= 6;
+                    Instantiate(Gamer.Instance.ParticleSpawns[10], transform.position, Quaternion.identity, Tags.refs["ParticleHolder"].transform);
+                    Destroy(gameObject);
+                }
                 break;
             case "Printer":
                 Gamer.Instance.PrinterYoinks = cuum;
@@ -291,6 +300,7 @@ public class INteractable : MonoBehaviour
         n.Title = "ADA Has Sent Thanks";
         n.Description = chosen;
         n.Time = 5;
+        n.BackgroundColor1 = new Color32(255, 199, 100,255);
         switch (chosen)
         {
             case "Shrine Attack Speed":
@@ -310,6 +320,9 @@ public class INteractable : MonoBehaviour
                 break;
             case "Shrine Healing":
                 n.Description = "x1.5 Healing";
+                break;
+            case "Shrine Crit Chance":
+                n.Description = "x1.5 Crit Chance";
                 break;
         }
         n.Description = $"<br>{n.Description}<br>(180s)";

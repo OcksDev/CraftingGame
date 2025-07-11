@@ -476,6 +476,9 @@ public class PlayerController : MonoBehaviour
                     case "Shrine Skill Cooldown":
                         SkillCooldownMult *= 0.65f;
                         break;
+                    case "Shrine Crit Chance":
+                        CritChance *= 1.5f;
+                        break;
                     case "Shrine Max Health":
                         helth *= 1.5f;
                         break;

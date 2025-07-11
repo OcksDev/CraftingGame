@@ -107,6 +107,12 @@ public class HoverDingle : MonoBehaviour
                     hv.data2 = "Requires an aspect and a central weapon";
                     g.HoverDohicky(hv);
                     break;
+                case "Transmute":
+                    hv.type = "TitleAndDesc";
+                    hv.data = "Transmute";
+                    hv.data2 = "Sacrifice any two materials to transform one into any other";
+                    g.HoverDohicky(hv);
+                    break;
                 case "Repair":
                     hv.type = "TitleAndDesc";
                     hv.data = "Repair";

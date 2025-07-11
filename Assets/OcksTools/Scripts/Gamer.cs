@@ -2106,7 +2106,6 @@ public class Gamer : MonoBehaviour
         if(PlayerController.Instance != null)PlayerController.Instance.SetData();
         Tags.refs["NextFloor"].GetComponent<INteractable>().UpdateText();
     }
-    public bool IsInShop = false;
     public IEnumerator NextShopLevel(int sex)
     {
         IsInAltShop = sex == 1;
@@ -2341,7 +2340,7 @@ public class Gamer : MonoBehaviour
         CameraLol.Instance.ppos = e2;
         CameraLol.Instance.targetpos = e2;
 
-        skipped = !WasInShop && CurrentFloor > 1;
+        skipped = Skipper && CurrentFloor > 1;
         PlayerController.Instance.DashCoolDown = PlayerController.Instance.MaxDashCooldown * 3;
         yield return new WaitForFixedUpdate();
 
@@ -3159,11 +3158,9 @@ public class Gamer : MonoBehaviour
 
     private Coroutine NextFloorBall;
     public bool IsFading = false;
-    [HideInInspector]
     public bool WasInShop = false;
-    [HideInInspector]
     public bool IsInAltShop = false;
-    [HideInInspector]
+    public bool IsInShop = false;
     public bool Skipper = false;
     public IEnumerator StartFade(string type, int steps = 50, bool startfake = false)
     {
@@ -3185,15 +3182,14 @@ public class Gamer : MonoBehaviour
         switch (type)
         {
             case "NextFloor":
-                Skipper = true;
                 completetetge = false;
                 WasInShop = IsInShop;
+                Skipper = !IsInShop;
                 NextFloorBall = StartCoroutine(NextFloor());
                 yield return new WaitUntil(() => { return completetetge; });
                 break;
             case "NextFloor2":
                 completetetge = false;
-                Skipper = true;
                 if (IsInShop)
                 {
                     CurrentFloor++;

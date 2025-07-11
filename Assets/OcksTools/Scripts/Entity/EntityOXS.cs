@@ -1100,6 +1100,9 @@ public class EntityOXS : MonoBehaviour
 
     public void AddEffect(EffectProfile eff, bool ignore = false)
     {
+        //ignore serves a double function here
+        // 1 - For the debuff duration mod being skipped
+        // 2 - For the player to not run SetData
         bool alreadyhaseffect = false;
         EffectProfile s = null;
         foreach(var ef in Effects)
@@ -1170,7 +1173,7 @@ public class EntityOXS : MonoBehaviour
             Effects.Add(eff);
         }
 
-        if (playerdaddy != null) PlayerController.Instance.SetData();
+        if (playerdaddy != null && !ignore) PlayerController.Instance.SetData();
 
     }
 
@@ -1320,6 +1323,18 @@ public class EffectProfile
         Stack =stacks;
         SetData();
     }
+    public EffectProfile(bool inin, string finaldat)
+    {
+        var a = Converter.StringToList(finaldat);   
+        Type = a[0];
+        Duration = float.Parse(a[1]);
+        Stack = int.Parse(a[2]);
+        storedouble = double.Parse(a[3]);
+        storefloat = float.Parse(a[4]);
+        storeint = int.Parse(a[5]);
+        TimeRemaining = float.Parse(a[6]);
+        SetData();
+    }
     public EffectProfile()
     {
         SetData();
@@ -1353,5 +1368,22 @@ public class EffectProfile
         damprof = new DamageProfile(pp.damprof);
         SetData();
     }
+
+    public string GetAsString()
+    {
+        if (damprof != null) return "-";
+        string s = Converter.ListToString(new List<string>()
+        {
+            Type,
+            Duration.ToString(),
+            Stack.ToString(),
+            storedouble.ToString(),
+            storefloat.ToString(),
+            storeint.ToString(),
+            TimeRemaining.ToString(),
+        });
+        return s;
+    }
+
 
 }
